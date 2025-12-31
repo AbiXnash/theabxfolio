@@ -17,8 +17,172 @@ import "../styles/global.css";
 
     <main class="flex-1">
       <slot />
+
+      <!-- COMMAND PALETTE -->
+      <div
+        id="cmdPalette"
+        class="fixed inset-0 z-[60] hidden bg-black/80 backdrop-blur-sm"
+      >
+        <div
+          class="mx-auto mt-32 w-[92%] max-w-xl rounded-lg border border-white/10 bg-black px-4 py-3 font-mono text-sm text-white"
+        >
+          <!-- INPUT -->
+          <div
+            class="flex items-center gap-3 rounded-md border border-white/10 bg-black/60 px-3 py-2"
+          >
+            <span class="text-green-400">$</span>
+
+            <input
+              id="cmdInput"
+              placeholder="type a command or search…"
+              autocomplete="off"
+              class="w-full appearance-none border-0 bg-transparent text-white ring-0 outline-none placeholder:text-white/30 focus:border-0 focus:ring-0 focus:outline-none"
+            />
+          </div>
+
+          <!-- DIVIDER -->
+          <div class="my-2 h-px bg-white/10"></div>
+
+          <!-- RESULTS -->
+          <ul id="cmdResults" class="max-h-64 space-y-1 overflow-y-auto pr-1">
+          </ul>
+
+          <!-- HINT -->
+          <p class="mt-2 text-xs text-white/30">
+            ↑ ↓ navigate · enter to open · esc to close
+          </p>
+        </div>
+      </div>
     </main>
 
     <Footer />
+
+    <!-- SCRIPT -->
+    <script>
+      const palette = document.getElementById("cmdPalette");
+      const input = document.getElementById("cmdInput");
+      const results = document.getElementById("cmdResults");
+
+      const commands = [
+        { label: "home", route: "/" },
+        { label: "resume", route: "/resume" },
+        { label: "services", route: "/service" },
+        { label: "contact", route: "/contact" },
+      ];
+
+      let activeIndex = 0;
+
+      function openPalette() {
+        palette.classList.remove("hidden");
+        input.value = "";
+        activeIndex = 0;
+        renderResults(commands);
+        setTimeout(() => input.focus(), 0);
+      }
+
+      function closePalette() {
+        palette.classList.add("hidden");
+      }
+
+      function renderResults(list) {
+        results.innerHTML = "";
+
+        if (!list.length) {
+          const li = document.createElement("li");
+          li.className = "px-3 py-2 text-white/40";
+          li.textContent = "no matching commands";
+          results.appendChild(li);
+          return;
+        }
+
+        list.forEach((cmd, i) => {
+          const li = document.createElement("li");
+          li.className =
+            "flex items-center gap-2 px-3 py-2 rounded cursor-pointer " +
+            (i === activeIndex
+              ? "bg-white/10 text-white"
+              : "text-white/60 hover:bg-white/5");
+
+          li.innerHTML = `
+            <span class="text-white/30">›</span>
+            <span>${cmd.label}</span>
+          `;
+
+          li.onclick = () => {
+            window.location.href = cmd.route;
+          };
+
+          results.appendChild(li);
+        });
+      }
+
+      function filterCommands(query) {
+        return commands.filter((cmd) =>
+          cmd.label.toLowerCase().includes(query.toLowerCase()),
+        );
+      }
+
+      // Global key listener
+      document.addEventListener("keydown", (e) => {
+        document.addEventListener("keydown", (e) => {
+          // ESC should ALWAYS work
+          if (e.key === "Escape") {
+            closePalette();
+            return;
+          }
+
+          // Ignore typing in inputs for other shortcuts
+          if (["INPUT", "TEXTAREA"].includes(e.target.tagName)) return;
+
+          if (e.key === "/") {
+            e.preventDefault();
+            openPalette();
+          }
+        });
+
+        if (e.key === "/") {
+          e.preventDefault();
+          openPalette();
+        }
+
+        if (e.key === "Escape") {
+          closePalette();
+        }
+      });
+
+      // Input typing
+      input.addEventListener("input", () => {
+        const filtered = filterCommands(input.value);
+        activeIndex = 0;
+        renderResults(filtered);
+      });
+
+      // Keyboard navigation
+      input.addEventListener("keydown", (e) => {
+        const items = results.children;
+        if (!items.length) return;
+
+        if (e.key === "ArrowDown") {
+          activeIndex = (activeIndex + 1) % items.length;
+          renderResults(filterCommands(input.value));
+          e.preventDefault();
+        }
+
+        if (e.key === "ArrowUp") {
+          activeIndex = (activeIndex - 1 + items.length) % items.length;
+          renderResults(filterCommands(input.value));
+          e.preventDefault();
+        }
+
+        if (e.key === "Enter") {
+          items[activeIndex].click();
+        }
+      });
+
+      // Click outside to close
+      palette.addEventListener("click", (e) => {
+        if (e.target === palette) closePalette();
+      });
+    </script>
   </body>
 </html>
