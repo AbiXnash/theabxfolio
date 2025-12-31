@@ -1,0 +1,381 @@
+---
+import "../styles/global.css";
+
+const resume = {
+
+  work: {
+    label: "work",
+    description: "Professional engineering experience in production systems.",
+    items: [
+      {
+        title: "Java Developer — Mindgate Solutions",
+        meta: "2025–Present",
+        github: "",
+        contributors: [{ name: "Core Banking Team", role: "Engineering" }],
+        intro: "Role overview and responsibilities in enterprise banking.",
+        details: `
+Working on enterprise-grade banking
+and payment platforms.
+
+Responsibilities:
+- Core transaction workflows
+- Secure fund transfer modules
+- Clean architecture enforcement
+- Java, Spring, Oracle DB
+        `,
+      },
+    ],
+  },
+
+  projects: {
+    label: "projects",
+    description: "Selected engineering systems and applications.",
+    items: [
+      {
+        title: "Net Banking System",
+        meta: "Java · Spring · Oracle",
+        github: "https://github.com/AbiXnash",
+        contributors: [
+          { name: "Abinash S", role: "Lead Author" },
+          { name: "Priyanga S", role: "Co-Author" },
+          { name: "Srivatsan N", role: "Reviewer" },
+        ],
+        intro: "Enterprise banking system overview.",
+        details: `
+Enterprise net banking platform.
+
+Features:
+- Account lifecycle management
+- Secure transactions
+- Role-based access control
+- Validation & audit logic
+        `,
+      },
+    ],
+  },
+  research: {
+    label: "research",
+    description: "Academic and applied research artifacts.",
+    items: [
+      {
+        title: "HGCNN–LSTM Intrusion Detection",
+        meta: "Springer · 2024",
+        github: "https://github.com/AbiXnash",
+        contributors: [
+          { name: "Abinash S", role: "Lead Author" },
+          { name: "Priyanga S", role: "Co-Author" },
+          { name: "Srivatsan N", role: "Reviewer" },
+        ],
+        intro:
+          "Manual page for a hybrid deep-learning intrusion detection system.",
+        details: `
+This work proposes a hybrid deep learning model
+combining Hierarchical Gated CNN with LSTM to detect
+cyber attacks in cyber-physical systems.
+
+Key Contributions:
+- Novel HGCNN + LSTM architecture
+- Evaluated on IIoT benchmark datasets
+- Strong multi-class detection accuracy
+- Accepted in Springer Journals (2024)
+        `,
+      },
+    ],
+  },
+
+  education: {
+    label: "education",
+    description: "Formal academic background.",
+    items: [
+      {
+        title: "B.Tech Computer Science — SASTRA",
+        meta: "2021–2025",
+        github: "",
+        contributors: [{ name: "SASTRA CSE Dept", role: "Institution" }],
+        intro: "Academic foundation and technical focus.",
+        details: `
+Focused on systems engineering,
+full-stack development, and applied ML.
+
+Highlights:
+- OS, DBMS, Networks, Data Structures
+- Research-oriented curriculum
+- Technical leadership roles
+        `,
+      },
+    ],
+  },
+};
+---
+
+<!-- TERMINAL SESSION -->
+<section class="bg-black px-4 py-14 font-mono text-white sm:px-6">
+  <div class="mx-auto max-w-6xl space-y-16">
+    <p class="text-sm tracking-wide text-green-400">$ resume</p>
+
+    {
+      Object.entries(resume).map(([sectionKey, section], sectionIndex, sections) => {
+        const isLastSection = sectionIndex === sections.length - 1;
+        const isWork = sectionKey === "work";
+
+        return (
+          <div class="space-y-2">
+            <!-- Section (folder) -->
+            <div class="flex items-start gap-2">
+              <span class="text-white/40 select-none w-[3ch]">
+                {isLastSection ? "└──" : "├──"}
+              </span>
+
+              <div class={isWork ? "pl-2 border-l border-white/20" : ""}>
+                <p class="text-green-400">{section.label}/</p>
+                <p class="text-sm text-white/40">{section.description}</p>
+              </div>
+            </div>
+
+            <!-- Items -->
+            <div class="pl-[3ch] space-y-2">
+              {section.items.map((item, itemIndex) => {
+                const isLastItem = itemIndex === section.items.length - 1;
+
+                // Extract year / range safely
+                let year = "";
+                if (item.meta) {
+                  const rangeMatch = item.meta.match(
+                    /\b(19|20)\d{2}\s*–\s*(Present|(19|20)\d{2})\b/
+                  );
+                  const singleYearMatch = item.meta.match(/\b(19|20)\d{2}\b/);
+                  year = rangeMatch
+                    ? rangeMatch[0]
+                    : singleYearMatch
+                    ? singleYearMatch[0]
+                    : "";
+                }
+
+                const showGit =
+                  (sectionKey === "research" || sectionKey === "projects") &&
+                  item.github;
+
+                const showContributors =
+                  (sectionKey === "research" || sectionKey === "projects") &&
+                  item.contributors.length > 1;
+
+                return (
+                <button
+                  data-payload={JSON.stringify(item)}
+                  class={`group flex w-full items-start gap-2 text-left rounded-md
+                          ${isWork ? "bg-white/[0.02] hover:bg-white/[0.04]" : ""}
+                          transition`}
+                >
+                  <!-- Tree connector -->
+                  <span class="text-white/40 select-none w-[3ch] leading-6">
+                    {isLastItem ? "└──" : "├──"}
+                  </span>
+
+                  <!-- Content -->
+                  <div class="flex w-full flex-col gap-1">
+                    <!-- ROW 1: Title + meta (DESKTOP) -->
+                    <div class="hidden sm:flex w-full items-center justify-between gap-4">
+                      <span class="px-1 py-0.5 text-white/80 group-hover:text-white">
+                        {item.title}
+                      </span>
+
+                      {(year || showGit) && (
+                        <div class="flex items-center gap-3 text-xs text-white/40 shrink-0">
+                          {year && <span>[{year}]</span>}
+                          {showGit && <span class="text-green-400">⎇</span>}
+                          <span class="opacity-0 group-hover:opacity-100 transition">
+                            ↵ open
+                          </span>
+                        </div>
+                      )}
+                    </div>
+
+                    <!-- ROW 1 (MOBILE): Title only -->
+                    <span class="sm:hidden px-1 py-0.5 text-white/80">
+                      {item.title}
+                    </span>
+
+                    <!-- ROW 2 (MOBILE): Meta + hint -->
+                    {(year || showGit) && (
+                      <div class="sm:hidden flex items-center gap-3 px-1 text-xs text-white/40">
+                        {year && <span>[{year}]</span>}
+                        {showGit && <span class="text-green-400">⎇ source</span>}
+                        <span class="text-white/30">tap to open</span>
+                      </div>
+                    )}
+
+                    <!-- Contributors (unchanged) -->
+                    {showContributors && (
+                      <div class="flex items-center gap-1 pl-1">
+                        {item.contributors.map((c) => (
+                          <span
+                            title={`${c.name} — ${c.role}`}
+                            class="flex h-5 w-5 items-center justify-center
+                                   rounded-full border border-white/20
+                                   bg-black/60
+                                   text-[10px] text-white/70"
+                          >
+                            {c.name.charAt(0).toUpperCase()}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </button>
+
+                );
+              })}
+            </div>
+          </div>
+        );
+      })
+    }
+
+
+  </div>
+</section>
+
+<!-- TERMINAL INSPECTOR -->
+<div
+  id="terminal"
+  class="fixed inset-0 z-50 flex hidden items-center justify-center bg-black/90 backdrop-blur-sm"
+>
+  <div
+    class="flex max-h-[92vh] w-[96%] flex-col rounded-xl border border-white/20 bg-black shadow-[0_0_60px_rgba(0,0,0,0.8)] sm:w-[92%] md:w-[72%]"
+  >
+    <!-- TERMINAL CHROME -->
+    <div
+      class="flex items-center justify-between border-b border-white/10 bg-gradient-to-b from-white/5 to-transparent px-4 py-3"
+    >
+      <div class="flex gap-2">
+        <span class="h-3 w-3 rounded-full bg-red-500/80"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400/80"></span>
+        <span class="h-3 w-3 rounded-full bg-green-500/80"></span>
+      </div>
+      <span id="termTitle" class="text-xs text-white/80"></span>
+      <button id="closeTerm" class="text-white/40 hover:text-white">✕</button>
+    </div>
+
+    <!-- TERMINAL BODY -->
+    <div
+      class="relative overflow-y-auto px-6 py-5 font-mono text-sm leading-relaxed text-white/80"
+    >
+
+    <!-- subtle scanline -->
+      <div
+        class="pointer-events-none absolute inset-0 bg-[linear-gradient(transparent_95%,rgba(255,255,255,0.2)_96%)] bg-[length:100%_4px] opacity-[0.03]"
+      >
+      </div>
+
+      <p id="termMeta" class="mb-2 text-blue-400"></p>
+      <p id="termIntro" class="mb-4 text-white/60 italic"></p>
+      <pre id="termDetails"></pre>
+
+      <!-- CONTRIBUTORS -->
+      <div class="mt-8">
+        <p class="mb-2 text-white/50">contributors</p>
+        <ul id="termContrib" class="space-y-1"></ul>
+      </div>
+
+      <!-- GITHUB -->
+      <div id="termGit" class="mt-6 hidden">
+        <a
+          id="termGitLink"
+          target="_blank"
+          class="text-green-400 hover:underline"
+        >
+          view source →
+        </a>
+      </div>
+
+      <!-- COMMENTS -->
+      <div class="mt-10 border-t border-white/10 pt-4">
+        <p class="mb-2 text-white/50">comments</p>
+
+        <div id="commentList" class="mb-4 space-y-2 text-white/70">
+          <p class="text-white/30">└─ no comments yet</p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <span class="text-green-400">$</span>
+          <input
+            id="commentInput"
+            placeholder="add comment"
+            class="flex-1 border-b border-white/20 bg-transparent px-1 py-1 text-sm text-white outline-none focus:border-green-400"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPT -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const terminal = document.getElementById("terminal");
+    const title = document.getElementById("termTitle");
+    const meta = document.getElementById("termMeta");
+    const intro = document.getElementById("termIntro");
+    const details = document.getElementById("termDetails");
+    const contrib = document.getElementById("termContrib");
+    const gitBox = document.getElementById("termGit");
+    const gitLink = document.getElementById("termGitLink");
+    const close = document.getElementById("closeTerm");
+
+    const commentInput = document.getElementById("commentInput");
+    const commentList = document.getElementById("commentList");
+
+    document.querySelectorAll("[data-payload]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const data = JSON.parse(btn.dataset.payload);
+
+        title.textContent = data.title;
+        meta.textContent = data.meta;
+        intro.textContent = data.intro;
+        details.textContent = data.details.trim();
+
+        contrib.innerHTML = "";
+        data.contributors.forEach((c) => {
+          const li = document.createElement("li");
+          li.textContent = `• ${c.name} — ${c.role}`;
+          contrib.appendChild(li);
+        });
+
+        if (data.github) {
+          gitLink.href = data.github;
+          gitBox.classList.remove("hidden");
+        } else {
+          gitBox.classList.add("hidden");
+        }
+
+        commentList.innerHTML =
+          '<p class="text-white/30">└─ no comments yet</p>';
+        commentInput.value = "";
+
+        terminal.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+      });
+    });
+
+    commentInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && commentInput.value.trim()) {
+        if (commentList.textContent.includes("no comments")) {
+          commentList.innerHTML = "";
+        }
+        const p = document.createElement("p");
+        p.textContent = `└─ ${commentInput.value}`;
+        commentList.appendChild(p);
+        commentInput.value = "";
+      }
+    });
+
+    close.addEventListener("click", () => {
+      terminal.classList.add("hidden");
+      document.body.style.overflow = "";
+    });
+
+    terminal.addEventListener("click", (e) => {
+      if (e.target === terminal) close.click();
+    });
+  });
+</script>
