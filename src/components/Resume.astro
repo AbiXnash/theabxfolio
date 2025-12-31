@@ -261,21 +261,48 @@ Highlights:
       class="relative overflow-y-auto px-6 py-5 font-mono text-sm leading-relaxed text-white/80"
     >
 
-    <!-- subtle scanline -->
-      <div
-        class="pointer-events-none absolute inset-0 bg-[linear-gradient(transparent_95%,rgba(255,255,255,0.2)_96%)] bg-[length:100%_4px] opacity-[0.03]"
-      >
-      </div>
+        <!-- subtle scanline -->
+        <div
+          class="pointer-events-none absolute inset-0
+                 bg-[linear-gradient(transparent_95%,rgba(255,255,255,0.2)_96%)]
+                 bg-[length:100%_4px] opacity-[0.025]"
+        ></div>
 
-      <p id="termMeta" class="mb-2 text-blue-400"></p>
-      <p id="termIntro" class="mb-4 text-white/60 italic"></p>
-      <pre id="termDetails"></pre>
+        <!-- META -->
+        <p
+          id="termMeta"
+          class="mb-3 text-xs text-blue-400 tracking-wide"
+        >
+        </p>
 
-      <!-- CONTRIBUTORS -->
-      <div class="mt-8">
-        <p class="mb-2 text-white/50">contributors</p>
-        <ul id="termContrib" class="space-y-1"></ul>
-      </div>
+        <!-- INTRO -->
+        <p
+          id="termIntro"
+          class="mb-6 text-white/60 italic"
+        >
+        </p>
+        <!-- SECTION DIVIDER -->
+        <p class="mb-3 text-white/30 select-none">
+          ──────────────────────────────────────
+        </p>
+
+        <!-- DETAILS (formatted like man page) -->
+        <pre
+          id="termDetails"
+          class="mb-8 text-white/85 leading-relaxed"
+        ></pre>
+
+        <!-- CONTRIBUTORS -->
+        <div class="mb-8">
+          <p class="mb-2 text-xs text-white/40 tracking-wide">
+            # contributors
+          </p>
+
+          <ul
+            id="termContrib"
+            class="space-y-1 text-white/75"
+          ></ul>
+        </div>
 
       <!-- GITHUB -->
       <div id="termGit" class="mt-6 hidden">
@@ -290,11 +317,16 @@ Highlights:
 
       <!-- COMMENTS -->
       <div class="mt-10 border-t border-white/10 pt-4">
-        <p class="mb-2 text-white/50">comments</p>
+          <p class="mb-3 text-xs text-white/40 tracking-wide">
+              # comments
+            </p>
 
-        <div id="commentList" class="mb-4 space-y-2 text-white/70">
-          <p class="text-white/30">└─ no comments yet</p>
-        </div>
+            <div
+               id="commentList"
+               class="mb-4 space-y-1 text-white/70"
+             >
+               <p class="text-white/30">└─ no comments yet</p>
+             </div>
 
         <div class="flex items-center gap-2">
           <span class="text-green-400">$</span>
