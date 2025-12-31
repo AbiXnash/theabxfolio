@@ -127,7 +127,7 @@ Highlights:
               </span>
 
               <div class={isWork ? "pl-2 border-l border-white/20" : ""}>
-                <p class="text-green-400">{section.label}/</p>
+                <p class="text-green-400">$ ls {section.label}/</p>
                 <p class="text-sm text-white/40">{section.description}</p>
               </div>
             </div>
@@ -176,7 +176,7 @@ Highlights:
                     <!-- ROW 1: Title + meta (DESKTOP) -->
                     <div class="hidden sm:flex w-full items-center justify-between gap-4">
                       <span class="px-1 py-0.5 text-white/80 group-hover:text-white">
-                        {item.title}
+                       {item.title}
                       </span>
 
                       {(year || showGit) && (
@@ -192,7 +192,7 @@ Highlights:
 
                     <!-- ROW 1 (MOBILE): Title only -->
                     <span class="sm:hidden px-1 py-0.5 text-white/80">
-                      {item.title}
+                     {item.title}
                     </span>
 
                     <!-- ROW 2 (MOBILE): Meta + hint -->
@@ -275,6 +275,14 @@ Highlights:
         <span class="ml-2 text-white/30">mode: readonly</span>
       </div>
 
+      <!-- EXECUTION TRACE -->
+      <div class="mb-5 font-mono text-xs text-white/50">
+        <p><span class="text-green-400">[ OK ]</span> loading metadata</p>
+        <p><span class="text-green-400">[ OK ]</span> loading details</p>
+        <p><span class="text-green-400">[ OK ]</span> loading contributors</p>
+      </div>
+
+
       <!-- META -->
       <div class="mb-5">
         <p class="text-xs text-white/40">$ meta</p>
@@ -303,8 +311,9 @@ Highlights:
 
         <pre
           id="termDetails"
-          class="whitespace-pre-wrap text-white/85 leading-relaxed"
+          class="whitespace-pre-wrap leading-relaxed text-white/85"
         ></pre>
+
       </div>
 
       <!-- CALLOUT -->
@@ -402,7 +411,15 @@ Highlights:
         title.textContent = data.title;
         meta.textContent = data.meta;
         intro.textContent = data.intro;
-        details.textContent = data.details.trim();
+        const lines = data.details.trim().split("\n");
+
+        details.innerHTML = lines
+          .map((line, i) => {
+            const num = String(i + 1).padStart(2, "0");
+            return `<span class="text-white/30">${num} |</span> ${line}`;
+          })
+          .join("\n");
+
 
         contrib.innerHTML = "";
         data.contributors.forEach((c) => {
