@@ -1,43 +1,150 @@
-# Astro Starter Kit: Minimal
+# abx@portfolio
+
+A terminal-inspired personal portfolio built to showcase engineering depth,
+system thinking, and real-world projects — without noise or gimmicks.
+
+This project is designed to feel like a **tool**, not a marketing site.
+
+---
+
+## Overview
 
 ```sh
-bun create astro@latest -- --template minimal
+$ whoami
+Abinash S — Software Engineer (Full-Stack · Systems-Focused)
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+This portfolio prioritizes:
 
-## 🚀 Project Structure
+- clarity over decoration
+- keyboard-first interaction
+- inspectable content
+- performance and simplicity
 
-Inside of your Astro project, you'll see the following folders and files:
+It avoids unnecessary animations, trackers, and UI libraries.
+
+---
+
+## Features
+
+```sh
+$ features
+```
+
+- Terminal-style UI and navigation
+- Command palette (`/`) with live filtering
+- Keyboard-first interactions (↑ ↓ Enter Esc q)
+- Inspector-style overlays for deep content
+- Execution traces and line-numbered output
+- Responsive and accessible by design
+- Minimal dependencies, static output
+
+---
+
+## Pages
+
+```sh
+$ tree src/pages/
+```
+
+- `/` — Home (identity & entry point)
+- `/service` — Services & collaboration offerings
+- `/resume` — Experience, research, and projects
+- `/contact` — Communication & availability
+
+---
+
+## Keyboard Navigation
+
+```sh
+/        → open command palette
+↑ ↓      → navigate results
+enter    → open selection
+esc      → close overlays / palette
+```
+
+Designed to feel familiar to users of terminals and editors.
+
+---
+
+## Project Structure
 
 ```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+src
+├── components
+│   ├── Contact.astro
+│   ├── Footer.astro
+│   ├── Header.astro
+│   ├── Hero.astro
+│   ├── Resume.astro
+│   └── Service.astro
+├── layouts
+│   └── BaseLayout.astro
+├── pages
+│   ├── contact.astro
+│   ├── index.astro
+│   ├── resume.astro
+│   └── service.astro
+└── styles
+    └── global.css
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+- Components are intentionally small and reusable
+- Pages remain thin and declarative
+- Global styles are minimal and terminal-focused
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+---
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Tech Stack
 
-## 🧞 Commands
+```sh
+$ stack
+```
 
-All commands are run from the root of the project, from a terminal:
+- **Framework**: Astro
+- **Styling**: Tailwind CSS
+- **Runtime**: Bun
+- **Language**: JavaScript (ESM)
+- **Output**: Static site
 
-| Command               | Action                                           |
-| :-------------------- | :----------------------------------------------- |
-| `bun install`         | Installs dependencies                            |
-| `bun dev`             | Starts local dev server at `localhost:4321`      |
-| `bun build`           | Build your production site to `./dist/`          |
-| `bun preview`         | Preview your build locally, before deploying     |
-| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `bun astro -- --help` | Get help using the Astro CLI                     |
+No UI frameworks.
+No client-heavy abstractions.
 
-## 👀 Want to learn more?
+---
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Commands
+
+All commands are run from the project root.
+
+| Command          | Description                               |
+| ---------------- | ----------------------------------------- |
+| `bun install`    | Install dependencies                      |
+| `bun dev`        | Start local dev server (`localhost:4321`) |
+| `bun run build`  | Build production site to `dist/`          |
+| `bun preview`    | Preview production build locally          |
+| `bun run format` | Format code using Prettier                |
+
+---
+
+## License
+
+This repository is intended for **personal and professional reference**.
+
+You are welcome to:
+
+- explore the code
+- learn from the structure
+- adapt ideas for inspiration
+
+Please do not clone or redistribute as-is.
+
+## Contact
+
+```sh
+$ contact
+
+visit: https://theabx.in
+navigate: /contact
+```
+
+→ [Open the portfolio](https://theabx.in) and navigate to [/contact](https://theabx.in/contact) to get in touch.
