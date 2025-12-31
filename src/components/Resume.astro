@@ -261,83 +261,121 @@ Highlights:
       class="relative overflow-y-auto px-6 py-5 font-mono text-sm leading-relaxed text-white/80"
     >
 
-        <!-- subtle scanline -->
-        <div
-          class="pointer-events-none absolute inset-0
-                 bg-[linear-gradient(transparent_95%,rgba(255,255,255,0.2)_96%)]
-                 bg-[length:100%_4px] opacity-[0.025]"
-        ></div>
+      <!-- scanline -->
+      <div
+        class="pointer-events-none absolute inset-0
+               bg-[linear-gradient(transparent_96%,rgba(255,255,255,0.18)_97%)]
+               bg-[length:100%_4px] opacity-[0.03]"
+      ></div>
 
-        <!-- META -->
+      <!-- SESSION CONTEXT -->
+      <div class="mb-4 text-xs text-white/35">
+        <span class="text-green-400">abx@portfolio</span>:
+        <span class="text-blue-400">~/inspect</span>
+        <span class="ml-2 text-white/30">mode: readonly</span>
+      </div>
+
+      <!-- META -->
+      <div class="mb-5">
+        <p class="text-xs text-white/40">$ meta</p>
         <p
           id="termMeta"
-          class="mb-3 text-xs text-blue-400 tracking-wide"
-        >
-        </p>
+          class="mt-1 pl-2 text-blue-400 tracking-wide"
+        ></p>
+      </div>
 
-        <!-- INTRO -->
+      <!-- INTRO -->
+      <div class="mb-6">
+        <p class="text-xs text-white/40">$ intro</p>
         <p
           id="termIntro"
-          class="mb-6 text-white/60 italic"
-        >
-        </p>
-        <!-- SECTION DIVIDER -->
-        <p class="mb-3 text-white/30 select-none">
-          ──────────────────────────────────────
-        </p>
+          class="mt-1 pl-2 italic text-white/60"
+        ></p>
+      </div>
 
-        <!-- DETAILS (formatted like man page) -->
+      <!-- DETAILS BLOCK -->
+      <div
+        class="mb-8 rounded-md border border-white/10
+               bg-gradient-to-b from-white/[0.04] to-transparent
+               px-4 py-3"
+      >
+        <p class="mb-2 text-xs text-white/40">$ cat details.txt</p>
+
         <pre
           id="termDetails"
-          class="mb-8 text-white/85 leading-relaxed"
+          class="whitespace-pre-wrap text-white/85 leading-relaxed"
         ></pre>
+      </div>
 
-        <!-- CONTRIBUTORS -->
-        <div class="mb-8">
-          <p class="mb-2 text-xs text-white/40 tracking-wide">
-            # contributors
-          </p>
+      <!-- CALLOUT -->
+      <div
+        class="mb-8 border-l-2 border-green-400/40
+               bg-black/40 px-4 py-3"
+      >
+        <p class="mb-1 text-xs text-green-400">NOTE</p>
+        <p class="text-white/65">
+          This section reflects production-level decisions, not theoretical
+          examples.
+        </p>
+      </div>
 
-          <ul
-            id="termContrib"
-            class="space-y-1 text-white/75"
-          ></ul>
-        </div>
+      <!-- CONTRIBUTORS -->
+      <div class="mb-8">
+        <p class="mb-2 text-xs text-white/40">$ contributors</p>
 
-      <!-- GITHUB -->
-      <div id="termGit" class="mt-6 hidden">
+        <ul
+          id="termContrib"
+          class="space-y-1 pl-4 text-white/75"
+        ></ul>
+      </div>
+
+      <!-- SOURCE -->
+      <div id="termGit" class="mb-10 hidden">
+        <p class="mb-2 text-xs text-white/40">$ source</p>
         <a
           id="termGitLink"
           target="_blank"
-          class="text-green-400 hover:underline"
+          class="inline-flex items-center gap-2 pl-2 text-green-400 hover:underline"
         >
-          view source →
+          ▸ view repository
         </a>
       </div>
 
       <!-- COMMENTS -->
-      <div class="mt-10 border-t border-white/10 pt-4">
-          <p class="mb-3 text-xs text-white/40 tracking-wide">
-              # comments
-            </p>
+      <div class="border-t border-white/10 pt-5">
+        <p class="mb-3 text-xs text-white/40">$ comments</p>
 
-            <div
-               id="commentList"
-               class="mb-4 space-y-1 text-white/70"
-             >
-               <p class="text-white/30">└─ no comments yet</p>
-             </div>
+        <div
+          id="commentList"
+          class="mb-4 space-y-1 pl-4 text-white/70"
+        >
+          <p class="text-white/30">└─ no comments yet</p>
+        </div>
 
-        <div class="flex items-center gap-2">
+        <div
+          class="flex items-center gap-2 rounded-md
+                 border border-white/10 bg-black/50 px-3 py-2"
+        >
           <span class="text-green-400">$</span>
           <input
             id="commentInput"
             placeholder="add comment"
-            class="flex-1 border-b border-white/20 bg-transparent px-1 py-1 text-sm text-white outline-none focus:border-green-400"
+            class="flex-1 bg-transparent
+                   border-none outline-none
+                   text-sm text-white
+                   placeholder:text-white/30"
           />
         </div>
       </div>
+
+      <!-- FOOTER STATUS -->
+      <div class="mt-6 text-xs text-white/30">
+        -- press <span class="text-white/50">esc</span> to exit ·
+        <span class="text-white/40">scroll for more</span> --
+      </div>
+
     </div>
+
   </div>
 </div>
 
