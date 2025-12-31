@@ -1,7 +1,8 @@
 <section
-  class="flex items-center bg-black px-4 py-16 font-mono text-white sm:px-6 sm:py-20"
+  class="mt-16 flex items-center bg-black px-4 py-16 font-mono text-white sm:mt-24 sm:px-6 md:mt-32"
 >
-  <div class="mx-auto max-w-5xl px-4 py-20 font-mono sm:px-6">
+  <div class="mx-auto w-full max-w-5xl">
+    <!-- TERMINAL PROMPT -->
     <p class="text-sm text-green-400">$ whoami</p>
 
     <h1 class="mt-6 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
@@ -12,6 +13,7 @@
       Software Engineer · Full-Stack · Systems-Focused
     </p>
 
+    <!-- PROFILE -->
     <p class="mt-10 text-sm text-green-400">$ cat profile.txt</p>
 
     <p
@@ -22,22 +24,82 @@
       prioritizes clarity, reliability, and production readiness.
     </p>
 
-    <div
-      class="mt-12 flex flex-col gap-4 font-mono text-sm sm:flex-row sm:gap-6"
-    >
-      <a
-        href="/resume"
-        class="rounded-xl border border-white/10 bg-white/5 px-6 py-3 text-center transition hover:bg-white/10"
-      >
-        view resume
-      </a>
+    <!-- HELP / AFFORDANCE -->
+    <p class="mt-6 text-xs text-white/40">
+      Tip: click commands below to navigate
+    </p>
 
-      <a
-        href="/contact"
-        class="rounded-xl border border-green-400/30 px-6 py-3 text-center text-green-400 transition hover:bg-green-400/10"
-      >
-        initiate contact
-      </a>
+    <!-- COMMAND LIST -->
+    <div class="mt-8 space-y-4 text-sm sm:text-base">
+      <!-- RESUME -->
+      <div class="flex items-center gap-3">
+        <span class="text-green-400">$</span>
+        <a href="/resume" class="text-blue-400 transition hover:text-blue-300">
+          open resume
+        </a>
+        <span class="hidden text-white/30 sm:inline">
+          — detailed experience & projects
+        </span>
+      </div>
+
+      <!-- CONTACT -->
+      <div class="flex items-center gap-3">
+        <span class="text-green-400">$</span>
+        <a
+          href="/contact"
+          class="text-green-400 transition hover:text-green-300"
+        >
+          initiate contact
+        </a>
+        <span class="hidden text-white/30 sm:inline">
+          — email & social links
+        </span>
+      </div>
     </div>
+
+    <!-- FUN / HUMAN TOUCH -->
+    <div class="mt-12 flex items-center gap-4">
+      <button
+        id="heartBtn"
+        aria-label="like"
+        class="flex items-center gap-2 rounded-md border border-white/10 px-3 py-1.5 text-white/60 transition hover:border-red-400/40 hover:text-red-400"
+      >
+        <span id="heartIcon">♡</span>
+        <span id="heartCount" class="text-xs">0</span>
+      </button>
+
+      <p class="text-xs text-white/40">click if this made you smile</p>
+    </div>
+
+    <!-- FOOTER CONTEXT -->
+    <p class="mt-10 text-xs text-white/30">
+      This site is designed as a terminal-inspired interface for clarity and
+      focus.
+    </p>
   </div>
 </section>
+
+<!-- HEART SCRIPT -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("heartBtn");
+    const icon = document.getElementById("heartIcon");
+    const countEl = document.getElementById("heartCount");
+
+    let count = Number(localStorage.getItem("hero-hearts") || 0);
+    countEl.textContent = count;
+
+    btn.addEventListener("click", () => {
+      count++;
+      localStorage.setItem("hero-hearts", count);
+      countEl.textContent = count;
+
+      icon.textContent = "♥";
+      btn.classList.add("text-red-400");
+
+      setTimeout(() => {
+        icon.textContent = "♡";
+      }, 300);
+    });
+  });
+</script>

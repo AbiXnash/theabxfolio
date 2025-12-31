@@ -6,32 +6,80 @@ const path = Astro.url.pathname.split("/").filter(Boolean);
   class="sticky top-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur-xl"
 >
   <div
-    class="mx-auto flex max-w-6xl items-center overflow-x-auto px-4 py-3 font-mono text-xs text-green-400 sm:px-6 sm:text-sm"
+    class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 font-mono text-xs sm:px-6 sm:text-sm"
   >
-    <a href={`/`} class="transition hover:text-white">
-      <span class="shrink-0 text-green-500">abx@portfolio</span>
-    </a>
+    <!-- LEFT: BRAND + BREADCRUMB -->
+    <div class="flex items-center overflow-x-auto text-green-400">
+      <a href="/" class="shrink-0 transition hover:text-white">
+        <span class="text-green-500">abx@portfolio</span>
+      </a>
 
-    <span class="mx-2 shrink-0 text-white/40">:</span>
-    <span class="shrink-0 text-blue-400">~</span>
+      <span class="mx-2 shrink-0 text-white/40">:</span>
+      <span class="shrink-0 text-blue-400">~</span>
 
-    <div class="flex min-w-0 items-center">
-      {
-        path.length === 0 ? (
-          <span class="ml-2 text-white/60">/</span>
-        ) : (
-          path.map((segment) => (
-            <span class="ml-2 whitespace-nowrap text-white/60">
-              /
-              <a href={`/${segment}`} class="transition hover:text-white">
-                {segment}
-              </a>
-            </span>
-          ))
-        )
-      }
+      <div class="flex min-w-0 items-center">
+        {
+          path.length === 0 ? (
+            <span class="ml-2 text-white/60">/</span>
+          ) : (
+            path.map((segment) => (
+              <span class="ml-2 whitespace-nowrap text-white/60">
+                /
+                <a href={`/${segment}`} class="transition hover:text-white">
+                  {segment}
+                </a>
+              </span>
+            ))
+          )
+        }
+      </div>
+
+      <span class="ml-2 shrink-0 animate-pulse text-white/40">▍</span>
     </div>
 
-    <span class="ml-2 shrink-0 animate-pulse text-white/40">▍</span>
+    <!-- RIGHT: NAV (DESKTOP) -->
+    <nav class="hidden items-center gap-4 text-white/60 sm:flex">
+      <a href="/resume" class="transition hover:text-white"> resume </a>
+      <a href="/contact" class="transition hover:text-white"> contact </a>
+    </nav>
+
+    <!-- RIGHT: NAV (MOBILE) -->
+    <div class="relative sm:hidden">
+      <button
+        id="navToggle"
+        class="text-white/60 transition hover:text-white"
+        aria-label="navigation"
+      >
+        ls
+      </button>
+
+      <div
+        id="navMenu"
+        class="absolute right-0 mt-2 hidden rounded-lg border border-white/10 bg-black/90 text-xs text-white/70 backdrop-blur"
+      >
+        <a href="/resume" class="block px-4 py-2 hover:bg-white/10"> resume </a>
+        <a href="/contact" class="block px-4 py-2 hover:bg-white/10">
+          contact
+        </a>
+      </div>
+    </div>
   </div>
 </header>
+
+<!-- MOBILE NAV SCRIPT -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.getElementById("navToggle");
+    const menu = document.getElementById("navMenu");
+
+    toggle?.addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.add("hidden");
+      }
+    });
+  });
+</script>
