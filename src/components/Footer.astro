@@ -1,13 +1,29 @@
 <footer class="border-t border-white/10 bg-black">
   <div
-    class="mx-auto flex max-w-6xl flex-col justify-between gap-3 px-4 py-6 font-mono text-xs text-white/40 sm:flex-row sm:px-6 sm:text-sm"
+    class="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-6 font-mono text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:text-sm"
   >
-    <span>
-      system.status: <span class="text-green-400">operational</span>
-    </span>
+    <!-- LEFT: SYSTEM STATUS -->
+    <div class="flex items-center gap-2">
+      <span>system.status:</span>
+      <span class="text-green-400">operational</span>
+      <span class="hidden text-white/20 sm:inline">·</span>
+      <span class="hidden text-white/30 sm:inline"> uptime 99.9% </span>
+    </div>
 
-    <span>
-      © {new Date().getFullYear()} Abinash S · built with astro + bun
-    </span>
+    <!-- CENTER (MOBILE): QUICK NAV -->
+    <div class="flex items-center gap-4 text-white/50 sm:hidden">
+      <a href="/resume" class="transition hover:text-white">resume</a>
+      <a href="/service" class="transition hover:text-white">service</a>
+      <a href="/contact" class="transition hover:text-white">contact</a>
+    </div>
+
+    <!-- RIGHT: META -->
+    <div class="flex items-center gap-2 sm:gap-3">
+      <span>
+        © {new Date().getFullYear()} Abinash S
+      </span>
+      <span class="text-white/20">·</span>
+      <span> built with astro + bun </span>
+    </div>
   </div>
 </footer>
