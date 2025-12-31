@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "format": "bunx prettier . --write"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
