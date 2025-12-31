@@ -33,6 +33,20 @@ button:focus-visible {
   outline-offset: 2px;
 }
 
+/* boot animation */
+.boot-line {
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.boot-line.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;

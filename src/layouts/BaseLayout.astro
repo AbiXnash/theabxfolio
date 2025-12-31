@@ -13,6 +13,46 @@ import "../styles/global.css";
   </head>
 
   <body class="flex min-h-screen flex-col bg-black antialiased">
+    <!-- SYSTEM BOOT -->
+    <div
+      id="boot"
+      class="fixed inset-0 z-[100] flex items-center justify-center bg-black font-mono text-sm text-white"
+    >
+      <div class="space-y-2">
+        <p data-line class="boot-line">
+          <span
+            class="text-green-400 drop-shadow-[0_0_6px_rgba(74,222,128,0.25)]"
+            >[ ok ]</span
+          >
+          loading environment
+        </p>
+
+        <p data-line class="boot-line">
+          <span
+            class="text-green-400 drop-shadow-[0_0_6px_rgba(74,222,128,0.25)]"
+            >[ ok ]</span
+          >
+          initializing interface
+        </p>
+
+        <p data-line class="boot-line">
+          <span
+            class="text-green-400 drop-shadow-[0_0_6px_rgba(74,222,128,0.25)]"
+            >[ ok ]</span
+          >
+          mounting modules
+        </p>
+
+        <p data-line class="boot-line">
+          <span
+            class="text-green-400 drop-shadow-[0_0_6px_rgba(74,222,128,0.25)]"
+            >[ ok ]</span
+          >
+          ready
+        </p>
+      </div>
+    </div>
+
     <Header />
 
     <main class="flex-1">
@@ -59,6 +99,44 @@ import "../styles/global.css";
 
     <!-- SCRIPT -->
     <script>
+      (() => {
+        const boot = document.getElementById("boot");
+        if (!boot) return;
+
+        const prefersReducedMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+
+        const hasBooted = sessionStorage.getItem("booted");
+
+        if (hasBooted || prefersReducedMotion) {
+          boot.remove();
+          return;
+        }
+
+        sessionStorage.setItem("booted", "true");
+
+        const lines = boot.querySelectorAll("[data-line]");
+
+        lines.forEach((line, i) => {
+          setTimeout(() => {
+            line.classList.add("is-visible");
+          }, i * 220);
+        });
+
+        // fade out boot screen after last line
+        const totalTime = lines.length * 120 + 600;
+
+        setTimeout(() => {
+          boot.style.transition = "opacity 300ms ease";
+          boot.style.opacity = "0";
+
+          setTimeout(() => {
+            boot.remove();
+          }, 320);
+        }, totalTime);
+      })();
+
       const palette = document.getElementById("cmdPalette");
       const input = document.getElementById("cmdInput");
       const results = document.getElementById("cmdResults");
