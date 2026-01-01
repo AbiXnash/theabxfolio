@@ -26,7 +26,6 @@ import "../styles/global.css";
           >
           loading environment
         </p>
-
         <p data-line class="boot-line">
           <span
             class="text-green-400 drop-shadow-[0_0_6px_rgba(74,222,128,0.25)]"
@@ -34,7 +33,6 @@ import "../styles/global.css";
           >
           initializing interface
         </p>
-
         <p data-line class="boot-line">
           <span
             class="text-green-400 drop-shadow-[0_0_6px_rgba(74,222,128,0.25)]"
@@ -42,7 +40,6 @@ import "../styles/global.css";
           >
           mounting modules
         </p>
-
         <p data-line class="boot-line">
           <span
             class="text-green-400 drop-shadow-[0_0_6px_rgba(74,222,128,0.25)]"
@@ -61,36 +58,32 @@ import "../styles/global.css";
       <!-- COMMAND PALETTE -->
       <div
         id="cmdPalette"
-        class="fixed inset-0 z-[60] hidden bg-black/80 backdrop-blur-sm"
+        class="fixed inset-0 z-[60] hidden bg-black/85 backdrop-blur-sm"
       >
         <div
-          class="mx-auto mt-32 w-[92%] max-w-xl rounded-lg border border-white/10 bg-black px-4 py-3 font-mono text-sm text-white"
+          class="mx-auto mt-28 w-[94%] max-w-2xl rounded-xl border border-white/10 bg-black font-mono text-sm text-white shadow-[0_0_60px_rgba(0,0,0,0.85)]"
         >
           <!-- INPUT -->
           <div
-            class="flex items-center gap-3 rounded-md border border-white/10 bg-black/60 px-3 py-2"
+            class="flex items-center gap-3 border-b border-white/10 px-4 py-3 focus-within:bg-white/[0.02]"
           >
             <span class="text-green-400">$</span>
-
             <input
               id="cmdInput"
-              placeholder="type a command or search…"
+              placeholder="type a command…"
               autocomplete="off"
-              class="w-full appearance-none border-0 bg-transparent text-white ring-0 outline-none placeholder:text-white/30 focus:border-0 focus:ring-0 focus:outline-none"
+              class="w-full bg-transparent text-white outline-none placeholder:text-white/30"
             />
           </div>
 
-          <!-- DIVIDER -->
-          <div class="my-2 h-px bg-white/10"></div>
-
           <!-- RESULTS -->
-          <ul id="cmdResults" class="max-h-64 space-y-1 overflow-y-auto pr-1">
-          </ul>
+          <ul id="cmdResults" class="max-h-72 overflow-y-auto py-1"></ul>
 
-          <!-- HINT -->
-          <p class="mt-2 text-xs text-white/30">
-            ↑ ↓ navigate · enter to open · esc to close
-          </p>
+          <!-- FOOTER -->
+          <div class="flex justify-between px-4 py-2 text-xs text-white/30">
+            <span>enter ↵ execute</span>
+            <span>esc close</span>
+          </div>
         </div>
       </div>
     </main>
@@ -99,6 +92,9 @@ import "../styles/global.css";
 
     <!-- SCRIPT -->
     <script>
+      import { renderHTMLElement } from "astro/runtime/server/index.js";
+
+      /* ---------------- BOOT ---------------- */
       (() => {
         const boot = document.getElementById("boot");
         if (!boot) return;
@@ -107,9 +103,7 @@ import "../styles/global.css";
           "(prefers-reduced-motion: reduce)",
         ).matches;
 
-        const hasBooted = sessionStorage.getItem("booted");
-
-        if (hasBooted || prefersReducedMotion) {
+        if (sessionStorage.getItem("booted") || prefersReducedMotion) {
           boot.remove();
           return;
         }
@@ -117,138 +111,223 @@ import "../styles/global.css";
         sessionStorage.setItem("booted", "true");
 
         const lines = boot.querySelectorAll("[data-line]");
+        lines.forEach((line, i) =>
+          setTimeout(() => line.classList.add("is-visible"), i * 220),
+        );
 
-        lines.forEach((line, i) => {
-          setTimeout(() => {
-            line.classList.add("is-visible");
-          }, i * 220);
-        });
-
-        // fade out boot screen after last line
-        const totalTime = lines.length * 120 + 600;
-
+        const total = lines.length * 220 + 600;
         setTimeout(() => {
           boot.style.transition = "opacity 300ms ease";
           boot.style.opacity = "0";
-
-          setTimeout(() => {
-            boot.remove();
-          }, 320);
-        }, totalTime);
+          setTimeout(() => boot.remove(), 320);
+        }, total);
       })();
-
       const palette = document.getElementById("cmdPalette");
       const input = document.getElementById("cmdInput");
       const results = document.getElementById("cmdResults");
 
-      const commands = [
-        { label: "home", route: "/" },
-        { label: "resume", route: "/resume" },
-        { label: "services", route: "/service" },
-        { label: "contact", route: "/contact" },
-      ];
-
+      let isOpen = false;
       let activeIndex = 0;
 
+      const commands = [
+        {
+          name: "home",
+          description: "Go to homepage",
+          route: "/",
+          aliases: ["h"],
+        },
+        {
+          name: "resume",
+          description: "View resume & experience",
+          route: "/resume",
+          aliases: ["cv", "work"],
+        },
+        {
+          name: "services",
+          description: "View services & offerings",
+          route: "/service",
+          aliases: ["service"],
+        },
+        {
+          name: "contact",
+          description: "Get in touch",
+          route: "/contact",
+          aliases: ["mail", "email"],
+        },
+        {
+          name: "help",
+          description: "Show available commands",
+          route: "__help__",
+          aliases: ["?"],
+        },
+      ];
+
+      /* ---------- OPEN / CLOSE ---------- */
+
       function openPalette() {
+        if (isOpen) return;
+        isOpen = true;
         palette.classList.remove("hidden");
         input.value = "";
         activeIndex = 0;
-        renderResults(commands);
+        render(commands);
         setTimeout(() => input.focus(), 0);
       }
 
       function closePalette() {
+        if (!isOpen) return;
+        isOpen = false;
         palette.classList.add("hidden");
       }
 
-      function renderResults(list) {
+      /* ---------- FUZZY RANKING ---------- */
+
+      function rank(query, cmd) {
+        const q = query.toLowerCase();
+        const name = cmd.name.toLowerCase();
+        const aliases = cmd.aliases.join(" ").toLowerCase();
+
+        if (name.startsWith(q)) return 3;
+        if (aliases.startsWith(q)) return 2;
+        if (name.includes(q) || aliases.includes(q)) return 1;
+        return 0;
+      }
+
+      function search(query) {
+        if (!query) return commands;
+
+        return commands
+          .map((cmd) => ({ cmd, score: rank(query, cmd) }))
+          .filter((x) => x.score > 0)
+          .sort((a, b) => b.score - a.score)
+          .map((x) => x.cmd);
+      }
+
+      /* ---------- RENDER ---------- */
+
+      function render(list) {
         results.innerHTML = "";
 
         if (!list.length) {
-          const li = document.createElement("li");
-          li.className = "px-3 py-2 text-white/40";
-          li.textContent = "no matching commands";
-          results.appendChild(li);
+          results.innerHTML = `
+              <li class="px-4 py-3 text-white/40">
+                no matching commands
+              </li>`;
           return;
         }
 
         list.forEach((cmd, i) => {
           const li = document.createElement("li");
+
           li.className =
-            "flex items-center gap-2 px-3 py-2 rounded cursor-pointer " +
+            "flex items-center gap-3 px-4 py-3 cursor-pointer " +
             (i === activeIndex
               ? "bg-white/10 text-white"
-              : "text-white/60 hover:bg-white/5");
+              : "text-white/70 hover:bg-white/[0.04]");
 
           li.innerHTML = `
-            <span class="text-white/30">›</span>
-            <span>${cmd.label}</span>
-          `;
+              <span class="text-white/30">›</span>
+              <div class="flex flex-col">
+                <span>${cmd.name}</span>
+                <span class="text-xs text-white/40">${cmd.description}</span>
+              </div>
+            `;
 
-          li.onclick = () => {
-            window.location.href = cmd.route;
-          };
-
+          li.onclick = () => execute(cmd);
           results.appendChild(li);
         });
       }
 
-      function filterCommands(query) {
-        return commands.filter((cmd) =>
-          cmd.label.toLowerCase().includes(query.toLowerCase()),
-        );
+      /* ---------- EXECUTION ---------- */
+
+      function execute(cmd) {
+        if (cmd.route === "__help__") {
+          renderHelp();
+          input.value = "";
+          activeIndex = 0;
+          return;
+        }
+        window.location.href = cmd.route;
       }
 
-      // Global key listener
-      document.addEventListener("keydown", (e) => {
-        document.addEventListener("keydown", (e) => {
-          // ESC should ALWAYS work
-          if (e.key === "Escape") {
-            closePalette();
-            return;
-          }
+      /* ---------- EVENTS ---------- */
+      function renderHelp() {
+        results.innerHTML = "";
 
-          // Ignore typing in inputs for other shortcuts
-          if (["INPUT", "TEXTAREA"].includes(e.target.tagName)) return;
+        const header = document.createElement("li");
+        header.className = "px-4 py-2 text-xs text-white/40 uppercase";
+        header.textContent = "available commands";
+        results.appendChild(header);
 
-          if (e.key === "/") {
-            e.preventDefault();
-            openPalette();
-          }
+        commands.forEach((cmd) => {
+          const li = document.createElement("li");
+          li.className = "flex items-start gap-3 px-4 py-3 text-white/70";
+
+          li.innerHTML = `
+            <span class="text-white/30">›</span>
+            <div>
+              <div class="text-white">${cmd.name}</div>
+              <div class="text-xs text-white/40">${cmd.description}</div>
+            </div>
+          `;
+
+          results.appendChild(li);
         });
+
+        const aliasHeader = document.createElement("li");
+        aliasHeader.className =
+          "mt-3 px-4 py-2 text-xs text-white/40 uppercase";
+        aliasHeader.textContent = "aliases";
+        results.appendChild(aliasHeader);
+
+        commands
+          .filter((c) => c.aliases.length)
+          .forEach((cmd) => {
+            const li = document.createElement("li");
+            li.className = "px-4 py-2 text-white/60 text-sm";
+
+            li.innerHTML = `
+              <span class="text-white/40">${cmd.aliases.join(", ")}</span>
+              <span class="text-white/30"> → </span>
+              <span class="text-white">${cmd.name}</span>
+            `;
+
+            results.appendChild(li);
+          });
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closePalette();
+          return;
+        }
+
+        if (["INPUT", "TEXTAREA"].includes(e.target.tagName)) return;
 
         if (e.key === "/") {
           e.preventDefault();
           openPalette();
         }
-
-        if (e.key === "Escape") {
-          closePalette();
-        }
       });
 
-      // Input typing
       input.addEventListener("input", () => {
-        const filtered = filterCommands(input.value);
         activeIndex = 0;
-        renderResults(filtered);
+        render(search(input.value));
       });
 
-      // Keyboard navigation
       input.addEventListener("keydown", (e) => {
         const items = results.children;
         if (!items.length) return;
 
         if (e.key === "ArrowDown") {
           activeIndex = (activeIndex + 1) % items.length;
-          renderResults(filterCommands(input.value));
+          render(search(input.value));
           e.preventDefault();
         }
 
         if (e.key === "ArrowUp") {
           activeIndex = (activeIndex - 1 + items.length) % items.length;
-          renderResults(filterCommands(input.value));
+          render(search(input.value));
           e.preventDefault();
         }
 
@@ -257,7 +336,6 @@ import "../styles/global.css";
         }
       });
 
-      // Click outside to close
       palette.addEventListener("click", (e) => {
         if (e.target === palette) closePalette();
       });
