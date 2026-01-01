@@ -1,5 +1,6 @@
 ---
 const path = Astro.url.pathname.split("/").filter(Boolean);
+const isHome = path.length === 0;
 ---
 
 <header
@@ -8,8 +9,21 @@ const path = Astro.url.pathname.split("/").filter(Boolean);
   <div
     class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 font-mono text-xs sm:px-6 sm:text-sm"
   >
-    <!-- LEFT: BRAND + BREADCRUMB -->
-    <div class="flex items-center overflow-x-auto text-green-400">
+    <!-- LEFT: BACK + BRAND + BREADCRUMB -->
+    <div class="flex items-center gap-2 overflow-x-auto text-green-400">
+      <!-- BACK BUTTON (non-home) -->
+      {
+        !isHome && (
+          <button
+            onclick="history.back()"
+            class="text-white/40 transition hover:text-white"
+            aria-label="go back"
+          >
+            ←
+          </button>
+        )
+      }
+
       <a href="/" class="shrink-0 transition hover:text-white">
         <span class="text-green-500">abx@portfolio</span>
       </a>
@@ -19,7 +33,7 @@ const path = Astro.url.pathname.split("/").filter(Boolean);
 
       <div class="flex min-w-0 items-center">
         {
-          path.length === 0 ? (
+          isHome ? (
             <span class="ml-2 text-white/60">/</span>
           ) : (
             path.map((segment) => (
@@ -37,45 +51,95 @@ const path = Astro.url.pathname.split("/").filter(Boolean);
       <span class="ml-2 shrink-0 animate-pulse text-white/40">▍</span>
     </div>
 
-    <p class="hidden text-xs text-white/30 md:block">
-      press <span class="text-white/50">/</span> to search or run commands
-    </p>
+    <!-- CENTER: STATUS (DESKTOP ONLY) -->
+    <div class="hidden items-center gap-3 text-white/30 md:flex">
+      <span id="sysTime" class="tracking-widest"></span>
+      <span class="text-white/20">|</span>
+      <span>status: <span class="text-green-400">online</span></span>
+    </div>
 
-    <!-- RIGHT: NAV (DESKTOP) -->
-    <nav class="hidden items-center gap-4 text-white/60 sm:flex">
-      <a href="/resume" class="transition hover:text-white"> resume </a>
-      <a href="/service" class="transition hover:text-white"> service </a>
-      <a href="/contact" class="transition hover:text-white"> contact </a>
-    </nav>
-
-    <!-- RIGHT: NAV (MOBILE) -->
-    <div class="relative sm:hidden">
+    <!-- RIGHT: ACTIONS -->
+    <div class="flex items-center gap-4">
+      <!-- SEARCH (DESKTOP) -->
       <button
-        id="navToggle"
-        class="text-white/60 transition hover:text-white"
-        aria-label="navigation"
+        id="openSearch"
+        class="hidden items-center gap-1 text-white/40 hover:text-white sm:flex"
+        aria-label="search"
       >
-        ls
+        <span>/</span>
+        <span class="text-xs">search</span>
       </button>
 
-      <div
-        id="navMenu"
-        class="absolute right-0 mt-2 hidden rounded-lg border border-white/10 bg-black/90 text-xs text-white/70 backdrop-blur"
-      >
-        <a href="/resume" class="block px-4 py-2 hover:bg-white/10"> resume </a>
-        <a href="/service" class="block px-4 py-2 hover:bg-white/10">
-          service
-        </a>
-        <a href="/contact" class="block px-4 py-2 hover:bg-white/10">
-          contact
-        </a>
+      <!-- NAV (DESKTOP) -->
+      <nav class="hidden items-center gap-4 text-white/60 sm:flex">
+        <a href="/resume" class="transition hover:text-white"> resume </a>
+        <a href="/service" class="transition hover:text-white"> service </a>
+        <a href="/contact" class="transition hover:text-white"> contact </a>
+      </nav>
+
+      <!-- MOBILE ACTIONS -->
+      <div class="relative flex items-center gap-3 sm:hidden">
+        <!-- SEARCH (MOBILE) -->
+        <button
+          id="openSearchMobile"
+          class="text-white/60 hover:text-white"
+          aria-label="search"
+        >
+          🔍
+        </button>
+
+        <!-- MENU -->
+        <button
+          id="navToggle"
+          class="flex items-center gap-1 text-white/60 hover:text-white"
+          aria-label="menu"
+        >
+          <span>ls</span>
+          <span class="text-[10px] text-white/30">(menu)</span>
+        </button>
+
+        <div
+          id="navMenu"
+          class="absolute top-7 right-0 hidden rounded-lg border border-white/10 bg-black/90 text-xs text-white/70 backdrop-blur"
+        >
+          <a href="/resume" class="block px-4 py-2 hover:bg-white/10">
+            resume
+          </a>
+          <a href="/service" class="block px-4 py-2 hover:bg-white/10">
+            service
+          </a>
+          <a href="/contact" class="block px-4 py-2 hover:bg-white/10">
+            contact
+          </a>
+        </div>
       </div>
     </div>
   </div>
 </header>
 
-<!-- MOBILE NAV SCRIPT -->
+<!-- HEADER SCRIPT -->
 <script>
+  /* ---------- SYSTEM TIME ---------- */
+  const timeEl = document.getElementById("sysTime");
+  if (timeEl) {
+    const updateTime = () => {
+      const d = new Date();
+      timeEl.textContent = `[${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}:${String(d.getSeconds()).padStart(2, "0")}]`;
+    };
+    updateTime();
+    setInterval(updateTime, 1000);
+  }
+
+  /* ---------- SEARCH TRIGGERS ---------- */
+  document.getElementById("openSearch")?.addEventListener("click", () => {
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "/" }));
+  });
+
+  document.getElementById("openSearchMobile")?.addEventListener("click", () => {
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "/" }));
+  });
+
+  /* ---------- MOBILE MENU ---------- */
   document.addEventListener("DOMContentLoaded", () => {
     const toggle = document.getElementById("navToggle");
     const menu = document.getElementById("navMenu");

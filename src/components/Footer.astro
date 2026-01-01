@@ -1,29 +1,69 @@
 <footer class="border-t border-white/10 bg-black">
-  <div
-    class="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-6 font-mono text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:text-sm"
-  >
-    <!-- LEFT: SYSTEM STATUS -->
-    <div class="flex items-center gap-2">
-      <span>system.status:</span>
-      <span class="text-green-400">operational</span>
-      <span class="hidden text-white/20 sm:inline">·</span>
-      <span class="hidden text-white/30 sm:inline"> uptime 99.9% </span>
+  <div class="mx-auto max-w-6xl px-4 py-7 sm:px-6">
+    <!-- TOP STATUS BAR -->
+    <div
+      class="flex flex-col gap-2 border-b border-white/5 pb-4 font-mono text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <div class="flex items-center gap-2">
+        <span class="text-white/30">system</span>
+        <span class="text-white/20">·</span>
+        <span class="text-green-400">operational</span>
+        <span class="hidden text-white/20 sm:inline">·</span>
+        <span id="uptime" class="hidden tracking-wide text-white/30 sm:inline">
+          uptime 00:00:00
+        </span>
+      </div>
+
+      <div class="hidden text-white/25 sm:block">environment: production</div>
     </div>
 
-    <!-- CENTER (MOBILE): QUICK NAV -->
-    <div class="flex items-center gap-4 text-white/50 sm:hidden">
+    <!-- MAIN FOOTER ROW -->
+    <div
+      class="mt-4 flex flex-col gap-4 font-mono text-xs text-white/35 sm:flex-row sm:items-center sm:justify-between sm:text-sm"
+    >
+      <!-- LEFT -->
+      <div class="flex items-center gap-2">
+        <span>© {new Date().getFullYear()}</span>
+        <span class="text-white/20">·</span>
+        <span class="text-white/50">Abinash S</span>
+      </div>
+
+      <!-- CENTER (DESKTOP CONTEXT) -->
+      <div class="hidden text-white/25 sm:block">
+        terminal-first portfolio · keyboard-driven · low-noise UI
+      </div>
+
+      <!-- RIGHT -->
+      <div class="flex items-center gap-2">
+        <span class="text-white/30">built with</span>
+        <span class="text-white/50">astro</span>
+        <span class="text-white/20">+</span>
+        <span class="text-white/50">bun</span>
+      </div>
+    </div>
+
+    <!-- MOBILE QUICK NAV -->
+    <div
+      class="mt-5 flex items-center justify-center gap-6 font-mono text-xs text-white/50 sm:hidden"
+    >
       <a href="/resume" class="transition hover:text-white">resume</a>
       <a href="/service" class="transition hover:text-white">service</a>
       <a href="/contact" class="transition hover:text-white">contact</a>
     </div>
-
-    <!-- RIGHT: META -->
-    <div class="flex items-center gap-2 sm:gap-3">
-      <span>
-        © {new Date().getFullYear()} Abinash S
-      </span>
-      <span class="text-white/20">·</span>
-      <span> built with astro + bun </span>
-    </div>
   </div>
 </footer>
+
+<!-- UPTIME SCRIPT -->
+<script>
+  const uptimeEl = document.getElementById("uptime");
+  if (uptimeEl) {
+    const start = Date.now();
+    setInterval(() => {
+      const diff = Date.now() - start;
+      const h = String(Math.floor(diff / 3600000)).padStart(2, "0");
+      const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, "0");
+      const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, "0");
+      uptimeEl.textContent = `uptime ${h}:${m}:${s}`;
+    }, 1000);
+  }
+</script>
