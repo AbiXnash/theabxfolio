@@ -28,55 +28,248 @@ const calcTenure = (startDate, endDate) => {
 
   return `${tenure} · ${formatDate(start)} – ${endLabel}`;
 };
+
+const extractYear = (meta) => {
+  if (!meta) return "";
+  const rangeMatch = meta.match(/\b(19|20)\d{2}\s*–\s*(Present|(19|20)\d{2})\b/);
+  const singleYearMatch = meta.match(/\b(19|20)\d{2}\b/);
+  return rangeMatch ? rangeMatch[0] : singleYearMatch ? singleYearMatch[0] : "";
+};
+
+const detailLines = (details) =>
+  details ? details.trim().split("\n").filter((l) => l.trim()) : [];
 ---
 
 <section class="page-shell">
-  <div class="page-inner resume-clean">
+  <div class="page-inner resume-story">
     <div class="hero-block">
       <span class="hero-kicker">Resume</span>
-      <h1 class="hero-title">Experience & Projects</h1>
+      <h1 class="hero-title">Story Timeline</h1>
       <p class="hero-subtitle">
-        A clean, structured overview of work, research, and projects with
-        expandable details.
+        A narrative timeline of work, research, and projects designed for
+        readability across all devices.
       </p>
     </div>
 
-    <div class="resume-sections">
-      {Object.entries(resume).map(([sectionKey, section]) => (
-        <section class="resume-section">
-          <div class="section-header">
-            <h2 class="section-title">{section.label}</h2>
-            <p class="section-subtitle">{section.description}</p>
-          </div>
+    <div class="resume-toolbar">
+      <nav class="resume-tabs" aria-label="Resume sections">
+        {Object.entries(resume)
+          .filter(([sectionKey]) => sectionKey !== "education")
+          .map(([sectionKey, section]) => (
+            <a class="tab-link" href={`#${sectionKey}`}>
+              {section.label}
+            </a>
+          ))}
+      </nav>
 
-          <div class="resume-list">
+      <div class="toolbar-actions">
+        <button id="motionToggle" class="btn-ghost" type="button">
+          Reduce motion
+        </button>
+      </div>
+    </div>
+
+    {Object.entries(resume)
+      .filter(([sectionKey]) => sectionKey !== "education")
+      .map(([sectionKey, section]) => (
+      <section class="story-section" id={sectionKey}>
+        <div class="story-head">
+          <div class="section-line">
+            <h2 class="section-title">{section.label}</h2>
+            <button class="copy-link" type="button" data-copy={sectionKey}>
+              Copy link
+            </button>
+          </div>
+          <p class="section-subtitle">{section.description}</p>
+        </div>
+
+        {sectionKey === "work" ? (
+          <div class="story-list">
             {section.items.map((item) => {
-              const tenure = item.startDate ? calcTenure(item.startDate, item.endDate) : "";
-              const showGit = (sectionKey === "research" || sectionKey === "projects") && item.github;
-              const showContributors =
-                (sectionKey === "research" || sectionKey === "projects") &&
-                item.contributors.length > 1;
+              const year = extractYear(item.meta);
+              const tenure = calcTenure(item.startDate, item.endDate);
+              const lines = detailLines(item.details);
               const showSkills = Array.isArray(item.skills) && item.skills.length;
 
               return (
-                <details class="resume-item">
-                  <summary class="item-summary">
-                    <div class="item-main">
-                      <div class="item-title">{item.title}</div>
-                      <div class="item-intro">{item.intro}</div>
-                      {tenure && <div class="item-tenure">{tenure}</div>}
+                <details class="story-card">
+                  <summary class="story-summary">
+                    <div class="story-rail">
+                      <span class="rail-dot"></span>
+                      <span class="rail-line"></span>
                     </div>
-                    <div class="item-meta">
-                      {item.meta && <span class="chip">{item.meta}</span>}
-                      {showGit && <span class="chip accent">source</span>}
-                      <span class="chev">⌄</span>
+
+                    <div class="story-body">
+                      <div class="story-top">
+                        <div>
+                          <div class="story-title">{item.title}</div>
+                          <div class="story-intro">{item.intro}</div>
+                          {tenure && <div class="story-tenure">{tenure}</div>}
+                        </div>
+                        <div class="story-meta">
+                          {year && <span class="chip">{year}</span>}
+                          {item.meta && <span class="chip ghost">{item.meta}</span>}
+                          {item.github && <span class="chip accent">source</span>}
+                          <span class="chev">more</span>
+                        </div>
+                      </div>
+
+                      {showSkills && (
+                        <div class="story-block">
+                          <div class="block-label">Skills</div>
+                          <div class="skill-row">
+                            {item.skills.map((s) => (
+                              <span class="skill-pill">{s}</span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </summary>
 
-                  <div class="item-body">
+                  <div class="story-details">
+                    {lines.length > 0 && (
+                      <div class="story-block">
+                        <div class="block-label">Highlights</div>
+                        <ul class="detail-list">
+                          {lines.map((line) => (
+                            <li>{line}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {item.note && (
+                      <div class="story-block">
+                        <div class="block-label">Note</div>
+                        <p class="detail-note">{item.note}</p>
+                      </div>
+                    )}
+
+                    {Array.isArray(item.references) && item.references.length > 0 && (
+                      <div class="story-block">
+                        <div class="block-label">References</div>
+                        <ul class="detail-list">
+                          {item.references.map((r) => (
+                            <li><a href={r.url} target="_blank">{r.label}</a></li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </details>
+              );
+            })}
+          </div>
+        ) : (
+          <div class="showcase" data-showcase={sectionKey}>
+            <div class="showcase-list">
+              {section.items.map((item, idx) => {
+                const year = extractYear(item.meta);
+                const lines = detailLines(item.details);
+                const showContributors =
+                  (sectionKey === "research" || sectionKey === "projects") &&
+                  item.contributors.length > 1;
+                const showSkills = Array.isArray(item.skills) && item.skills.length;
+                return (
+                  <details class="showcase-item" data-index={idx}>
+                    <summary class="showcase-summary">
+                      <div class="showcase-title">{item.title}</div>
+                      <div class="showcase-intro">{item.intro}</div>
+                      <div class="showcase-meta">
+                        {year && <span class="chip">{year}</span>}
+                        {item.meta && <span class="chip ghost">{item.meta}</span>}
+                        {item.github && <span class="chip accent">source</span>}
+                      </div>
+                    </summary>
+
+                    <div class="showcase-mobile">
+                      {showSkills && (
+                        <div class="story-block">
+                          <div class="block-label">Stack</div>
+                          <div class="skill-row">
+                            {item.skills.map((s) => (
+                              <span class="skill-pill">{s}</span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {lines.length > 0 && (
+                        <div class="story-block">
+                          <div class="block-label">Highlights</div>
+                          <ul class="detail-list">
+                            {lines.map((line) => (
+                              <li>{line}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {item.note && (
+                        <div class="story-block">
+                          <div class="block-label">Note</div>
+                          <p class="detail-note">{item.note}</p>
+                        </div>
+                      )}
+
+                      {showContributors && (
+                        <div class="story-block">
+                          <div class="block-label">Contributors</div>
+                          <ul class="detail-list">
+                            {item.contributors.map((c) => (
+                              <li>{c.name} — {c.role}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {Array.isArray(item.references) && item.references.length > 0 && (
+                        <div class="story-block">
+                          <div class="block-label">References</div>
+                          <ul class="detail-list">
+                            {item.references.map((r) => (
+                              <li><a href={r.url} target="_blank">{r.label}</a></li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {item.github && (
+                        <div class="story-block">
+                          <div class="block-label">Source</div>
+                          <a class="detail-link" href={item.github} target="_blank">
+                            View repository
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  </details>
+                );
+              })}
+            </div>
+
+            <div class="showcase-panel">
+              {section.items.map((item, idx) => {
+                const showContributors =
+                  (sectionKey === "research" || sectionKey === "projects") &&
+                  item.contributors.length > 1;
+                const showSkills = Array.isArray(item.skills) && item.skills.length;
+                const lines = detailLines(item.details);
+
+                return (
+                  <div class="showcase-card" data-index={idx}>
+                    <div class="showcase-card-head">
+                      <div>
+                        <div class="showcase-card-title">{item.title}</div>
+                        <div class="showcase-card-intro">{item.intro}</div>
+                      </div>
+                      {item.meta && <span class="chip ghost">{item.meta}</span>}
+                    </div>
+
                     {showSkills && (
-                      <div class="item-block">
-                        <div class="block-label">Skills</div>
+                      <div class="story-block">
+                        <div class="block-label">Stack</div>
                         <div class="skill-row">
                           {item.skills.map((s) => (
                             <span class="skill-pill">{s}</span>
@@ -85,20 +278,26 @@ const calcTenure = (startDate, endDate) => {
                       </div>
                     )}
 
-                    <div class="item-block">
-                      <div class="block-label">Details</div>
-                      <pre class="detail-pre">{item.details.trim()}</pre>
-                    </div>
+                    {lines.length > 0 && (
+                      <div class="story-block">
+                        <div class="block-label">Highlights</div>
+                        <ul class="detail-list">
+                          {lines.map((line) => (
+                            <li>{line}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
 
                     {item.note && (
-                      <div class="item-block">
+                      <div class="story-block">
                         <div class="block-label">Note</div>
                         <p class="detail-note">{item.note}</p>
                       </div>
                     )}
 
                     {showContributors && (
-                      <div class="item-block">
+                      <div class="story-block">
                         <div class="block-label">Contributors</div>
                         <ul class="detail-list">
                           {item.contributors.map((c) => (
@@ -109,7 +308,7 @@ const calcTenure = (startDate, endDate) => {
                     )}
 
                     {Array.isArray(item.references) && item.references.length > 0 && (
-                      <div class="item-block">
+                      <div class="story-block">
                         <div class="block-label">References</div>
                         <ul class="detail-list">
                           {item.references.map((r) => (
@@ -120,7 +319,7 @@ const calcTenure = (startDate, endDate) => {
                     )}
 
                     {item.github && (
-                      <div class="item-block">
+                      <div class="story-block">
                         <div class="block-label">Source</div>
                         <a class="detail-link" href={item.github} target="_blank">
                           View repository
@@ -128,113 +327,312 @@ const calcTenure = (startDate, endDate) => {
                       </div>
                     )}
                   </div>
-                </details>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </section>
-      ))}
-    </div>
+        )}
+      </section>
+    ))}
   </div>
 </section>
 
+<button id="backToTop" class="btn-ghost" type="button">
+  Back to top
+</button>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("[data-showcase]").forEach((section) => {
+      const items = Array.from(section.querySelectorAll(".showcase-item"));
+      const cards = Array.from(section.querySelectorAll(".showcase-card"));
+      if (!items.length || !cards.length) return;
+
+      if (!window.matchMedia("(min-width: 980px)").matches) {
+        return;
+      }
+
+      const activate = (idx) => {
+        items.forEach((item, i) => {
+          item.classList.toggle("is-active", i === idx);
+        });
+        cards.forEach((card, i) => {
+          card.classList.toggle("is-active", i === idx);
+        });
+      };
+
+      activate(0);
+      items.forEach((item, idx) => {
+        item.addEventListener("mouseenter", () => activate(idx));
+        item.addEventListener("focusin", () => activate(idx));
+        item.addEventListener("click", () => activate(idx));
+      });
+
+      section.addEventListener("keydown", (event) => {
+        if (!["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft"].includes(event.key)) {
+          return;
+        }
+        const current = items.findIndex((item) => item.classList.contains("is-active"));
+        if (current === -1) return;
+        const delta = event.key === "ArrowDown" || event.key === "ArrowRight" ? 1 : -1;
+        const next = (current + delta + items.length) % items.length;
+        const summary = items[next].querySelector("summary");
+        if (summary) {
+          summary.focus();
+        } else {
+          items[next].focus();
+        }
+        activate(next);
+        event.preventDefault();
+      });
+    });
+
+    const motionToggle = document.getElementById("motionToggle");
+    if (motionToggle) {
+      const apply = (value) => {
+        document.documentElement.classList.toggle("reduce-motion", value);
+        motionToggle.textContent = value ? "Motion off" : "Reduce motion";
+      };
+      const saved = localStorage.getItem("reduce-motion") === "true";
+      apply(saved);
+      motionToggle.addEventListener("click", () => {
+        const next = !document.documentElement.classList.contains("reduce-motion");
+        localStorage.setItem("reduce-motion", String(next));
+        apply(next);
+      });
+    }
+
+    const copyButtons = document.querySelectorAll("[data-copy]");
+    copyButtons.forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const sectionId = btn.getAttribute("data-copy");
+        if (!sectionId) return;
+        const link = `${window.location.origin}${window.location.pathname}#${sectionId}`;
+        try {
+          await navigator.clipboard.writeText(link);
+          btn.textContent = "Copied";
+          setTimeout(() => {
+            btn.textContent = "Copy link";
+          }, 1400);
+        } catch (err) {
+          btn.textContent = "Copy failed";
+          setTimeout(() => {
+            btn.textContent = "Copy link";
+          }, 1400);
+        }
+      });
+    });
+
+    const backToTop = document.getElementById("backToTop");
+    if (backToTop) {
+      const toggle = () => {
+        backToTop.classList.toggle("is-visible", window.scrollY > 380);
+      };
+      toggle();
+      window.addEventListener("scroll", toggle, { passive: true });
+      backToTop.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+  });
+</script>
+
 <style>
-  .resume-clean {
+  .resume-story {
     gap: 3.5rem;
   }
 
-  .resume-sections {
-    display: grid;
-    gap: 3rem;
-  }
-
-  .resume-section {
-    display: grid;
-    gap: 1.5rem;
-  }
-
-  .section-header {
-    display: grid;
-    gap: 0.4rem;
-  }
-
-  .section-title {
-    font-size: clamp(1.4rem, 3vw, 1.9rem);
-    margin: 0;
-  }
-
-  .section-subtitle {
-    color: var(--text-muted);
-  }
-
-  .resume-list {
-    display: grid;
+  .resume-toolbar {
+    position: sticky;
+    top: 1rem;
+    z-index: 10;
+    display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
-  }
-
-  .resume-item {
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    border-radius: 18px;
     border: 1px solid var(--border-soft);
-    border-radius: 20px;
-    background: var(--bg-elevated);
-    padding: 0.4rem 1.4rem;
-    backdrop-filter: blur(16px);
-    transition: transform 180ms ease, border-color 180ms ease;
+    background: rgba(10, 14, 24, 0.82);
+    backdrop-filter: blur(18px);
   }
 
-  .resume-item[open] {
+  .resume-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .tab-link {
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    transition: all 160ms ease;
+  }
+
+  .tab-link:hover,
+  .tab-link:focus-visible {
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .toolbar-actions {
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  .story-section {
+    display: grid;
+    gap: 1.8rem;
+  }
+
+  .story-head {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .section-line {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.8rem;
+    align-items: center;
+  }
+
+  .copy-link {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    transition: border-color 160ms ease, color 160ms ease;
+  }
+
+  .copy-link:hover,
+  .copy-link:focus-visible {
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .story-list {
+    display: grid;
+    gap: 1.6rem;
+  }
+
+  .story-card {
+    position: relative;
+    border-radius: 26px;
+    border: 1px solid var(--border-soft);
+    background: var(--bg-elevated);
+    backdrop-filter: blur(18px);
+    transition: border-color 180ms ease, transform 180ms ease;
+  }
+
+  .story-card:hover {
+    border-color: rgba(255, 255, 255, 0.32);
+  }
+
+  .story-card[open] {
     border-color: rgba(255, 255, 255, 0.28);
     transform: translateY(-2px);
   }
 
-  .item-summary {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
+  .story-summary {
     list-style: none;
     cursor: pointer;
-    padding: 1.2rem 0;
+    display: grid;
+    gap: 1rem;
+    padding: 1.4rem 1.8rem 1.4rem 2.4rem;
   }
 
-  .item-summary::-webkit-details-marker {
+  .story-summary::-webkit-details-marker {
     display: none;
   }
 
-  .item-main {
+  .story-rail {
+    position: absolute;
+    left: 1.1rem;
+    top: 1.6rem;
+    bottom: 1.6rem;
+    width: 16px;
     display: grid;
-    gap: 0.4rem;
+    place-items: start;
   }
 
-  .item-title {
+  .rail-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: var(--accent);
+    box-shadow: 0 0 0 6px rgba(142, 242, 193, 0.12);
+    z-index: 1;
+  }
+
+  .rail-line {
+    position: absolute;
+    top: 12px;
+    bottom: 0;
+    left: 4px;
+    width: 2px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.25), transparent);
+  }
+
+  .story-body {
+    display: grid;
+    gap: 1.2rem;
+  }
+
+  .story-top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  .story-title {
     font-size: 1.1rem;
     color: var(--text-primary);
   }
 
-  .item-intro {
+  .story-intro {
     color: var(--text-muted);
   }
 
-  .item-tenure {
+  .story-tenure {
+    margin-top: 0.4rem;
     font-size: 0.75rem;
     color: var(--text-dim);
   }
 
-  .item-meta {
+  .story-meta {
     display: flex;
-    align-items: center;
-    gap: 0.6rem;
     flex-wrap: wrap;
-    color: var(--text-dim);
+    align-items: center;
+    gap: 0.5rem;
     font-size: 0.75rem;
-  }
-
-  .chev {
-    margin-left: auto;
+    color: var(--text-dim);
   }
 
   .chip {
     padding: 0.25rem 0.6rem;
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.08);
+    transition: transform 150ms ease;
+  }
+
+  .chip:hover {
+    transform: translateY(-1px);
+  }
+
+  .chip.ghost {
+    opacity: 0.7;
   }
 
   .chip.accent {
@@ -244,19 +642,21 @@ const calcTenure = (startDate, endDate) => {
 
   .chev {
     color: var(--text-dim);
-    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.65rem;
   }
 
-  .item-body {
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 1.2rem 0 1.6rem;
-    display: grid;
-    gap: 1rem;
-  }
-
-  .item-block {
+  .story-block {
     display: grid;
     gap: 0.5rem;
+  }
+
+  .story-details {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0 1.8rem 1.6rem 2.4rem;
+    display: grid;
+    gap: 1rem;
   }
 
   .block-label {
@@ -266,19 +666,13 @@ const calcTenure = (startDate, endDate) => {
     color: var(--text-dim);
   }
 
-  .detail-pre {
-    white-space: pre-wrap;
-    font-family: "Space Grotesk", sans-serif;
+  .detail-list {
+    display: grid;
+    gap: 0.35rem;
     color: var(--text-muted);
   }
 
   .detail-note {
-    color: var(--text-muted);
-  }
-
-  .detail-list {
-    display: grid;
-    gap: 0.4rem;
     color: var(--text-muted);
   }
 
@@ -301,26 +695,168 @@ const calcTenure = (startDate, endDate) => {
     font-size: 0.75rem;
   }
 
-  @media (min-width: 900px) {
-    .item-summary {
-      align-items: center;
+  .showcase {
+    display: grid;
+    gap: 1.6rem;
+  }
+
+  .showcase-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .showcase-item {
+    text-align: left;
+    padding: 1.2rem 1.4rem;
+    border-radius: 18px;
+    border: 1px solid var(--border-soft);
+    background: rgba(12, 16, 28, 0.65);
+    display: grid;
+    gap: 0.6rem;
+    transition: border-color 160ms ease, transform 160ms ease;
+  }
+
+  .showcase-item:hover,
+  .showcase-item.is-active,
+  .showcase-item[open] {
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-2px);
+  }
+
+  .showcase-summary {
+    list-style: none;
+    cursor: pointer;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .showcase-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .showcase-summary:focus-visible {
+    outline: 2px solid rgba(142, 242, 193, 0.6);
+    outline-offset: 4px;
+    border-radius: 12px;
+  }
+
+  .showcase-mobile {
+    display: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 1rem;
+    gap: 1rem;
+  }
+
+  .showcase-title {
+    color: var(--text-primary);
+  }
+
+  .showcase-intro {
+    color: var(--text-muted);
+  }
+
+  .showcase-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+  }
+
+  .showcase-panel {
+    position: relative;
+    border-radius: 24px;
+    border: 1px solid var(--border-soft);
+    background: rgba(10, 14, 24, 0.7);
+    backdrop-filter: blur(18px);
+    padding: 1.6rem;
+    min-height: 320px;
+  }
+
+  .showcase-card {
+    display: none;
+    gap: 1rem;
+  }
+
+  .showcase-card.is-active {
+    display: grid;
+  }
+
+  .showcase-card-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .showcase-card-title {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+  }
+
+  .showcase-card-intro {
+    color: var(--text-muted);
+  }
+
+  @media (min-width: 980px) {
+    .showcase {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      align-items: start;
+    }
+
+    .showcase-panel {
+      min-height: 420px;
+    }
+  }
+
+  @media (max-width: 979px) {
+    .showcase-panel {
+      display: none;
+    }
+
+    .showcase-mobile {
+      display: grid;
     }
   }
 
   @media (max-width: 899px) {
-    .item-summary {
+    .story-summary {
+      padding: 1.2rem 1.4rem 1.2rem 2.1rem;
+    }
+
+    .story-rail {
+      left: 0.8rem;
+    }
+
+    .story-details {
+      padding: 0 1.4rem 1.4rem 2.1rem;
+    }
+
+    .story-top {
       flex-direction: column;
       align-items: flex-start;
     }
+  }
 
-    .item-meta {
-      width: 100%;
-      justify-content: space-between;
-      gap: 0.4rem;
-    }
+  #backToTop {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    z-index: 20;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 160ms ease, transform 160ms ease;
+    transform: translateY(6px);
+  }
 
-    .chev {
-      margin-left: 0;
-    }
+  #backToTop.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  :global(html.reduce-motion *) {
+    animation: none !important;
+    transition: none !important;
   }
 </style>
