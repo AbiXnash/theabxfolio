@@ -1,95 +1,56 @@
-<section
-  class="mt-16 flex items-center bg-black px-4 py-16 font-mono text-white sm:mt-24 sm:px-6 md:mt-32"
->
-  <div class="mx-auto w-full max-w-5xl">
-    <!-- TERMINAL PROMPT -->
-    <p class="text-sm text-green-400">$ whoami</p>
+<section class="page-shell">
+  <div class="page-inner hero-grid">
+    <div class="hero-block">
+      <span class="hero-kicker">$ whoami</span>
+      <h1 class="hero-title">Abinash S</h1>
+      <p class="hero-subtitle">
+        Software Engineer focused on backend systems, dependable architectures,
+        and production-grade delivery across banking, web, and research
+        projects.
+      </p>
 
-    <h1 class="mt-6 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-      Abinash S
-    </h1>
-
-    <p class="mt-2 text-sm text-white/60 sm:text-base">
-      Software Engineer · Full-Stack · Systems-Focused
-    </p>
-
-    <!-- PROFILE -->
-    <p class="mt-10 text-sm text-green-400">$ cat profile.txt</p>
-
-    <p
-      class="mt-4 max-w-3xl font-sans text-sm leading-relaxed text-white/75 sm:text-base"
-    >
-      I build performance-driven applications with a strong emphasis on clean
-      architecture, scalability, and long-term maintainability. My work
-      prioritizes clarity, reliability, and production readiness.
-    </p>
-
-    <!-- HELP / AFFORDANCE -->
-    <p class="mt-6 text-xs text-white/40">
-      Tip: click commands below to navigate
-    </p>
-
-    <!-- COMMAND LIST -->
-    <div class="mt-8 space-y-4 text-sm sm:text-base">
-      <!-- RESUME -->
-      <div class="flex items-center gap-3">
-        <span class="text-green-400">$</span>
-        <a href="/resume" class="text-blue-400 transition hover:text-blue-300">
-          open resume
-        </a>
-        <span class="hidden text-white/30 sm:inline">
-          — detailed experience & projects
-        </span>
+      <div class="hero-actions">
+        <a href="/resume" class="btn-primary">View Resume</a>
+        <a href="/service" class="btn-ghost">Services</a>
+        <a href="/contact" class="btn-ghost">Contact</a>
       </div>
 
-      <!-- SERVICE -->
-      <div class="flex items-center gap-3">
-        <span class="text-green-400">$</span>
-        <a
-          href="/service"
-          class="text-green-400 transition hover:text-green-300"
-        >
-          view services
-        </a>
-        <span class="hidden text-white/30 sm:inline">
-          — offerings & collaboration options
-        </span>
-      </div>
-
-      <!-- CONTACT -->
-      <div class="flex items-center gap-3">
-        <span class="text-green-400">$</span>
-        <a
-          href="/contact"
-          class="text-green-400 transition hover:text-green-300"
-        >
-          initiate contact
-        </a>
-        <span class="hidden text-white/30 sm:inline">
-          — email & social links
-        </span>
+      <div class="hero-tags">
+        <span class="tag">Java · Spring Boot · Microservices</span>
+        <span class="tag">Payments · Transaction Systems</span>
+        <span class="tag">ML Research · Cybersecurity</span>
       </div>
     </div>
 
-    <!-- FUN / HUMAN TOUCH -->
-    <div class="mt-12 flex items-center gap-4">
-      <button
-        id="heartBtn"
-        aria-label="like"
-        class="flex items-center gap-2 rounded-md border border-white/10 px-3 py-1.5 text-white/60 transition hover:border-red-400/40 hover:text-red-400"
-      >
-        <span id="heartIcon">♡</span>
-        <span id="heartCount" class="text-xs">0</span>
-      </button>
+    <div class="card hero-panel">
+      <div class="panel-header">
+        <span class="hero-kicker">now</span>
+        <span class="panel-status">available for select work</span>
+      </div>
 
-      <p class="text-xs text-white/40">click if this made you smile</p>
+      <div class="panel-body">
+        <div class="panel-row">
+          <span class="panel-label">Focus</span>
+          <span class="panel-value">Backend reliability & payment flows</span>
+        </div>
+        <div class="panel-row">
+          <span class="panel-label">Current Stack</span>
+          <span class="panel-value">Java · Spring Boot · OracleDB</span>
+        </div>
+        <div class="panel-row">
+          <span class="panel-label">Research</span>
+          <span class="panel-value">IIoT intrusion detection systems</span>
+        </div>
+      </div>
+
+      <div class="panel-footer">
+        <button id="heartBtn" aria-label="like" class="panel-like">
+          <span id="heartIcon">♡</span>
+          <span id="heartCount">0</span>
+        </button>
+        <span class="panel-note">tap to appreciate the work</span>
+      </div>
     </div>
-
-    <!-- FOOTER CONTEXT -->
-    <p class="mt-10 text-xs text-white/30">
-      This site is designed as a terminal-inspired interface for clarity and
-      focus.
-    </p>
   </div>
 </section>
 
@@ -117,3 +78,92 @@
     });
   });
 </script>
+
+<style>
+  .hero-grid {
+    gap: 3rem;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .hero-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .panel-status {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+  }
+
+  .panel-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .panel-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .panel-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+  }
+
+  .panel-value {
+    color: var(--text-primary);
+  }
+
+  .panel-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .panel-like {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 999px;
+    border: 1px solid var(--border-soft);
+    padding: 0.3rem 0.8rem;
+    color: var(--text-muted);
+    transition: all 150ms ease;
+  }
+
+  .panel-like:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #ff8b8b;
+  }
+
+  .panel-note {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+  }
+
+  @media (min-width: 900px) {
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      align-items: center;
+    }
+  }
+</style>

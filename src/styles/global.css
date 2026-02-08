@@ -1,4 +1,147 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap");
 @import "tailwindcss";
+
+:root {
+  --bg-primary: #07070c;
+  --bg-secondary: #0f1119;
+  --bg-elevated: rgba(18, 20, 30, 0.85);
+  --border-soft: rgba(255, 255, 255, 0.12);
+  --text-primary: #f5f4f1;
+  --text-muted: rgba(245, 244, 241, 0.65);
+  --text-dim: rgba(245, 244, 241, 0.45);
+  --accent: #8ef2c1;
+  --accent-strong: #4ade80;
+  --accent-alt: #91b4ff;
+}
+
+body {
+  background: radial-gradient(circle at 20% 20%, rgba(88, 165, 255, 0.1), transparent 45%),
+    radial-gradient(circle at 80% 10%, rgba(255, 214, 102, 0.12), transparent 40%),
+    radial-gradient(circle at 70% 80%, rgba(255, 111, 145, 0.12), transparent 50%),
+    var(--bg-primary);
+  color: var(--text-primary);
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.page-shell {
+  position: relative;
+  padding: 5rem 1.5rem 7rem;
+}
+
+.page-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.hero-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.hero-kicker {
+  font-family: "JetBrains Mono", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+
+.hero-title {
+  font-family: "Fraunces", serif;
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  line-height: 1.05;
+  margin: 0;
+}
+
+.hero-subtitle {
+  color: var(--text-muted);
+  max-width: 720px;
+  font-size: 1.05rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.btn-primary,
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  border-radius: 999px;
+  padding: 0.55rem 1.2rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 180ms ease;
+}
+
+.btn-primary {
+  background: var(--accent-strong);
+  color: #041007;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.08);
+}
+
+.btn-ghost {
+  border: 1px solid var(--border-soft);
+  color: var(--text-primary);
+  background: transparent;
+}
+
+.btn-ghost:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-soft);
+  border-radius: 22px;
+  padding: 1.6rem;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3);
+}
+
+.card-grid {
+  display: grid;
+  gap: 1.4rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.section-title {
+  font-family: "Fraunces", serif;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  margin: 0 0 0.5rem;
+}
+
+.section-subtitle {
+  color: var(--text-muted);
+}
+
+@media (min-width: 768px) {
+  .page-shell {
+    padding: 6rem 2.5rem 8rem;
+  }
+}
 
 /* ===== Terminal-style Scrollbar ===== */
 

@@ -3,132 +3,197 @@ import "../styles/global.css";
 import resume from "../data/resume.json";
 ---
 
-<!-- TERMINAL SESSION -->
-<section class="bg-black px-4 py-14 font-mono text-white sm:px-6">
-  <div class="mx-auto max-w-6xl space-y-16">
-    <p class="text-sm tracking-wide text-green-400">$ resume --history</p>
+<section class="page-shell">
+  <div class="page-inner">
+    <div class="hero-block">
+      <span class="hero-kicker">$ resume --history</span>
+      <h1 class="hero-title">Resume Timeline</h1>
+      <p class="hero-subtitle">
+        A structured view of work experience, research output, and project
+        delivery. Click any entry to open full notes, references, and sources.
+      </p>
+    </div>
 
-    {
-      Object.entries(resume).map(([sectionKey, section], sectionIndex, sections) => {
-        const isLastSection = sectionIndex === sections.length - 1;
-        const isWork = sectionKey === "work";
+    <div class="card terminal-panel">
+      <div class="terminal-head">
+        <div class="terminal-dots">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+        <span class="terminal-title">resume.timeline</span>
+        <span class="terminal-badge">readonly</span>
+      </div>
 
-        return (
-          <div class="space-y-2">
-            <!-- Section (folder) -->
-            <div class="flex items-start gap-2">
-              <span class="text-white/40 select-none w-[3ch]">
-                {isLastSection ? "└──" : "├──"}
-              </span>
+      <div class="terminal-body font-mono">
+        {
+          Object.entries(resume).map(([sectionKey, section], sectionIndex, sections) => {
+            const isLastSection = sectionIndex === sections.length - 1;
+            const isWork = sectionKey === "work";
 
-              <div class={isWork ? "pl-2 border-l border-white/20" : ""}>
-                <p class="text-green-400">$ ls {section.label}/</p>
-                <p class="text-sm text-white/40">{section.description}</p>
-              </div>
-            </div>
-
-            <!-- Items -->
-            <div class="pl-[3ch] space-y-2">
-              {section.items.map((item, itemIndex) => {
-                const isLastItem = itemIndex === section.items.length - 1;
-
-                // Extract year / range safely
-                let year = "";
-                if (item.meta) {
-                  const rangeMatch = item.meta.match(
-                    /\b(19|20)\d{2}\s*–\s*(Present|(19|20)\d{2})\b/
-                  );
-                  const singleYearMatch = item.meta.match(/\b(19|20)\d{2}\b/);
-                  year = rangeMatch
-                    ? rangeMatch[0]
-                    : singleYearMatch
-                    ? singleYearMatch[0]
-                    : "";
-                }
-
-                const showGit =
-                  (sectionKey === "research" || sectionKey === "projects") &&
-                  item.github;
-
-                const showContributors =
-                  (sectionKey === "research" || sectionKey === "projects") &&
-                  item.contributors.length > 1;
-
-                return (
-                <button
-                  data-payload={JSON.stringify(item)}
-                  class={`group flex w-full items-start gap-2 text-left rounded-md
-                          ${isWork ? "bg-white/[0.02] hover:bg-white/[0.04]" : ""}
-                          transition`}
-                >
-                  <!-- Tree connector -->
-                  <span class="text-white/40 select-none w-[3ch] leading-6">
-                    {isLastItem ? "└──" : "├──"}
+            return (
+              <div class="space-y-2">
+                <div class="flex items-start gap-2">
+                  <span class="text-white/40 select-none w-[3ch]">
+                    {isLastSection ? "└──" : "├──"}
                   </span>
 
-                  <!-- Content -->
-                  <div class="flex w-full flex-col gap-1">
-                    <!-- ROW 1: Title + meta (DESKTOP) -->
-                    <div class="hidden sm:flex w-full items-center justify-between gap-4">
-                      <span class="px-1 py-0.5 text-white/80 group-hover:text-white">
-                       {item.title}
+                  <div class={isWork ? "pl-2 border-l border-white/20" : ""}>
+                    <p class="text-green-400">$ ls {section.label}/</p>
+                    <p class="text-sm text-white/40">{section.description}</p>
+                  </div>
+                </div>
+
+                <div class="pl-[3ch] space-y-2">
+                  {section.items.map((item, itemIndex) => {
+                    const isLastItem = itemIndex === section.items.length - 1;
+
+                    let year = "";
+                    if (item.meta) {
+                      const rangeMatch = item.meta.match(
+                        /\b(19|20)\d{2}\s*–\s*(Present|(19|20)\d{2})\b/
+                      );
+                      const singleYearMatch = item.meta.match(/\b(19|20)\d{2}\b/);
+                      year = rangeMatch
+                        ? rangeMatch[0]
+                        : singleYearMatch
+                        ? singleYearMatch[0]
+                        : "";
+                    }
+
+                    const showGit =
+                      (sectionKey === "research" || sectionKey === "projects") &&
+                      item.github;
+
+                    const showContributors =
+                      (sectionKey === "research" || sectionKey === "projects") &&
+                      item.contributors.length > 1;
+
+                    return (
+                    <button
+                      data-payload={JSON.stringify(item)}
+                      class={`group flex w-full items-start gap-2 text-left rounded-md
+                              ${isWork ? "bg-white/[0.02] hover:bg-white/[0.04]" : ""}
+                              transition`}
+                    >
+                      <span class="text-white/40 select-none w-[3ch] leading-6">
+                        {isLastItem ? "└──" : "├──"}
                       </span>
 
-                      {(year || showGit) && (
-                        <div class="flex items-center gap-3 text-xs text-white/40 shrink-0">
-                          {year && <span>[{year}]</span>}
-                          {showGit && <span class="text-green-400">⎇</span>}
-                          <span class="opacity-0 group-hover:opacity-100 transition">
-                            ↵ open
+                      <div class="flex w-full flex-col gap-1">
+                        <div class="hidden sm:flex w-full items-center justify-between gap-4">
+                          <span class="px-1 py-0.5 text-white/80 group-hover:text-white">
+                           {item.title}
                           </span>
+
+                          {(year || showGit) && (
+                            <div class="flex items-center gap-3 text-xs text-white/40 shrink-0">
+                              {year && <span>[{year}]</span>}
+                              {showGit && <span class="text-green-400">⎇</span>}
+                              <span class="opacity-0 group-hover:opacity-100 transition">
+                                ↵ open
+                              </span>
+                            </div>
+                          )}
                         </div>
-                      )}
-                    </div>
 
-                    <!-- ROW 1 (MOBILE): Title only -->
-                    <span class="sm:hidden px-1 py-0.5 text-white/80">
-                     {item.title}
-                    </span>
+                        <span class="sm:hidden px-1 py-0.5 text-white/80">
+                         {item.title}
+                        </span>
 
-                    <!-- ROW 2 (MOBILE): Meta + hint -->
-                    {(year || showGit) && (
-                      <div class="sm:hidden flex items-center gap-3 px-1 text-xs text-white/40">
-                        {year && <span>[{year}]</span>}
-                        {showGit && <span class="text-green-400">⎇ source</span>}
-                        <span class="text-white/30">tap to open</span>
+                        {(year || showGit) && (
+                          <div class="sm:hidden flex items-center gap-3 px-1 text-xs text-white/40">
+                            {year && <span>[{year}]</span>}
+                            {showGit && <span class="text-green-400">⎇ source</span>}
+                            <span class="text-white/30">tap to open</span>
+                          </div>
+                        )}
+
+                        {showContributors && (
+                          <div class="flex items-center gap-1 pl-1">
+                            {item.contributors.map((c) => (
+                              <span
+                                title={`${c.name} — ${c.role}`}
+                                class="flex h-5 w-5 items-center justify-center
+                                       rounded-full border border-white/20
+                                       bg-black/60
+                                       text-[10px] text-white/70"
+                              >
+                                {c.name.charAt(0).toUpperCase()}
+                              </span>
+                            ))}
+                          </div>
+                        )}
                       </div>
-                    )}
+                    </button>
 
-                    <!-- Contributors (unchanged) -->
-                    {showContributors && (
-                      <div class="flex items-center gap-1 pl-1">
-                        {item.contributors.map((c) => (
-                          <span
-                            title={`${c.name} — ${c.role}`}
-                            class="flex h-5 w-5 items-center justify-center
-                                   rounded-full border border-white/20
-                                   bg-black/60
-                                   text-[10px] text-white/70"
-                          >
-                            {c.name.charAt(0).toUpperCase()}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </button>
-
-                );
-              })}
-            </div>
-          </div>
-        );
-      })
-    }
-
-
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
   </div>
 </section>
+
+<style>
+  .terminal-panel {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .terminal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.4rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(9, 11, 18, 0.8);
+  }
+
+  .terminal-dots {
+    display: inline-flex;
+    gap: 0.4rem;
+  }
+
+  .terminal-dots .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    display: inline-block;
+  }
+
+  .terminal-dots .red {
+    background: #ff5f57;
+  }
+
+  .terminal-dots .yellow {
+    background: #febc2e;
+  }
+
+  .terminal-dots .green {
+    background: #28c840;
+  }
+
+  .terminal-title {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .terminal-badge {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .terminal-body {
+    padding: 2rem 1.6rem;
+  }
+</style>
 
 <!-- TERMINAL INSPECTOR -->
 <div

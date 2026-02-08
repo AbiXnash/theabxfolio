@@ -4,13 +4,13 @@ const isHome = path.length === 0;
 ---
 
 <header
-  class="sticky top-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur-xl"
+  class="sticky top-0 z-50 border-b border-white/10 bg-black/40 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.35)]"
 >
   <div
-    class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 font-mono text-xs sm:px-6 sm:text-sm"
+    class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 text-xs sm:px-6 sm:text-sm"
   >
     <!-- LEFT: BACK + BRAND + BREADCRUMB -->
-    <div class="flex items-center gap-2 overflow-x-auto text-green-400">
+    <div class="flex items-center gap-2 overflow-x-auto text-[var(--accent)]">
       <!-- BACK BUTTON (non-home) -->
       {
         !isHome && (
@@ -25,11 +25,11 @@ const isHome = path.length === 0;
       }
 
       <a href="/" class="shrink-0 transition hover:text-white">
-        <span class="text-green-500">abx@portfolio</span>
+        <span class="text-[var(--accent-strong)]">abx@portfolio</span>
       </a>
 
       <span class="mx-2 shrink-0 text-white/40">:</span>
-      <span class="shrink-0 text-blue-400">~</span>
+      <span class="shrink-0 text-[var(--accent-alt)]">~</span>
 
       <div class="flex min-w-0 items-center">
         {
@@ -52,7 +52,7 @@ const isHome = path.length === 0;
     </div>
 
     <!-- CENTER: STATUS (DESKTOP ONLY) -->
-    <div class="hidden items-center gap-3 text-white/30 md:flex">
+    <div class="hidden items-center gap-3 text-white/40 md:flex">
       <span id="sysTime" class="tracking-widest"></span>
       <span class="text-white/20">|</span>
       <span>status: <span class="text-green-400">online</span></span>
@@ -63,7 +63,7 @@ const isHome = path.length === 0;
       <!-- SEARCH (DESKTOP) -->
       <button
         id="openSearch"
-        class="hidden items-center gap-1 text-white/40 hover:text-white sm:flex"
+        class="hidden items-center gap-1 text-white/50 hover:text-white sm:flex"
         aria-label="search"
       >
         <span>/</span>
@@ -71,7 +71,7 @@ const isHome = path.length === 0;
       </button>
 
       <!-- NAV (DESKTOP) -->
-      <nav class="hidden items-center gap-4 text-white/60 sm:flex">
+      <nav class="hidden items-center gap-5 text-white/60 sm:flex">
         <a href="/resume" class="transition hover:text-white"> resume </a>
         <a href="/service" class="transition hover:text-white"> service </a>
         <a href="/contact" class="transition hover:text-white"> contact </a>
@@ -79,10 +79,9 @@ const isHome = path.length === 0;
 
       <!-- MOBILE ACTIONS -->
       <div class="relative flex items-center gap-3 sm:hidden">
-        <!-- SEARCH (MOBILE) -->
         <button
-          id="openSearch"
-          class="hidden items-center gap-1 text-white/40 hover:text-white sm:flex"
+          id="openSearchMobile"
+          class="flex items-center gap-1 text-white/50 hover:text-white"
           aria-label="search"
         >
           <span>/</span>
