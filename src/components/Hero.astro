@@ -1,33 +1,11 @@
----
-import resume from "../data/resume.json";
-
-const projectCount = resume?.projects?.items?.length ?? 0;
-const researchCount = resume?.research?.items?.length ?? 0;
-const workStart = resume?.work?.items?.[0]?.startDate;
-const calcYears = (dateStr) => {
-  if (!dateStr) return "";
-  const start = new Date(dateStr);
-  const now = new Date();
-  const months =
-    now.getFullYear() * 12 + now.getMonth() -
-    (start.getFullYear() * 12 + start.getMonth());
-  const years = Math.floor(months / 12);
-  const rem = months % 12;
-  if (years <= 0) return `${rem} mo`;
-  return `${years} yr${years > 1 ? "s" : ""} ${rem} mo`;
-};
-
-const experienceLabel = workStart ? calcYears(workStart) : "";
----
-
 <section class="page-shell hero-shell">
   <div class="page-inner hero-layout">
-    <div class="hero-content">
+    <div class="hero-content" data-reveal>
       <span class="hero-kicker">$ whoami</span>
       <h1 class="hero-title">Abinash S</h1>
       <p class="hero-subtitle">
-        Software Engineer focused on backend systems, reliable architectures,
-        and production-grade delivery across banking, web, and applied research.
+        Backend engineer shipping resilient payment systems and research-grade
+        cybersecurity solutions.
       </p>
 
       <div class="hero-actions">
@@ -43,33 +21,16 @@ const experienceLabel = workStart ? calcYears(workStart) : "";
       </div>
 
       <div class="hero-quick">
-        <a class="quick-link" href="https://github.com/AbiXnash" target="_blank">
-          GitHub
-        </a>
-        <span class="quick-divider"></span>
-        <span class="quick-note">Open to backend consulting</span>
-      </div>
-
-      <div class="hero-stats">
-        <div class="stat-card">
-          <div class="stat-label">Experience</div>
-          <div class="stat-value">{experienceLabel || "1+ year"}</div>
-          <div class="stat-sub">Backend systems</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Projects</div>
-          <div class="stat-value">{projectCount}</div>
-          <div class="stat-sub">Shipped builds</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Research</div>
-          <div class="stat-value">{researchCount}</div>
-          <div class="stat-sub">Cybersecurity + IIoT</div>
-        </div>
+        <span class="hero-focus-badge">
+          Focus: <span id="focusLineBadge">Backend reliability & payment flows</span>
+        </span>
       </div>
     </div>
 
-    <div class="hero-card">
+    <div class="hero-card float-soft" data-reveal>
+      <div class="hero-card-orb"></div>
+      <div class="hero-card-orb orb-two"></div>
+      <div class="hero-card-glow"></div>
       <div class="hero-card-header">
         <span class="hero-kicker">status</span>
         <span class="hero-status">available for select work</span>
@@ -86,6 +47,10 @@ const experienceLabel = workStart ? calcYears(workStart) : "";
         <div class="hero-row">
           <span class="hero-label">Research</span>
           <span class="hero-value">IIoT intrusion detection systems</span>
+        </div>
+        <div class="hero-row">
+          <span class="hero-label">Availability</span>
+          <span class="hero-value">Remote · Long-term · Project-based</span>
         </div>
       </div>
       <div class="hero-card-footer">
@@ -106,6 +71,7 @@ const experienceLabel = workStart ? calcYears(workStart) : "";
     const icon = document.getElementById("heartIcon");
     const countEl = document.getElementById("heartCount");
     const focusLine = document.getElementById("focusLine");
+    const focusBadge = document.getElementById("focusLineBadge");
 
     let count = Number(localStorage.getItem("hero-hearts") || 0);
     countEl.textContent = count;
@@ -130,10 +96,17 @@ const experienceLabel = workStart ? calcYears(workStart) : "";
         "Secure infrastructure & auditability",
       ];
       let idx = 0;
-      setInterval(() => {
+      const update = () => {
         idx = (idx + 1) % lines.length;
         focusLine.textContent = lines[idx];
-      }, 6000);
+        if (focusBadge) {
+          focusBadge.classList.remove("fade-in");
+          void focusBadge.offsetWidth;
+          focusBadge.textContent = lines[idx];
+          focusBadge.classList.add("fade-in");
+        }
+      };
+      setInterval(update, 6000);
     }
   });
 </script>
@@ -153,6 +126,7 @@ const experienceLabel = workStart ? calcYears(workStart) : "";
   .hero-content {
     display: grid;
     gap: 1.2rem;
+    position: relative;
   }
 
   .hero-actions {
@@ -168,9 +142,11 @@ const experienceLabel = workStart ? calcYears(workStart) : "";
   }
 
   .hero-card {
+    position: relative;
+    overflow: hidden;
     border-radius: 24px;
-    border: 1px solid var(--border-soft);
-    background: var(--bg-elevated);
+    border: 1px solid rgba(205, 214, 244, 0.12);
+    background: rgba(24, 24, 37, 0.55);
     padding: 1.6rem;
     display: grid;
     gap: 1.2rem;
@@ -178,6 +154,8 @@ const experienceLabel = workStart ? calcYears(workStart) : "";
   }
 
   .hero-card-header {
+    position: relative;
+    z-index: 1;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -191,6 +169,8 @@ const experienceLabel = workStart ? calcYears(workStart) : "";
   }
 
   .hero-card-body {
+    position: relative;
+    z-index: 1;
     display: grid;
     gap: 0.9rem;
   }
@@ -212,9 +192,44 @@ const experienceLabel = workStart ? calcYears(workStart) : "";
   }
 
   .hero-card-footer {
+    position: relative;
+    z-index: 1;
     display: flex;
     align-items: center;
     gap: 0.8rem;
+  }
+
+  .hero-card-orb {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    top: -120px;
+    right: -60px;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(137, 180, 250, 0.35), transparent 70%);
+    opacity: 0.7;
+  }
+
+  .hero-card-orb.orb-two {
+    width: 160px;
+    height: 160px;
+    bottom: -80px;
+    left: -40px;
+    background: radial-gradient(circle, rgba(203, 166, 247, 0.25), transparent 70%);
+    opacity: 0.5;
+  }
+
+  .hero-card-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    background: linear-gradient(140deg, rgba(137, 180, 250, 0.08), transparent 40%);
+    opacity: 0;
+    transition: opacity 200ms ease;
+  }
+
+  .hero-card:hover .hero-card-glow {
+    opacity: 1;
   }
 
   .panel-like {
@@ -241,51 +256,23 @@ const experienceLabel = workStart ? calcYears(workStart) : "";
   .hero-quick {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: 0.6rem;
     font-size: 0.8rem;
     color: var(--text-muted);
   }
 
-  .quick-link {
-    color: var(--accent-alt);
-  }
-
-  .quick-divider {
-    width: 1px;
-    height: 14px;
-    background: rgba(255, 255, 255, 0.2);
-  }
-
-  .hero-stats {
-    display: grid;
-    gap: 1rem;
-  }
-
-  .stat-card {
-    border-radius: 18px;
-    border: 1px solid var(--border-soft);
-    background: rgba(14, 18, 30, 0.65);
-    padding: 1rem 1.2rem;
-    display: grid;
-    gap: 0.4rem;
-  }
-
-  .stat-label {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
+  .hero-focus-badge {
+    display: inline-flex;
+    gap: 0.3rem;
+    align-items: center;
+    font-size: 0.75rem;
     color: var(--text-dim);
   }
 
-  .stat-value {
-    font-size: 1.1rem;
-    color: var(--text-primary);
+  #focusLineBadge.fade-in {
+    animation: fadeUp 600ms ease;
   }
 
-  .stat-sub {
-    color: var(--text-muted);
-    font-size: 0.8rem;
-  }
 
   @media (min-width: 980px) {
     .hero-layout {
@@ -293,8 +280,16 @@ const experienceLabel = workStart ? calcYears(workStart) : "";
       align-items: center;
     }
 
-    .hero-stats {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @keyframes fadeUp {
+    0% {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 </style>

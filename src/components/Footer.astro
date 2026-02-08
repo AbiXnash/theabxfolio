@@ -1,17 +1,22 @@
+---
+const year = new Date().getFullYear();
+const email = "mailto:abinash@theabx.in";
+const github = "https://github.com/AbiXnash";
+const linkedin = "https://linkedin.com/in/abinash-selvarasu";
+---
+
 <footer class="footer-shell">
   <div class="footer-orb"></div>
-  <div class="footer-orb footer-orb-small"></div>
-
   <div class="footer-inner">
     <div class="footer-left">
-      <span class="footer-kicker">system</span>
-      <div class="footer-title">abx@portfolio</div>
+      <span class="footer-kicker">Portfolio</span>
+      <div class="footer-title">Abinash S</div>
       <p class="footer-subtitle">
-        Premium terminal UI · keyboard-first · low-noise layout
+        Premium backend engineering · payments · research systems
       </p>
       <div class="footer-status">
         <span class="status-dot"></span>
-        <span class="text-[var(--accent)]">operational</span>
+        <span class="text-[var(--accent)]">Operational</span>
         <span class="text-white/30">·</span>
         <span id="uptime" class="text-white/40">uptime 00:00:00</span>
       </div>
@@ -19,19 +24,33 @@
 
     <div class="footer-nav">
       <div class="footer-nav-title">Navigate</div>
-      <a href="/resume">Resume</a>
-      <a href="/service">Service</a>
-      <a href="/contact">Contact</a>
+      <a href="/resume"><span class="footer-icon">⎯</span>Resume</a>
+      <a href="/service"><span class="footer-icon">◈</span>Service</a>
+      <a href="/contact"><span class="footer-icon">✦</span>Contact</a>
     </div>
 
     <div class="footer-right">
-      <div class="footer-nav-title">Stack</div>
-      <div class="footer-stack">
-        <span>Astro</span>
-        <span>·</span>
-        <span>Bun</span>
-      </div>
-      <div class="footer-copy">© {new Date().getFullYear()} Abinash S</div>
+      <div class="footer-nav-title">Connect</div>
+      <a href={email}>
+        <svg class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 6h16v12H4z"></path>
+          <path d="m4 7 8 6 8-6"></path>
+        </svg>
+        abinash@theabx.in
+      </a>
+      <a href={github} target="_blank">
+        <svg class="footer-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2C6.48 2 2 6.58 2 12.28c0 4.52 2.87 8.36 6.84 9.72.5.1.68-.22.68-.48v-1.7c-2.78.62-3.37-1.4-3.37-1.4-.45-1.16-1.1-1.47-1.1-1.47-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.9 1.56 2.36 1.11 2.94.85.09-.67.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.05 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.32.1-2.75 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.43.2 2.49.1 2.75.64.72 1.03 1.63 1.03 2.75 0 3.92-2.34 4.78-4.57 5.03.36.32.68.94.68 1.9v2.82c0 .26.18.58.69.48A10.3 10.3 0 0 0 22 12.28C22 6.58 17.52 2 12 2z"></path>
+        </svg>
+        GitHub
+      </a>
+      <a href={linkedin} target="_blank">
+        <svg class="footer-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.6h.05c.53-1 1.83-2.1 3.75-2.1C20 8.5 21 10.7 21 14v7h-4v-6.2c0-1.5 0-3.4-2.1-3.4s-2.4 1.6-2.4 3.3V21H9z"></path>
+        </svg>
+        LinkedIn
+      </a>
+      <div class="footer-copy">© {year} Abinash S</div>
     </div>
   </div>
 </footer>
@@ -43,30 +62,21 @@
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     background: radial-gradient(circle at 20% 20%, rgba(30, 38, 60, 0.35), transparent 55%),
       radial-gradient(circle at 80% 30%, rgba(12, 14, 22, 0.9), transparent 50%),
-      rgba(5, 6, 12, 0.9);
-    backdrop-filter: blur(18px);
+      rgba(8, 8, 16, 0.28);
+    backdrop-filter: blur(26px);
   }
 
   .footer-orb {
     position: absolute;
     inset: auto;
-    width: 480px;
-    height: 480px;
-    right: -160px;
-    top: -200px;
+    width: 420px;
+    height: 420px;
+    right: -140px;
+    top: -160px;
     border-radius: 999px;
-    background: radial-gradient(circle, rgba(0, 0, 0, 0.9), rgba(20, 32, 58, 0.15) 55%, transparent 70%);
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.9), rgba(20, 32, 58, 0.2) 55%, transparent 70%);
     box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.8), 0 0 80px rgba(20, 32, 58, 0.45);
     opacity: 0.9;
-  }
-
-  .footer-orb-small {
-    width: 220px;
-    height: 220px;
-    right: 30%;
-    top: -80px;
-    opacity: 0.6;
-    filter: blur(1px);
   }
 
   .footer-inner {
@@ -131,35 +141,45 @@
     color: var(--text-dim);
   }
 
-  .footer-nav a {
+  .footer-nav a,
+  .footer-right a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     color: var(--text-muted);
     transition: color 160ms ease;
+    line-height: 1.1;
   }
 
-  .footer-nav a:hover {
+  .footer-nav a:hover,
+  .footer-right a:hover {
     color: #fff;
-  }
-
-  .footer-stack {
-    display: flex;
-    gap: 0.6rem;
-    color: var(--text-muted);
   }
 
   .footer-copy {
     color: var(--text-dim);
     font-size: 0.8rem;
+    margin-top: 0.4rem;
+  }
+
+  .footer-icon {
+    width: 14px;
+    height: 14px;
+    color: var(--accent-alt);
+    opacity: 0.75;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   @media (min-width: 860px) {
     .footer-inner {
-      grid-template-columns: 1.2fr 0.6fr 0.6fr;
-      align-items: center;
+      grid-template-columns: 1.2fr 0.6fr 0.8fr;
+      align-items: start;
     }
   }
 </style>
 
-<!-- UPTIME SCRIPT -->
 <script>
   const uptimeEl = document.getElementById("uptime");
   if (uptimeEl) {

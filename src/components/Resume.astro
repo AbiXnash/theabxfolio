@@ -38,52 +38,66 @@ const extractYear = (meta) => {
 
 const detailLines = (details) =>
   details ? details.trim().split("\n").filter((l) => l.trim()) : [];
+
+const sectionIcon = (key) => {
+  switch (key) {
+    case "work":
+      return "⎯";
+    case "projects":
+      return "◈";
+    case "research":
+      return "✦";
+    default:
+      return "•";
+  }
+};
 ---
 
 <section class="page-shell">
   <div class="page-inner resume-story">
-    <div class="hero-block">
+    <div class="hero-block" data-reveal>
       <span class="hero-kicker">Resume</span>
       <h1 class="hero-title">Story Timeline</h1>
       <p class="hero-subtitle">
         A narrative timeline of work, research, and projects designed for
         readability across all devices.
       </p>
-    </div>
-
-    <div class="resume-toolbar">
-      <nav class="resume-tabs" aria-label="Resume sections">
-        {Object.entries(resume)
-          .filter(([sectionKey]) => sectionKey !== "education")
-          .map(([sectionKey, section]) => (
-            <a class="tab-link" href={`#${sectionKey}`}>
-              {section.label}
-            </a>
-          ))}
-      </nav>
-
-      <div class="toolbar-actions">
-        <button id="motionToggle" class="btn-ghost" type="button">
-          Reduce motion
-        </button>
-      </div>
+      <p class="section-hint">
+        Tip: Tap any card to expand for details. On desktop, use arrow keys to
+        browse the project and research showcase.
+      </p>
     </div>
 
     {Object.entries(resume)
       .filter(([sectionKey]) => sectionKey !== "education")
       .map(([sectionKey, section]) => (
-      <section class="story-section" id={sectionKey}>
+      <section class="story-section" id={sectionKey} data-reveal>
         <div class="story-head">
           <div class="section-line">
-            <h2 class="section-title">{section.label}</h2>
+            <h2 class="section-title">
+              <span class="section-icon">{sectionIcon(sectionKey)}</span>
+              {section.label}
+            </h2>
             <button class="copy-link" type="button" data-copy={sectionKey}>
               Copy link
             </button>
           </div>
           <p class="section-subtitle">{section.description}</p>
+          {sectionKey === "work" ? (
+            <p class="section-hint">Hint: Click a role to expand highlights.</p>
+          ) : (
+            <p class="section-hint">
+              Hint: Select a card to see the deep‑dive panel. Tap to expand on
+              mobile.
+            </p>
+          )}
         </div>
 
-        {sectionKey === "work" ? (
+        {section.items.length === 0 ? (
+          <div class="empty-card">
+            No items published yet. Updates coming soon.
+          </div>
+        ) : sectionKey === "work" ? (
           <div class="story-list">
             {section.items.map((item) => {
               const year = extractYear(item.meta);
@@ -92,8 +106,8 @@ const detailLines = (details) =>
               const showSkills = Array.isArray(item.skills) && item.skills.length;
 
               return (
-                <details class="story-card">
-                  <summary class="story-summary">
+                <details class="story-card" data-reveal>
+                  <summary class="story-summary" title="Click to expand">
                     <div class="story-rail">
                       <span class="rail-dot"></span>
                       <span class="rail-line"></span>
@@ -162,7 +176,7 @@ const detailLines = (details) =>
             })}
           </div>
         ) : (
-          <div class="showcase" data-showcase={sectionKey}>
+          <div class="showcase" data-showcase={sectionKey} data-reveal>
             <div class="showcase-list">
               {section.items.map((item, idx) => {
                 const year = extractYear(item.meta);
@@ -173,7 +187,7 @@ const detailLines = (details) =>
                 const showSkills = Array.isArray(item.skills) && item.skills.length;
                 return (
                   <details class="showcase-item" data-index={idx}>
-                    <summary class="showcase-summary">
+                    <summary class="showcase-summary" title="Tap to expand">
                       <div class="showcase-title">{item.title}</div>
                       <div class="showcase-intro">{item.intro}</div>
                       <div class="showcase-meta">
@@ -387,21 +401,6 @@ const detailLines = (details) =>
       });
     });
 
-    const motionToggle = document.getElementById("motionToggle");
-    if (motionToggle) {
-      const apply = (value) => {
-        document.documentElement.classList.toggle("reduce-motion", value);
-        motionToggle.textContent = value ? "Motion off" : "Reduce motion";
-      };
-      const saved = localStorage.getItem("reduce-motion") === "true";
-      apply(saved);
-      motionToggle.addEventListener("click", () => {
-        const next = !document.documentElement.classList.contains("reduce-motion");
-        localStorage.setItem("reduce-motion", String(next));
-        apply(next);
-      });
-    }
-
     const copyButtons = document.querySelectorAll("[data-copy]");
     copyButtons.forEach((btn) => {
       btn.addEventListener("click", async () => {
@@ -442,50 +441,6 @@ const detailLines = (details) =>
     gap: 3.5rem;
   }
 
-  .resume-toolbar {
-    position: sticky;
-    top: 1rem;
-    z-index: 10;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.8rem 1rem;
-    border-radius: 18px;
-    border: 1px solid var(--border-soft);
-    background: rgba(10, 14, 24, 0.82);
-    backdrop-filter: blur(18px);
-  }
-
-  .resume-tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-  }
-
-  .tab-link {
-    padding: 0.35rem 0.8rem;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--text-muted);
-    transition: all 160ms ease;
-  }
-
-  .tab-link:hover,
-  .tab-link:focus-visible {
-    color: var(--text-primary);
-    border-color: rgba(255, 255, 255, 0.3);
-  }
-
-  .toolbar-actions {
-    display: flex;
-    gap: 0.6rem;
-  }
-
   .story-section {
     display: grid;
     gap: 1.8rem;
@@ -496,12 +451,23 @@ const detailLines = (details) =>
     gap: 0.5rem;
   }
 
+  .section-hint {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+  }
+
   .section-line {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 0.8rem;
     align-items: center;
+  }
+
+  .section-icon {
+    color: var(--accent-alt);
+    margin-right: 0.4rem;
+    font-size: 0.9rem;
   }
 
   .copy-link {
@@ -529,8 +495,8 @@ const detailLines = (details) =>
   .story-card {
     position: relative;
     border-radius: 26px;
-    border: 1px solid var(--border-soft);
-    background: var(--bg-elevated);
+    border: 1px solid rgba(205, 214, 244, 0.12);
+    background: rgba(24, 24, 37, 0.55);
     backdrop-filter: blur(18px);
     transition: border-color 180ms ease, transform 180ms ease;
   }
@@ -709,8 +675,8 @@ const detailLines = (details) =>
     text-align: left;
     padding: 1.2rem 1.4rem;
     border-radius: 18px;
-    border: 1px solid var(--border-soft);
-    background: rgba(12, 16, 28, 0.65);
+    border: 1px solid rgba(205, 214, 244, 0.12);
+    background: rgba(20, 20, 32, 0.55);
     display: grid;
     gap: 0.6rem;
     transition: border-color 160ms ease, transform 160ms ease;
@@ -740,6 +706,14 @@ const detailLines = (details) =>
     border-radius: 12px;
   }
 
+  .empty-card {
+    border-radius: 18px;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    padding: 1.6rem;
+    color: var(--text-muted);
+    background: rgba(10, 14, 24, 0.5);
+  }
+
   .showcase-mobile {
     display: none;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -766,8 +740,8 @@ const detailLines = (details) =>
   .showcase-panel {
     position: relative;
     border-radius: 24px;
-    border: 1px solid var(--border-soft);
-    background: rgba(10, 14, 24, 0.7);
+    border: 1px solid rgba(205, 214, 244, 0.12);
+    background: rgba(20, 20, 32, 0.55);
     backdrop-filter: blur(18px);
     padding: 1.6rem;
     min-height: 320px;
@@ -855,8 +829,4 @@ const detailLines = (details) =>
     transform: translateY(0);
   }
 
-  :global(html.reduce-motion *) {
-    animation: none !important;
-    transition: none !important;
-  }
 </style>

@@ -4,185 +4,283 @@ const isHome = path.length === 0;
 const isActive = (href) => Astro.url.pathname === href;
 ---
 
-<header
-  class="sticky top-0 z-50 border-b border-white/10 bg-black/30 backdrop-blur-2xl shadow-[0_12px_40px_rgba(0,0,0,0.45)]"
->
-  <div
-    class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 text-xs sm:px-6 sm:text-sm"
-  >
-    <!-- LEFT: BACK + BRAND + BREADCRUMB -->
-    <div class="flex items-center gap-2 overflow-x-auto text-[var(--accent)]">
-      <!-- BACK BUTTON (non-home) -->
-      {
-        !isHome && (
-          <button
-            onclick="history.back()"
-            class="text-white/40 transition hover:text-white"
-            aria-label="go back"
-          >
-            ←
-          </button>
-        )
-      }
-
-      <a href="/" class="brand-link">
-        <span class="brand-badge">abx@portfolio</span>
-      </a>
-
-      <span class="mx-2 shrink-0 text-white/40">:</span>
-      <span class="shrink-0 text-[var(--accent-alt)]">~</span>
-
-      <div class="flex min-w-0 items-center">
-        {
-          isHome ? (
-            <span class="ml-2 text-white/60">/</span>
-          ) : (
-            path.map((segment) => (
-              <span class="ml-2 whitespace-nowrap text-white/60">
-                /
-                <a href={`/${segment}`} class="transition hover:text-white">
-                  {segment}
-                </a>
-              </span>
-            ))
-          )
-        }
-      </div>
-
-      <span class="ml-2 shrink-0 animate-pulse text-white/40">▍</span>
-    </div>
-
-    <!-- CENTER: STATUS (DESKTOP ONLY) -->
-    <div class="hidden items-center gap-3 text-white/40 md:flex">
-      <span id="sysTime" class="tracking-widest"></span>
-      <span class="text-white/20">|</span>
-      <span>status: <span class="text-[var(--accent)]">online</span></span>
-    </div>
-
-    <!-- RIGHT: ACTIONS -->
-    <div class="flex items-center gap-4">
-      <!-- NAV (DESKTOP) -->
-      <nav class="hidden items-center gap-2 text-white/60 sm:flex">
-        <a
-          href="/resume"
-          class={`nav-link ${isActive("/resume") ? "is-active" : ""}`}
-        >
-          resume
-        </a>
-        <a
-          href="/service"
-          class={`nav-link ${isActive("/service") ? "is-active" : ""}`}
-        >
-          service
-        </a>
-        <a
-          href="/contact"
-          class={`nav-link ${isActive("/contact") ? "is-active" : ""}`}
-        >
-          contact
-        </a>
-      </nav>
-
-      <!-- MOBILE ACTIONS -->
-      <div class="relative flex items-center gap-3 sm:hidden">
-
-        <!-- MENU -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand-wrap">
+      {!isHome && (
         <button
-          id="navToggle"
-          class="flex items-center gap-1 text-white/60 hover:text-white"
-          aria-label="menu"
+          onclick="history.back()"
+          class="back-btn"
+          aria-label="go back"
         >
-          <span>ls</span>
-          <span class="text-[10px] text-white/30">(menu)</span>
+          ←
         </button>
+      )}
+      <a href="/" class="brand-link">
+        <span class="brand-dot"></span>
+        <span class="brand-title">Abinash S</span>
+        <span class="brand-sub">Software Engineer</span>
+      </a>
+    </div>
 
-        <div
-          id="navMenu"
-          class="absolute top-7 right-0 hidden rounded-lg border border-white/10 bg-black/90 text-xs text-white/70 backdrop-blur"
-        >
-          <a
-            href="/resume"
-            class={`block px-4 py-2 hover:bg-white/10 ${isActive("/resume") ? "text-white" : ""}`}
-          >
-            resume
-          </a>
-          <a
-            href="/service"
-            class={`block px-4 py-2 hover:bg-white/10 ${isActive("/service") ? "text-white" : ""}`}
-          >
-            service
-          </a>
-          <a
-            href="/contact"
-            class={`block px-4 py-2 hover:bg-white/10 ${isActive("/contact") ? "text-white" : ""}`}
-          >
-            contact
-          </a>
-        </div>
+    <nav class="nav-links">
+      <a href="/resume" class={`nav-link ${isActive("/resume") ? "is-active" : ""}`}>
+        <span class="nav-icon">⎯</span>
+        Resume
+      </a>
+      <a href="/service" class={`nav-link ${isActive("/service") ? "is-active" : ""}`}>
+        <span class="nav-icon">◈</span>
+        Service
+      </a>
+      <a href="/contact" class={`nav-link ${isActive("/contact") ? "is-active" : ""}`}>
+        <span class="nav-icon">✦</span>
+        Contact
+      </a>
+    </nav>
+
+    <div class="header-actions">
+      <button id="navToggle" class="menu-btn" type="button">Menu</button>
+      <div id="navMenu" class="menu-panel">
+        <a href="/resume" class={`menu-link ${isActive("/resume") ? "is-active" : ""}`}>
+          <span class="nav-icon">⎯</span>
+          Resume
+        </a>
+        <a href="/service" class={`menu-link ${isActive("/service") ? "is-active" : ""}`}>
+          <span class="nav-icon">◈</span>
+          Service
+        </a>
+        <a href="/contact" class={`menu-link ${isActive("/contact") ? "is-active" : ""}`}>
+          <span class="nav-icon">✦</span>
+          Contact
+        </a>
       </div>
+      <span class="flag" aria-label="India">🇮🇳</span>
+      <a class="github-btn" href="https://github.com/AbiXnash" target="_blank">
+        <svg class="gh-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M12 2C6.48 2 2 6.58 2 12.28c0 4.52 2.87 8.36 6.84 9.72.5.1.68-.22.68-.48v-1.7c-2.78.62-3.37-1.4-3.37-1.4-.45-1.16-1.1-1.47-1.1-1.47-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.9 1.56 2.36 1.11 2.94.85.09-.67.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.05 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.32.1-2.75 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.43.2 2.49.1 2.75.64.72 1.03 1.63 1.03 2.75 0 3.92-2.34 4.78-4.57 5.03.36.32.68.94.68 1.9v2.82c0 .26.18.58.69.48A10.3 10.3 0 0 0 22 12.28C22 6.58 17.52 2 12 2z"
+          ></path>
+        </svg>
+        <span>GitHub</span>
+      </a>
     </div>
   </div>
 </header>
 
 <style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(18px);
+    background: rgba(17, 17, 27, 0.32);
+    border-bottom: 1px solid rgba(205, 214, 244, 0.08);
+  }
+
+  .header-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0.9rem 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .brand-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .back-btn {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+  }
+
   .brand-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    transition: all 160ms ease;
+    gap: 0.6rem;
+    white-space: nowrap;
   }
 
-  .brand-badge {
-    padding: 0.25rem 0.7rem;
+  .brand-dot {
+    width: 10px;
+    height: 10px;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.08);
-    color: var(--accent);
-    letter-spacing: 0.08em;
+    background: var(--accent-alt);
+    box-shadow: 0 0 12px rgba(145, 180, 255, 0.6);
+  }
+
+  .brand-title {
+    font-family: "Fraunces", serif;
+    font-size: 1rem;
+    color: var(--text-primary);
+  }
+
+  .brand-sub {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
+  .nav-links {
+    display: none;
+    gap: 0.8rem;
   }
 
   .nav-link {
-    position: relative;
-    padding: 0.35rem 0.75rem;
+    padding: 0.35rem 0.9rem;
     border-radius: 999px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
     transition: all 160ms ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
   }
 
-  .nav-link:hover {
-    color: #fff;
-    background: rgba(255, 255, 255, 0.06);
-  }
-
+  .nav-link:hover,
   .nav-link.is-active {
-    color: #0b1d13;
-    background: var(--accent);
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    position: relative;
+  }
+
+  .menu-btn {
+    border-radius: 999px;
+    border: 1px solid rgba(205, 214, 244, 0.18);
+    padding: 0.35rem 0.8rem;
+    font-size: 0.75rem;
+    color: var(--text-primary);
+    background: rgba(17, 17, 27, 0.55);
+  }
+
+  .menu-panel {
+    position: absolute;
+    right: 0;
+    top: 2.9rem;
+    width: min(240px, 80vw);
+    display: none;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 0.7rem;
+    border-radius: 18px;
+    border: 1px solid rgba(205, 214, 244, 0.14);
+    background: rgba(17, 17, 27, 0.92);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(18px);
+  }
+
+  .menu-panel.is-open {
+    display: flex;
+  }
+
+  .flag {
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .github-btn {
+    border-radius: 999px;
+    border: 1px solid rgba(205, 214, 244, 0.18);
+    padding: 0.35rem 0.8rem;
+    font-size: 0.75rem;
+    color: #cdd6f4;
+    background: rgba(17, 17, 27, 0.75);
+    transition: all 160ms ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .github-btn:hover {
+    border-color: rgba(137, 180, 250, 0.45);
+    background: rgba(17, 17, 27, 0.95);
+    transform: translateY(-1px);
+  }
+
+  .gh-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .menu-link {
+    padding: 0.55rem 0.7rem;
+    border-radius: 12px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .menu-link.is-active,
+  .menu-link:hover {
+    color: var(--text-primary);
+    background: rgba(137, 180, 250, 0.14);
+  }
+
+  .nav-icon {
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+
+  @media (min-width: 860px) {
+    .nav-links {
+      display: flex;
+    }
+
+    .menu-btn {
+      display: none;
+    }
+  }
+
+  @media (max-width: 859px) {
+    .menu-panel {
+      position: fixed;
+      left: 1rem;
+      right: 1rem;
+      bottom: 1rem;
+      top: auto;
+      width: auto;
+      border-radius: 20px;
+      padding: 0.9rem;
+      transform: translateY(12px);
+      opacity: 0;
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .menu-panel.is-open {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 </style>
 
-<!-- HEADER SCRIPT -->
 <script>
-  /* ---------- SYSTEM TIME ---------- */
-  const timeEl = document.getElementById("sysTime");
-  if (timeEl) {
-    const updateTime = () => {
-      const d = new Date();
-      timeEl.textContent = `[${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}:${String(d.getSeconds()).padStart(2, "0")}]`;
-    };
-    updateTime();
-    setInterval(updateTime, 1000);
-  }
-
-  /* ---------- MOBILE MENU ---------- */
   document.addEventListener("DOMContentLoaded", () => {
     const toggle = document.getElementById("navToggle");
     const menu = document.getElementById("navMenu");
+    if (!toggle || !menu) return;
 
-    toggle?.addEventListener("click", () => {
-      menu.classList.toggle("hidden");
+    toggle.addEventListener("click", () => {
+      menu.classList.toggle("is-open");
     });
 
-    document.addEventListener("click", (e) => {
-      if (!toggle.contains(e.target) && !menu.contains(e.target)) {
-        menu.classList.add("hidden");
+    document.addEventListener("click", (event) => {
+      if (!menu.contains(event.target) && !toggle.contains(event.target)) {
+        menu.classList.remove("is-open");
       }
     });
   });

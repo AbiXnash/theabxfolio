@@ -1,67 +1,173 @@
 <section class="page-shell">
-  <div class="page-inner">
-    <div class="hero-block">
+  <div class="page-inner service-shell">
+    <div class="hero-block" data-reveal>
       <span class="hero-kicker">$ services --list</span>
       <h1 class="hero-title">Services & Collaboration</h1>
       <p class="hero-subtitle">
-        Professional services focused on engineering quality, clarity, and
-        real-world outcomes.
+        Premium engineering support for backend systems, transaction platforms,
+        and research-grade prototypes. Clear scope, measurable delivery, and
+        careful documentation.
+      </p>
+      <p class="section-hint">
+        Hint: Choose a track below, then check the process and FAQ for timelines.
       </p>
     </div>
 
-    <div class="card-grid">
-      <div class="card service-card">
-        <h2 class="section-title">Resume</h2>
-        <p class="section-subtitle">
-          Career materials built for engineering roles with emphasis on impact
-          and structure.
-        </p>
-        <ul class="service-list">
-          <li>Resume build</li>
-          <li>Resume review + ATS alignment</li>
-        </ul>
-        <div class="service-detail">
-          <p>Includes impact framing, keywords, and role alignment.</p>
+    <div class="service-grid">
+      <article class="card service-card" data-reveal>
+        <div class="service-head">
+          <h2 class="section-title">
+            <span class="service-icon">◈</span>
+            Architecture & Strategy
+          </h2>
+          <span class="service-tag">advisory</span>
         </div>
-      </div>
-
-      <div class="card service-card">
-        <h2 class="section-title">Collaboration</h2>
         <p class="section-subtitle">
-          Architecture and implementation support for academic and early-stage
-          projects.
+          System design, roadmap alignment, and technical planning for banking,
+          payments, and data-heavy platforms.
         </p>
         <ul class="service-list">
-          <li>Project collaboration</li>
-          <li>System design guidance</li>
+          <li>System design reviews</li>
+          <li>Risk, compliance, and audit readiness</li>
+          <li>Migration and scale planning</li>
         </ul>
         <div class="service-detail">
-          <p>Ideal for research prototypes, MVPs, and system planning.</p>
+          Deliverables include architecture docs, threat modeling inputs, and
+          aligned milestones.
         </div>
-      </div>
+      </article>
 
-      <div class="card service-card">
-        <h2 class="section-title">Development</h2>
+      <article class="card service-card" data-reveal>
+        <div class="service-head">
+          <h2 class="section-title">
+            <span class="service-icon">⎯</span>
+            Backend Engineering
+          </h2>
+          <span class="service-tag">build</span>
+        </div>
         <p class="section-subtitle">
-          Product-focused development across websites, APIs, and systems.
+          Production APIs, transaction workflows, and microservice delivery with
+          clean observability and testing.
         </p>
         <ul class="service-list">
-          <li>Website development</li>
-          <li>API development</li>
-          <li>System engineering</li>
+          <li>Payment and transaction services</li>
+          <li>High-volume data pipelines</li>
+          <li>Performance tuning and reliability</li>
         </ul>
         <div class="service-detail">
-          <p>Delivery emphasizes performance, testing, and documentation.</p>
+          Focused on idempotency, audit trails, rollback safety, and resiliency.
+        </div>
+      </article>
+
+      <article class="card service-card" data-reveal>
+        <div class="service-head">
+          <h2 class="section-title">
+            <span class="service-icon">✦</span>
+            Research Collaboration
+          </h2>
+          <span class="service-tag">research</span>
+        </div>
+        <p class="section-subtitle">
+          Support for intrusion detection research, dataset structuring, and
+          experimentation pipelines.
+        </p>
+        <ul class="service-list">
+          <li>Experiment design and baselines</li>
+          <li>Model evaluation and reporting</li>
+          <li>Reproducible notebooks</li>
+        </ul>
+        <div class="service-detail">
+          Ideal for papers, prototypes, and defense-grade documentation.
+        </div>
+      </article>
+    </div>
+
+    <div class="service-process card" data-reveal>
+      <div>
+        <h2 class="section-title">Process</h2>
+        <p class="section-subtitle">
+          A lightweight workflow that keeps every build transparent and on
+          schedule.
+        </p>
+      </div>
+      <div class="process-steps">
+        <div class="process-step">
+          <span class="process-count">01</span>
+          <div>
+            <h3>Discovery</h3>
+            <p>Scope goals, constraints, and success metrics.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <span class="process-count">02</span>
+          <div>
+            <h3>Design</h3>
+            <p>Architecture, workflows, and system boundaries.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <span class="process-count">03</span>
+          <div>
+            <h3>Build</h3>
+            <p>Implementation, tests, and release staging.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <span class="process-count">04</span>
+          <div>
+            <h3>Launch</h3>
+            <p>Monitoring, documentation, and handoff.</p>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="card service-cta">
+    <div class="service-stack" data-reveal>
+      <h2 class="section-title">Core Stack</h2>
+      <div class="stack-chips">
+        <span class="chip">Java</span>
+        <span class="chip">Spring Boot</span>
+        <span class="chip">Microservices</span>
+        <span class="chip">OracleDB</span>
+        <span class="chip">PostgreSQL</span>
+        <span class="chip">Kafka</span>
+        <span class="chip">Redis</span>
+        <span class="chip">Docker</span>
+      </div>
+    </div>
+
+    <div class="service-faq" data-reveal>
+      <h2 class="section-title">FAQ</h2>
+      <div class="faq-grid">
+        <details class="card">
+          <summary title="Click to expand">What type of projects do you take?</summary>
+          <p>
+            Backend platforms, banking integrations, transaction flows, and
+            research prototypes that need reliability and clarity.
+          </p>
+        </details>
+        <details class="card">
+          <summary title="Click to expand">How fast can you start?</summary>
+          <p>
+            Typically within 1–2 weeks after scope confirmation and alignment.
+          </p>
+        </details>
+        <details class="card">
+          <summary title="Click to expand">Do you provide documentation?</summary>
+          <p>
+            Yes. Every delivery includes structured docs, diagrams, and handoff
+            notes.
+          </p>
+        </details>
+      </div>
+    </div>
+
+    <div class="card service-cta" data-reveal>
       <div>
         <h3 class="section-title">Start a Project</h3>
         <p class="section-subtitle">
-          Availability depends on scope and alignment. Reach out with your
-          timeline and goals.
+          Share your scope and timeline. I will respond with a plan and next
+          steps.
         </p>
       </div>
       <a href="/contact" class="btn-primary">Contact</a>
@@ -70,6 +176,62 @@
 </section>
 
 <style>
+  .service-shell {
+    display: grid;
+    gap: 3rem;
+  }
+
+  .section-hint {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+
+  .service-grid {
+    display: grid;
+    gap: 1.6rem;
+  }
+
+  .service-card {
+    position: relative;
+    overflow: hidden;
+    transition: transform 160ms ease, border-color 160ms ease;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .service-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.4rem;
+  }
+
+  .service-head .section-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    line-height: 1.2;
+  }
+
+  .service-icon {
+    color: var(--accent-alt);
+    font-size: 1.05rem;
+    line-height: 1;
+  }
+
+  .service-tag {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
   .service-list {
     margin-top: 1.2rem;
     display: grid;
@@ -89,6 +251,79 @@
     color: var(--accent);
   }
 
+  .service-detail {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+
+  .service-process {
+    display: grid;
+    gap: 1.8rem;
+  }
+
+  .process-steps {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .process-step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: center;
+    border: 1px solid rgba(205, 214, 244, 0.12);
+    border-radius: 16px;
+    padding: 1rem 1.2rem;
+    background: rgba(20, 20, 32, 0.5);
+  }
+
+  .process-count {
+    font-size: 1rem;
+    color: var(--accent-alt);
+    letter-spacing: 0.2em;
+  }
+
+  .service-stack {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .stack-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .service-faq {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .faq-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .faq-grid details {
+    padding: 1.2rem 1.4rem;
+  }
+
+  .faq-grid summary {
+    cursor: pointer;
+    list-style: none;
+    font-weight: 600;
+  }
+
+  .faq-grid summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-grid p {
+    margin-top: 0.8rem;
+    color: var(--text-muted);
+  }
+
   .service-cta {
     display: flex;
     flex-direction: column;
@@ -96,33 +331,11 @@
     align-items: flex-start;
   }
 
-  .service-card {
-    position: relative;
-    overflow: hidden;
-    transition: transform 160ms ease, border-color 160ms ease;
-  }
-
-  .service-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(255, 255, 255, 0.2);
-  }
-
-  .service-detail {
-    margin-top: 1rem;
-    font-size: 0.85rem;
-    color: var(--text-dim);
-    opacity: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: all 180ms ease;
-  }
-
-  .service-card:hover .service-detail {
-    opacity: 1;
-    max-height: 120px;
-  }
-
   @media (min-width: 768px) {
+    .service-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
     .service-cta {
       flex-direction: row;
       align-items: center;
