@@ -1,450 +1,326 @@
 ---
 import "../styles/global.css";
 import resume from "../data/resume.json";
+
+const formatDate = (date) =>
+  date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+
+const calcTenure = (startDate, endDate) => {
+  if (!startDate) return "";
+  const start = new Date(startDate);
+  const now = new Date();
+  const endLabel = endDate && endDate !== "Present" ? endDate : "Present";
+
+  const months =
+    now.getFullYear() * 12 + now.getMonth() -
+    (start.getFullYear() * 12 + start.getMonth());
+  const years = Math.floor(months / 12);
+  const remMonths = months % 12;
+
+  const tenure =
+    years > 0
+      ? `${years} yr${years > 1 ? "s" : ""} ${remMonths} mo`
+      : `${remMonths} mo`;
+
+  return `${tenure} · ${formatDate(start)} – ${endLabel}`;
+};
 ---
 
 <section class="page-shell">
-  <div class="page-inner">
+  <div class="page-inner resume-clean">
     <div class="hero-block">
-      <span class="hero-kicker">$ resume --history</span>
-      <h1 class="hero-title">Resume Timeline</h1>
+      <span class="hero-kicker">Resume</span>
+      <h1 class="hero-title">Experience & Projects</h1>
       <p class="hero-subtitle">
-        A structured view of work experience, research output, and project
-        delivery. Click any entry to open full notes, references, and sources.
+        A clean, structured overview of work, research, and projects with
+        expandable details.
       </p>
     </div>
 
-    <div class="card terminal-panel">
-      <div class="terminal-head">
-        <div class="terminal-dots">
-          <span class="dot red"></span>
-          <span class="dot yellow"></span>
-          <span class="dot green"></span>
-        </div>
-        <span class="terminal-title">resume.timeline</span>
-        <span class="terminal-badge">readonly</span>
-      </div>
+    <div class="resume-sections">
+      {Object.entries(resume).map(([sectionKey, section]) => (
+        <section class="resume-section">
+          <div class="section-header">
+            <h2 class="section-title">{section.label}</h2>
+            <p class="section-subtitle">{section.description}</p>
+          </div>
 
-      <div class="terminal-body font-mono">
-        {
-          Object.entries(resume).map(([sectionKey, section], sectionIndex, sections) => {
-            const isLastSection = sectionIndex === sections.length - 1;
-            const isWork = sectionKey === "work";
+          <div class="resume-list">
+            {section.items.map((item) => {
+              const tenure = item.startDate ? calcTenure(item.startDate, item.endDate) : "";
+              const showGit = (sectionKey === "research" || sectionKey === "projects") && item.github;
+              const showContributors =
+                (sectionKey === "research" || sectionKey === "projects") &&
+                item.contributors.length > 1;
+              const showSkills = Array.isArray(item.skills) && item.skills.length;
 
-            return (
-              <div class="space-y-2">
-                <div class="flex items-start gap-2">
-                  <span class="text-white/40 select-none w-[3ch]">
-                    {isLastSection ? "└──" : "├──"}
-                  </span>
+              return (
+                <details class="resume-item">
+                  <summary class="item-summary">
+                    <div class="item-main">
+                      <div class="item-title">{item.title}</div>
+                      <div class="item-intro">{item.intro}</div>
+                      {tenure && <div class="item-tenure">{tenure}</div>}
+                    </div>
+                    <div class="item-meta">
+                      {item.meta && <span class="chip">{item.meta}</span>}
+                      {showGit && <span class="chip accent">source</span>}
+                      <span class="chev">⌄</span>
+                    </div>
+                  </summary>
 
-                  <div class={isWork ? "pl-2 border-l border-white/20" : ""}>
-                    <p class="text-green-400">$ ls {section.label}/</p>
-                    <p class="text-sm text-white/40">{section.description}</p>
-                  </div>
-                </div>
-
-                <div class="pl-[3ch] space-y-2">
-                  {section.items.map((item, itemIndex) => {
-                    const isLastItem = itemIndex === section.items.length - 1;
-
-                    let year = "";
-                    if (item.meta) {
-                      const rangeMatch = item.meta.match(
-                        /\b(19|20)\d{2}\s*–\s*(Present|(19|20)\d{2})\b/
-                      );
-                      const singleYearMatch = item.meta.match(/\b(19|20)\d{2}\b/);
-                      year = rangeMatch
-                        ? rangeMatch[0]
-                        : singleYearMatch
-                        ? singleYearMatch[0]
-                        : "";
-                    }
-
-                    const showGit =
-                      (sectionKey === "research" || sectionKey === "projects") &&
-                      item.github;
-
-                    const showContributors =
-                      (sectionKey === "research" || sectionKey === "projects") &&
-                      item.contributors.length > 1;
-
-                    return (
-                    <button
-                      data-payload={JSON.stringify(item)}
-                      class={`group flex w-full items-start gap-2 text-left rounded-md
-                              ${isWork ? "bg-white/[0.02] hover:bg-white/[0.04]" : ""}
-                              transition`}
-                    >
-                      <span class="text-white/40 select-none w-[3ch] leading-6">
-                        {isLastItem ? "└──" : "├──"}
-                      </span>
-
-                      <div class="flex w-full flex-col gap-1">
-                        <div class="hidden sm:flex w-full items-center justify-between gap-4">
-                          <span class="px-1 py-0.5 text-white/80 group-hover:text-white">
-                           {item.title}
-                          </span>
-
-                          {(year || showGit) && (
-                            <div class="flex items-center gap-3 text-xs text-white/40 shrink-0">
-                              {year && <span>[{year}]</span>}
-                              {showGit && <span class="text-green-400">⎇</span>}
-                              <span class="opacity-0 group-hover:opacity-100 transition">
-                                ↵ open
-                              </span>
-                            </div>
-                          )}
+                  <div class="item-body">
+                    {showSkills && (
+                      <div class="item-block">
+                        <div class="block-label">Skills</div>
+                        <div class="skill-row">
+                          {item.skills.map((s) => (
+                            <span class="skill-pill">{s}</span>
+                          ))}
                         </div>
-
-                        <span class="sm:hidden px-1 py-0.5 text-white/80">
-                         {item.title}
-                        </span>
-
-                        {(year || showGit) && (
-                          <div class="sm:hidden flex items-center gap-3 px-1 text-xs text-white/40">
-                            {year && <span>[{year}]</span>}
-                            {showGit && <span class="text-green-400">⎇ source</span>}
-                            <span class="text-white/30">tap to open</span>
-                          </div>
-                        )}
-
-                        {showContributors && (
-                          <div class="flex items-center gap-1 pl-1">
-                            {item.contributors.map((c) => (
-                              <span
-                                title={`${c.name} — ${c.role}`}
-                                class="flex h-5 w-5 items-center justify-center
-                                       rounded-full border border-white/20
-                                       bg-black/60
-                                       text-[10px] text-white/70"
-                              >
-                                {c.name.charAt(0).toUpperCase()}
-                              </span>
-                            ))}
-                          </div>
-                        )}
                       </div>
-                    </button>
+                    )}
 
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })
-        }
-      </div>
+                    <div class="item-block">
+                      <div class="block-label">Details</div>
+                      <pre class="detail-pre">{item.details.trim()}</pre>
+                    </div>
+
+                    {item.note && (
+                      <div class="item-block">
+                        <div class="block-label">Note</div>
+                        <p class="detail-note">{item.note}</p>
+                      </div>
+                    )}
+
+                    {showContributors && (
+                      <div class="item-block">
+                        <div class="block-label">Contributors</div>
+                        <ul class="detail-list">
+                          {item.contributors.map((c) => (
+                            <li>{c.name} — {c.role}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {Array.isArray(item.references) && item.references.length > 0 && (
+                      <div class="item-block">
+                        <div class="block-label">References</div>
+                        <ul class="detail-list">
+                          {item.references.map((r) => (
+                            <li><a href={r.url} target="_blank">{r.label}</a></li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {item.github && (
+                      <div class="item-block">
+                        <div class="block-label">Source</div>
+                        <a class="detail-link" href={item.github} target="_blank">
+                          View repository
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </details>
+              );
+            })}
+          </div>
+        </section>
+      ))}
     </div>
   </div>
 </section>
 
 <style>
-  .terminal-panel {
-    padding: 0;
-    overflow: hidden;
+  .resume-clean {
+    gap: 3.5rem;
   }
 
-  .terminal-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 1.4rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(9, 11, 18, 0.8);
+  .resume-sections {
+    display: grid;
+    gap: 3rem;
   }
 
-  .terminal-dots {
-    display: inline-flex;
+  .resume-section {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .section-header {
+    display: grid;
     gap: 0.4rem;
   }
 
-  .terminal-dots .dot {
-    width: 10px;
-    height: 10px;
+  .section-title {
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    margin: 0;
+  }
+
+  .section-subtitle {
+    color: var(--text-muted);
+  }
+
+  .resume-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .resume-item {
+    border: 1px solid var(--border-soft);
+    border-radius: 20px;
+    background: var(--bg-elevated);
+    padding: 0.4rem 1.4rem;
+    backdrop-filter: blur(16px);
+    transition: transform 180ms ease, border-color 180ms ease;
+  }
+
+  .resume-item[open] {
+    border-color: rgba(255, 255, 255, 0.28);
+    transform: translateY(-2px);
+  }
+
+  .item-summary {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    list-style: none;
+    cursor: pointer;
+    padding: 1.2rem 0;
+  }
+
+  .item-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .item-main {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .item-title {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+  }
+
+  .item-intro {
+    color: var(--text-muted);
+  }
+
+  .item-tenure {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+  }
+
+  .item-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    color: var(--text-dim);
+    font-size: 0.75rem;
+  }
+
+  .chev {
+    margin-left: auto;
+  }
+
+  .chip {
+    padding: 0.25rem 0.6rem;
     border-radius: 999px;
-    display: inline-block;
+    background: rgba(255, 255, 255, 0.08);
   }
 
-  .terminal-dots .red {
-    background: #ff5f57;
+  .chip.accent {
+    background: rgba(142, 242, 193, 0.2);
+    color: var(--accent);
   }
 
-  .terminal-dots .yellow {
-    background: #febc2e;
+  .chev {
+    color: var(--text-dim);
+    font-size: 0.9rem;
   }
 
-  .terminal-dots .green {
-    background: #28c840;
+  .item-body {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 1.2rem 0 1.6rem;
+    display: grid;
+    gap: 1rem;
   }
 
-  .terminal-title {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.6);
+  .item-block {
+    display: grid;
+    gap: 0.5rem;
   }
 
-  .terminal-badge {
-    font-size: 0.7rem;
+  .block-label {
     text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 0.18em;
+    font-size: 0.7rem;
+    color: var(--text-dim);
   }
 
-  .terminal-body {
-    padding: 2rem 1.6rem;
+  .detail-pre {
+    white-space: pre-wrap;
+    font-family: "Space Grotesk", sans-serif;
+    color: var(--text-muted);
+  }
+
+  .detail-note {
+    color: var(--text-muted);
+  }
+
+  .detail-list {
+    display: grid;
+    gap: 0.4rem;
+    color: var(--text-muted);
+  }
+
+  .detail-link,
+  .detail-list a {
+    color: var(--accent-alt);
+  }
+
+  .skill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-pill {
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-muted);
+    font-size: 0.75rem;
+  }
+
+  @media (min-width: 900px) {
+    .item-summary {
+      align-items: center;
+    }
+  }
+
+  @media (max-width: 899px) {
+    .item-summary {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .item-meta {
+      width: 100%;
+      justify-content: space-between;
+      gap: 0.4rem;
+    }
+
+    .chev {
+      margin-left: 0;
+    }
   }
 </style>
-
-<!-- TERMINAL INSPECTOR -->
-<div
-  id="terminal"
-  class="fixed inset-0 z-50 flex hidden items-center justify-center bg-black/90 backdrop-blur-sm"
->
-  <div
-    class="flex max-h-[92vh] w-[96%] flex-col rounded-xl border border-white/20 bg-black shadow-[0_0_60px_rgba(0,0,0,0.8)] sm:w-[92%] md:w-[72%]"
-  >
-    <!-- TERMINAL CHROME -->
-    <div
-      class="flex items-center justify-between border-b border-white/10 bg-gradient-to-b from-white/5 to-transparent px-4 py-3"
-    >
-      <div class="flex gap-2">
-        <span class="h-3 w-3 rounded-full bg-red-500/80"></span>
-        <span class="h-3 w-3 rounded-full bg-yellow-400/80"></span>
-        <span class="h-3 w-3 rounded-full bg-green-500/80"></span>
-      </div>
-      <span id="termTitle" class="text-xs text-white/80"></span>
-      <button id="closeTerm" class="text-white/40 hover:text-white">✕</button>
-    </div>
-
-    <!-- TERMINAL BODY -->
-    <div
-      class="relative overflow-y-auto px-6 py-5 font-mono text-sm leading-relaxed text-white/80"
-    >
-
-      <!-- scanline -->
-      <div
-        class="pointer-events-none absolute inset-0
-               bg-[linear-gradient(transparent_96%,rgba(255,255,255,0.18)_97%)]
-               bg-[length:100%_4px] opacity-[0.03]"
-      ></div>
-
-      <!-- SESSION CONTEXT -->
-      <div class="mb-4 text-xs text-white/35">
-        <span class="text-green-400">abx@portfolio</span>:
-        <span class="text-blue-400">~/inspect</span>
-        <span class="ml-2 text-white/30">mode: readonly</span>
-      </div>
-
-      <!-- EXECUTION TRACE -->
-      <div class="mb-5 font-mono text-xs text-white/50">
-        <p><span class="text-green-400">[ OK ]</span> loading metadata</p>
-        <p><span class="text-green-400">[ OK ]</span> loading details</p>
-        <p><span class="text-green-400">[ OK ]</span> loading contributors</p>
-      </div>
-
-
-      <!-- META -->
-      <div class="mb-5">
-        <p class="text-xs text-white/40">$ meta</p>
-        <p
-          id="termMeta"
-          class="mt-1 pl-2 text-blue-400 tracking-wide"
-        ></p>
-      </div>
-
-      <!-- INTRO -->
-      <div class="mb-6">
-        <p class="text-xs text-white/40">$ intro</p>
-        <p
-          id="termIntro"
-          class="mt-1 pl-2 italic text-white/60"
-        ></p>
-      </div>
-
-      <!-- DETAILS BLOCK -->
-      <div
-        class="mb-8 rounded-md border border-white/10
-               bg-gradient-to-b from-white/[0.04] to-transparent
-               px-4 py-3"
-      >
-        <p class="mb-2 text-xs text-white/40">$ cat details.txt</p>
-
-        <pre
-          id="termDetails"
-          class="whitespace-pre-wrap leading-relaxed text-white/85"
-        ></pre>
-
-      </div>
-
-      <!-- CALLOUT -->
-      <div
-        class="mb-8 border-l-2 border-green-400/40
-               bg-black/40 px-4 py-3"
-      >
-        <p class="mb-1 text-xs text-green-400">NOTE</p>
-        <p id="termNote" class="text-white/65"></p>
-      </div>
-
-      <!-- CONTRIBUTORS -->
-      <div class="mb-8">
-        <p class="mb-2 text-xs text-white/40">$ contributors</p>
-
-        <ul
-          id="termContrib"
-          class="space-y-1 pl-4 text-white/75"
-        ></ul>
-      </div>
-
-      <!-- REFERENCES -->
-      <div id="termRefs" class="mb-8">
-        <p class="mb-2 text-xs text-white/40">$ references</p>
-        <ul id="termRefList" class="space-y-1 pl-4 text-white/75"></ul>
-      </div>
-
-      <!-- SOURCE -->
-      <div id="termGit" class="mb-10 hidden">
-        <p class="mb-2 text-xs text-white/40">$ source</p>
-        <a
-          id="termGitLink"
-          target="_blank"
-          class="inline-flex items-center gap-2 pl-2 text-green-400 hover:underline"
-        >
-          ▸ view repository
-        </a>
-      </div>
-
-      <!-- COMMENTS -->
-      <div class="border-t border-white/10 pt-5">
-        <p class="mb-3 text-xs text-white/40">$ comments</p>
-
-        <div
-          id="commentList"
-          class="mb-4 space-y-1 pl-4 text-white/70"
-        >
-          <p class="text-white/30">└─ no comments yet</p>
-        </div>
-
-        <div
-          class="flex items-center gap-2 rounded-md
-                 border border-white/10 bg-black/50 px-3 py-2"
-        >
-          <span class="text-green-400">$</span>
-          <input
-            id="commentInput"
-            placeholder="add comment"
-            class="flex-1 bg-transparent
-                   border-none outline-none
-                   text-sm text-white
-                   placeholder:text-white/30"
-          />
-        </div>
-      </div>
-
-      <!-- FOOTER STATUS -->
-      <div class="mt-6 text-xs text-white/30">
-        -- press <span class="text-white/50">esc</span> to exit ·
-        <span class="text-white/40">scroll for more</span> --
-      </div>
-
-    </div>
-
-  </div>
-</div>
-
-<!-- SCRIPT -->
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const terminal = document.getElementById("terminal");
-    const title = document.getElementById("termTitle");
-    const meta = document.getElementById("termMeta");
-    const intro = document.getElementById("termIntro");
-    const details = document.getElementById("termDetails");
-    const contrib = document.getElementById("termContrib");
-    const gitBox = document.getElementById("termGit");
-    const gitLink = document.getElementById("termGitLink");
-    const note = document.getElementById("termNote");
-    const refBox = document.getElementById("termRefs");
-    const refList = document.getElementById("termRefList");
-    const close = document.getElementById("closeTerm");
-
-    const commentInput = document.getElementById("commentInput");
-    const commentList = document.getElementById("commentList");
-
-    document.querySelectorAll("[data-payload]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const data = JSON.parse(btn.dataset.payload);
-
-        title.textContent = data.title;
-        meta.textContent = data.meta;
-        intro.textContent = data.intro;
-        const lines = data.details.trim().split("\n");
-
-        details.innerHTML = lines
-          .map((line, i) => {
-            const num = String(i + 1).padStart(2, "0");
-            return `<span class="text-white/30">${num} |</span> ${line}`;
-          })
-          .join("\n");
-
-        note.textContent =
-          data.note ||
-          "This section reflects production-level decisions, not theoretical examples.";
-
-
-        contrib.innerHTML = "";
-        data.contributors.forEach((c) => {
-          const li = document.createElement("li");
-          li.textContent = `• ${c.name} — ${c.role}`;
-          contrib.appendChild(li);
-        });
-
-        refList.innerHTML = "";
-        if (Array.isArray(data.references) && data.references.length) {
-          data.references.forEach((r) => {
-            const li = document.createElement("li");
-            li.innerHTML = `• <a href="${r.url}" target="_blank" class="text-green-400 hover:underline">${r.label}</a>`;
-            refList.appendChild(li);
-          });
-          refBox.classList.remove("hidden");
-        } else {
-          refBox.classList.add("hidden");
-        }
-
-        if (data.github) {
-          gitLink.href = data.github;
-          gitBox.classList.remove("hidden");
-        } else {
-          gitBox.classList.add("hidden");
-        }
-
-        commentList.innerHTML =
-          '<p class="text-white/30">└─ no comments yet</p>';
-        commentInput.value = "";
-
-        terminal.classList.remove("hidden");
-        document.body.style.overflow = "hidden";
-      });
-    });
-
-    commentInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" && commentInput.value.trim()) {
-        if (commentList.textContent.includes("no comments")) {
-          commentList.innerHTML = "";
-        }
-        const p = document.createElement("p");
-        p.textContent = `└─ ${commentInput.value}`;
-        commentList.appendChild(p);
-        commentInput.value = "";
-      }
-    });
-
-    close.addEventListener("click", () => {
-      terminal.classList.add("hidden");
-      document.body.style.overflow = "";
-    });
-
-    terminal.addEventListener("click", (e) => {
-      if (e.target === terminal) close.click();
-    });
-  });
-</script>

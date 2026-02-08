@@ -6,12 +6,15 @@
       {
         "title": "Java Developer — Mindgate Solutions",
         "meta": "2025–Present",
+        "startDate": "2025-07-02",
+        "endDate": "Present",
         "github": "",
         "contributors": [
           { "name": "Core Banking Team", "role": "Engineering" }
         ],
         "intro": "Backend developer working on high-volume transaction systems, bulk corporate payments, and critical banking infrastructure.",
         "details": "Building and maintaining production banking and payment platforms.\n\nResponsibilities:\n- Backend transaction processing and validation\n- Bulk corporate payment workflows\n- Critical infrastructure improvements and reliability work\n- Auditability, reconciliation, and traceability\n- Performance and resiliency tuning\n- Java, Spring Boot, microservices\n- OracleDB and PostgreSQL",
+        "skills": ["Java", "Spring Boot", "Microservices", "OracleDB", "PostgreSQL", "Payments", "Transactions"],
         "note": "Notes emphasize production constraints: idempotency, reconciliation, audit trails, deterministic error handling, and operational safety.",
         "references": [
           { "label": "Mindgate Solutions", "url": "https://www.mindgate.solutions/" },
