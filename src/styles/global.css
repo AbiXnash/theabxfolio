@@ -42,8 +42,13 @@ body {
 body {
   position: relative;
   background:
-    radial-gradient(circle at 50% 12%, rgba(0, 0, 0, 0.92) 0 22%, transparent 42%),
-    radial-gradient(circle at 50% 16%, rgba(12, 18, 34, 0.6) 0 32%, transparent 62%),
+    radial-gradient(circle at 50% 12%, rgba(0, 0, 0, 0.95) 0 24%, transparent 44%),
+    radial-gradient(circle at 50% 16%, rgba(12, 18, 34, 0.7) 0 36%, transparent 64%),
+    radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.06) 0 38%, transparent 70%),
+    radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.06) 0 2px, transparent 4px),
+    radial-gradient(circle at 80% 12%, rgba(255, 255, 255, 0.05) 0 1.5px, transparent 4px),
+    radial-gradient(circle at 35% 22%, rgba(255, 255, 255, 0.05) 0 1.5px, transparent 4px),
+    radial-gradient(circle at 65% 30%, rgba(255, 255, 255, 0.04) 0 1.5px, transparent 4px),
     var(--bg-primary);
   color: var(--text-primary);
   font-family: "Space Grotesk", sans-serif;
@@ -60,8 +65,8 @@ body::after {
 
 body::before {
   background:
-    radial-gradient(circle at 50% 14%, rgba(0, 0, 0, 0.98) 0 30%, transparent 50%),
-    radial-gradient(circle at 50% 20%, rgba(18, 28, 52, 0.5) 0 45%, transparent 70%);
+    radial-gradient(circle at 50% 14%, rgba(0, 0, 0, 0.99) 0 32%, transparent 52%),
+    radial-gradient(circle at 50% 20%, rgba(18, 28, 52, 0.6) 0 48%, transparent 74%);
   opacity: 1;
   filter: blur(0.5px);
   animation: drift 30s ease-in-out infinite;
@@ -70,16 +75,19 @@ body::before {
 body::after {
   background:
     conic-gradient(
-      from 0deg at 50% 18%,
-      rgba(255, 255, 255, 0.2),
-      rgba(142, 242, 193, 0.14),
-      rgba(145, 180, 255, 0.16),
-      rgba(255, 255, 255, 0.2)
+      from 120deg at 50% 20%,
+      rgba(255, 255, 255, 0.35),
+      rgba(145, 180, 255, 0.22),
+      rgba(255, 255, 255, 0.3),
+      rgba(142, 242, 193, 0.18),
+      rgba(255, 255, 255, 0.35)
     );
-  mask: radial-gradient(circle at 50% 18%, transparent 0 32%, rgba(0, 0, 0, 0.8) 40%, transparent 75%);
-  opacity: 0.8;
-  filter: blur(5px);
-  animation: rotate 50s linear infinite;
+  mask:
+    radial-gradient(circle at 50% 20%, transparent 0 28%, rgba(0, 0, 0, 0.95) 36%, transparent 70%),
+    radial-gradient(ellipse 140% 80% at 50% 24%, rgba(0, 0, 0, 0.9) 0 42%, transparent 62%);
+  opacity: 0.95;
+  filter: blur(3px);
+  animation: rotate 52s linear infinite;
 }
 
 .page-shell {
@@ -217,10 +225,10 @@ body::after {
 
 @keyframes rotate {
   from {
-    transform: rotate(0deg);
+    transform: rotate(0deg) scaleX(1.08) skewX(-2deg);
   }
   to {
-    transform: rotate(360deg);
+    transform: rotate(360deg) scaleX(1.08) skewX(-2deg);
   }
 }
 
