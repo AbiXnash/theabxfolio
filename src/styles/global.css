@@ -90,6 +90,7 @@ body::after {
   animation: rotate 52s linear infinite;
 }
 
+
 .page-shell {
   position: relative;
   padding: 5rem 1.5rem 7rem;
@@ -263,20 +264,6 @@ a:focus-visible,
 button:focus-visible {
   outline: 2px solid rgba(74, 222, 128, 0.6);
   outline-offset: 2px;
-}
-
-/* boot animation */
-.boot-line {
-  opacity: 0;
-  transform: translateY(4px);
-  transition:
-    opacity 180ms ease,
-    transform 180ms ease;
-}
-
-.boot-line.is-visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
