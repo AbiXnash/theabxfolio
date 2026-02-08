@@ -42,9 +42,8 @@ body {
 body {
   position: relative;
   background:
-    radial-gradient(circle at 50% 10%, var(--orb-core) 0 24%, rgba(0, 0, 0, 0.35) 38%, transparent 60%),
-    radial-gradient(circle at 50% 18%, var(--orb-glow) 0 36%, transparent 68%),
-    radial-gradient(circle at 50% -10%, rgba(0, 0, 0, 0.85), transparent 50%),
+    radial-gradient(circle at 50% 12%, rgba(0, 0, 0, 0.92) 0 22%, transparent 42%),
+    radial-gradient(circle at 50% 16%, rgba(12, 18, 34, 0.6) 0 32%, transparent 62%),
     var(--bg-primary);
   color: var(--text-primary);
   font-family: "Space Grotesk", sans-serif;
@@ -61,26 +60,26 @@ body::after {
 
 body::before {
   background:
-    radial-gradient(circle at 50% 14%, rgba(0, 0, 0, 0.95), transparent 38%),
-    radial-gradient(circle at 50% 20%, rgba(18, 28, 52, 0.35), transparent 55%);
+    radial-gradient(circle at 50% 14%, rgba(0, 0, 0, 0.98) 0 30%, transparent 50%),
+    radial-gradient(circle at 50% 20%, rgba(18, 28, 52, 0.5) 0 45%, transparent 70%);
   opacity: 1;
-  filter: blur(1px);
-  animation: drift 26s ease-in-out infinite;
+  filter: blur(0.5px);
+  animation: drift 30s ease-in-out infinite;
 }
 
 body::after {
   background:
     conic-gradient(
       from 0deg at 50% 18%,
-      rgba(255, 255, 255, 0.12),
-      rgba(142, 242, 193, 0.08),
-      rgba(145, 180, 255, 0.1),
-      rgba(255, 255, 255, 0.12)
+      rgba(255, 255, 255, 0.2),
+      rgba(142, 242, 193, 0.14),
+      rgba(145, 180, 255, 0.16),
+      rgba(255, 255, 255, 0.2)
     );
-  mask: radial-gradient(circle at 50% 18%, transparent 0 35%, rgba(0, 0, 0, 0.7) 45%, transparent 70%);
-  opacity: 0.6;
-  filter: blur(6px);
-  animation: rotate 40s linear infinite;
+  mask: radial-gradient(circle at 50% 18%, transparent 0 32%, rgba(0, 0, 0, 0.8) 40%, transparent 75%);
+  opacity: 0.8;
+  filter: blur(5px);
+  animation: rotate 50s linear infinite;
 }
 
 .page-shell {

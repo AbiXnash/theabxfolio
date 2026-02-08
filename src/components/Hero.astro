@@ -1,12 +1,11 @@
 <section class="page-shell hero-shell">
-  <div class="page-inner hero-grid">
-    <div class="hero-block">
+  <div class="page-inner hero-layout">
+    <div class="hero-content">
       <span class="hero-kicker">$ whoami</span>
       <h1 class="hero-title">Abinash S</h1>
       <p class="hero-subtitle">
-        Software Engineer focused on backend systems, dependable architectures,
-        and production-grade delivery across banking, web, and research
-        projects.
+        Software Engineer focused on backend systems, reliable architectures,
+        and production-grade delivery across banking, web, and applied research.
       </p>
 
       <div class="hero-actions">
@@ -22,30 +21,26 @@
       </div>
     </div>
 
-    <div class="card hero-panel">
-      <div class="panel-header">
-        <span class="hero-kicker">now</span>
-        <span class="panel-status status-pulse">available for select work</span>
+    <div class="hero-card">
+      <div class="hero-card-header">
+        <span class="hero-kicker">status</span>
+        <span class="hero-status">available for select work</span>
       </div>
-
-      <div class="panel-body">
-        <div class="panel-row">
-          <span class="panel-label">Focus</span>
-          <span id="focusLine" class="panel-value">
-            Backend reliability & payment flows
-          </span>
+      <div class="hero-card-body">
+        <div class="hero-row">
+          <span class="hero-label">Focus</span>
+          <span id="focusLine" class="hero-value">Backend reliability & payment flows</span>
         </div>
-        <div class="panel-row">
-          <span class="panel-label">Current Stack</span>
-          <span class="panel-value">Java · Spring Boot · OracleDB</span>
+        <div class="hero-row">
+          <span class="hero-label">Stack</span>
+          <span class="hero-value">Java · Spring Boot · OracleDB</span>
         </div>
-        <div class="panel-row">
-          <span class="panel-label">Research</span>
-          <span class="panel-value">IIoT intrusion detection systems</span>
+        <div class="hero-row">
+          <span class="hero-label">Research</span>
+          <span class="hero-value">IIoT intrusion detection systems</span>
         </div>
       </div>
-
-      <div class="panel-footer">
+      <div class="hero-card-footer">
         <button id="heartBtn" aria-label="like" class="panel-like">
           <span id="heartIcon">♡</span>
           <span id="heartCount">0</span>
@@ -56,7 +51,6 @@
   </div>
 </section>
 
-<!-- HEART SCRIPT -->
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const btn = document.getElementById("heartBtn");
@@ -102,8 +96,20 @@
     align-items: center;
   }
 
-  .hero-grid {
+  .hero-layout {
+    display: grid;
     gap: 3rem;
+  }
+
+  .hero-content {
+    display: grid;
+    gap: 1.2rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
   }
 
   .hero-tags {
@@ -112,66 +118,51 @@
     gap: 0.6rem;
   }
 
-  .hero-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 1.4rem;
+  .hero-card {
+    border-radius: 24px;
+    border: 1px solid var(--border-soft);
+    background: var(--bg-elevated);
+    padding: 1.6rem;
+    display: grid;
+    gap: 1.2rem;
+    backdrop-filter: blur(16px);
   }
 
-  .panel-header {
+  .hero-card-header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
   }
 
-  .panel-status {
+  .hero-status {
     font-size: 0.75rem;
     color: var(--text-dim);
     text-transform: uppercase;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.16em;
   }
 
-  .status-pulse {
-    position: relative;
-  }
-
-  .status-pulse::before {
-    content: "";
-    position: absolute;
-    left: -12px;
-    top: 50%;
-    width: 6px;
-    height: 6px;
-    border-radius: 999px;
-    background: var(--accent);
-    transform: translateY(-50%);
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  .panel-body {
-    display: flex;
-    flex-direction: column;
+  .hero-card-body {
+    display: grid;
     gap: 0.9rem;
   }
 
-  .panel-row {
-    display: flex;
-    flex-direction: column;
+  .hero-row {
+    display: grid;
     gap: 0.3rem;
   }
 
-  .panel-label {
-    font-size: 0.75rem;
+  .hero-label {
+    font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.2em;
     color: var(--text-dim);
   }
 
-  .panel-value {
+  .hero-value {
     color: var(--text-primary);
   }
 
-  .panel-footer {
+  .hero-card-footer {
     display: flex;
     align-items: center;
     gap: 0.8rem;
@@ -198,26 +189,10 @@
     color: var(--text-dim);
   }
 
-  @media (min-width: 900px) {
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  @media (min-width: 980px) {
+    .hero-layout {
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
       align-items: center;
-    }
-  }
-
-  @keyframes pulse {
-    0% {
-      opacity: 0.3;
-      box-shadow: 0 0 0 0 rgba(142, 242, 193, 0.4);
-    }
-    70% {
-      opacity: 1;
-      box-shadow: 0 0 0 8px rgba(142, 242, 193, 0);
-    }
-    100% {
-      opacity: 0.3;
-      box-shadow: 0 0 0 0 rgba(142, 242, 193, 0);
     }
   }
 </style>
