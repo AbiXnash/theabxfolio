@@ -1,3 +1,25 @@
+---
+import resume from "../data/resume.json";
+
+const projectCount = resume?.projects?.items?.length ?? 0;
+const researchCount = resume?.research?.items?.length ?? 0;
+const workStart = resume?.work?.items?.[0]?.startDate;
+const calcYears = (dateStr) => {
+  if (!dateStr) return "";
+  const start = new Date(dateStr);
+  const now = new Date();
+  const months =
+    now.getFullYear() * 12 + now.getMonth() -
+    (start.getFullYear() * 12 + start.getMonth());
+  const years = Math.floor(months / 12);
+  const rem = months % 12;
+  if (years <= 0) return `${rem} mo`;
+  return `${years} yr${years > 1 ? "s" : ""} ${rem} mo`;
+};
+
+const experienceLabel = workStart ? calcYears(workStart) : "";
+---
+
 <section class="page-shell hero-shell">
   <div class="page-inner hero-layout">
     <div class="hero-content">
@@ -18,6 +40,32 @@
         <span class="tag">Java · Spring Boot · Microservices</span>
         <span class="tag">Payments · Transaction Systems</span>
         <span class="tag">ML Research · Cybersecurity</span>
+      </div>
+
+      <div class="hero-quick">
+        <a class="quick-link" href="https://github.com/AbiXnash" target="_blank">
+          GitHub
+        </a>
+        <span class="quick-divider"></span>
+        <span class="quick-note">Open to backend consulting</span>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-card">
+          <div class="stat-label">Experience</div>
+          <div class="stat-value">{experienceLabel || "1+ year"}</div>
+          <div class="stat-sub">Backend systems</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Projects</div>
+          <div class="stat-value">{projectCount}</div>
+          <div class="stat-sub">Shipped builds</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Research</div>
+          <div class="stat-value">{researchCount}</div>
+          <div class="stat-sub">Cybersecurity + IIoT</div>
+        </div>
       </div>
     </div>
 
@@ -49,6 +97,7 @@
       </div>
     </div>
   </div>
+
 </section>
 
 <script>
@@ -189,10 +238,63 @@
     color: var(--text-dim);
   }
 
+  .hero-quick {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .quick-link {
+    color: var(--accent-alt);
+  }
+
+  .quick-divider {
+    width: 1px;
+    height: 14px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .hero-stats {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .stat-card {
+    border-radius: 18px;
+    border: 1px solid var(--border-soft);
+    background: rgba(14, 18, 30, 0.65);
+    padding: 1rem 1.2rem;
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+  }
+
+  .stat-value {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+  }
+
+  .stat-sub {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+
   @media (min-width: 980px) {
     .hero-layout {
       grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
       align-items: center;
+    }
+
+    .hero-stats {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 </style>
