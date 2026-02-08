@@ -1,111 +1,6 @@
 ---
 import "../styles/global.css";
-
-const resume = {
-
-  work: {
-    label: "work",
-    description: "Professional engineering experience in production systems.",
-    items: [
-      {
-        title: "Java Developer — Mindgate Solutions",
-        meta: "2025–Present",
-        github: "",
-        contributors: [{ name: "Core Banking Team", role: "Engineering" }],
-        intro: "Role overview and responsibilities in enterprise banking.",
-        details: `
-Working on enterprise-grade banking
-and payment platforms.
-
-Responsibilities:
-- Core transaction workflows
-- Secure fund transfer modules
-- Clean architecture enforcement
-- Java, Spring, Oracle DB
-        `,
-      },
-    ],
-  },
-
-  projects: {
-    label: "projects",
-    description: "Selected engineering systems and applications.",
-    items: [
-      {
-        title: "Net Banking System",
-        meta: "Java · Spring · Oracle",
-        github: "https://github.com/AbiXnash",
-        contributors: [
-          { name: "Abinash S", role: "Lead Author" },
-          { name: "Priyanga S", role: "Co-Author" },
-          { name: "Srivatsan N", role: "Reviewer" },
-        ],
-        intro: "Enterprise banking system overview.",
-        details: `
-Enterprise net banking platform.
-
-Features:
-- Account lifecycle management
-- Secure transactions
-- Role-based access control
-- Validation & audit logic
-        `,
-      },
-    ],
-  },
-  research: {
-    label: "research",
-    description: "Academic and applied research artifacts.",
-    items: [
-      {
-        title: "HGCNN–LSTM Intrusion Detection",
-        meta: "Springer · 2024",
-        github: "https://github.com/AbiXnash",
-        contributors: [
-          { name: "Abinash S", role: "Lead Author" },
-          { name: "Priyanga S", role: "Co-Author" },
-          { name: "Srivatsan N", role: "Reviewer" },
-        ],
-        intro:
-          "Manual page for a hybrid deep-learning intrusion detection system.",
-        details: `
-This work proposes a hybrid deep learning model
-combining Hierarchical Gated CNN with LSTM to detect
-cyber attacks in cyber-physical systems.
-
-Key Contributions:
-- Novel HGCNN + LSTM architecture
-- Evaluated on IIoT benchmark datasets
-- Strong multi-class detection accuracy
-- Accepted in Springer Journals (2024)
-        `,
-      },
-    ],
-  },
-
-  education: {
-    label: "education",
-    description: "Formal academic background.",
-    items: [
-      {
-        title: "B.Tech Computer Science — SASTRA",
-        meta: "2021–2025",
-        github: "",
-        contributors: [{ name: "SASTRA CSE Dept", role: "Institution" }],
-        intro: "Academic foundation and technical focus.",
-        details: `
-Focused on systems engineering,
-full-stack development, and applied ML.
-
-Highlights:
-- OS, DBMS, Networks, Data Structures
-- Research-oriented curriculum
-- Technical leadership roles
-        `,
-      },
-    ],
-  },
-};
+import resume from "../data/resume.json";
 ---
 
 <!-- TERMINAL SESSION -->
@@ -322,10 +217,7 @@ Highlights:
                bg-black/40 px-4 py-3"
       >
         <p class="mb-1 text-xs text-green-400">NOTE</p>
-        <p class="text-white/65">
-          This section reflects production-level decisions, not theoretical
-          examples.
-        </p>
+        <p id="termNote" class="text-white/65"></p>
       </div>
 
       <!-- CONTRIBUTORS -->
@@ -336,6 +228,12 @@ Highlights:
           id="termContrib"
           class="space-y-1 pl-4 text-white/75"
         ></ul>
+      </div>
+
+      <!-- REFERENCES -->
+      <div id="termRefs" class="mb-8">
+        <p class="mb-2 text-xs text-white/40">$ references</p>
+        <ul id="termRefList" class="space-y-1 pl-4 text-white/75"></ul>
       </div>
 
       <!-- SOURCE -->
@@ -399,6 +297,9 @@ Highlights:
     const contrib = document.getElementById("termContrib");
     const gitBox = document.getElementById("termGit");
     const gitLink = document.getElementById("termGitLink");
+    const note = document.getElementById("termNote");
+    const refBox = document.getElementById("termRefs");
+    const refList = document.getElementById("termRefList");
     const close = document.getElementById("closeTerm");
 
     const commentInput = document.getElementById("commentInput");
@@ -420,6 +321,10 @@ Highlights:
           })
           .join("\n");
 
+        note.textContent =
+          data.note ||
+          "This section reflects production-level decisions, not theoretical examples.";
+
 
         contrib.innerHTML = "";
         data.contributors.forEach((c) => {
@@ -427,6 +332,18 @@ Highlights:
           li.textContent = `• ${c.name} — ${c.role}`;
           contrib.appendChild(li);
         });
+
+        refList.innerHTML = "";
+        if (Array.isArray(data.references) && data.references.length) {
+          data.references.forEach((r) => {
+            const li = document.createElement("li");
+            li.innerHTML = `• <a href="${r.url}" target="_blank" class="text-green-400 hover:underline">${r.label}</a>`;
+            refList.appendChild(li);
+          });
+          refBox.classList.remove("hidden");
+        } else {
+          refBox.classList.add("hidden");
+        }
 
         if (data.github) {
           gitLink.href = data.github;
