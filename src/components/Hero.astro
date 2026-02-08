@@ -1,4 +1,4 @@
-<section class="page-shell">
+<section class="page-shell hero-shell">
   <div class="page-inner hero-grid">
     <div class="hero-block">
       <span class="hero-kicker">$ whoami</span>
@@ -25,13 +25,15 @@
     <div class="card hero-panel">
       <div class="panel-header">
         <span class="hero-kicker">now</span>
-        <span class="panel-status">available for select work</span>
+        <span class="panel-status status-pulse">available for select work</span>
       </div>
 
       <div class="panel-body">
         <div class="panel-row">
           <span class="panel-label">Focus</span>
-          <span class="panel-value">Backend reliability & payment flows</span>
+          <span id="focusLine" class="panel-value">
+            Backend reliability & payment flows
+          </span>
         </div>
         <div class="panel-row">
           <span class="panel-label">Current Stack</span>
@@ -60,6 +62,7 @@
     const btn = document.getElementById("heartBtn");
     const icon = document.getElementById("heartIcon");
     const countEl = document.getElementById("heartCount");
+    const focusLine = document.getElementById("focusLine");
 
     let count = Number(localStorage.getItem("hero-hearts") || 0);
     countEl.textContent = count;
@@ -76,10 +79,29 @@
         icon.textContent = "♡";
       }, 300);
     });
+
+    if (focusLine) {
+      const lines = [
+        "Backend reliability & payment flows",
+        "High-volume transaction systems",
+        "Secure infrastructure & auditability",
+      ];
+      let idx = 0;
+      setInterval(() => {
+        idx = (idx + 1) % lines.length;
+        focusLine.textContent = lines[idx];
+      }, 6000);
+    }
   });
 </script>
 
 <style>
+  .hero-shell {
+    min-height: calc(100vh - 240px);
+    display: flex;
+    align-items: center;
+  }
+
   .hero-grid {
     gap: 3rem;
   }
@@ -107,6 +129,23 @@
     color: var(--text-dim);
     text-transform: uppercase;
     letter-spacing: 0.18em;
+  }
+
+  .status-pulse {
+    position: relative;
+  }
+
+  .status-pulse::before {
+    content: "";
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--accent);
+    transform: translateY(-50%);
+    animation: pulse 2s ease-in-out infinite;
   }
 
   .panel-body {
@@ -164,6 +203,21 @@
       display: grid;
       grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
       align-items: center;
+    }
+  }
+
+  @keyframes pulse {
+    0% {
+      opacity: 0.3;
+      box-shadow: 0 0 0 0 rgba(142, 242, 193, 0.4);
+    }
+    70% {
+      opacity: 1;
+      box-shadow: 0 0 0 8px rgba(142, 242, 193, 0);
+    }
+    100% {
+      opacity: 0.3;
+      box-shadow: 0 0 0 0 rgba(142, 242, 193, 0);
     }
   }
 </style>

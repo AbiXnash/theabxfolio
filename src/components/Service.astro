@@ -10,7 +10,7 @@
     </div>
 
     <div class="card-grid">
-      <div class="card">
+      <div class="card service-card">
         <h2 class="section-title">Resume</h2>
         <p class="section-subtitle">
           Career materials built for engineering roles with emphasis on impact
@@ -20,9 +20,12 @@
           <li>Resume build</li>
           <li>Resume review + ATS alignment</li>
         </ul>
+        <div class="service-detail">
+          <p>Includes impact framing, keywords, and role alignment.</p>
+        </div>
       </div>
 
-      <div class="card">
+      <div class="card service-card">
         <h2 class="section-title">Collaboration</h2>
         <p class="section-subtitle">
           Architecture and implementation support for academic and early-stage
@@ -32,9 +35,12 @@
           <li>Project collaboration</li>
           <li>System design guidance</li>
         </ul>
+        <div class="service-detail">
+          <p>Ideal for research prototypes, MVPs, and system planning.</p>
+        </div>
       </div>
 
-      <div class="card">
+      <div class="card service-card">
         <h2 class="section-title">Development</h2>
         <p class="section-subtitle">
           Product-focused development across websites, APIs, and systems.
@@ -44,6 +50,9 @@
           <li>API development</li>
           <li>System engineering</li>
         </ul>
+        <div class="service-detail">
+          <p>Delivery emphasizes performance, testing, and documentation.</p>
+        </div>
       </div>
     </div>
 
@@ -85,6 +94,32 @@
     flex-direction: column;
     gap: 1.2rem;
     align-items: flex-start;
+  }
+
+  .service-card {
+    position: relative;
+    overflow: hidden;
+    transition: transform 160ms ease, border-color 160ms ease;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .service-detail {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 180ms ease;
+  }
+
+  .service-card:hover .service-detail {
+    opacity: 1;
+    max-height: 120px;
   }
 
   @media (min-width: 768px) {

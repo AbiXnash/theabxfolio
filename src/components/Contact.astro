@@ -20,9 +20,12 @@
       </div>
       <div class="primary-cta">
         <span class="tag">preferred</span>
-        <a href="mailto:abinash@theabx.in" class="primary-link">
+        <a id="primaryEmail" href="mailto:abinash@theabx.in" class="primary-link">
           abinash@theabx.in
         </a>
+        <button id="copyEmail" class="copy-btn" type="button">
+          copy
+        </button>
       </div>
     </div>
 
@@ -116,6 +119,33 @@
   </div>
 </section>
 
+<div id="copyToast" class="copy-toast">Email copied</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const copyBtn = document.getElementById("copyEmail");
+    const emailLink = document.getElementById("primaryEmail");
+    const toast = document.getElementById("copyToast");
+
+    if (!copyBtn || !emailLink || !toast) return;
+
+    copyBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(emailLink.textContent.trim());
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 1500);
+      } catch (err) {
+        toast.textContent = "Copy failed";
+        toast.classList.add("show");
+        setTimeout(() => {
+          toast.classList.remove("show");
+          toast.textContent = "Email copied";
+        }, 1500);
+      }
+    });
+  });
+</script>
+
 <style>
   .contact-primary {
     display: flex;
@@ -178,6 +208,41 @@
     display: grid;
     place-items: center;
     color: var(--text-muted);
+  }
+
+  .copy-btn {
+    border-radius: 999px;
+    border: 1px solid var(--border-soft);
+    padding: 0.3rem 0.8rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    transition: all 150ms ease;
+  }
+
+  .copy-btn:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+  }
+
+  .copy-toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: rgba(10, 12, 20, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 0.6rem 1rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 160ms ease;
+    z-index: 60;
+  }
+
+  .copy-toast.show {
+    opacity: 1;
+    transform: translateY(0);
   }
   @media (min-width: 768px) {
     .contact-primary {
