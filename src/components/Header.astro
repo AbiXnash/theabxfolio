@@ -1,10 +1,11 @@
 ---
 const path = Astro.url.pathname.split("/").filter(Boolean);
 const isHome = path.length === 0;
+const isActive = (href) => Astro.url.pathname === href;
 ---
 
 <header
-  class="sticky top-0 z-50 border-b border-white/10 bg-black/40 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.35)]"
+  class="sticky top-0 z-50 border-b border-white/10 bg-black/30 backdrop-blur-2xl shadow-[0_12px_40px_rgba(0,0,0,0.45)]"
 >
   <div
     class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 text-xs sm:px-6 sm:text-sm"
@@ -24,8 +25,8 @@ const isHome = path.length === 0;
         )
       }
 
-      <a href="/" class="shrink-0 transition hover:text-white">
-        <span class="text-[var(--accent-strong)]">abx@portfolio</span>
+      <a href="/" class="brand-link">
+        <span class="brand-badge">abx@portfolio</span>
       </a>
 
       <span class="mx-2 shrink-0 text-white/40">:</span>
@@ -55,38 +56,35 @@ const isHome = path.length === 0;
     <div class="hidden items-center gap-3 text-white/40 md:flex">
       <span id="sysTime" class="tracking-widest"></span>
       <span class="text-white/20">|</span>
-      <span>status: <span class="text-green-400">online</span></span>
+      <span>status: <span class="text-[var(--accent)]">online</span></span>
     </div>
 
     <!-- RIGHT: ACTIONS -->
     <div class="flex items-center gap-4">
-      <!-- SEARCH (DESKTOP) -->
-      <button
-        id="openSearch"
-        class="hidden items-center gap-1 text-white/50 hover:text-white sm:flex"
-        aria-label="search"
-      >
-        <span>/</span>
-        <span class="text-xs">search</span>
-      </button>
-
       <!-- NAV (DESKTOP) -->
-      <nav class="hidden items-center gap-5 text-white/60 sm:flex">
-        <a href="/resume" class="transition hover:text-white"> resume </a>
-        <a href="/service" class="transition hover:text-white"> service </a>
-        <a href="/contact" class="transition hover:text-white"> contact </a>
+      <nav class="hidden items-center gap-2 text-white/60 sm:flex">
+        <a
+          href="/resume"
+          class={`nav-link ${isActive("/resume") ? "is-active" : ""}`}
+        >
+          resume
+        </a>
+        <a
+          href="/service"
+          class={`nav-link ${isActive("/service") ? "is-active" : ""}`}
+        >
+          service
+        </a>
+        <a
+          href="/contact"
+          class={`nav-link ${isActive("/contact") ? "is-active" : ""}`}
+        >
+          contact
+        </a>
       </nav>
 
       <!-- MOBILE ACTIONS -->
       <div class="relative flex items-center gap-3 sm:hidden">
-        <button
-          id="openSearchMobile"
-          class="flex items-center gap-1 text-white/50 hover:text-white"
-          aria-label="search"
-        >
-          <span>/</span>
-          <span class="text-xs">search</span>
-        </button>
 
         <!-- MENU -->
         <button
@@ -102,13 +100,22 @@ const isHome = path.length === 0;
           id="navMenu"
           class="absolute top-7 right-0 hidden rounded-lg border border-white/10 bg-black/90 text-xs text-white/70 backdrop-blur"
         >
-          <a href="/resume" class="block px-4 py-2 hover:bg-white/10">
+          <a
+            href="/resume"
+            class={`block px-4 py-2 hover:bg-white/10 ${isActive("/resume") ? "text-white" : ""}`}
+          >
             resume
           </a>
-          <a href="/service" class="block px-4 py-2 hover:bg-white/10">
+          <a
+            href="/service"
+            class={`block px-4 py-2 hover:bg-white/10 ${isActive("/service") ? "text-white" : ""}`}
+          >
             service
           </a>
-          <a href="/contact" class="block px-4 py-2 hover:bg-white/10">
+          <a
+            href="/contact"
+            class={`block px-4 py-2 hover:bg-white/10 ${isActive("/contact") ? "text-white" : ""}`}
+          >
             contact
           </a>
         </div>
@@ -116,6 +123,40 @@ const isHome = path.length === 0;
     </div>
   </div>
 </header>
+
+<style>
+  .brand-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 160ms ease;
+  }
+
+  .brand-badge {
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--accent);
+    letter-spacing: 0.08em;
+  }
+
+  .nav-link {
+    position: relative;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    transition: all 160ms ease;
+  }
+
+  .nav-link:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .nav-link.is-active {
+    color: #0b1d13;
+    background: var(--accent);
+  }
+</style>
 
 <!-- HEADER SCRIPT -->
 <script>
@@ -129,15 +170,6 @@ const isHome = path.length === 0;
     updateTime();
     setInterval(updateTime, 1000);
   }
-
-  /* ---------- SEARCH TRIGGERS ---------- */
-  document.getElementById("openSearch")?.addEventListener("click", () => {
-    document.dispatchEvent(new KeyboardEvent("keydown", { key: "/" }));
-  });
-
-  document.getElementById("openSearchMobile")?.addEventListener("click", () => {
-    document.dispatchEvent(new KeyboardEvent("keydown", { key: "/" }));
-  });
 
   /* ---------- MOBILE MENU ---------- */
   document.addEventListener("DOMContentLoaded", () => {

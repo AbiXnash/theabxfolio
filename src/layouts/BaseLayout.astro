@@ -19,37 +19,29 @@ const { title = "abx@portfolio" } = Astro.props;
     <!-- SYSTEM BOOT -->
     <div
       id="boot"
-      class="fixed inset-0 z-[100] flex items-center justify-center bg-black font-mono text-sm text-white"
+      class="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 text-white"
     >
-      <div class="space-y-2">
-        <p data-line class="boot-line">
-          <span
-            class="text-green-400 drop-shadow-[0_0_6px_rgba(74,222,128,0.25)]"
-            >[ ok ]</span
-          >
-          loading environment
-        </p>
-        <p data-line class="boot-line">
-          <span
-            class="text-green-400 drop-shadow-[0_0_6px_rgba(74,222,128,0.25)]"
-            >[ ok ]</span
-          >
-          initializing interface
-        </p>
-        <p data-line class="boot-line">
-          <span
-            class="text-green-400 drop-shadow-[0_0_6px_rgba(74,222,128,0.25)]"
-            >[ ok ]</span
-          >
-          mounting modules
-        </p>
-        <p data-line class="boot-line">
-          <span
-            class="text-green-400 drop-shadow-[0_0_6px_rgba(74,222,128,0.25)]"
-            >[ ok ]</span
-          >
-          ready
-        </p>
+      <div class="boot-panel">
+        <div class="boot-header">
+          <span class="boot-dot red"></span>
+          <span class="boot-dot yellow"></span>
+          <span class="boot-dot green"></span>
+          <span class="boot-title">abx.system</span>
+        </div>
+        <div class="boot-body">
+          <p data-line class="boot-line">
+            <span class="boot-tag">[ ok ]</span> loading environment
+          </p>
+          <p data-line class="boot-line">
+            <span class="boot-tag">[ ok ]</span> initializing interface
+          </p>
+          <p data-line class="boot-line">
+            <span class="boot-tag">[ ok ]</span> mounting modules
+          </p>
+          <p data-line class="boot-line">
+            <span class="boot-tag">[ ok ]</span> ready
+          </p>
+        </div>
       </div>
     </div>
 
@@ -58,37 +50,6 @@ const { title = "abx@portfolio" } = Astro.props;
     <main class="flex-1">
       <slot />
 
-      <!-- COMMAND PALETTE -->
-      <div
-        id="cmdPalette"
-        class="fixed inset-0 z-[60] hidden bg-black/85 backdrop-blur-sm"
-      >
-        <div
-          class="mx-auto mt-28 w-[94%] max-w-2xl rounded-xl border border-white/10 bg-black font-mono text-sm text-white shadow-[0_0_60px_rgba(0,0,0,0.85)]"
-        >
-          <!-- INPUT -->
-          <div
-            class="flex items-center gap-3 border-b border-white/10 px-4 py-3 focus-within:bg-white/[0.02]"
-          >
-            <span class="text-green-400">$</span>
-            <input
-              id="cmdInput"
-              placeholder="type a command…"
-              autocomplete="off"
-              class="w-full bg-transparent text-white outline-none placeholder:text-white/30"
-            />
-          </div>
-
-          <!-- RESULTS -->
-          <ul id="cmdResults" class="max-h-72 overflow-y-auto py-1"></ul>
-
-          <!-- FOOTER -->
-          <div class="flex justify-between px-4 py-2 text-xs text-white/30">
-            <span>enter ↵ execute</span>
-            <span>esc close</span>
-          </div>
-        </div>
-      </div>
     </main>
 
     <Footer />
@@ -118,230 +79,70 @@ const { title = "abx@portfolio" } = Astro.props;
           setTimeout(() => line.classList.add("is-visible"), i * 220),
         );
 
-        const total = lines.length * 220 + 600;
+        const total = lines.length * 220 + 700;
         setTimeout(() => {
-          boot.style.transition = "opacity 300ms ease";
+          boot.style.transition = "opacity 320ms ease, transform 320ms ease";
           boot.style.opacity = "0";
-          setTimeout(() => boot.remove(), 320);
+          boot.style.transform = "translateY(-8px)";
+          setTimeout(() => boot.remove(), 360);
         }, total);
       })();
-      const palette = document.getElementById("cmdPalette");
-      const input = document.getElementById("cmdInput");
-      const results = document.getElementById("cmdResults");
-
-      let isOpen = false;
-      let activeIndex = 0;
-
-      const commands = [
-        {
-          name: "home",
-          description: "Go to homepage",
-          route: "/",
-          aliases: ["h"],
-        },
-        {
-          name: "resume",
-          description: "View resume & experience",
-          route: "/resume",
-          aliases: ["cv", "work"],
-        },
-        {
-          name: "services",
-          description: "View services & offerings",
-          route: "/service",
-          aliases: ["service"],
-        },
-        {
-          name: "contact",
-          description: "Get in touch",
-          route: "/contact",
-          aliases: ["mail", "email"],
-        },
-        {
-          name: "help",
-          description: "Show available commands",
-          route: "__help__",
-          aliases: ["?"],
-        },
-      ];
-
-      /* ---------- OPEN / CLOSE ---------- */
-
-      function openPalette() {
-        if (isOpen) return;
-        isOpen = true;
-        palette.classList.remove("hidden");
-        input.value = "";
-        activeIndex = 0;
-        render(commands);
-        setTimeout(() => input.focus(), 0);
-      }
-
-      function closePalette() {
-        if (!isOpen) return;
-        isOpen = false;
-        palette.classList.add("hidden");
-      }
-
-      /* ---------- FUZZY RANKING ---------- */
-
-      function rank(query, cmd) {
-        const q = query.toLowerCase();
-        const name = cmd.name.toLowerCase();
-        const aliases = cmd.aliases.join(" ").toLowerCase();
-
-        if (name.startsWith(q)) return 3;
-        if (aliases.startsWith(q)) return 2;
-        if (name.includes(q) || aliases.includes(q)) return 1;
-        return 0;
-      }
-
-      function search(query) {
-        if (!query) return commands;
-
-        return commands
-          .map((cmd) => ({ cmd, score: rank(query, cmd) }))
-          .filter((x) => x.score > 0)
-          .sort((a, b) => b.score - a.score)
-          .map((x) => x.cmd);
-      }
-
-      /* ---------- RENDER ---------- */
-
-      function render(list) {
-        results.innerHTML = "";
-
-        if (!list.length) {
-          results.innerHTML = `
-              <li class="px-4 py-3 text-white/40">
-                no matching commands
-              </li>`;
-          return;
-        }
-
-        list.forEach((cmd, i) => {
-          const li = document.createElement("li");
-
-          li.className =
-            "flex items-center gap-3 px-4 py-3 cursor-pointer " +
-            (i === activeIndex
-              ? "bg-white/10 text-white"
-              : "text-white/70 hover:bg-white/[0.04]");
-
-          li.innerHTML = `
-              <span class="text-white/30">›</span>
-              <div class="flex flex-col">
-                <span>${cmd.name}</span>
-                <span class="text-xs text-white/40">${cmd.description}</span>
-              </div>
-            `;
-
-          li.onclick = () => execute(cmd);
-          results.appendChild(li);
-        });
-      }
-
-      /* ---------- EXECUTION ---------- */
-
-      function execute(cmd) {
-        if (cmd.route === "__help__") {
-          renderHelp();
-          input.value = "";
-          activeIndex = 0;
-          return;
-        }
-        window.location.href = cmd.route;
-      }
-
-      /* ---------- EVENTS ---------- */
-      function renderHelp() {
-        results.innerHTML = "";
-
-        const header = document.createElement("li");
-        header.className = "px-4 py-2 text-xs text-white/40 uppercase";
-        header.textContent = "available commands";
-        results.appendChild(header);
-
-        commands.forEach((cmd) => {
-          const li = document.createElement("li");
-          li.className = "flex items-start gap-3 px-4 py-3 text-white/70";
-
-          li.innerHTML = `
-            <span class="text-white/30">›</span>
-            <div>
-              <div class="text-white">${cmd.name}</div>
-              <div class="text-xs text-white/40">${cmd.description}</div>
-            </div>
-          `;
-
-          results.appendChild(li);
-        });
-
-        const aliasHeader = document.createElement("li");
-        aliasHeader.className =
-          "mt-3 px-4 py-2 text-xs text-white/40 uppercase";
-        aliasHeader.textContent = "aliases";
-        results.appendChild(aliasHeader);
-
-        commands
-          .filter((c) => c.aliases.length)
-          .forEach((cmd) => {
-            const li = document.createElement("li");
-            li.className = "px-4 py-2 text-white/60 text-sm";
-
-            li.innerHTML = `
-              <span class="text-white/40">${cmd.aliases.join(", ")}</span>
-              <span class="text-white/30"> → </span>
-              <span class="text-white">${cmd.name}</span>
-            `;
-
-            results.appendChild(li);
-          });
-      }
-
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-          closePalette();
-          return;
-        }
-
-        if (["INPUT", "TEXTAREA"].includes(e.target.tagName)) return;
-
-        if (e.key === "/") {
-          e.preventDefault();
-          openPalette();
-        }
-      });
-
-      input.addEventListener("input", () => {
-        activeIndex = 0;
-        render(search(input.value));
-      });
-
-      input.addEventListener("keydown", (e) => {
-        const items = results.children;
-        if (!items.length) return;
-
-        if (e.key === "ArrowDown") {
-          activeIndex = (activeIndex + 1) % items.length;
-          render(search(input.value));
-          e.preventDefault();
-        }
-
-        if (e.key === "ArrowUp") {
-          activeIndex = (activeIndex - 1 + items.length) % items.length;
-          render(search(input.value));
-          e.preventDefault();
-        }
-
-        if (e.key === "Enter") {
-          items[activeIndex].click();
-        }
-      });
-
-      palette.addEventListener("click", (e) => {
-        if (e.target === palette) closePalette();
-      });
     </script>
   </body>
 </html>
+
+<style>
+  .boot-panel {
+    width: min(420px, 90vw);
+    background: rgba(8, 10, 16, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+    overflow: hidden;
+  }
+
+  .boot-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(10, 12, 20, 0.9);
+  }
+
+  .boot-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+  }
+
+  .boot-dot.red {
+    background: #ff5f57;
+  }
+
+  .boot-dot.yellow {
+    background: #febc2e;
+  }
+
+  .boot-dot.green {
+    background: #28c840;
+  }
+
+  .boot-title {
+    margin-left: auto;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .boot-body {
+    padding: 1.5rem 1.4rem;
+    font-size: 0.85rem;
+  }
+
+  .boot-tag {
+    color: var(--accent-strong);
+  }
+
+</style>
