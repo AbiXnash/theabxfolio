@@ -1,0 +1,232 @@
+{
+  "work": {
+    "label": "work",
+    "description": "Production-grade backend engineering in banking and payments, focused on reliability, security, and transaction integrity at scale.",
+    "items": [
+      {
+        "title": "Java Developer — Mindgate Solutions",
+        "meta": "2025–Present",
+        "startDate": "2025-07-02",
+        "endDate": "Present",
+        "github": "",
+        "contributors": [
+          { "name": "Core Banking Team", "role": "Engineering" }
+        ],
+        "intro": "Backend developer working on high-volume transaction systems, bulk corporate payments, and critical banking infrastructure.",
+        "details": "Building and maintaining production banking and payment platforms.\n\nResponsibilities:\n- Backend transaction processing and validation\n- Bulk corporate payment workflows\n- Critical infrastructure improvements and reliability work\n- Auditability, reconciliation, and traceability\n- Performance and resiliency tuning\n- Java, Spring Boot, microservices\n- OracleDB and PostgreSQL",
+        "skills": ["Java", "Spring Boot", "Microservices", "OracleDB", "PostgreSQL", "Payments", "Transactions"],
+        "note": "Notes emphasize production constraints: idempotency, reconciliation, audit trails, deterministic error handling, and operational safety.",
+        "references": [
+          { "label": "Mindgate Solutions", "url": "https://www.mindgate.solutions/" },
+          { "label": "Spring Boot", "url": "https://spring.io/projects/spring-boot" },
+          { "label": "Oracle Database", "url": "https://www.oracle.com/database/" },
+          { "label": "PostgreSQL", "url": "https://www.postgresql.org/" }
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "label": "projects",
+    "description": "Selected engineering systems spanning secure banking platforms, web builds, tooling, and applied prototypes.",
+    "items": [
+      {
+        "title": "WiFi Trolley Bot — ESP32",
+        "meta": "2023 · ESP32 · IoT · Embedded",
+        "github": "https://github.com/AbiXnash/WiFi-Trolley-Bot-using-ESP32",
+        "contributors": [
+          { "name": "Abinash S", "role": "Co-Creator" },
+          { "name": "Srivatsan N", "role": "Co-Creator" },
+          { "name": "HariPrasad", "role": "Co-Creator" }
+        ],
+        "intro": "WiFi-controlled trolley bot built on ESP32 with real-time control logic.",
+        "details": "Designed an ESP32-based trolley bot with wireless control capability.\n\nHighlights:\n- ESP32 WiFi control\n- Motor control and navigation\n- Lightweight firmware structure\n- Hardware-software integration",
+        "note": "Hands-on embedded project emphasizing control logic and reliable WiFi command handling.",
+        "references": [
+          { "label": "GitHub Repository", "url": "https://github.com/AbiXnash/WiFi-Trolley-Bot-using-ESP32" },
+          { "label": "ESP32", "url": "https://www.espressif.com/en/products/socs/esp32" }
+        ]
+      },
+      {
+        "title": "Conference Site",
+        "meta": "2024 · Web · Frontend",
+        "github": "https://github.com/AbiXnash/conference-site",
+        "contributors": [
+          { "name": "Abinash S", "role": "Developer" }
+        ],
+        "intro": "Website for SASTRA ICMAT conference with a structured flow for paper submissions.",
+        "details": "Built the ICMAT conference site for SASTRA, focused on clear submission flow and accessible event information.\n\nHighlights:\n- Paper submission guidance and calls\n- Schedule and speaker section layout\n- Clean, responsive UI\n- Structured content sections",
+        "note": "Designed to minimize confusion around submission requirements and keep deadlines and tracks easy to find.",
+        "references": [
+          { "label": "GitHub Repository", "url": "https://github.com/AbiXnash/conference-site" }
+        ]
+      },
+      {
+        "title": "Theta2k23 — Event Web Presence",
+        "meta": "2023 · Web · Event",
+        "github": "https://github.com/AbiXnash/theta2k23",
+        "contributors": [
+          { "name": "Abinash S", "role": "Developer" }
+        ],
+        "intro": "Fest site for SASTRA Theta2k23 with fast access to events and updates.",
+        "details": "Created a fest website for Theta2k23, highlighting event lists, announcements, and quick navigation.\n\nHighlights:\n- Compact, focused content\n- Mobile-first layout\n- Simple navigation flow\n- Event-centric sections",
+        "note": "Prioritizes speed and clarity for event attendees on mobile.",
+        "references": [
+          { "label": "GitHub Repository", "url": "https://github.com/AbiXnash/theta2k23" }
+        ]
+      },
+      {
+        "title": "Hell Pine — VS Code Theme Extension",
+        "meta": "2025 · TypeScript · VS Code Extension",
+        "github": "https://github.com/AbiXnash/hell-pine",
+        "contributors": [
+          { "name": "Abinash S", "role": "Author" }
+        ],
+        "intro": "Forked from Rosé Pine and customized for higher contrast and personal workflow.",
+        "details": "Built a VS Code theme by forking Rosé Pine and customizing colors for clarity and long coding sessions.\n\nHighlights:\n- Rosé Pine base with tuned contrasts\n- Adjusted token colors for readability\n- Extension packaging and publishing\n- Consistent UI appearance",
+        "note": "Theme focuses on readability and personalized color balance without losing the Rosé Pine character.",
+        "references": [
+          { "label": "GitHub Repository", "url": "https://github.com/AbiXnash/hell-pine" },
+          { "label": "VS Code Marketplace (Hell Pine)", "url": "https://marketplace.visualstudio.com/items?itemName=ABX.hell-pine" }
+        ]
+      },
+      {
+        "title": "TheGlobe — Freelance Web Build",
+        "meta": "2025 · Web · Freelance",
+        "github": "https://github.com/AbiXnash/theglobe",
+        "contributors": [
+          { "name": "Abinash S", "role": "Freelancer" }
+        ],
+        "intro": "Website for a digital marketing organization with a clean, business-first layout.",
+        "details": "Delivered a freelance website for a digital marketing company, emphasizing clear service presentation and client trust.\n\nHighlights:\n- Business-focused information architecture\n- Responsive layout and performance\n- Clean components and styling system\n- Client-ready delivery",
+        "note": "Focused on clarity, credibility, and a solid handoff for client ownership.",
+        "references": [
+          { "label": "GitHub Repository", "url": "https://github.com/AbiXnash/theglobe" }
+        ]
+      },
+      {
+        "title": "Neovim Configuration — nvim",
+        "meta": "2023–Present · Lua · Neovim",
+        "github": "https://github.com/AbiXnash/nvim",
+        "contributors": [
+          { "name": "Abinash S", "role": "Maintainer" }
+        ],
+        "intro": "Modern Neovim setup for development speed, ergonomics, and consistent tooling.",
+        "details": "Curated Neovim configuration focused on developer velocity.\n\nHighlights:\n- Modular Lua configuration\n- LSP and formatter integration\n- Fast startup and workflow shortcuts\n- Opinionated plugin setup",
+        "note": "Config-first productivity project with an emphasis on speed and maintainability.",
+        "references": [
+          { "label": "GitHub Repository", "url": "https://github.com/AbiXnash/nvim" },
+          { "label": "Neovim", "url": "https://neovim.io/" }
+        ]
+      }
+    ]
+  },
+  "research": {
+    "label": "research",
+    "description": "Academic research in cybersecurity and applied machine learning, centered on intrusion detection models and IIoT datasets.",
+    "items": [
+      {
+        "title": "HGCNN–LSTM Intrusion Detection",
+        "meta": "2024 · Jupyter · Python",
+        "github": "https://github.com/AbiXnash",
+        "contributors": [
+          { "name": "Abinash S", "role": "Author" },
+          { "name": "Priyanga S", "role": "Author, Project Guide" },
+          { "name": "Srivatsan N", "role": "Author" }
+        ],
+        "intro": "Hybrid deep-learning intrusion detection system for cyber-physical networks.",
+        "details": "Hybrid IDS model combining Hierarchical Gated CNN (HGCNN) for spatial feature extraction and LSTM for temporal sequence modeling.\n\nKey Contributions:\n- HGCNN + LSTM end-to-end pipeline\n- Multi-class CPS attack detection\n- Evaluation on IIoT benchmark data\n- Clear ablation and error analysis",
+        "note": "Notebook-driven experiments detailing preprocessing, feature engineering, and model training with reproducible metrics.",
+        "references": [
+          { "label": "Research Repo (Notebooks)", "url": "https://github.com/AbiXnash/An-Intrusion-Detection-System-using-Deep-Learning-models-on-UNSW_NB15-dataset" },
+          { "label": "Project Report (PDF)", "url": "https://github.com/AbiXnash/An-Intrusion-Detection-System-using-Deep-Learning-models-on-UNSW_NB15-dataset/blob/main/C7_Batch_Mini_Project_CSE300.pdf" },
+          { "label": "UNSW-NB15 Dataset (UNSW)", "url": "https://research.unsw.edu.au/projects/unsw-nb15-dataset" }
+        ]
+      },
+      {
+        "title": "Intrusion Detection System (IIoT) — Hybrid CNN + LSTM",
+        "meta": "2024 · Jupyter · Python",
+        "github": "https://github.com/AbiXnash/An-Intrusion-Detection-System-using-Deep-Learning-models-on-UNSW_NB15-dataset",
+        "contributors": [
+          { "name": "Abinash S", "role": "Author" },
+          { "name": "Priyanga S", "role": "Author, Project Guide" },
+          { "name": "Srivatsan N", "role": "Author" }
+        ],
+        "intro": "Deep-learning IDS for IIoT networks using a hybrid CNN + LSTM approach.",
+        "details": "Hybrid CNN + LSTM IDS designed to detect malicious IIoT traffic with improved accuracy on benchmark data.\n\nHighlights:\n- UNSW-NB15 benchmark dataset\n- CNN for attack event detection\n- LSTM for temporal sequence modeling\n- Focus on lowering misclassification and false alarms",
+        "note": "Notebook-driven workflow with clear dataset preprocessing, model training, and evaluation steps.",
+        "references": [
+          { "label": "GitHub Repository", "url": "https://github.com/AbiXnash/An-Intrusion-Detection-System-using-Deep-Learning-models-on-UNSW_NB15-dataset" },
+          { "label": "Project Report (PDF)", "url": "https://github.com/AbiXnash/An-Intrusion-Detection-System-using-Deep-Learning-models-on-UNSW_NB15-dataset/blob/main/C7_Batch_Mini_Project_CSE300.pdf" },
+          { "label": "UNSW-NB15 Dataset (UNSW)", "url": "https://research.unsw.edu.au/projects/unsw-nb15-dataset" }
+        ]
+      },
+      {
+        "title": "HGCNN-LSTM — Cyber Attack Detection in Cyber-Physical Systems",
+        "meta": "2024 · Jupyter · Python",
+        "github": "https://github.com/AbiXnash/HGCNN-LSTM-A-Data-driven-Approach-for-Cyber-Attack-Detection-in-Cyber-Physical-Systems",
+        "contributors": [
+          { "name": "Abinash S", "role": "Author" },
+          { "name": "Priyanga S", "role": "Author, Project Guide" }
+        ],
+        "intro": "Data-driven intrusion detection research using HGCNN + LSTM for CPS environments.",
+        "details": "Research implementation focused on cyber-physical system security.\n\nHighlights:\n- HGCNN + LSTM architecture\n- Sequence modeling for CPS data\n- Multi-class detection focus\n- Reproducible notebook workflow",
+        "note": "Detailed model notebook includes preprocessing, training curves, and confusion-matrix evaluation.",
+        "references": [
+          { "label": "GitHub Repository", "url": "https://github.com/AbiXnash/HGCNN-LSTM-A-Data-driven-Approach-for-Cyber-Attack-Detection-in-Cyber-Physical-Systems" }
+        ]
+      },
+      {
+        "title": "HyperCoar-DAM — Robust IDS for IIoT Networks",
+        "meta": "2023 · Jupyter · Python",
+        "github": "https://github.com/AbiXnash/HyperCoar-DAM-A-Robust-Intrusion-Detection-System-for-Enhancing-IIoT-Networks-Protection",
+        "contributors": [
+          { "name": "Abinash S", "role": "Author" },
+          { "name": "Priyanga S", "role": "Author, Project Guide" },
+          { "name": "Srivatsan N", "role": "Author" }
+        ],
+        "intro": "Robust intrusion detection approach focused on IIoT network protection.",
+        "details": "Research prototype targeting robust IDS performance in IIoT.\n\nHighlights:\n- Robust detection objective\n- Focus on IIoT threat resilience\n- Notebook-based workflow\n- Reproducible experimentation",
+        "note": "Research artifact documents robustness-focused training and evaluation within Jupyter notebooks.",
+        "references": [
+          { "label": "GitHub Repository", "url": "https://github.com/AbiXnash/HyperCoar-DAM-A-Robust-Intrusion-Detection-System-for-Enhancing-IIoT-Networks-Protection" }
+        ]
+      },
+      {
+        "title": "Genetic Programming Approach for Advanced Persistent Threat Detection",
+        "meta": "2025 · Jupyter · Python",
+        "github": "https://github.com/AbiXnash/gp-apt",
+        "contributors": [
+          { "name": "Abinash S", "role": "Author" },
+          { "name": "Priyanga S", "role": "Author, Project Guide" },
+          { "name": "Srivatsan N", "role": "Author" }
+        ],
+        "intro": "Tree-based genetic programming approach for APT detection on highly imbalanced cyber-attack data.",
+        "details": "Research project targeting APT detection using a tree-based genetic programming algorithm trained on highly imbalanced data (99:1).\n\nHighlights:\n- Genetic programming classifier (tree-based)\n- Handles extreme class imbalance (99:1)\n- Python-based experimentation pipeline\n- Reproducible training and evaluation workflow",
+        "note": "Focuses on imbalance-aware training and GP-driven model evolution for minority attack detection.",
+        "references": [
+          { "label": "GitHub Repository", "url": "https://github.com/AbiXnash/gp-apt" }
+        ]
+      }
+    ]
+  },
+  "education": {
+    "label": "education",
+    "description": "Formal academic background with a focus on systems, software engineering, and ML fundamentals.",
+    "items": [
+      {
+        "title": "B.Tech Computer Science — SASTRA",
+        "meta": "2021–2025",
+        "github": "",
+        "contributors": [
+          { "name": "SASTRA CSE Dept", "role": "Institution" }
+        ],
+        "intro": "Strong foundation in core CS topics and engineering practice.",
+        "details": "Focused on systems engineering, full-stack development, and applied ML.\n\nHighlights:\n- OS, DBMS, Networks, Data Structures\n- Research-oriented curriculum\n- Technical leadership roles",
+        "note": "Academics emphasize systems foundations and practical engineering practice with research exposure.",
+        "references": [
+          { "label": "SASTRA University", "url": "https://www.sastra.edu/" }
+        ]
+      }
+    ]
+  }
+}
