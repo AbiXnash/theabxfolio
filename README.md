@@ -17,9 +17,8 @@ Abinash S — Software Engineer (Full-Stack · Systems-Focused)
 This portfolio prioritizes:
 
 - clarity over decoration
-- keyboard-first interaction
-- inspectable content
 - performance and simplicity
+- intentional motion and layout
 
 It avoids unnecessary animations, trackers, and UI libraries.
 
@@ -31,13 +30,10 @@ It avoids unnecessary animations, trackers, and UI libraries.
 $ features
 ```
 
-- Terminal-style UI and navigation
-- Mobile dock navigation with social quick actions
-- Command palette (`/`) with live filtering
-- Keyboard-first interactions (↑ ↓ Enter Esc q)
-- Inspector-style overlays for deep content
-- Execution traces and line-numbered output
-- GitHub activity widget with client-side caching and ETag support
+- Premium dark UI with glass surfaces
+- Desktop header with centered navigation
+- Mobile dock navigation with social popover
+- GitHub activity widget (client-side fetch + cache/ETag)
 - Responsive and accessible by design
 - Minimal dependencies, static output
 
@@ -56,17 +52,6 @@ $ tree src/pages/
 
 ---
 
-## Keyboard Navigation
-
-```sh
-/        → open command palette
-↑ ↓      → navigate results
-enter    → open selection
-esc      → close overlays / palette
-```
-
-Designed to feel familiar to users of terminals and editors.
-
 ---
 
 ## Project Structure
@@ -75,6 +60,7 @@ Designed to feel familiar to users of terminals and editors.
 src
 ├── components
 │   ├── Contact.astro
+│   ├── Dock.astro
 │   ├── Footer.astro
 │   ├── Header.astro
 │   ├── Hero.astro
