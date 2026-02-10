@@ -40,15 +40,49 @@ const isActive = (href) => Astro.url.pathname === href;
       </svg>
       <span>Contact</span>
     </a>
-    <a href="https://github.com/AbiXnash" class="dock-item" target="_blank" rel="noreferrer">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path
-          fill="currentColor"
-          d="M12 2C6.48 2 2 6.58 2 12.28c0 4.52 2.87 8.36 6.84 9.72.5.1.68-.22.68-.48v-1.7c-2.78.62-3.37-1.4-3.37-1.4-.45-1.16-1.1-1.47-1.1-1.47-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.9 1.56 2.36 1.11 2.94.85.09-.67.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.05 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.32.1-2.75 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.43.2 2.49.1 2.75.64.72 1.03 1.63 1.03 2.75 0 3.92-2.34 4.78-4.57 5.03.36.32.68.94.68 1.9v2.82c0 .26.18.58.69.48A10.3 10.3 0 0 0 22 12.28C22 6.58 17.52 2 12 2z"
-        />
-      </svg>
-      <span>GitHub</span>
-    </a>
+    <div class="dock-social-wrap">
+      <button class="dock-item dock-social" type="button" aria-haspopup="true" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0-4a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm0 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
+          />
+        </svg>
+        <span>Social</span>
+      </button>
+      <div class="dock-popover" aria-hidden="true">
+        <a class="dock-popover-item" href="https://x.com/theabxguy" target="_blank" rel="noreferrer" aria-label="X">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              fill="currentColor"
+              d="M18.244 2H21.6l-7.53 8.61L22.5 22h-6.6l-5.17-6.63L4.9 22H1.5l8.06-9.21L1.5 2h6.75l4.67 6.05L18.24 2z"
+            />
+          </svg>
+        </a>
+        <a class="dock-popover-item" href="https://instagram.com/_abixnash_" target="_blank" rel="noreferrer" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5"></rect>
+            <circle cx="12" cy="12" r="4"></circle>
+            <circle cx="17.5" cy="6.5" r="1"></circle>
+          </svg>
+        </a>
+        <a class="dock-popover-item" href="https://linkedin.com/in/abinash-selvarasu" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.6h.05c.53-1 1.83-2.1 3.75-2.1C20 8.5 21 10.7 21 14v7h-4v-6.2c0-1.5 0-3.4-2.1-3.4s-2.4 1.6-2.4 3.3V21H9z"
+            />
+          </svg>
+        </a>
+        <a class="dock-popover-item" href="https://github.com/AbiXnash" target="_blank" rel="noreferrer" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              fill="currentColor"
+              d="M12 2C6.48 2 2 6.58 2 12.28c0 4.52 2.87 8.36 6.84 9.72.5.1.68-.22.68-.48v-1.7c-2.78.62-3.37-1.4-3.37-1.4-.45-1.16-1.1-1.47-1.1-1.47-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.9 1.56 2.36 1.11 2.94.85.09-.67.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.05 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.32.1-2.75 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.43.2 2.49.1 2.75.64.72 1.03 1.63 1.03 2.75 0 3.92-2.34 4.78-4.57 5.03.36.32.68.94.68 1.9v2.82c0 .26.18.58.69.48A10.3 10.3 0 0 0 22 12.28C22 6.58 17.52 2 12 2z"
+            />
+          </svg>
+        </a>
+      </div>
+    </div>
   </div>
 </nav>
 
@@ -73,10 +107,21 @@ const isActive = (href) => Astro.url.pathname === href;
     gap: 0.35rem;
     padding: 0.45rem 0.6rem;
     border-radius: 24px;
-    background: rgba(12, 12, 16, 0.88);
-    border: 1px solid rgba(214, 214, 220, 0.2);
-    box-shadow: 0 18px 40px rgba(4, 4, 8, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    background: rgba(12, 12, 16, 0.9);
+    border: 1px solid rgba(214, 214, 220, 0.22);
+    box-shadow: 0 22px 50px rgba(4, 4, 8, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(14px);
+    position: relative;
+    overflow: visible;
+  }
+
+  .dock::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.08), transparent 55%);
+    opacity: 0.6;
+    pointer-events: none;
   }
 
   .dock-item {
@@ -90,8 +135,11 @@ const isActive = (href) => Astro.url.pathname === href;
     font-size: 0.62rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    transition: transform 180ms ease, color 180ms ease, background 180ms ease;
-    background: rgba(255, 255, 255, 0.03);
+    transition: transform 160ms ease, color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+    background: rgba(255, 255, 255, 0.02);
+    position: relative;
+    z-index: 1;
+    transform-origin: center bottom;
   }
 
   .dock-item svg {
@@ -99,11 +147,78 @@ const isActive = (href) => Astro.url.pathname === href;
     height: 20px;
   }
 
+  .dock-item::after {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(214, 214, 220, 0.5);
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
+
   .dock-item:hover,
   .dock-item.is-active {
     color: var(--text-primary);
     background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-2px) scale(1.04);
+    transform: translateY(-4px) scale(1.08);
+    box-shadow: 0 10px 24px rgba(4, 4, 8, 0.45);
+  }
+
+  .dock-item:hover::after,
+  .dock-item.is-active::after {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .dock-social-wrap {
+    position: relative;
+  }
+
+  .dock-popover {
+    position: absolute;
+    bottom: calc(100% + 0.7rem);
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    z-index: 2;
+    display: grid;
+    gap: 0.5rem;
+    padding: 0.55rem;
+    border-radius: 16px;
+    background: rgba(12, 12, 16, 0.92);
+    border: 1px solid rgba(214, 214, 220, 0.18);
+    box-shadow: 0 16px 30px rgba(4, 4, 8, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 160ms ease, transform 160ms ease;
+  }
+
+  .dock-popover.is-open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .dock-popover-item {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    border: 1px solid rgba(214, 214, 220, 0.12);
+    background: rgba(16, 16, 20, 0.7);
+    color: var(--text-primary);
+    display: grid;
+    place-items: center;
+  }
+
+  .dock-popover-item:hover {
+    border-color: rgba(214, 214, 220, 0.35);
+    background: rgba(16, 16, 20, 0.9);
+  }
+
+  .dock-popover-item svg {
+    width: 18px;
+    height: 18px;
   }
 
   @media (max-width: 420px) {
@@ -130,3 +245,79 @@ const isActive = (href) => Astro.url.pathname === href;
     }
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const dock = document.querySelector(".dock");
+    if (!dock) return;
+    const items = Array.from(dock.querySelectorAll(".dock-item"));
+    if (!items.length) return;
+
+    let raf = 0;
+    const maxScale = 1.12;
+    const maxLift = 6;
+    const influence = 90;
+
+    const reset = () => {
+      items.forEach((item) => {
+        item.style.transform = "";
+      });
+    };
+
+    const onMove = (event) => {
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const x = event.clientX;
+        items.forEach((item) => {
+          const rect = item.getBoundingClientRect();
+          const center = rect.left + rect.width / 2;
+          const dist = Math.abs(x - center);
+          const t = Math.max(0, 1 - dist / influence);
+          const scale = 1 + t * (maxScale - 1);
+          const lift = t * maxLift;
+          item.style.transform = `translateY(${-lift}px) scale(${scale})`;
+        });
+      });
+    };
+
+    dock.addEventListener("pointermove", onMove);
+    dock.addEventListener("pointerleave", reset);
+
+    const socialBtn = dock.querySelector(".dock-social");
+    const popover = dock.querySelector(".dock-popover");
+    if (socialBtn && popover) {
+      const close = () => {
+        popover.classList.remove("is-open");
+        socialBtn.setAttribute("aria-expanded", "false");
+        popover.setAttribute("aria-hidden", "true");
+      };
+
+      socialBtn.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const isOpen = popover.classList.toggle("is-open");
+        socialBtn.setAttribute("aria-expanded", String(isOpen));
+        popover.setAttribute("aria-hidden", String(!isOpen));
+      });
+
+      socialBtn.addEventListener("mouseenter", () => {
+        popover.classList.add("is-open");
+        socialBtn.setAttribute("aria-expanded", "true");
+        popover.setAttribute("aria-hidden", "false");
+      });
+
+      socialBtn.addEventListener("mouseleave", () => {
+        setTimeout(() => {
+          if (!popover.matches(":hover")) close();
+        }, 80);
+      });
+
+      popover.addEventListener("mouseleave", close);
+
+      popover.addEventListener("click", (event) => event.stopPropagation());
+      document.addEventListener("click", (event) => {
+        if (socialBtn.contains(event.target) || popover.contains(event.target)) return;
+        close();
+      });
+    }
+  });
+</script>
