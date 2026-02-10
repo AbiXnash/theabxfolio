@@ -59,8 +59,7 @@ src
 │   └── resume.json
 └── global.css
 
-legacy
-└── src-astro (reference copy of the Astro implementation)
+src-astro (reference copy of the Astro implementation)
 ```
 
 ---
