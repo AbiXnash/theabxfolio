@@ -32,10 +32,12 @@ $ features
 ```
 
 - Terminal-style UI and navigation
+- Mobile dock navigation with social quick actions
 - Command palette (`/`) with live filtering
 - Keyboard-first interactions (↑ ↓ Enter Esc q)
 - Inspector-style overlays for deep content
 - Execution traces and line-numbered output
+- GitHub activity widget with client-side caching and ETag support
 - Responsive and accessible by design
 - Minimal dependencies, static output
 
@@ -109,6 +111,14 @@ $ stack
 
 No UI frameworks.
 No client-heavy abstractions.
+
+---
+
+## GitHub Activity Caching
+
+The GitHub activity widget fetches recent commits using the GitHub REST API
+and applies a local cache (ETag + TTL) in the browser to reduce rate-limit
+pressure while keeping the feed fresh.
 
 ---
 
