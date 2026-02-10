@@ -1,60 +1,45 @@
-# abx@portfolio
+# theabxfolio
 
-A terminal-inspired personal portfolio built to showcase engineering depth,
-system thinking, and real-world projects — without noise or gimmicks.
-
-This project is designed to feel like a **tool**, not a marketing site.
+A premium, performance‑focused portfolio built with Astro. Designed to feel crisp, minimal, and intentional across desktop and mobile.
 
 ---
 
-## Overview
+## Highlights
 
-```sh
-$ whoami
-Abinash S — Software Engineer (Full-Stack · Systems-Focused)
-```
-
-This portfolio prioritizes:
-
-- clarity over decoration
-- performance and simplicity
-- intentional motion and layout
-
-It avoids unnecessary animations, trackers, and UI libraries.
+- Premium dark UI with glass surfaces and motion restraint
+- Desktop header with centered navigation + page context
+- Mobile dock with social popover and magnify effect
+- GitHub activity widget with client‑side cache + ETag
+- Static build, minimal dependencies
 
 ---
 
-## Features
+## Quick Start
 
 ```sh
-$ features
+bun install
+bun dev
 ```
 
-- Premium dark UI with glass surfaces
-- Desktop header with centered navigation
-- Mobile dock navigation with social popover
-- GitHub activity widget (client-side fetch + cache/ETag)
-- Responsive and accessible by design
-- Minimal dependencies, static output
+Build and preview:
+
+```sh
+bun run build
+bun preview
+```
 
 ---
 
 ## Pages
 
-```sh
-$ tree src/pages/
-```
-
-- `/` — Home (identity & entry point)
-- `/service` — Services & collaboration offerings
-- `/resume` — Experience, research, and projects
-- `/contact` — Communication & availability
+- `/` — Home
+- `/service` — Services
+- `/resume` — Resume
+- `/contact` — Contact
 
 ---
 
----
-
-## Project Structure
+## Architecture
 
 ```text
 src
@@ -77,70 +62,47 @@ src
     └── global.css
 ```
 
-- Components are intentionally small and reusable
-- Pages remain thin and declarative
-- Global styles are minimal and terminal-focused
+---
+
+## GitHub Activity Widget
+
+The activity panel fetches recent commits from public repos using the GitHub REST API and applies:
+
+- ETag caching
+- TTL cache (15 minutes)
+- Stale‑while‑revalidate fallback for rate‑limit errors
+
+Cache settings live in `src/components/Hero.astro`.
 
 ---
 
-## Tech Stack
+## Configuration
 
-```sh
-$ stack
+Key files to tweak:
+
+- `src/components/Header.astro` — desktop header, mobile header
+- `src/components/Dock.astro` — mobile dock + social popover
+- `src/components/Hero.astro` — hero content + GitHub activity widget
+- `src/styles/global.css` — tokens, background, global visuals
+
+---
+
+## Deployment
+
+Static output. Deploy anywhere that supports static sites.
+
+---
+
+## References
+
+```text
+Astro: https://astro.build
+Bun: https://bun.sh
+GitHub REST API: https://docs.github.com/en/rest
 ```
-
-- **Framework**: Astro
-- **Styling**: Tailwind CSS
-- **Runtime**: Bun
-- **Language**: JavaScript (ESM)
-- **Output**: Static site
-
-No UI frameworks.
-No client-heavy abstractions.
-
----
-
-## GitHub Activity Caching
-
-The GitHub activity widget fetches recent commits using the GitHub REST API
-and applies a local cache (ETag + TTL) in the browser to reduce rate-limit
-pressure while keeping the feed fresh.
-
----
-
-## Commands
-
-All commands are run from the project root.
-
-| Command          | Description                               |
-| ---------------- | ----------------------------------------- |
-| `bun install`    | Install dependencies                      |
-| `bun dev`        | Start local dev server (`localhost:4321`) |
-| `bun run build`  | Build production site to `dist/`          |
-| `bun preview`    | Preview production build locally          |
-| `bun run format` | Format code using Prettier                |
 
 ---
 
 ## License
 
-This repository is intended for **personal and professional reference**.
-
-You are welcome to:
-
-- explore the code
-- learn from the structure
-- adapt ideas for inspiration
-
-Please do not clone or redistribute as-is.
-
-## Contact
-
-```sh
-$ contact
-
-visit: https://theabx.in
-navigate: /contact
-```
-
-→ [Open the portfolio](https://theabx.in) and navigate to [/contact](https://theabx.in/contact) to get in touch.
+Personal portfolio. Please don’t redistribute as‑is.
