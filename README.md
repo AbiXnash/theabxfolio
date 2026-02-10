@@ -1,6 +1,6 @@
 # theabxfolio
 
-A premium, performance‑focused portfolio built with Astro. Designed to feel crisp, minimal, and intentional across desktop and mobile.
+A premium, performance‑focused portfolio built with Qwik City. Designed to feel crisp, minimal, and intentional across desktop and mobile.
 
 ---
 
@@ -44,22 +44,23 @@ bun preview
 ```text
 src
 ├── components
-│   ├── Contact.astro
-│   ├── Dock.astro
-│   ├── Footer.astro
-│   ├── Header.astro
-│   ├── Hero.astro
-│   ├── Resume.astro
-│   └── Service.astro
-├── layouts
-│   └── BaseLayout.astro
-├── pages
-│   ├── contact.astro
-│   ├── index.astro
-│   ├── resume.astro
-│   └── service.astro
-└── styles
-    └── global.css
+│   ├── Contact.tsx
+│   ├── Dock.tsx
+│   ├── Footer.tsx
+│   ├── Header.tsx
+│   ├── Hero.tsx
+│   ├── Resume.tsx
+│   └── Service.tsx
+├── routes
+│   ├── contact
+│   ├── resume
+│   └── service
+├── data
+│   └── resume.json
+└── global.css
+
+legacy
+└── src-astro (reference copy of the Astro implementation)
 ```
 
 ---
@@ -72,7 +73,7 @@ The activity panel fetches recent commits from public repos using the GitHub RES
 - TTL cache (15 minutes)
 - Stale‑while‑revalidate fallback for rate‑limit errors
 
-Cache settings live in `src/components/Hero.astro`.
+Cache settings live in `src/components/Hero.tsx`.
 
 ---
 
@@ -80,10 +81,10 @@ Cache settings live in `src/components/Hero.astro`.
 
 Key files to tweak:
 
-- `src/components/Header.astro` — desktop header, mobile header
-- `src/components/Dock.astro` — mobile dock + social popover
-- `src/components/Hero.astro` — hero content + GitHub activity widget
-- `src/styles/global.css` — tokens, background, global visuals
+- `src/components/Header.tsx` — desktop header, mobile header
+- `src/components/Dock.tsx` — mobile dock + social popover
+- `src/components/Hero.tsx` — hero content + GitHub activity widget
+- `src/global.css` — tokens, background, global visuals
 
 ---
 
@@ -96,7 +97,9 @@ Static output. Deploy anywhere that supports static sites.
 ## References
 
 ```text
-Astro: https://astro.build
+Qwik City: https://qwik.dev/docs/qwikcity/
+Qwik: https://qwik.dev/
+Vite: https://vite.dev/
 Bun: https://bun.sh
 GitHub REST API: https://docs.github.com/en/rest
 ```
