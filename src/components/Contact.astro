@@ -496,6 +496,7 @@
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    align-items: stretch;
   }
 
   :global(.repo-list) {
@@ -630,6 +631,7 @@
     border: 1px solid rgba(205, 214, 244, 0.12);
     background: rgba(20, 20, 32, 0.55);
     transition: all 180ms ease;
+    min-height: 96px;
   }
 
   .contact-tile:hover {
@@ -644,6 +646,11 @@
   .contact-tile span {
     font-size: 0.75rem;
     color: var(--text-dim);
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .contact-icon {
