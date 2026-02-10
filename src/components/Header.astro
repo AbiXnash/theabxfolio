@@ -11,6 +11,14 @@ const pageLabel = pageLabelMap[path] ?? "Portfolio";
 ---
 
 <div class="mobile-monogram" aria-label="Mobile header">
+  <button class="mono-back" type="button" aria-label="Go back">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M14.7 6.3 13.3 4.9 6.2 12l7.1 7.1 1.4-1.4L9 12l5.7-5.7z"
+      />
+    </svg>
+  </button>
   <a href="/" class="mono-pill" aria-label="Home">
     <span class="mono-badge" aria-hidden="true">
       <svg viewBox="0 0 32 32" role="presentation" aria-hidden="true">
@@ -27,13 +35,31 @@ const pageLabel = pageLabelMap[path] ?? "Portfolio";
 
 <header class="site-header premium-header">
   <div class="header-inner">
-    <a href="/" class="brand-link" aria-label="Home">
-      <span class="brand-dot"></span>
-      <div class="brand-text">
-        <span class="brand-title">Abinash S</span>
-        <span class="brand-sub">Software Engineer</span>
-      </div>
-    </a>
+    <div class="header-left">
+      <button class="back-btn" type="button" aria-label="Go back">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M14.7 6.3 13.3 4.9 6.2 12l7.1 7.1 1.4-1.4L9 12l5.7-5.7z"
+          />
+        </svg>
+        <span>Back</span>
+      </button>
+      <a href="/" class="brand-link" aria-label="Home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" role="presentation">
+            <path
+              fill="currentColor"
+              d="M15.188 0.807c-1.354 3.313-2.167 5.484-3.672 8.703 0.922 0.979 2.057 2.12 3.896 3.406-1.979-0.818-3.328-1.635-4.339-2.484-1.927 4.026-4.948 9.75-11.073 20.76 4.818-2.781 8.547-4.495 12.026-5.151-0.146-0.641-0.234-1.333-0.229-2.063l0.005-0.151c0.078-3.089 1.682-5.458 3.583-5.297s3.38 2.792 3.307 5.88c-0.016 0.578-0.083 1.135-0.198 1.656 3.443 0.672 7.135 2.38 11.885 5.125-0.938-1.724-1.771-3.281-2.573-4.76-1.255-0.974-2.568-2.245-5.24-3.62 1.839 0.479 3.151 1.031 4.177 1.646-8.12-15.109-8.771-17.12-11.557-23.651z"
+            />
+          </svg>
+        </span>
+        <div class="brand-text">
+          <span class="brand-title">Abinash S</span>
+          <span class="brand-sub">Software Engineer</span>
+        </div>
+      </a>
+    </div>
 
     <nav class="nav-surface" aria-label="Primary">
       <a href="/resume" class={`nav-link ${isActive("/resume") ? "is-active" : ""}`}>Resume</a>
@@ -51,7 +77,7 @@ const pageLabel = pageLabelMap[path] ?? "Portfolio";
     </nav>
 
     <div class="header-actions">
-      <span class="flag" aria-label="India">🇮🇳</span>
+      <span class="current-page">{pageLabel}</span>
     </div>
   </div>
 
@@ -83,6 +109,25 @@ const pageLabel = pageLabelMap[path] ?? "Portfolio";
     padding: 0 1.2rem;
     pointer-events: none;
     transition: transform 220ms ease, opacity 220ms ease;
+  }
+
+  .mono-back {
+    pointer-events: auto;
+    display: inline-grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    border: 1px solid rgba(214, 214, 220, 0.18);
+    background: rgba(12, 12, 16, 0.78);
+    color: var(--text-primary);
+    box-shadow: 0 10px 26px rgba(4, 4, 8, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(14px);
+  }
+
+  .mono-back svg {
+    width: 14px;
+    height: 14px;
   }
 
   .mono-pill {
@@ -136,9 +181,8 @@ const pageLabel = pageLabelMap[path] ?? "Portfolio";
     max-width: 1080px;
     margin: 0 auto;
     padding: 1rem 1.4rem;
-    display: grid;
+    display: flex;
     align-items: center;
-    grid-template-columns: auto 1fr auto;
     gap: 1rem;
     position: relative;
   }
@@ -152,6 +196,14 @@ const pageLabel = pageLabelMap[path] ?? "Portfolio";
     opacity: 0.4;
   }
 
+  .header-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    position: relative;
+    z-index: 1;
+  }
+
   .brand-link {
     display: inline-flex;
     align-items: center;
@@ -161,12 +213,46 @@ const pageLabel = pageLabelMap[path] ?? "Portfolio";
     z-index: 1;
   }
 
-  .brand-dot {
-    width: 10px;
-    height: 10px;
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.4rem 0.8rem;
     border-radius: 999px;
-    background: var(--accent-alt);
-    box-shadow: 0 0 16px rgba(180, 186, 196, 0.6);
+    border: 1px solid rgba(214, 214, 220, 0.18);
+    background: rgba(12, 12, 16, 0.7);
+    color: var(--text-primary);
+    font-size: 0.75rem;
+    transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  .back-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .back-btn:hover {
+    border-color: rgba(214, 214, 220, 0.4);
+    background: rgba(12, 12, 16, 0.9);
+    transform: translateY(-1px);
+  }
+
+  .brand-mark {
+    display: inline-grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 999px;
+    background: rgba(214, 214, 220, 0.12);
+    border: 1px solid rgba(214, 214, 220, 0.24);
+    color: var(--accent);
+  }
+
+  .brand-mark svg {
+    width: 14px;
+    height: 14px;
   }
 
   .brand-text {
@@ -192,7 +278,7 @@ const pageLabel = pageLabelMap[path] ?? "Portfolio";
     align-items: center;
     justify-content: center;
     gap: 0.35rem;
-    margin: 0 auto;
+    margin-left: 0.6rem;
     padding: 0.45rem 0.6rem;
     border-radius: 999px;
     background: rgba(12, 12, 16, 0.7);
@@ -266,11 +352,14 @@ const pageLabel = pageLabelMap[path] ?? "Portfolio";
     gap: 0.8rem;
     position: relative;
     z-index: 1;
+    margin-left: auto;
   }
 
-  .flag {
-    font-size: 1rem;
-    line-height: 1;
+  .current-page {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
   }
 
   @media (min-width: 960px) {
@@ -289,6 +378,22 @@ const pageLabel = pageLabelMap[path] ?? "Portfolio";
     }
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const backBtns = document.querySelectorAll(".back-btn, .mono-back");
+    if (!backBtns.length) return;
+    backBtns.forEach((backBtn) =>
+      backBtn.addEventListener("click", () => {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = "/";
+      }
+    }),
+    );
+  });
+</script>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
