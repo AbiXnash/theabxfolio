@@ -40,12 +40,6 @@
   document.addEventListener("DOMContentLoaded", () => {
     const repoList = document.getElementById("repoList");
     if (repoList) {
-      const username = "AbiXnash";
-      const headers = {
-        Accept: "application/vnd.github+json",
-        "X-GitHub-Api-Version": "2022-11-28",
-      };
-
       const formatDate = (iso) => new Date(iso).toLocaleString();
       const shortSha = (sha) => (sha ? sha.slice(0, 7) : "");
       const escapeHtml = (str) =>
@@ -54,71 +48,10 @@
           .replace(/</g, "&lt;")
           .replace(/>/g, "&gt;");
 
-      const fetchAllRepos = async () => {
-        const repos = [];
-        let page = 1;
-        while (true) {
-          const res = await fetch(
-            `https://api.github.com/users/${username}/repos?per_page=100&page=${page}&sort=updated`,
-            { headers },
-          );
-          if (!res.ok) break;
-          const data = await res.json();
-          if (!Array.isArray(data) || data.length === 0) break;
-          repos.push(...data);
-          page += 1;
-          if (data.length < 100) break;
-        }
-        return repos;
-      };
-
-      const pool = async (items, limit, fn) => {
-        const results = [];
-        const executing = [];
-        for (const item of items) {
-          const p = Promise.resolve().then(() => fn(item)).then((res) => {
-            results.push(res);
-          });
-          executing.push(p);
-          if (executing.length >= limit) {
-            await Promise.race(executing);
-            executing.splice(executing.findIndex((e) => e === p), 1);
-          }
-        }
-        await Promise.all(executing);
-        return results;
-      };
-
-      (async () => {
-        try {
-          const repos = await fetchAllRepos();
-          if (!repos.length) {
-            repoList.innerHTML = "<div class='repo-empty'>Unable to load GitHub activity.</div>";
-            return;
-          }
-
-          const repoNames = repos.map((r) => r.full_name).filter(Boolean);
-          const commitSets = await pool(repoNames, 6, (repo) =>
-            fetch(`https://api.github.com/repos/${repo}/commits?per_page=1`, { headers })
-              .then((res) => (res.ok ? res.json() : []))
-              .then((commits) => ({ repo, commits: Array.isArray(commits) ? commits : [] }))
-              .catch(() => ({ repo, commits: [] })),
-          );
-
-          const flattened = commitSets.flatMap(({ repo, commits }) =>
-            commits.map((c) => ({
-              repo,
-              sha: c.sha,
-              message: c.commit?.message,
-              date: c.commit?.author?.date,
-            })),
-          );
-
-          const recent = flattened
-            .filter((c) => c.date)
-            .sort((a, b) => new Date(b.date) - new Date(a.date))
-            .slice(0, 5);
-
+      fetch("/github-activity.json")
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => {
+          const recent = Array.isArray(data?.commits) ? data.commits : [];
           if (!recent.length) {
             repoList.innerHTML = "<div class='repo-empty'>Unable to load GitHub activity.</div>";
             return;
@@ -149,15 +82,15 @@
                   <div class="repo-title">Latest activity</div>
                   <div class="repo-desc">Across all public repositories</div>
                 </div>
-                <a class="repo-link" href="https://github.com/${username}" target="_blank">View GitHub</a>
+                <a class="repo-link" href="https://github.com/AbiXnash" target="_blank">View GitHub</a>
               </div>
               <div class="commit-list">${commitItems}</div>
             </div>
           `;
-        } catch (err) {
+        })
+        .catch(() => {
           repoList.innerHTML = "<div class='repo-empty'>Unable to load GitHub activity.</div>";
-        }
-      })();
+        });
     }
   });
 </script>

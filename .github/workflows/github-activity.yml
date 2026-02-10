@@ -1,0 +1,129 @@
+name: Update GitHub Activity
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/30 * * * *"
+  push:
+    branches: ["master", "main"]
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build github-activity.json
+        env:
+          GH_AUTH: ${{ secrets.GH_AUTH }}
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+
+          const username = 'AbiXnash';
+          const token = process.env.GH_AUTH;
+          if (!token) {
+            console.error('Missing GH_AUTH secret');
+            process.exit(1);
+          }
+
+          const headers = {
+            'Accept': 'application/vnd.github+json',
+            'X-GitHub-Api-Version': '2022-11-28',
+            'Authorization': `Bearer ${token}`,
+            'User-Agent': 'theabxfolio-activity-bot'
+          };
+
+          const fetchJson = async (url) => {
+            const res = await fetch(url, { headers });
+            if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+            return res.json();
+          };
+
+          const fetchAllRepos = async () => {
+            const repos = [];
+            let page = 1;
+            while (true) {
+              const url = `https://api.github.com/users/${username}/repos?per_page=100&page=${page}&sort=updated`;
+              const data = await fetchJson(url);
+              if (!Array.isArray(data) || data.length === 0) break;
+              repos.push(...data);
+              if (data.length < 100) break;
+              page += 1;
+            }
+            return repos;
+          };
+
+          const pool = async (items, limit, fn) => {
+            const results = [];
+            let index = 0;
+            const workers = Array.from({ length: limit }, async () => {
+              while (index < items.length) {
+                const current = items[index++];
+                const res = await fn(current);
+                results.push(res);
+              }
+            });
+            await Promise.all(workers);
+            return results;
+          };
+
+          const run = async () => {
+            const repos = await fetchAllRepos();
+            const repoNames = repos.map((r) => r.full_name).filter(Boolean);
+
+            const commitSets = await pool(repoNames, 6, async (repo) => {
+              const url = `https://api.github.com/repos/${repo}/commits?per_page=1`;
+              const commits = await fetchJson(url).catch(() => []);
+              return { repo, commits: Array.isArray(commits) ? commits : [] };
+            });
+
+            const flattened = commitSets.flatMap(({ repo, commits }) =>
+              commits.map((c) => ({
+                repo,
+                sha: c.sha,
+                message: c.commit?.message,
+                date: c.commit?.author?.date,
+              }))
+            );
+
+            const recent = flattened
+              .filter((c) => c.date)
+              .sort((a, b) => new Date(b.date) - new Date(a.date))
+              .slice(0, 5);
+
+            const payload = {
+              generatedAt: new Date().toISOString(),
+              commits: recent,
+            };
+
+            fs.mkdirSync('public', { recursive: true });
+            fs.writeFileSync('public/github-activity.json', JSON.stringify(payload, null, 2));
+          };
+
+          run().catch((err) => {
+            console.error(err);
+            process.exit(1);
+          });
+          NODE
+
+      - name: Commit update
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          if git status --porcelain | grep -q "public/github-activity.json"; then
+            git add public/github-activity.json
+            git commit -m "Update GitHub activity"
+            git push
+          else
+            echo "No changes"
+          fi
