@@ -45,6 +45,7 @@ jobs:
           };
 
           const fetchJson = async (url) => {
+            console.log('fetch', url);
             const res = await fetch(url, { headers });
             if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
             return res.json();
