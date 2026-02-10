@@ -1,0 +1,132 @@
+---
+const isActive = (href) => Astro.url.pathname === href;
+---
+
+<nav class="dock-shell" aria-label="Mobile dock">
+  <div class="dock">
+    <a href="/" class={`dock-item ${isActive("/") ? "is-active" : ""}`}>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M12 3.2 3 10.4v9.4h6.1v-6h5.8v6H21v-9.4l-9-7.2zm0-2.2 11 8.6V22H1V9.6L12 1z"
+        />
+      </svg>
+      <span>Home</span>
+    </a>
+    <a href="/resume" class={`dock-item ${isActive("/resume") ? "is-active" : ""}`}>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M6 3h9l5 5v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm8 1.8V9h4.2L14 4.8zM7.5 12h9v1.5h-9V12zm0 3.5h9V17h-9v-1.5z"
+        />
+      </svg>
+      <span>Resume</span>
+    </a>
+    <a href="/service" class={`dock-item ${isActive("/service") ? "is-active" : ""}`}>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M4 6.5A2.5 2.5 0 0 1 6.5 4H9l1.2 2H17.5A2.5 2.5 0 0 1 20 8.5V18a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6.5zm2.5-.5a1 1 0 0 0-1 1V9h14V8.5a1 1 0 0 0-1-1H9.4l-1.2-2H6.5z"
+        />
+      </svg>
+      <span>Service</span>
+    </a>
+    <a href="/contact" class={`dock-item ${isActive("/contact") ? "is-active" : ""}`}>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6zm2 0 7 4.5L19 6H5zm14 12V8.3l-7 4.5-7-4.5V18h14z"
+        />
+      </svg>
+      <span>Contact</span>
+    </a>
+    <a href="https://github.com/AbiXnash" class="dock-item" target="_blank" rel="noreferrer">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M12 2C6.48 2 2 6.58 2 12.28c0 4.52 2.87 8.36 6.84 9.72.5.1.68-.22.68-.48v-1.7c-2.78.62-3.37-1.4-3.37-1.4-.45-1.16-1.1-1.47-1.1-1.47-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.9 1.56 2.36 1.11 2.94.85.09-.67.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.05 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.32.1-2.75 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.43.2 2.49.1 2.75.64.72 1.03 1.63 1.03 2.75 0 3.92-2.34 4.78-4.57 5.03.36.32.68.94.68 1.9v2.82c0 .26.18.58.69.48A10.3 10.3 0 0 0 22 12.28C22 6.58 17.52 2 12 2z"
+        />
+      </svg>
+      <span>GitHub</span>
+    </a>
+  </div>
+</nav>
+
+<style>
+  .dock-shell {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0 1rem calc(0.9rem + env(safe-area-inset-bottom));
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 65;
+  }
+
+  .dock {
+    pointer-events: auto;
+    display: grid;
+    grid-auto-flow: column;
+    align-items: end;
+    gap: 0.35rem;
+    padding: 0.45rem 0.6rem;
+    border-radius: 24px;
+    background: rgba(12, 12, 16, 0.88);
+    border: 1px solid rgba(214, 214, 220, 0.2);
+    box-shadow: 0 18px 40px rgba(4, 4, 8, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(14px);
+  }
+
+  .dock-item {
+    min-width: 58px;
+    padding: 0.55rem 0.45rem 0.5rem;
+    border-radius: 16px;
+    display: grid;
+    justify-items: center;
+    gap: 0.3rem;
+    color: var(--text-muted);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    transition: transform 180ms ease, color 180ms ease, background 180ms ease;
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .dock-item svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .dock-item:hover,
+  .dock-item.is-active {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px) scale(1.04);
+  }
+
+  @media (max-width: 420px) {
+    .dock {
+      gap: 0.2rem;
+      padding: 0.35rem 0.45rem;
+    }
+
+    .dock-item {
+      min-width: 50px;
+      padding: 0.45rem 0.35rem;
+      font-size: 0.56rem;
+    }
+
+    .dock-item svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  @media (min-width: 960px) {
+    .dock-shell {
+      display: none;
+    }
+  }
+</style>

@@ -1,61 +1,45 @@
 ---
-const path = Astro.url.pathname.split("/").filter(Boolean);
-const isHome = path.length === 0;
 const isActive = (href) => Astro.url.pathname === href;
+const path = Astro.url.pathname;
+const pageLabelMap = {
+  "/": "Home",
+  "/resume": "Resume",
+  "/service": "Service",
+  "/contact": "Contact",
+};
+const pageLabel = pageLabelMap[path] ?? "Portfolio";
 ---
 
-<header class="site-header">
+<div class="mobile-monogram" aria-label="Mobile header">
+  <a href="/" class="mono-pill" aria-label="Home">
+    <span class="mono-badge" aria-hidden="true">
+      <svg viewBox="0 0 32 32" role="presentation" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M15.188 0.807c-1.354 3.313-2.167 5.484-3.672 8.703 0.922 0.979 2.057 2.12 3.896 3.406-1.979-0.818-3.328-1.635-4.339-2.484-1.927 4.026-4.948 9.75-11.073 20.76 4.818-2.781 8.547-4.495 12.026-5.151-0.146-0.641-0.234-1.333-0.229-2.063l0.005-0.151c0.078-3.089 1.682-5.458 3.583-5.297s3.38 2.792 3.307 5.88c-0.016 0.578-0.083 1.135-0.198 1.656 3.443 0.672 7.135 2.38 11.885 5.125-0.938-1.724-1.771-3.281-2.573-4.76-1.255-0.974-2.568-2.245-5.24-3.62 1.839 0.479 3.151 1.031 4.177 1.646-8.12-15.109-8.771-17.12-11.557-23.651z"
+        />
+      </svg>
+    </span>
+    <span class="mono-name">Abinash S</span>
+  </a>
+  <span class="mono-page">{pageLabel}</span>
+</div>
+
+<header class="site-header premium-header">
   <div class="header-inner">
-    <div class="brand-wrap">
-      {!isHome && (
-        <button
-          onclick="history.back()"
-          class="back-btn"
-          aria-label="go back"
-        >
-          ←
-        </button>
-      )}
-      <a href="/" class="brand-link">
-        <span class="brand-dot"></span>
+    <a href="/" class="brand-link" aria-label="Home">
+      <span class="brand-dot"></span>
+      <div class="brand-text">
         <span class="brand-title">Abinash S</span>
         <span class="brand-sub">Software Engineer</span>
-      </a>
-    </div>
-
-    <nav class="nav-links">
-      <a href="/resume" class={`nav-link ${isActive("/resume") ? "is-active" : ""}`}>
-        <span class="nav-icon">⎯</span>
-        Resume
-      </a>
-      <a href="/service" class={`nav-link ${isActive("/service") ? "is-active" : ""}`}>
-        <span class="nav-icon">◈</span>
-        Service
-      </a>
-      <a href="/contact" class={`nav-link ${isActive("/contact") ? "is-active" : ""}`}>
-        <span class="nav-icon">✦</span>
-        Contact
-      </a>
-    </nav>
-
-    <div class="header-actions">
-      <button id="navToggle" class="menu-btn" type="button">Menu</button>
-      <div id="navMenu" class="menu-panel">
-        <a href="/resume" class={`menu-link ${isActive("/resume") ? "is-active" : ""}`}>
-          <span class="nav-icon">⎯</span>
-          Resume
-        </a>
-        <a href="/service" class={`menu-link ${isActive("/service") ? "is-active" : ""}`}>
-          <span class="nav-icon">◈</span>
-          Service
-        </a>
-        <a href="/contact" class={`menu-link ${isActive("/contact") ? "is-active" : ""}`}>
-          <span class="nav-icon">✦</span>
-          Contact
-        </a>
       </div>
-      <span class="flag" aria-label="India">🇮🇳</span>
-      <a class="github-btn" href="https://github.com/AbiXnash" target="_blank">
+    </a>
+
+    <nav class="nav-surface" aria-label="Primary">
+      <a href="/resume" class={`nav-link ${isActive("/resume") ? "is-active" : ""}`}>Resume</a>
+      <a href="/service" class={`nav-link ${isActive("/service") ? "is-active" : ""}`}>Service</a>
+      <a href="/contact" class={`nav-link ${isActive("/contact") ? "is-active" : ""}`}>Contact</a>
+      <a class="github-btn" href="https://github.com/AbiXnash" target="_blank" rel="noreferrer">
         <svg class="gh-icon" viewBox="0 0 24 24" aria-hidden="true">
           <path
             fill="currentColor"
@@ -64,8 +48,13 @@ const isActive = (href) => Astro.url.pathname === href;
         </svg>
         <span>GitHub</span>
       </a>
+    </nav>
+
+    <div class="header-actions">
+      <span class="flag" aria-label="India">🇮🇳</span>
     </div>
   </div>
+
 </header>
 
 <style>
@@ -74,36 +63,102 @@ const isActive = (href) => Astro.url.pathname === href;
     top: 0;
     z-index: 50;
     backdrop-filter: blur(18px);
-    background: rgba(17, 17, 27, 0.32);
-    border-bottom: 1px solid rgba(205, 214, 244, 0.08);
+    background: linear-gradient(120deg, rgba(10, 10, 12, 0.92), rgba(18, 18, 24, 0.7));
+    border-bottom: 1px solid rgba(214, 214, 220, 0.08);
+  }
+
+  .premium-header {
+    box-shadow: 0 12px 40px rgba(5, 5, 8, 0.35);
+  }
+
+  .mobile-monogram {
+    position: fixed;
+    top: 0.9rem;
+    left: 0;
+    right: 0;
+    z-index: 52;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.2rem;
+    pointer-events: none;
+    transition: transform 220ms ease, opacity 220ms ease;
+  }
+
+  .mono-pill {
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(12, 12, 16, 0.78);
+    border: 1px solid rgba(214, 214, 220, 0.2);
+    box-shadow: 0 10px 26px rgba(4, 4, 8, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(14px);
+  }
+
+  .mono-badge {
+    display: inline-grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    background: rgba(214, 214, 220, 0.12);
+    border: 1px solid rgba(214, 214, 220, 0.24);
+    color: var(--accent);
+  }
+
+  .mono-badge svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  .mono-name {
+    font-size: 0.82rem;
+    color: var(--text-primary);
+  }
+
+  .mono-page {
+    pointer-events: none;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .mobile-monogram.is-hidden {
+    opacity: 0;
+    transform: translateY(-12px);
   }
 
   .header-inner {
     max-width: 1080px;
     margin: 0 auto;
-    padding: 0.9rem 1.4rem;
-    display: flex;
+    padding: 1rem 1.4rem;
+    display: grid;
     align-items: center;
-    justify-content: space-between;
+    grid-template-columns: auto 1fr auto;
     gap: 1rem;
+    position: relative;
   }
 
-  .brand-wrap {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-
-  .back-btn {
-    color: var(--text-dim);
-    font-size: 0.9rem;
+  .header-inner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(120deg, rgba(214, 214, 220, 0.08), transparent 60%);
+    opacity: 0.4;
   }
 
   .brand-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.7rem;
     white-space: nowrap;
+    position: relative;
+    z-index: 1;
   }
 
   .brand-dot {
@@ -111,7 +166,12 @@ const isActive = (href) => Astro.url.pathname === href;
     height: 10px;
     border-radius: 999px;
     background: var(--accent-alt);
-    box-shadow: 0 0 12px rgba(145, 180, 255, 0.6);
+    box-shadow: 0 0 16px rgba(180, 186, 196, 0.6);
+  }
+
+  .brand-text {
+    display: grid;
+    gap: 0.1rem;
   }
 
   .brand-title {
@@ -125,79 +185,64 @@ const isActive = (href) => Astro.url.pathname === href;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--text-dim);
-    white-space: nowrap;
   }
 
-  .nav-links {
+  .nav-surface {
     display: none;
-    gap: 0.8rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    margin: 0 auto;
+    padding: 0.45rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(12, 12, 16, 0.7);
+    border: 1px solid rgba(214, 214, 220, 0.16);
+    box-shadow: inset 0 0 0 1px rgba(214, 214, 220, 0.06), 0 18px 30px rgba(3, 3, 8, 0.45);
   }
 
   .nav-link {
-    padding: 0.35rem 0.9rem;
+    position: relative;
+    padding: 0.4rem 0.95rem;
     border-radius: 999px;
     color: var(--text-muted);
     font-size: 0.85rem;
-    transition: all 160ms ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
+    font-weight: 500;
+    transition: color 160ms ease, background 160ms ease, transform 160ms ease;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 6px;
+    height: 1px;
+    border-radius: 999px;
+    background: rgba(214, 214, 220, 0.6);
+    opacity: 0;
+    transform: scaleX(0.6);
+    transition: opacity 160ms ease, transform 160ms ease;
   }
 
   .nav-link:hover,
   .nav-link.is-active {
     color: var(--text-primary);
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
   }
 
-  .header-actions {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    position: relative;
-  }
-
-  .menu-btn {
-    border-radius: 999px;
-    border: 1px solid rgba(205, 214, 244, 0.18);
-    padding: 0.35rem 0.8rem;
-    font-size: 0.75rem;
-    color: var(--text-primary);
-    background: rgba(17, 17, 27, 0.55);
-  }
-
-  .menu-panel {
-    position: absolute;
-    right: 0;
-    top: 2.9rem;
-    width: min(240px, 80vw);
-    display: none;
-    flex-direction: column;
-    gap: 0.4rem;
-    padding: 0.7rem;
-    border-radius: 18px;
-    border: 1px solid rgba(205, 214, 244, 0.14);
-    background: rgba(17, 17, 27, 0.92);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(18px);
-  }
-
-  .menu-panel.is-open {
-    display: flex;
-  }
-
-  .flag {
-    font-size: 1rem;
-    line-height: 1;
+  .nav-link:hover::after,
+  .nav-link.is-active::after {
+    opacity: 1;
+    transform: scaleX(1);
   }
 
   .github-btn {
     border-radius: 999px;
-    border: 1px solid rgba(205, 214, 244, 0.18);
+    border: 1px solid rgba(214, 214, 220, 0.18);
     padding: 0.35rem 0.8rem;
     font-size: 0.75rem;
-    color: #cdd6f4;
-    background: rgba(17, 17, 27, 0.75);
+    color: #e6e7eb;
+    background: rgba(12, 12, 14, 0.6);
     transition: all 160ms ease;
     display: inline-flex;
     align-items: center;
@@ -205,8 +250,8 @@ const isActive = (href) => Astro.url.pathname === href;
   }
 
   .github-btn:hover {
-    border-color: rgba(137, 180, 250, 0.45);
-    background: rgba(17, 17, 27, 0.95);
+    border-color: rgba(214, 214, 220, 0.4);
+    background: rgba(12, 12, 14, 0.8);
     transform: translateY(-1px);
   }
 
@@ -215,76 +260,66 @@ const isActive = (href) => Astro.url.pathname === href;
     height: 14px;
   }
 
-  .menu-link {
-    padding: 0.55rem 0.7rem;
-    border-radius: 12px;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    display: inline-flex;
+  .header-actions {
+    display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.8rem;
+    position: relative;
+    z-index: 1;
   }
 
-  .menu-link.is-active,
-  .menu-link:hover {
-    color: var(--text-primary);
-    background: rgba(137, 180, 250, 0.14);
+  .flag {
+    font-size: 1rem;
+    line-height: 1;
   }
 
-  .nav-icon {
-    font-size: 0.8rem;
-    opacity: 0.7;
-  }
-
-  @media (min-width: 860px) {
-    .nav-links {
-      display: flex;
+  @media (min-width: 960px) {
+    .nav-surface {
+      display: inline-flex;
     }
+  }
 
-    .menu-btn {
+  @media (max-width: 959px) {
+    .site-header {
       display: none;
     }
-  }
 
-  @media (max-width: 859px) {
-    .menu-panel {
-      position: fixed;
-      left: 1rem;
-      right: 1rem;
-      bottom: 1rem;
-      top: auto;
-      width: auto;
-      border-radius: 20px;
-      padding: 0.9rem;
-      transform: translateY(12px);
-      opacity: 0;
-      transition: opacity 180ms ease, transform 180ms ease;
-    }
-
-    .menu-panel.is-open {
-      opacity: 1;
-      transform: translateY(0);
+    .mobile-monogram {
+      display: flex;
     }
   }
 </style>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const toggle = document.getElementById("navToggle");
-    const menu = document.getElementById("navMenu");
-    if (!toggle || !menu) return;
+    const bar = document.querySelector(".mobile-monogram");
+    if (!bar) return;
 
-    toggle.addEventListener("click", (event) => {
-      event.stopPropagation();
-      menu.classList.toggle("is-open");
-    });
+    let lastY = window.scrollY;
+    let ticking = false;
 
-    menu.addEventListener("click", (event) => {
-      event.stopPropagation();
-    });
+    const update = () => {
+      const currentY = window.scrollY;
+      const goingDown = currentY > lastY && currentY > 16;
+      const nearTop = currentY < 8;
 
-    document.addEventListener("click", () => {
-      menu.classList.remove("is-open");
-    });
+      if (nearTop) {
+        bar.classList.remove("is-hidden");
+      } else {
+        bar.classList.toggle("is-hidden", goingDown);
+      }
+
+      lastY = currentY;
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
   });
 </script>
