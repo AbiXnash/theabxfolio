@@ -48,9 +48,15 @@
           .replace(/</g, "&lt;")
           .replace(/>/g, "&gt;");
 
-      fetch("/github-activity.json")
-        .then((res) => (res.ok ? res.json() : null))
+      const url = "/github-activity.json";
+      console.log("[github-activity] fetch", url);
+      fetch(url)
+        .then((res) => {
+          console.log("[github-activity] status", res.status, res.statusText);
+          return res.ok ? res.json() : null;
+        })
         .then((data) => {
+          console.log("[github-activity] payload", data);
           const recent = Array.isArray(data?.commits) ? data.commits : [];
           if (!recent.length) {
             repoList.innerHTML = "<div class='repo-empty'>Unable to load GitHub activity.</div>";
@@ -88,7 +94,8 @@
             </div>
           `;
         })
-        .catch(() => {
+        .catch((err) => {
+          console.error("[github-activity] error", err);
           repoList.innerHTML = "<div class='repo-empty'>Unable to load GitHub activity.</div>";
         });
     }
