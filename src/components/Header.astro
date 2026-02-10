@@ -274,14 +274,17 @@ const isActive = (href) => Astro.url.pathname === href;
     const menu = document.getElementById("navMenu");
     if (!toggle || !menu) return;
 
-    toggle.addEventListener("click", () => {
+    toggle.addEventListener("click", (event) => {
+      event.stopPropagation();
       menu.classList.toggle("is-open");
     });
 
-    document.addEventListener("click", (event) => {
-      if (!menu.contains(event.target) && !toggle.contains(event.target)) {
-        menu.classList.remove("is-open");
-      }
+    menu.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
+
+    document.addEventListener("click", () => {
+      menu.classList.remove("is-open");
     });
   });
 </script>
