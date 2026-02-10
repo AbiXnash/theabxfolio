@@ -15,7 +15,7 @@ export default component$(() => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <RouterHead />
       </head>
-      <body lang="en">
+      <body lang="en" class="flex min-h-screen flex-col antialiased text-white">
         <RouterOutlet />
         <ServiceWorkerRegister />
       </body>
