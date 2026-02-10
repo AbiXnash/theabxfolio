@@ -21,78 +21,146 @@
       </div>
     </div>
 
-    <div class="hero-panel" data-reveal>
-      <div class="panel-head">
-        <div>
-          <span class="panel-label">Status</span>
-          <div class="panel-title">Available for select projects</div>
-        </div>
-        <span class="panel-dot" aria-hidden="true"></span>
-      </div>
-
-      <div class="panel-grid">
-        <div class="panel-card">
-          <span class="panel-card-label">Focus</span>
-          <span class="panel-card-value">Backend reliability & payment flows</span>
-        </div>
-        <div class="panel-card">
-          <span class="panel-card-label">Stack</span>
-          <span class="panel-card-value stack-value">
-            <span class="stack-badge">
-              <img
-                class="stack-icon"
-                src="https://cdn.simpleicons.org/springboot/d3d6dc?viewbox=auto&size=18"
-                alt="Spring Boot"
-                loading="lazy"
-                decoding="async"
-              />
-              <span class="stack-name">Spring Boot</span>
-            </span>
-            <span class="stack-badge">
-              <img
-                class="stack-icon"
-                src="https://cdn.simpleicons.org/rust/d3d6dc?viewbox=auto&size=18"
-                alt="Rust"
-                loading="lazy"
-                decoding="async"
-              />
-              <span class="stack-name">Rust</span>
-            </span>
-            <span class="stack-badge">
-              <img
-                class="stack-icon"
-                src="https://cdn.simpleicons.org/go/d3d6dc?viewbox=auto&size=18"
-                alt="Go"
-                loading="lazy"
-                decoding="async"
-              />
-              <span class="stack-name">Go</span>
-            </span>
-            <span class="stack-badge">
-              <img
-                class="stack-icon"
-                src="https://cdn.simpleicons.org/openjdk/d3d6dc?viewbox=auto&size=18"
-                alt="Java"
-                loading="lazy"
-                decoding="async"
-              />
-              <span class="stack-name">Java</span>
-            </span>
-          </span>
-        </div>
-        <div class="panel-card">
-          <span class="panel-card-label">Domain</span>
-          <span class="panel-card-value">Fintech · Critical Systems · Risk</span>
-        </div>
-      </div>
-
-      <div class="panel-foot">
-        <span class="panel-note">Remote · Long-term · High-impact</span>
-        <a href="/contact" class="panel-cta">Start a project</a>
+    <div class="card contact-activity" data-reveal>
+      <h2 class="section-title">GitHub Activity</h2>
+      <p class="activity-badge">Available for select projects</p>
+      <p class="section-subtitle">
+        Latest commits aggregated across public repositories.
+      </p>
+      <div id="repoList" class="repo-list">
+        <div class="repo-item skeleton"></div>
+        <div class="repo-item skeleton"></div>
+        <div class="repo-item skeleton"></div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const repoList = document.getElementById("repoList");
+    if (repoList) {
+      const username = "AbiXnash";
+      const headers = {
+        Accept: "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+      };
+
+      const formatDate = (iso) => new Date(iso).toLocaleString();
+      const shortSha = (sha) => (sha ? sha.slice(0, 7) : "");
+      const escapeHtml = (str) =>
+        String(str || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+
+      const fetchAllRepos = async () => {
+        const repos = [];
+        let page = 1;
+        while (true) {
+          const res = await fetch(
+            `https://api.github.com/users/${username}/repos?per_page=100&page=${page}&sort=updated`,
+            { headers },
+          );
+          if (!res.ok) break;
+          const data = await res.json();
+          if (!Array.isArray(data) || data.length === 0) break;
+          repos.push(...data);
+          page += 1;
+          if (data.length < 100) break;
+        }
+        return repos;
+      };
+
+      const pool = async (items, limit, fn) => {
+        const results = [];
+        const executing = [];
+        for (const item of items) {
+          const p = Promise.resolve().then(() => fn(item)).then((res) => {
+            results.push(res);
+          });
+          executing.push(p);
+          if (executing.length >= limit) {
+            await Promise.race(executing);
+            executing.splice(executing.findIndex((e) => e === p), 1);
+          }
+        }
+        await Promise.all(executing);
+        return results;
+      };
+
+      (async () => {
+        try {
+          const repos = await fetchAllRepos();
+          if (!repos.length) {
+            repoList.innerHTML = "<div class='repo-empty'>Unable to load GitHub activity.</div>";
+            return;
+          }
+
+          const repoNames = repos.map((r) => r.full_name).filter(Boolean);
+          const commitSets = await pool(repoNames, 6, (repo) =>
+            fetch(`https://api.github.com/repos/${repo}/commits?per_page=1`, { headers })
+              .then((res) => (res.ok ? res.json() : []))
+              .then((commits) => ({ repo, commits: Array.isArray(commits) ? commits : [] }))
+              .catch(() => ({ repo, commits: [] })),
+          );
+
+          const flattened = commitSets.flatMap(({ repo, commits }) =>
+            commits.map((c) => ({
+              repo,
+              sha: c.sha,
+              message: c.commit?.message,
+              date: c.commit?.author?.date,
+            })),
+          );
+
+          const recent = flattened
+            .filter((c) => c.date)
+            .sort((a, b) => new Date(b.date) - new Date(a.date))
+            .slice(0, 5);
+
+          if (!recent.length) {
+            repoList.innerHTML = "<div class='repo-empty'>Unable to load GitHub activity.</div>";
+            return;
+          }
+
+          const commitItems = recent
+            .map(
+              (c) => `
+                <div class="commit-item">
+                  <div class="commit-message">${escapeHtml(c.message || "Commit")}</div>
+                  <div class="commit-meta">
+                    <span class="commit-sha">${shortSha(c.sha)}</span>
+                    <a class="commit-repo" href="https://github.com/${c.repo}" target="_blank">
+                      ${escapeHtml(c.repo.split("/").pop())}
+                    </a>
+                    <span>${formatDate(c.date)}</span>
+                  </div>
+                </div>
+              `,
+            )
+            .join("");
+
+          repoList.innerHTML = `
+            <div class="repo-item">
+              <div class="repo-head">
+                <div>
+                  <div class="repo-badge">Recent commits</div>
+                  <div class="repo-title">Latest activity</div>
+                  <div class="repo-desc">Across all public repositories</div>
+                </div>
+                <a class="repo-link" href="https://github.com/${username}" target="_blank">View GitHub</a>
+              </div>
+              <div class="commit-list">${commitItems}</div>
+            </div>
+          `;
+        } catch (err) {
+          repoList.innerHTML = "<div class='repo-empty'>Unable to load GitHub activity.</div>";
+        }
+      })();
+    }
+  });
+</script>
 
 <style>
   .hero-shell {
@@ -123,142 +191,139 @@
     gap: 0.6rem;
   }
 
-  .hero-panel {
-    position: relative;
-    overflow: hidden;
-    border-radius: 24px;
-    border: 1px solid rgba(214, 214, 220, 0.16);
-    background: rgba(18, 18, 22, 0.7);
-    padding: 1.6rem;
+  .contact-activity {
     display: grid;
-    gap: 1.4rem;
-    box-shadow: 0 25px 50px rgba(6, 6, 10, 0.45);
-    backdrop-filter: blur(18px);
+    gap: 1rem;
+    max-height: 520px;
+    overflow: auto;
   }
 
-  .hero-panel::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 20% 10%, rgba(214, 214, 220, 0.08), transparent 45%);
-    opacity: 0.6;
-  }
-
-  .panel-head {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .panel-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-  }
-
-  .panel-title {
-    font-size: 1.1rem;
-    font-family: "Fraunces", serif;
-    color: var(--text-primary);
-    margin-top: 0.35rem;
-  }
-
-  .panel-dot {
-    width: 9px;
-    height: 9px;
-    border-radius: 999px;
-    background: rgba(114, 226, 159, 0.9);
-    box-shadow: 0 0 0 6px rgba(114, 226, 159, 0.15);
-    animation: pulse 2.6s ease-in-out infinite;
-  }
-
-  .panel-grid {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    gap: 0.7rem;
-  }
-
-  .panel-card {
-    display: grid;
-    gap: 0.3rem;
-    padding: 0.7rem 0.9rem;
-    border-radius: 16px;
-    border: 1px solid rgba(214, 214, 220, 0.12);
-    background: rgba(12, 12, 16, 0.6);
-  }
-
-  .panel-card-label {
-    font-size: 0.65rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-  }
-
-  .panel-card-value {
-    font-size: 0.9rem;
-    color: var(--text-primary);
-  }
-
-  .stack-value {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.55rem;
-    align-items: center;
-  }
-
-  .stack-badge {
+  .activity-badge {
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    padding: 0.35rem 0.65rem;
-    border-radius: 999px;
-    border: 1px solid rgba(214, 214, 220, 0.18);
-    background: rgba(16, 16, 20, 0.7);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  :global(.repo-list) {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  :global(.repo-item) {
+    display: grid;
+    gap: 0.9rem;
+    padding: 0.9rem 1rem;
+    border-radius: 14px;
+    border: 1px solid rgba(205, 214, 244, 0.12);
+    background: rgba(17, 17, 27, 0.6);
     color: var(--text-primary);
-    font-size: 0.75rem;
+    box-shadow: inset 0 0 0 1px rgba(205, 214, 244, 0.04);
   }
 
-  .stack-icon {
-    width: 18px;
-    height: 18px;
-  }
-
-  .stack-name {
-    font-size: 0.78rem;
-  }
-
-  .panel-foot {
-    position: relative;
-    z-index: 1;
+  :global(.repo-head) {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    align-items: start;
+    gap: 0.8rem;
   }
 
-  .panel-note {
+  :global(.repo-badge) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  :global(.repo-title) {
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  :global(.repo-desc) {
     font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+  }
+
+  :global(.repo-link) {
+    font-size: 0.75rem;
+    color: var(--accent-alt);
+    white-space: nowrap;
+  }
+
+  :global(.commit-list) {
+    display: grid;
+    gap: 0.6rem;
+    border-left: 1px solid rgba(205, 214, 244, 0.12);
+    padding-left: 0.8rem;
+  }
+
+  :global(.commit-item) {
+    padding: 0.6rem 0.7rem;
+    border-radius: 12px;
+    border: 1px solid rgba(205, 214, 244, 0.08);
+    background: rgba(17, 17, 27, 0.5);
+    display: grid;
+    gap: 0.35rem;
+    position: relative;
+  }
+
+  :global(.commit-item::before) {
+    content: "";
+    position: absolute;
+    left: -1.15rem;
+    top: 0.9rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--accent-alt);
+    box-shadow: 0 0 0 4px rgba(137, 180, 250, 0.15);
+  }
+
+  :global(.commit-message) {
+    font-size: 0.82rem;
+    color: var(--text-primary);
+  }
+
+  :global(.commit-meta) {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  :global(.commit-sha) {
+    font-family: "JetBrains Mono", monospace;
+    color: var(--accent-alt);
+  }
+
+  :global(.commit-repo) {
+    color: var(--accent-alt);
+  }
+
+  :global(.commit-repo:hover) {
+    color: var(--text-primary);
+  }
+
+  :global(.repo-empty) {
+    font-size: 0.8rem;
     color: var(--text-muted);
   }
 
-  .panel-cta {
-    padding: 0.45rem 1rem;
-    border-radius: 999px;
-    border: 1px solid rgba(214, 214, 220, 0.22);
-    background: rgba(12, 12, 16, 0.7);
-    color: var(--text-primary);
-    font-size: 0.75rem;
-    transition: all 180ms ease;
-  }
-
-  .panel-cta:hover {
-    border-color: rgba(214, 214, 220, 0.4);
-    background: rgba(12, 12, 16, 0.9);
-    transform: translateY(-1px);
+  :global(.skeleton) {
+    height: 64px;
+    border-radius: 14px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));
+    background-size: 200% 100%;
+    animation: shimmer 1.2s infinite;
   }
 
   @media (min-width: 980px) {
@@ -275,18 +340,8 @@
     }
   }
 
-  @keyframes pulse {
-    0% {
-      transform: scale(0.85);
-      opacity: 0.7;
-    }
-    50% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    100% {
-      transform: scale(0.85);
-      opacity: 0.7;
-    }
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
   }
 </style>
