@@ -13,11 +13,11 @@ const username = "AbiXnash";
     
     <p class="hero-role">
       <span class="role-dot"></span>
-      Backend Engineer · Payments · Security
+      Backend Engineer
     </p>
 
     <p class="hero-bio">
-      Building resilient payment systems and security-focused platforms with clean architecture and measured performance.
+      Building resilient payment systems and security-focused platforms.
     </p>
 
     <div class="hero-tags">
@@ -54,7 +54,7 @@ const username = "AbiXnash";
           <polyline points="14 2 14 8 20 8"/>
           <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
         </svg>
-        View Resume
+        Resume
       </a>
       <a href="/contact" class="btn btn-ghost">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -101,7 +101,7 @@ const username = "AbiXnash";
     <div class="stats-row">
       <div class="stat-item">
         <span class="stat-value">5+</span>
-        <span class="stat-label">Years exp</span>
+        <span class="stat-label">Years</span>
       </div>
       <div class="stat-divider"></div>
       <div class="stat-item">
@@ -119,45 +119,45 @@ const username = "AbiXnash";
 
 <style>
   .hero {
-    padding: 4rem 0 3rem;
-    display: grid;
-    gap: 3rem;
+    padding: 2.5rem 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  @media (min-width: 640px) {
+    .hero {
+      padding: 3rem 0 2.5rem;
+      gap: 2.5rem;
+    }
   }
 
   @media (min-width: 768px) {
     .hero {
-      grid-template-columns: minmax(0, 1fr) 380px;
-      align-items: stretch;
-      padding: 5rem 0 4rem;
-      gap: 3rem;
-    }
-
-    .hero-left {
-      align-self: stretch;
-    }
-
-    .hero-right {
-      align-self: stretch;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      padding: 4rem 0 3rem;
+      gap: 2rem;
     }
   }
 
   @media (min-width: 1024px) {
     .hero {
-      padding: 6rem 0 5rem;
-      grid-template-columns: minmax(0, 1fr) 420px;
+      grid-template-columns: 1fr 400px;
+      padding: 5rem 0 4rem;
     }
   }
 
   .hero-left {
     display: flex;
     flex-direction: column;
+    gap: 1.25rem;
   }
 
   .hero-label {
     font-family: "JetBrains Mono", monospace;
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
-    margin-bottom: 1rem;
   }
 
   .prompt {
@@ -165,35 +165,32 @@ const username = "AbiXnash";
   }
 
   .hero-name {
-    font-size: clamp(2rem, 10vw, 4.5rem);
+    font-size: clamp(1.75rem, 8vw, 3.5rem);
     font-weight: 700;
-    line-height: 1.1;
+    line-height: 1.15;
     letter-spacing: -0.02em;
-    margin-bottom: 1rem;
     background: linear-gradient(135deg, var(--text) 0%, var(--text-muted) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     word-break: break-word;
     overflow-wrap: break-word;
-    hyphens: auto;
   }
 
   .hero-role {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    font-size: 0.9375rem;
+    gap: 0.5rem;
+    font-size: 0.875rem;
     color: var(--text-muted);
-    margin-bottom: 1.5rem;
   }
 
   .role-dot {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: var(--accent);
-    box-shadow: 0 0 10px var(--accent);
+    box-shadow: 0 0 8px var(--accent);
     animation: pulse 2s ease-in-out infinite;
   }
 
@@ -203,78 +200,62 @@ const username = "AbiXnash";
   }
 
   .hero-bio {
-    font-size: 1.0625rem;
+    font-size: 0.9375rem;
     color: var(--text-muted);
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
-    max-width: 520px;
+    line-height: 1.6;
   }
 
   .hero-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-bottom: 2rem;
+    gap: 0.5rem;
   }
 
   .tag {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    padding: 0.5rem 0.875rem;
+    gap: 0.35rem;
+    padding: 0.35rem 0.65rem;
     background: var(--bg-elevated);
     border: 1px solid var(--border);
     border-radius: 100px;
-    font-size: 0.8125rem;
+    font-size: 0.6875rem;
     color: var(--text-muted);
-    transition: all 200ms ease;
   }
 
   .tag svg {
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
     stroke: var(--accent);
-  }
-
-  .tag:hover {
-    border-color: var(--accent);
-    background: rgba(255, 107, 53, 0.08);
   }
 
   .hero-actions {
     display: flex;
-    flex-wrap: nowrap;
-    gap: 1rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
   }
 
   .btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    border-radius: 10px;
-    font-size: 0.9375rem;
+    gap: 0.4rem;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    font-size: 0.8125rem;
     font-weight: 600;
     transition: all 200ms ease;
-    cursor: pointer;
   }
 
   .btn svg {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
   }
 
   .btn-primary {
     background: var(--accent);
     color: #000;
     border: none;
-    box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
-  }
-
-  .btn-primary:hover {
-    background: var(--accent-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(255, 107, 53, 0.4);
   }
 
   .btn-ghost {
@@ -283,34 +264,18 @@ const username = "AbiXnash";
     border: 1px solid var(--border);
   }
 
-  .btn-ghost:hover {
-    border-color: var(--accent);
-    background: rgba(255, 107, 53, 0.05);
-  }
-
   .hero-right {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    align-self: stretch;
+    gap: 1rem;
     min-width: 0;
-    overflow: hidden;
-  }
-
-  .hero-right > :first-child {
-    flex: 1;
-  }
-
-  .hero-right > :last-child {
-    flex: 0;
   }
 
   .activity-card {
     background: var(--bg-elevated);
     border: 1px solid var(--border);
-    border-radius: 16px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
   }
@@ -320,31 +285,25 @@ const username = "AbiXnash";
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.75rem 1rem;
+    padding: 0.625rem 0.875rem;
     border-bottom: 1px solid var(--border);
     background: rgba(0, 0, 0, 0.2);
-  }
-
-  @media (min-width: 640px) {
-    .activity-header {
-      padding: 0.875rem 1.25rem;
-    }
   }
 
   .header-left {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.5rem;
   }
 
   .header-dots {
     display: flex;
-    gap: 0.4rem;
+    gap: 0.3rem;
   }
 
   .dot {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
   }
 
@@ -354,25 +313,24 @@ const username = "AbiXnash";
 
   .mono {
     font-family: "JetBrains Mono", monospace;
-    font-size: 0.8125rem;
+    font-size: 0.6875rem;
     color: var(--text-dim);
-    margin-left: auto;
   }
 
   .header-status {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.3rem;
     font-family: "JetBrains Mono", monospace;
-    font-size: 0.6875rem;
+    font-size: 0.5625rem;
     color: #28c840;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
 
   .status-indicator {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background: #28c840;
     animation: blink 1.5s ease-in-out infinite;
@@ -384,49 +342,47 @@ const username = "AbiXnash";
   }
 
   .activity-body {
-    padding: 0.75rem;
-    min-height: 150px;
-    max-height: 280px;
+    padding: 0.5rem;
+    min-height: 120px;
+    max-height: 200px;
     overflow-y: auto;
-    position: relative;
-    flex: 1;
     scrollbar-width: none;
     -ms-overflow-style: none;
-  }
-
-  @media (min-width: 640px) {
-    .activity-body {
-      padding: 1rem;
-      min-height: 180px;
-      max-height: 320px;
-    }
   }
 
   .activity-body::-webkit-scrollbar {
     display: none;
   }
 
+  @media (min-width: 640px) {
+    .activity-body {
+      padding: 0.75rem;
+      min-height: 150px;
+      max-height: 250px;
+    }
+  }
+
   .commits-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.75rem 1rem;
+    padding: 0.5rem 0.875rem;
     border-bottom: 1px solid var(--border);
     background: rgba(0, 0, 0, 0.1);
   }
 
   .commits-label {
     font-family: "JetBrains Mono", monospace;
-    font-size: 0.75rem;
+    font-size: 0.625rem;
     color: var(--text-muted);
   }
 
   .commits-count {
     font-family: "JetBrains Mono", monospace;
-    font-size: 0.6875rem;
+    font-size: 0.5625rem;
     color: var(--accent);
     background: rgba(255, 107, 53, 0.1);
-    padding: 0.2rem 0.5rem;
+    padding: 0.15rem 0.4rem;
     border-radius: 4px;
   }
 
@@ -435,18 +391,18 @@ const username = "AbiXnash";
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-    padding: 2rem;
+    gap: 0.75rem;
+    padding: 1.5rem;
   }
 
   .loader-bars {
     display: flex;
-    gap: 4px;
+    gap: 3px;
   }
 
   .loader-bars span {
-    width: 4px;
-    height: 20px;
+    width: 3px;
+    height: 16px;
     background: var(--accent);
     border-radius: 2px;
     animation: loaderBounce 1s ease-in-out infinite;
@@ -463,71 +419,148 @@ const username = "AbiXnash";
 
   .loading-text {
     font-family: "JetBrains Mono", monospace;
-    font-size: 0.75rem;
+    font-size: 0.625rem;
     color: var(--text-dim);
+  }
+
+  .activity-card.is-ready .activity-loader {
+    display: none !important;
   }
 
   .stats-row {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1.5rem;
-    padding: 1.25rem;
+    gap: 0.75rem;
+    padding: 0.625rem 0.875rem;
     background: var(--bg-elevated);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 10px;
   }
 
   .stat-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0.1rem;
   }
 
   .stat-value {
-    font-size: 1.5rem;
+    font-size: 0.875rem;
     font-weight: 700;
     color: var(--accent);
     font-family: "JetBrains Mono", monospace;
   }
 
   .stat-label {
-    font-size: 0.6875rem;
+    font-size: 0.5rem;
     color: var(--text-dim);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
   }
 
   .stat-divider {
     width: 1px;
-    height: 40px;
+    height: 24px;
     background: var(--border);
   }
 
-  @media (max-width: 767px) {
-    .hero {
-      padding: 2.5rem 0;
-    }
-
-    .hero-bio {
-      font-size: 1rem;
-    }
-
-    .activity-card {
-      border-radius: 12px;
-      overflow-x: auto;
-    }
+  .repo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
-  @media (max-width: 400px) {
-    .activity-card {
-      margin-left: -0.5rem;
-      margin-right: -0.5rem;
-      border-radius: 0;
-      border-left: none;
-      border-right: none;
-    }
+  .commit-item {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 150ms ease;
+  }
+
+  .commit-item:hover {
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .commit-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+
+  .commit-icon svg {
+    width: 14px;
+    height: 14px;
+    stroke: var(--accent);
+  }
+
+  .commit-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .commit-message {
+    color: var(--text);
+    word-break: break-word;
+    line-height: 1.35;
+    font-size: 0.6875rem;
+    font-family: "JetBrains Mono", monospace;
+  }
+
+  .commit-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 0.5rem;
+    font-size: 0.5625rem;
+    margin-top: 0.25rem;
+  }
+
+  .commit-sha {
+    color: var(--accent);
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 500;
+  }
+
+  .commit-repo {
+    color: var(--text-muted);
+    font-family: "JetBrains Mono", monospace;
+  }
+
+  .commit-repo::before {
+    content: "in ";
+    color: var(--text-dim);
+  }
+
+  .commit-time {
+    color: var(--text-dim);
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  .repo-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.6875rem;
+  }
+
+  .repo-empty svg {
+    width: 24px;
+    height: 24px;
   }
 </style>
 
@@ -579,7 +612,7 @@ const username = "AbiXnash";
       if (commitsCount) commitsCount.textContent = count.toString();
 
       const commitsHtml = payload.items
-        .slice(0, 6)
+        .slice(0, 5)
         .map(
           (commit) => `
           <a href="${escapeHtml(commit.htmlUrl)}" target="_blank" rel="noreferrer" class="commit-item">
