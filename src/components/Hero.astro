@@ -3,7 +3,6 @@ const username = "AbiXnash";
 ---
 
 <section class="hero container">
-  <div class="hero-content">
   <div class="hero-left">
     <div class="hero-label">
       <span class="prompt">~/</span>
@@ -116,34 +115,24 @@ const username = "AbiXnash";
       </div>
     </div>
   </div>
-  </div>
 </section>
 
 <style>
   .hero {
-    min-height: calc(100vh - 200px);
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 2rem 0;
-  }
-
-  .hero-content {
-    display: contents;
-  }
-
-  @media (min-width: 640px) {
-    .hero {
-      min-height: calc(100vh - 180px);
-      padding: 2.5rem 0;
-    }
+    padding: 5rem 0 3rem;
+    gap: 1.5rem;
   }
 
   @media (min-width: 768px) {
     .hero {
       display: grid;
       grid-template-columns: 1fr 340px;
-      padding: 4rem 0 3rem;
+      place-content: center;
+      padding: 4rem 0;
       gap: 2rem;
     }
   }
@@ -151,7 +140,7 @@ const username = "AbiXnash";
   @media (min-width: 1024px) {
     .hero {
       grid-template-columns: 1fr 400px;
-      padding: 5rem 0 4rem;
+      padding: 5rem 0;
     }
   }
 
