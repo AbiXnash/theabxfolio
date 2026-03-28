@@ -3,6 +3,7 @@ const username = "AbiXnash";
 ---
 
 <section class="hero container">
+  <div class="hero-content">
   <div class="hero-left">
     <div class="hero-label">
       <span class="prompt">~/</span>
@@ -115,20 +116,26 @@ const username = "AbiXnash";
       </div>
     </div>
   </div>
+  </div>
 </section>
 
 <style>
   .hero {
-    padding: 2.5rem 0 2rem;
+    min-height: calc(100vh - 200px);
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    justify-content: center;
+    padding: 2rem 0;
+  }
+
+  .hero-content {
+    display: contents;
   }
 
   @media (min-width: 640px) {
     .hero {
-      padding: 3rem 0 2.5rem;
-      gap: 2.5rem;
+      min-height: calc(100vh - 180px);
+      padding: 2.5rem 0;
     }
   }
 
