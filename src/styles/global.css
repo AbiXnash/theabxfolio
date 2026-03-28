@@ -129,12 +129,12 @@ pre,
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-accent);
+  background: var(--accent);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-dim);
+  background: #ff8c5a;
 }
 
 @media (prefers-reduced-motion: reduce) {

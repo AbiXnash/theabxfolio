@@ -127,9 +127,17 @@ const username = "AbiXnash";
   @media (min-width: 768px) {
     .hero {
       grid-template-columns: 1fr 380px;
-      align-items: start;
+      align-items: stretch;
       padding: 5rem 0 4rem;
       gap: 3rem;
+    }
+
+    .hero-left {
+      align-self: stretch;
+    }
+
+    .hero-right {
+      align-self: stretch;
     }
   }
 
@@ -281,6 +289,15 @@ const username = "AbiXnash";
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    align-self: stretch;
+  }
+
+  .hero-right > :first-child {
+    flex: 1;
+  }
+
+  .hero-right > :last-child {
+    flex: 0;
   }
 
   .activity-card {
@@ -363,38 +380,25 @@ const username = "AbiXnash";
 
   .activity-body {
     padding: 0.75rem;
-    min-height: 200px;
-    max-height: 350px;
+    min-height: 150px;
+    max-height: 280px;
     overflow-y: auto;
     position: relative;
     flex: 1;
-    scrollbar-width: thin;
-    scrollbar-color: var(--border-accent) transparent;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
   @media (min-width: 640px) {
     .activity-body {
       padding: 1rem;
-      min-height: 250px;
-      max-height: 400px;
+      min-height: 180px;
+      max-height: 320px;
     }
   }
 
   .activity-body::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  .activity-body::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .activity-body::-webkit-scrollbar-thumb {
-    background: var(--border-accent);
-    border-radius: 2px;
-  }
-
-  .activity-body::-webkit-scrollbar-thumb:hover {
-    background: var(--text-dim);
+    display: none;
   }
 
   .commits-header {
@@ -511,15 +515,6 @@ const username = "AbiXnash";
 
     .activity-card {
       border-radius: 12px;
-    }
-
-    .stats-row {
-      padding: 1rem;
-      gap: 1rem;
-    }
-
-    .stat-value {
-      font-size: 1.25rem;
     }
   }
 </style>
