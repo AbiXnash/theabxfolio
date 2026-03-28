@@ -9,7 +9,7 @@ import Hero from "../components/Hero.astro";
 >
   <Hero />
   
-  <section class="stats-section container">
+  <section class="tech-section container">
     <h2 class="section-label">
       <span class="prompt">~/</span>
       <span>tech-stack</span>
@@ -56,48 +56,10 @@ import Hero from "../components/Hero.astro";
       </div>
     </div>
   </section>
-  
-  <section class="github-stats container">
-    <h2 class="section-label">
-      <span class="prompt">~/</span>
-      <span>github-stats</span>
-    </h2>
-    
-    <div class="stats-grid">
-      <div class="stat-card">
-        <span class="stat-number">50+</span>
-        <span class="stat-desc">Repositories</span>
-      </div>
-      <div class="stat-card">
-        <span class="stat-number">200+</span>
-        <span class="stat-desc">Commits</span>
-      </div>
-      <div class="stat-card">
-        <span class="stat-number">5+</span>
-        <span class="stat-desc">Years</span>
-      </div>
-    </div>
-    
-    <a href="https://github.com/AbiXnash" target="_blank" rel="noreferrer" class="github-link-card">
-      <div class="gh-icon">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2C6.48 2 2 6.58 2 12.28c0 4.52 2.87 8.36 6.84 9.72.5.1.68-.22.68-.48v-1.7c-2.78.62-3.37-1.4-3.37-1.4-.45-1.16-1.1-1.47-1.1-1.47-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.9 1.56 2.36 1.11 2.94.85.09-.67.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.05 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.32.1-2.75 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.43.2 2.49.1 2.75.64.72 1.03 1.63 1.03 2.75 0 3.92-2.34 4.78-4.57 5.03.36.32.68.94.68 1.9v2.82c0 .26.18.58.69.48A10.3 10.3 0 0 0 22 12.28C22 6.58 17.52 2 12 2z"/>
-        </svg>
-      </div>
-      <div class="gh-content">
-        <span class="gh-username">@AbiXnash</span>
-        <span class="gh-cta">View GitHub Profile</span>
-      </div>
-      <svg class="gh-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M5 12h14M12 5l7 7-7 7"/>
-      </svg>
-    </a>
-  </section>
 </BaseLayout>
 
 <style>
-  .stats-section,
-  .github-stats {
+  .tech-section {
     padding-bottom: 3rem;
   }
 
@@ -164,106 +126,5 @@ import Hero from "../components/Hero.astro";
   .tech-tag:hover {
     border-color: var(--accent);
     color: var(--accent);
-  }
-
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-  }
-
-  .stat-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.25rem;
-    padding: 1rem;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    text-align: center;
-  }
-
-  .stat-number {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--accent);
-    font-family: "JetBrains Mono", monospace;
-  }
-
-  .stat-desc {
-    font-size: 0.5625rem;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .github-link-card {
-    display: flex;
-    align-items: center;
-    gap: 0.875rem;
-    padding: 1rem;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    text-decoration: none;
-    transition: all 200ms ease;
-  }
-
-  .github-link-card:hover {
-    border-color: var(--accent);
-    transform: translateY(-2px);
-  }
-
-  .gh-icon {
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-  }
-
-  .gh-icon svg {
-    width: 22px;
-    height: 22px;
-    color: var(--text-muted);
-  }
-
-  .gh-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.125rem;
-  }
-
-  .gh-username {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .gh-cta {
-    font-size: 0.6875rem;
-    color: var(--text-muted);
-  }
-
-  .gh-arrow {
-    flex-shrink: 0;
-    width: 18px;
-    height: 18px;
-    color: var(--accent);
-    opacity: 0;
-    transform: translateX(-4px);
-    transition: all 200ms ease;
-  }
-
-  .github-link-card:hover .gh-arrow {
-    opacity: 1;
-    transform: translateX(0);
   }
 </style>
