@@ -8,4 +8,136 @@ import Hero from "../components/Hero.astro";
   description="Backend Engineer specializing in payments, security, and resilient systems. Building production-grade platforms with clean architecture."
 >
   <Hero />
+  
+  <section class="quick-links container">
+    <div class="quick-links-grid">
+      <a href="/resume" class="quick-card">
+        <div class="quick-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+        </div>
+        <div class="quick-content">
+          <h3>Resume</h3>
+          <p>Work experience, projects & skills</p>
+        </div>
+        <div class="quick-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </div>
+      </a>
+      
+      <a href="/contact" class="quick-card">
+        <div class="quick-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 6h16v12H4z"/>
+            <polyline points="4 7 12 13 20 7"/>
+          </svg>
+        </div>
+        <div class="quick-content">
+          <h3>Contact</h3>
+          <p>Get in touch for collaborations</p>
+        </div>
+        <div class="quick-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </div>
+      </a>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .quick-links {
+    padding-bottom: 3rem;
+  }
+
+  .quick-links-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .quick-links-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+  }
+
+  .quick-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 200ms ease;
+  }
+
+  .quick-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(255, 107, 53, 0.08);
+  }
+
+  .quick-icon {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+
+  .quick-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--accent);
+  }
+
+  .quick-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .quick-content h3 {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.125rem;
+  }
+
+  .quick-content p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .quick-arrow {
+    flex-shrink: 0;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: all 200ms ease;
+  }
+
+  .quick-card:hover .quick-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .quick-arrow svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--accent);
+  }
+</style>
