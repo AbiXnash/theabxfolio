@@ -1,17 +1,10 @@
 ---
 import resume from "../data/resume.json";
 
-const formatDate = (date) =>
-  date.toLocaleDateString("en-US", {
-    month: "short",
-    year: "numeric",
-  });
-
 const calcTenure = (startDate, endDate) => {
   if (!startDate) return "";
   const start = new Date(startDate);
   const now = new Date();
-  const endLabel = endDate && endDate !== "Present" ? endDate : "Present";
 
   const months =
     now.getFullYear() * 12 + now.getMonth() -

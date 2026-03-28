@@ -3,11 +3,11 @@
 
 :root {
   color-scheme: dark;
-  --bg: #0a0a0a;
-  --bg-elevated: #141414;
-  --border: #2a2a2a;
-  --border-accent: #3a3a3a;
-  --text: #f0f0f0;
+  --bg: #0f0f0f;
+  --bg-elevated: #171717;
+  --border: #252525;
+  --border-accent: #333333;
+  --text: #ededed;
   --text-muted: #888;
   --text-dim: #555;
   --accent: #ff6b35;
@@ -120,8 +120,8 @@ pre,
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -129,12 +129,12 @@ pre,
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 4px;
+  background: var(--border-accent);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--border-accent);
+  background: var(--text-dim);
 }
 
 @media (prefers-reduced-motion: reduce) {
