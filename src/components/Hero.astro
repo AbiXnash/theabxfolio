@@ -293,6 +293,8 @@ const username = "AbiXnash";
     flex-direction: column;
     gap: 1.5rem;
     align-self: stretch;
+    min-width: 0;
+    overflow: hidden;
   }
 
   .hero-right > :first-child {
@@ -514,6 +516,17 @@ const username = "AbiXnash";
 
     .activity-card {
       border-radius: 12px;
+      overflow-x: auto;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .activity-card {
+      margin-left: -0.5rem;
+      margin-right: -0.5rem;
+      border-radius: 0;
+      border-left: none;
+      border-right: none;
     }
   }
 </style>
