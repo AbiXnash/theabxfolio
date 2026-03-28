@@ -1,195 +1,132 @@
 ---
 const year = new Date().getFullYear();
-const email = "mailto:abinash@theabx.in";
-const github = "https://github.com/AbiXnash";
-const linkedin = "https://linkedin.com/in/abinash-selvarasu";
 ---
 
-<footer class="footer-shell">
-  <div class="footer-orb"></div>
-  <div class="footer-inner">
+<footer class="footer">
+  <div class="footer-inner container">
     <div class="footer-left">
-      <span class="footer-kicker">Portfolio</span>
-      <div class="footer-title">Abinash S</div>
-      <p class="footer-subtitle">
-        Premium backend engineering · payments · research systems
-      </p>
-      <div class="footer-status">
-        <span class="status-dot"></span>
-        <span class="text-[var(--accent)]">Operational</span>
-        <span class="text-white/30">·</span>
-        <span id="uptime" class="text-white/40">uptime 00:00:00</span>
-      </div>
+      <span class="footer-name">Abinash S</span>
+      <span class="footer-role">Backend Engineer</span>
     </div>
 
-    <div class="footer-nav">
-      <div class="footer-nav-title">Navigate</div>
-      <a href="/resume"><span class="footer-icon">⎯</span>Resume</a>
-      <a href="/service"><span class="footer-icon">◈</span>Service</a>
-      <a href="/contact"><span class="footer-icon">✦</span>Contact</a>
-    </div>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="/">home</a>
+      <a href="/resume">resume</a>
+      <a href="/contact">contact</a>
+      <a href="https://github.com/AbiXnash" target="_blank" rel="noreferrer">github</a>
+    </nav>
 
-    <div class="footer-right">
-      <div class="footer-nav-title">Connect</div>
-      <a href={email}>
-        <svg class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M4 6h16v12H4z"></path>
-          <path d="m4 7 8 6 8-6"></path>
-        </svg>
-        abinash@theabx.in
-      </a>
-      <a href={github} target="_blank">
-        <svg class="footer-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M12 2C6.48 2 2 6.58 2 12.28c0 4.52 2.87 8.36 6.84 9.72.5.1.68-.22.68-.48v-1.7c-2.78.62-3.37-1.4-3.37-1.4-.45-1.16-1.1-1.47-1.1-1.47-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.9 1.56 2.36 1.11 2.94.85.09-.67.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.05 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.32.1-2.75 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.43.2 2.49.1 2.75.64.72 1.03 1.63 1.03 2.75 0 3.92-2.34 4.78-4.57 5.03.36.32.68.94.68 1.9v2.82c0 .26.18.58.69.48A10.3 10.3 0 0 0 22 12.28C22 6.58 17.52 2 12 2z"></path>
-        </svg>
-        GitHub
-      </a>
-      <a href={linkedin} target="_blank">
-        <svg class="footer-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.6h.05c.53-1 1.83-2.1 3.75-2.1C20 8.5 21 10.7 21 14v7h-4v-6.2c0-1.5 0-3.4-2.1-3.4s-2.4 1.6-2.4 3.3V21H9z"></path>
-        </svg>
-        LinkedIn
-      </a>
-      <div class="footer-copy">© {year} Abinash S</div>
+    <div class="footer-copy">
+      <span class="mono">{year}</span>
     </div>
   </div>
 </footer>
 
 <style>
-  .footer-shell {
-    position: relative;
-    overflow: hidden;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    background: radial-gradient(circle at 20% 20%, rgba(30, 38, 60, 0.35), transparent 55%),
-      radial-gradient(circle at 80% 30%, rgba(12, 14, 22, 0.9), transparent 50%),
-      rgba(8, 8, 16, 0.28);
-    backdrop-filter: blur(26px);
-  }
-
-  .footer-orb {
-    position: absolute;
-    inset: auto;
-    width: 420px;
-    height: 420px;
-    right: -140px;
-    top: -160px;
-    border-radius: 999px;
-    background: radial-gradient(circle, rgba(0, 0, 0, 0.9), rgba(20, 32, 58, 0.2) 55%, transparent 70%);
-    box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.8), 0 0 80px rgba(20, 32, 58, 0.45);
-    opacity: 0.9;
+  .footer {
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--border);
+    margin-top: auto;
+    width: 100%;
   }
 
   .footer-inner {
-    position: relative;
-    z-index: 1;
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 3.5rem 1.5rem 3rem;
-    display: grid;
-    gap: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 480px) {
+    .footer-inner {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+  }
+
+  @media (min-width: 640px) {
+    .footer-inner {
+      gap: 2rem;
+    }
   }
 
   .footer-left {
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.25rem;
   }
 
-  .footer-kicker {
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    font-size: 0.7rem;
+  @media (min-width: 480px) {
+    .footer-left {
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+
+  .footer-name {
+    font-weight: 600;
+    font-size: 0.8125rem;
+  }
+
+  @media (min-width: 640px) {
+    .footer-name {
+      font-size: 0.875rem;
+    }
+  }
+
+  .footer-role {
     color: var(--text-dim);
+    font-size: 0.75rem;
   }
 
-  .footer-title {
-    font-family: "Fraunces", serif;
-    font-size: 1.6rem;
+  @media (min-width: 640px) {
+    .footer-role {
+      font-size: 0.875rem;
+    }
   }
 
-  .footer-subtitle {
-    color: var(--text-muted);
-    max-width: 320px;
-  }
-
-  .footer-status {
+  .footer-links {
     display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-size: 0.85rem;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
   }
 
-  .status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 999px;
-    background: var(--accent);
-    box-shadow: 0 0 0 6px rgba(142, 242, 193, 0.12);
+  @media (min-width: 640px) {
+    .footer-links {
+      gap: 1.5rem;
+    }
   }
 
-  .footer-nav,
-  .footer-right {
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-  }
-
-  .footer-nav-title {
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    font-size: 0.7rem;
-    color: var(--text-dim);
-  }
-
-  .footer-nav a,
-  .footer-right a {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
+  .footer-links a {
     color: var(--text-muted);
-    transition: color 160ms ease;
-    line-height: 1.1;
+    font-size: 0.75rem;
+    transition: color 150ms ease;
   }
 
-  .footer-nav a:hover,
-  .footer-right a:hover {
-    color: #fff;
+  @media (min-width: 640px) {
+    .footer-links a {
+      font-size: 0.875rem;
+    }
+  }
+
+  .footer-links a:hover {
+    color: var(--text);
   }
 
   .footer-copy {
     color: var(--text-dim);
-    font-size: 0.8rem;
-    margin-top: 0.4rem;
+    font-size: 0.6875rem;
   }
 
-  .footer-icon {
-    width: 14px;
-    height: 14px;
-    color: var(--accent-alt);
-    opacity: 0.75;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  @media (min-width: 860px) {
-    .footer-inner {
-      grid-template-columns: 1.2fr 0.6fr 0.8fr;
-      align-items: start;
+  @media (min-width: 640px) {
+    .footer-copy {
+      font-size: 0.75rem;
     }
   }
-</style>
 
-<script>
-  const uptimeEl = document.getElementById("uptime");
-  if (uptimeEl) {
-    const start = Date.now();
-    setInterval(() => {
-      const diff = Date.now() - start;
-      const h = String(Math.floor(diff / 3600000)).padStart(2, "0");
-      const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, "0");
-      const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, "0");
-      uptimeEl.textContent = `uptime ${h}:${m}:${s}`;
-    }, 1000);
+  .mono {
+    font-family: "JetBrains Mono", monospace;
   }
-</script>
+</style>
