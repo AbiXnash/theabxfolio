@@ -1,108 +1,158 @@
 # theabxfolio
 
-A premium, performance‑focused portfolio built with Astro. Designed to feel crisp, minimal, and intentional across desktop and mobile.
+Personal portfolio of [Abinash Selvarasu](https://abinash.dev) — Backend Engineer specializing in payments, security, and resilient systems.
+
+Built with [Astro](https://astro.build), featuring a clean terminal-inspired dark theme with orange accents.
 
 ---
 
-## Highlights
+## Features
 
-- Premium dark UI with glass surfaces and motion restraint
-- Desktop header with centered navigation + page context
-- Mobile dock with social popover and magnify effect
-- GitHub activity widget rendered at build time from public GitHub events
-- Static build, minimal dependencies
+- **Clean Dark Theme** — Minimal design with `#0f0f0f` background and `#ff6b35` accent
+- **Terminal Aesthetic** — JetBrains Mono font, command-line inspired UI
+- **GitHub Activity** — Live commit feed from public GitHub events
+- **Responsive** — Optimized for mobile with bottom sheet navigation
+- **SEO Optimized** — Full meta tags, Open Graph, Twitter cards, JSON-LD structured data
+- **Performance** — Static build, minimal dependencies
+
+---
+
+## Tech Stack
+
+- **Framework:** [Astro](https://astro.build) v5
+- **Styling:** CSS with custom properties
+- **Font:** [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
+- **Deploy:** Static site (Vercel, Netlify, GitHub Pages, etc.)
+
+---
+
+## Pages
+
+| Route      | Description                                      |
+| ---------- | ------------------------------------------------ |
+| `/`        | Home — Hero with GitHub activity and stats       |
+| `/resume`  | Experience — Work, projects, research, education |
+| `/contact` | Contact — Email CTA and social links             |
 
 ---
 
 ## Quick Start
 
 ```sh
-bun install
-bun dev
-```
+# Install dependencies
+npm install
 
-Build and preview:
+# Development server
+npm run dev
 
-```sh
-bun run build
-bun preview
+# Production build
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
 ---
 
-## Pages
+## Project Structure
 
-- `/` — Home
-- `/service` — Services
-- `/resume` — Resume
-- `/contact` — Contact
-
----
-
-## Architecture
-
-```text
-src
-├── components
-│   ├── Contact.astro
-│   ├── Dock.astro
-│   ├── Footer.astro
-│   ├── Header.astro
-│   ├── Hero.astro
-│   ├── Resume.astro
-│   └── Service.astro
-├── layouts
-│   └── BaseLayout.astro
-├── pages
-│   ├── contact.astro
+```
+src/
+├── components/
+│   ├── Contact.astro    # Contact page with social links
+│   ├── Footer.astro     # Site footer
+│   ├── Header.astro     # Header with mobile bottom sheet nav
+│   ├── Hero.astro       # Hero section with GitHub activity
+│   └── Resume.astro     # Resume page with collapsible cards
+├── layouts/
+│   └── BaseLayout.astro # Main layout with SEO/structured data
+├── pages/
 │   ├── index.astro
 │   ├── resume.astro
-│   └── service.astro
-└── styles
-    └── global.css
+│   ├── contact.astro
+│   └── github-activity.json.ts  # GitHub API endpoint
+├── data/
+│   └── resume.json      # Resume content
+└── styles/
+    └── global.css       # CSS variables, global styles
 ```
 
 ---
 
-## GitHub Activity Widget
+## Customization
 
-The activity panel is rendered during the Astro build from the GitHub public events API:
+### Personal Info
 
-- Single upstream request instead of per-visitor repo fan-out
-- 4 second request timeout to avoid slow builds
-- Graceful empty state when GitHub is unavailable
+Update these files to customize:
 
-Fetch logic lives in `src/lib/githubActivity.ts`.
+- **Name/Title:** `src/components/Hero.astro`, `src/components/Footer.astro`
+- **Resume Content:** `src/data/resume.json`
+- **Social Links:** `src/components/Header.astro`, `src/components/Contact.astro`
+- **GitHub Username:** `src/components/Hero.astro` (line 2)
+
+### Design Tokens
+
+All CSS variables are defined in `src/styles/global.css`:
+
+```css
+:root {
+  --bg: #0f0f0f;
+  --accent: #ff6b35;
+  --text: #ffffff;
+  --border: #1a1a1a;
+}
+```
+
+### Colors
+
+| Variable         | Value     | Usage                    |
+| ---------------- | --------- | ------------------------ |
+| `--bg`           | `#0f0f0f` | Background               |
+| `--bg-elevated`  | `#141414` | Cards, elevated surfaces |
+| `--accent`       | `#ff6b35` | Primary accent (orange)  |
+| `--accent-hover` | `#ff8c5a` | Accent hover state       |
+| `--text`         | `#ffffff` | Primary text             |
+| `--text-muted`   | `#888888` | Secondary text           |
+| `--border`       | `#1a1a1a` | Borders                  |
 
 ---
 
-## Configuration
+## SEO & Structured Data
 
-Key files to tweak:
+The site includes comprehensive SEO optimization:
 
-- `src/components/Header.astro` — desktop header, mobile header
-- `src/components/Dock.astro` — mobile dock + social popover
-- `src/components/Hero.astro` — hero content + GitHub activity widget
-- `src/styles/global.css` — tokens, background, global visuals
+- Meta tags (title, description, robots)
+- Open Graph and Twitter Card tags
+- JSON-LD structured data:
+  - Person schema
+  - Website schema
+  - BreadcrumbList schema
+  - FAQPage schema
 
 ---
 
 ## Deployment
 
-Static output. Deploy anywhere that supports static sites.
+### GitHub Pages
 
----
+1. Push to `master` branch
+2. Enable GitHub Pages in repository settings
+3. Set source to `master` branch
 
-## References
+### Vercel / Netlify
 
-```text
-Astro: https://astro.build
-Bun: https://bun.sh
-GitHub REST API: https://docs.github.com/en/rest
-```
+Connect repository and deploy automatically.
 
 ---
 
 ## License
 
-Personal portfolio. Please don’t redistribute as‑is.
+MIT License — Feel free to use as a template for your own portfolio.
+
+---
+
+## References
+
+- [Astro Documentation](https://docs.astro.build)
+- [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
+- [GitHub REST API](https://docs.github.com/en/rest)

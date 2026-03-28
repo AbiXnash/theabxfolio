@@ -1,13 +1,31 @@
 {
   "name": "theabxfolio",
   "type": "module",
-  "version": "0.0.3",
+  "version": "1.0.0",
+  "description": "Personal portfolio website of Abinash Selvarasu - Backend Engineer specializing in payments, security, and resilient systems.",
+  "author": "Abinash Selvarasu <abinash@theabx.in>",
+  "license": "MIT",
+  "homepage": "https://abinash.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AbiXnash/theabxfolio"
+  },
+  "keywords": [
+    "portfolio",
+    "personal-website",
+    "astro",
+    "backend-engineer",
+    "payments",
+    "developer"
+  ],
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "format": "bunx prettier . --write"
+    "format": "bunx prettier . --write",
+    "lint": "eslint .",
+    "typecheck": "astro check"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
@@ -26,5 +44,8 @@
     "prettier-plugin-astro": "0.14.1",
     "prettier-plugin-tailwindcss": "0.7.2",
     "typescript-eslint": "^8.51.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
