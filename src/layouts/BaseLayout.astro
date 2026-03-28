@@ -1,10 +1,9 @@
 ---
 import Header from "../components/Header.astro";
-import Dock from "../components/Dock.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 
-const { title = "abx@portfolio" } = Astro.props;
+const { title = "abx" } = Astro.props;
 ---
 
 <!doctype html>
@@ -14,48 +13,37 @@ const { title = "abx@portfolio" } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/arch-logo.svg" />
-    <link rel="apple-touch-icon" href="/arch-logo.svg" />
     <title>{title}</title>
   </head>
 
-  <body class="flex min-h-screen flex-col antialiased text-white">
+  <body>
     <Header />
 
-    <main class="flex-1">
+    <main>
       <slot />
-
     </main>
 
-    <Dock />
-
     <Footer />
-
-    <script>
-      (() => {
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-          document.querySelectorAll("[data-reveal]").forEach((el) => {
-            el.classList.add("is-visible");
-          });
-          return;
-        }
-
-        const elements = Array.from(document.querySelectorAll("[data-reveal]"));
-        if (!elements.length) return;
-
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("is-visible");
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.18 },
-        );
-
-        elements.forEach((el) => observer.observe(el));
-      })();
-    </script>
   </body>
 </html>
+
+<style>
+  :global(body) {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  main {
+    flex: 1;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    main {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+</style>
