@@ -1,277 +1,672 @@
 ---
-import { getRecentGithubActivity } from "../lib/githubActivity";
-
 const username = "AbiXnash";
-const githubActivity = await getRecentGithubActivity(username, 5);
-const recentCommits = githubActivity.items;
-const isDev = import.meta.env.DEV;
-const showTokenHint = isDev && githubActivity.error === "rate-limited";
-
-const formatDate = (iso: string) =>
-  new Intl.DateTimeFormat("en-US", {
-    dateStyle: "medium",
-    timeStyle: "short",
-  }).format(new Date(iso));
-
-const shortSha = (sha: string) => (sha ? sha.slice(0, 7) : "");
 ---
 
-<section class="page-shell hero-shell">
-  <div class="page-inner hero-layout">
-    <div class="hero-content" data-reveal>
-      <span class="hero-kicker">Backend Engineer</span>
-      <h1 class="hero-title">Abinash S</h1>
-      <p class="hero-subtitle">
-        Building resilient payment systems and security-focused platforms with clean architecture and
-        measured performance.
-      </p>
+<section class="hero container">
+  <div class="hero-left">
+    <div class="hero-label">
+      <span class="prompt">~/</span>
+      <span>portfolio</span>
+    </div>
+    
+    <h1 class="hero-name">Abinash S</h1>
+    
+    <p class="hero-role">
+      <span class="role-dot"></span>
+      Backend Engineer · Payments · Security
+    </p>
 
-      <div class="hero-actions">
-        <a href="/resume" class="btn-primary">View Resume</a>
-        <a href="/service" class="btn-ghost">Services</a>
-        <a href="/contact" class="btn-ghost">Contact</a>
+    <p class="hero-bio">
+      Building resilient payment systems and security-focused platforms with clean architecture and measured performance.
+    </p>
+
+    <div class="hero-tags">
+      <span class="tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        Payments
+      </span>
+      <span class="tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        Security
+      </span>
+      <span class="tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+        </svg>
+        APIs
+      </span>
+      <span class="tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+        </svg>
+        Microservices
+      </span>
+    </div>
+
+    <div class="hero-actions">
+      <a href="/resume" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+        View Resume
+      </a>
+      <a href="/contact" class="btn btn-ghost">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 6h16v12H4z"/><polyline points="4 7 12 13 20 7"/>
+        </svg>
+        Contact
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="activity-card" data-activity-shell data-activity-url="/github-activity.json" data-github-profile={`https://github.com/${username}`}>
+      <div class="activity-header">
+        <div class="header-left">
+          <div class="header-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <span class="mono">gh activity</span>
+        </div>
+        <span class="header-status">
+          <span class="status-indicator"></span>
+          live
+        </span>
       </div>
-
-      <div class="hero-tags">
-        <span class="tag">Payments · Microservices</span>
-        <span class="tag">Security · Reliability</span>
-        <span class="tag">Java · Spring Boot</span>
+      
+      <div class="commits-header">
+        <span class="commits-label">Recent commits</span>
+        <span class="commits-count" id="commitsCount"></span>
+      </div>
+      
+      <div class="activity-body">
+        <div class="activity-loader" aria-hidden="true">
+          <div class="loader-bars">
+            <span></span><span></span><span></span>
+          </div>
+          <span class="loading-text">loading...</span>
+        </div>
+        <div id="repoList" class="repo-list"></div>
       </div>
     </div>
 
-    <div class="card contact-activity" data-reveal>
-      <h2 class="section-title">GitHub Activity</h2>
-      <p class="activity-badge">Available for select projects</p>
-      <p class="section-subtitle">
-        Latest commits from recent public GitHub push activity.
-      </p>
-      <div id="repoList" class="repo-list">
-        {
-          recentCommits.length ? (
-            <div class="repo-item">
-              <div class="repo-head">
-                <div>
-                  <div class="repo-badge">Recent commits</div>
-                  <div class="repo-title">Latest activity</div>
-                  <div class="repo-desc">Build-time snapshot from public GitHub events</div>
-                </div>
-                <a class="repo-link" href={`https://github.com/${username}`} target="_blank">View GitHub</a>
-              </div>
-              <div class="commit-list">
-                {recentCommits.map((commit) => (
-                  <div class="commit-item">
-                    <div class="commit-message">{commit.message}</div>
-                    <div class="commit-meta">
-                      <span class="commit-sha">{shortSha(commit.sha)}</span>
-                      <a class="commit-repo" href={commit.htmlUrl} target="_blank">
-                        {commit.repoName}
-                      </a>
-                      <span>{formatDate(commit.date)}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div class="repo-empty">
-              GitHub activity is temporarily unavailable.
-              {isDev ? " Check the Astro dev terminal for the GitHub fetch error." : ""}
-            </div>
-          )
-        }
-        {
-          showTokenHint && (
-            <div class="repo-empty repo-hint">
-              GitHub API rate limit hit. Set <code>GITHUB_TOKEN</code> or <code>GH_TOKEN</code> before
-              running <code>bun dev</code>.
-            </div>
-          )
-        }
+    <div class="stats-row">
+      <div class="stat-item">
+        <span class="stat-value">5+</span>
+        <span class="stat-label">Years exp</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-value">50+</span>
+        <span class="stat-label">Projects</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-value">99.9%</span>
+        <span class="stat-label">Uptime</span>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .hero-shell {
-    min-height: calc(100vh - 220px);
-    display: flex;
-    align-items: center;
-  }
-
-  .hero-layout {
+  .hero {
+    padding: 4rem 0 3rem;
     display: grid;
     gap: 3rem;
   }
 
-  .hero-content {
-    display: grid;
-    gap: 1.3rem;
+  @media (min-width: 768px) {
+    .hero {
+      grid-template-columns: 1fr 380px;
+      align-items: start;
+      padding: 5rem 0 4rem;
+      gap: 3rem;
+    }
   }
 
-  .hero-actions {
+  @media (min-width: 1024px) {
+    .hero {
+      padding: 6rem 0 5rem;
+      grid-template-columns: 1fr 420px;
+    }
+  }
+
+  .hero-left {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem;
+    flex-direction: column;
+  }
+
+  .hero-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .prompt {
+    color: var(--accent);
+  }
+
+  .hero-name {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--text) 0%, var(--text-muted) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-role {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9375rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .role-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .hero-bio {
+    font-size: 1.0625rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    max-width: 520px;
   }
 
   .hero-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
   }
 
-  .contact-activity {
-    display: grid;
-    gap: 1rem;
-    max-height: 520px;
-    overflow: auto;
-  }
-
-  .activity-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-  }
-
-  :global(.repo-list) {
-    display: grid;
-    gap: 0.8rem;
-  }
-
-  :global(.repo-item) {
-    display: grid;
-    gap: 0.9rem;
-    padding: 0.9rem 1rem;
-    border-radius: 14px;
-    border: 1px solid rgba(205, 214, 244, 0.12);
-    background: rgba(17, 17, 27, 0.6);
-    color: var(--text-primary);
-    box-shadow: inset 0 0 0 1px rgba(205, 214, 244, 0.04);
-  }
-
-  :global(.repo-head) {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    gap: 0.8rem;
-  }
-
-  :global(.repo-badge) {
+  .tag {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    font-size: 0.7rem;
+    padding: 0.5rem 0.875rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    transition: all 200ms ease;
+  }
+
+  .tag svg {
+    width: 14px;
+    height: 14px;
+    stroke: var(--accent);
+  }
+
+  .tag:hover {
+    border-color: var(--accent);
+    background: rgba(255, 107, 53, 0.08);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    transition: all 200ms ease;
+    cursor: pointer;
+  }
+
+  .btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+    border: none;
+    box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(255, 107, 53, 0.4);
+  }
+
+  .btn-ghost {
+    background: var(--bg-elevated);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--accent);
+    background: rgba(255, 107, 53, 0.05);
+  }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .activity-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .activity-header {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  @media (min-width: 640px) {
+    .activity-header {
+      padding: 0.875rem 1.25rem;
+    }
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .header-dots {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .dot.red { background: #ff5f57; }
+  .dot.yellow { background: #febc2e; }
+  .dot.green { background: #28c840; }
+
+  .mono {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.8125rem;
+    color: var(--text-dim);
+    margin-left: auto;
+  }
+
+  .header-status {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.6875rem;
+    color: #28c840;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .status-indicator {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #28c840;
+    animation: blink 1.5s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .activity-body {
+    padding: 0.75rem;
+    min-height: 150px;
+    max-height: 350px;
+    overflow-y: auto;
+    position: relative;
+    flex: 1;
+  }
+
+  @media (min-width: 640px) {
+    .activity-body {
+      padding: 1rem;
+      min-height: 180px;
+      max-height: 400px;
+    }
+  }
+
+  .commits-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  .commits-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .commits-count {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.6875rem;
+    color: var(--accent);
+    background: rgba(255, 107, 53, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .activity-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+  }
+
+  .loader-bars {
+    display: flex;
+    gap: 4px;
+  }
+
+  .loader-bars span {
+    width: 4px;
+    height: 20px;
+    background: var(--accent);
+    border-radius: 2px;
+    animation: loaderBounce 1s ease-in-out infinite;
+  }
+
+  .loader-bars span:nth-child(1) { animation-delay: 0s; }
+  .loader-bars span:nth-child(2) { animation-delay: 0.1s; }
+  .loader-bars span:nth-child(3) { animation-delay: 0.2s; }
+
+  @keyframes loaderBounce {
+    0%, 100% { transform: scaleY(0.5); opacity: 0.5; }
+    50% { transform: scaleY(1); opacity: 1; }
+  }
+
+  .loading-text {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+  }
+
+  .activity-card.is-ready .activity-loader {
+    display: none !important;
+  }
+
+  .activity-body .repo-list {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.8125rem;
+    padding: 0.5rem;
+  }
+
+  .activity-body .commit-graph {
+    display: none !important;
+  }
+
+  .activity-body .commit-item {
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    position: relative;
+    transition: all 200ms ease;
+  }
+
+  .activity-body .commit-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .activity-body .commit-item:hover {
+    border-color: var(--accent);
+  }
+
+  .activity-body .commit-message {
+    color: var(--text) !important;
+    margin-bottom: 0.5rem;
+    word-break: break-word;
+    line-height: 1.45;
+    font-size: 0.8125rem;
+  }
+
+  .activity-body .commit-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    font-size: 0.6875rem;
+  }
+
+  .activity-body .commit-sha {
+    color: var(--accent) !important;
+    font-weight: 500;
+  }
+
+  .activity-body .commit-repo {
+    color: var(--text-muted) !important;
+    word-break: break-all;
+  }
+
+  .activity-body .commit-repo:hover {
+    color: var(--accent) !important;
+  }
+
+  .activity-body .commit-time {
+    color: var(--text-dim) !important;
+    font-size: 0.6875rem;
+    margin-left: auto;
+  }
+
+  .repo-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.8125rem;
+  }
+
+  .repo-empty svg {
+    width: 32px;
+    height: 32px;
+    opacity: 0.5;
+  }
+
+  .stats-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1.25rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: "JetBrains Mono", monospace;
+  }
+
+  .stat-label {
+    font-size: 0.6875rem;
     color: var(--text-dim);
     text-transform: uppercase;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.1em;
   }
 
-  :global(.repo-title) {
-    font-size: 0.95rem;
-    font-weight: 600;
+  .stat-divider {
+    width: 1px;
+    height: 40px;
+    background: var(--border);
   }
 
-  :global(.repo-desc) {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    margin-top: 0.2rem;
-  }
-
-  :global(.repo-link) {
-    font-size: 0.75rem;
-    color: var(--accent-alt);
-    white-space: nowrap;
-  }
-
-  :global(.commit-list) {
-    display: grid;
-    gap: 0.6rem;
-    border-left: 1px solid rgba(205, 214, 244, 0.12);
-    padding-left: 0.8rem;
-  }
-
-  :global(.commit-item) {
-    padding: 0.6rem 0.7rem;
-    border-radius: 12px;
-    border: 1px solid rgba(205, 214, 244, 0.08);
-    background: rgba(17, 17, 27, 0.5);
-    display: grid;
-    gap: 0.35rem;
-    position: relative;
-  }
-
-  :global(.commit-item::before) {
-    content: "";
-    position: absolute;
-    left: -1.15rem;
-    top: 0.9rem;
-    width: 8px;
-    height: 8px;
-    border-radius: 999px;
-    background: var(--accent-alt);
-    box-shadow: 0 0 0 4px rgba(137, 180, 250, 0.15);
-  }
-
-  :global(.commit-message) {
-    font-size: 0.82rem;
-    color: var(--text-primary);
-  }
-
-  :global(.commit-meta) {
-    font-size: 0.7rem;
-    color: var(--text-dim);
-    display: flex;
-    gap: 0.6rem;
-    flex-wrap: wrap;
-  }
-
-  :global(.commit-sha) {
-    font-family: "JetBrains Mono", monospace;
-    color: var(--accent-alt);
-  }
-
-  :global(.commit-repo) {
-    color: var(--accent-alt);
-  }
-
-  :global(.commit-repo:hover) {
-    color: var(--text-primary);
-  }
-
-  :global(.repo-empty) {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-  }
-
-  :global(.skeleton) {
-    height: 64px;
-    border-radius: 14px;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));
-    background-size: 200% 100%;
-    animation: shimmer 1.2s infinite;
-  }
-
-  @media (min-width: 980px) {
-    .hero-layout {
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-      align-items: center;
+  @media (max-width: 767px) {
+    .hero {
+      padding: 2.5rem 0;
     }
-  }
 
-  @media (max-width: 720px) {
-    .panel-foot {
-      flex-direction: column;
-      align-items: flex-start;
+    .hero-bio {
+      font-size: 1rem;
     }
-  }
 
-  @keyframes shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+    .activity-card {
+      border-radius: 12px;
+    }
+
+    .stats-row {
+      padding: 1rem;
+      gap: 1rem;
+    }
+
+    .stat-value {
+      font-size: 1.25rem;
+    }
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const shell = document.querySelector("[data-activity-shell]");
+    if (!shell) return;
+    const repoList = shell.querySelector("#repoList");
+    const commitsCount = shell.querySelector("#commitsCount");
+    const activityUrl = shell.getAttribute("data-activity-url");
+    if (!repoList || !activityUrl) return;
+
+    const escapeHtml = (value) =>
+      String(value).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      }[char] || char));
+
+    const formatTime = (iso) => {
+      const date = new Date(iso);
+      const now = new Date();
+      const diff = now - date;
+      const hours = Math.floor(diff / 3600000);
+      const days = Math.floor(diff / 86400000);
+      if (hours < 1) return 'just now';
+      if (hours < 24) return `${hours}h ago`;
+      if (days < 7) return `${days}d ago`;
+      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    };
+
+    const renderActivity = (payload) => {
+      if (!payload?.items?.length) {
+        repoList.innerHTML = `
+          <div class="repo-empty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+            </svg>
+            <span>no commits found</span>
+          </div>
+        `;
+        if (commitsCount) commitsCount.textContent = '0';
+        return;
+      }
+
+      const count = payload.items.length;
+      if (commitsCount) commitsCount.textContent = count.toString();
+
+      const commitsHtml = payload.items
+        .slice(0, 6)
+        .map(
+          (commit) => `
+          <a href="${escapeHtml(commit.htmlUrl)}" target="_blank" rel="noreferrer" class="commit-item">
+            <div class="commit-message">${escapeHtml(commit.message)}</div>
+            <div class="commit-meta">
+              <span class="commit-sha">${escapeHtml(commit.sha?.slice(0, 7) || "")}</span>
+              <span class="commit-repo">${escapeHtml(commit.repoName)}</span>
+              <span class="commit-time">${formatTime(commit.date)}</span>
+            </div>
+          </a>
+        `,
+        )
+        .join("");
+
+      repoList.innerHTML = commitsHtml;
+    };
+
+    shell.classList.add("is-ready");
+
+    fetch(activityUrl)
+      .then((res) => res.json())
+      .then(renderActivity)
+      .catch(() => {
+        repoList.innerHTML = `
+          <div class="repo-empty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span>failed to load</span>
+          </div>
+        `;
+      });
+  });
+</script>
