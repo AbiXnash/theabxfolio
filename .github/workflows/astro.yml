@@ -41,7 +41,7 @@ jobs:
 
       - name: Build with Astro (Bun)
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.THE_REPO_TOKEN }}
         run: |
           bunx astro build \
             --site "${{ steps.pages.outputs.origin }}" \
