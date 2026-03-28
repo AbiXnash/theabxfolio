@@ -9,7 +9,7 @@ A premium, performance‑focused portfolio built with Astro. Designed to feel cr
 - Premium dark UI with glass surfaces and motion restraint
 - Desktop header with centered navigation + page context
 - Mobile dock with social popover and magnify effect
-- GitHub activity widget with client‑side cache + ETag
+- GitHub activity widget rendered at build time from public GitHub events
 - Static build, minimal dependencies
 
 ---
@@ -66,13 +66,13 @@ src
 
 ## GitHub Activity Widget
 
-The activity panel fetches recent commits from public repos using the GitHub REST API and applies:
+The activity panel is rendered during the Astro build from the GitHub public events API:
 
-- ETag caching
-- TTL cache (15 minutes)
-- Stale‑while‑revalidate fallback for rate‑limit errors
+- Single upstream request instead of per-visitor repo fan-out
+- 4 second request timeout to avoid slow builds
+- Graceful empty state when GitHub is unavailable
 
-Cache settings live in `src/components/Hero.astro`.
+Fetch logic lives in `src/lib/githubActivity.ts`.
 
 ---
 
