@@ -6,12 +6,12 @@ import "../styles/global.css";
 const {
   title = "Abinash Selvarasu",
   description = "Backend Engineer specializing in payments, security, and resilient systems. Building production-grade platforms with clean architecture.",
-  canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://abinash.dev"),
-  ogImage = "/og-image.png",
+  canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://theabx.in"),
+  ogImage = "/arch-logo.svg",
 } = Astro.props;
 
 const siteName = "Abinash Selvarasu";
-const siteUrl = "https://abinash.dev";
+const siteUrl = "https://theabx.in";
 const twitterHandle = "@AbiXnash";
 const linkedInUrl = "https://linkedin.com/in/abinash-selvarasu";
 const githubUrl = "https://github.com/AbiXnash";
@@ -63,9 +63,6 @@ const authorEmail = "abinash@theabx.in";
 
     <!-- LinkedIn -->
     <meta property="article:author" content={linkedInUrl} />
-
-    <!-- Website Verification -->
-    <meta name="google-site-verification" content="" />
 
     <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -212,7 +209,7 @@ const authorEmail = "abinash@theabx.in";
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <Header />
 
-    <main id="main-content" tabindex="-1">
+    <main id="main-content">
       <slot />
     </main>
 
