@@ -443,88 +443,6 @@ const username = "AbiXnash";
     display: none !important;
   }
 
-  .activity-body .repo-list {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 0.8125rem;
-    padding: 0.5rem;
-  }
-
-  .activity-body .commit-graph {
-    display: none !important;
-  }
-
-  .activity-body .commit-item {
-    padding: 1rem;
-    margin-bottom: 0.5rem;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    position: relative;
-    transition: all 200ms ease;
-  }
-
-  .activity-body .commit-item:last-child {
-    margin-bottom: 0;
-  }
-
-  .activity-body .commit-item:hover {
-    border-color: var(--accent);
-  }
-
-  .activity-body .commit-message {
-    color: var(--text) !important;
-    margin-bottom: 0.5rem;
-    word-break: break-word;
-    line-height: 1.45;
-    font-size: 0.8125rem;
-  }
-
-  .activity-body .commit-meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.5rem 1rem;
-    font-size: 0.6875rem;
-  }
-
-  .activity-body .commit-sha {
-    color: var(--accent) !important;
-    font-weight: 500;
-  }
-
-  .activity-body .commit-repo {
-    color: var(--text-muted) !important;
-    word-break: break-all;
-  }
-
-  .activity-body .commit-repo:hover {
-    color: var(--accent) !important;
-  }
-
-  .activity-body .commit-time {
-    color: var(--text-dim) !important;
-    font-size: 0.6875rem;
-    margin-left: auto;
-  }
-
-  .repo-empty {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    padding: 2rem;
-    text-align: center;
-    color: var(--text-dim);
-    font-size: 0.8125rem;
-  }
-
-  .repo-empty svg {
-    width: 32px;
-    height: 32px;
-    opacity: 0.5;
-  }
-
   .stats-row {
     display: flex;
     align-items: center;
@@ -639,11 +557,20 @@ const username = "AbiXnash";
         .map(
           (commit) => `
           <a href="${escapeHtml(commit.htmlUrl)}" target="_blank" rel="noreferrer" class="commit-item">
-            <div class="commit-message">${escapeHtml(commit.message)}</div>
-            <div class="commit-meta">
-              <span class="commit-sha">${escapeHtml(commit.sha?.slice(0, 7) || "")}</span>
-              <span class="commit-repo">${escapeHtml(commit.repoName)}</span>
-              <span class="commit-time">${formatTime(commit.date)}</span>
+            <div class="commit-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="4"/>
+                <line x1="1.05" y1="12" x2="7" y2="12"/>
+                <line x1="17.01" y1="12" x2="22.96" y2="12"/>
+              </svg>
+            </div>
+            <div class="commit-content">
+              <div class="commit-message">${escapeHtml(commit.message)}</div>
+              <div class="commit-meta">
+                <span class="commit-sha">${escapeHtml(commit.sha?.slice(0, 7) || "")}</span>
+                <span class="commit-repo">${escapeHtml(commit.repoName)}</span>
+                <span class="commit-time">${formatTime(commit.date)}</span>
+              </div>
             </div>
           </a>
         `,
