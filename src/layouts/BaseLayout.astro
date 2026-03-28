@@ -3,7 +3,20 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 
-const { title = "abx" } = Astro.props;
+const {
+  title = "Abinash Selvarasu",
+  description = "Backend Engineer specializing in payments, security, and resilient systems. Building production-grade platforms with clean architecture.",
+  canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://abinash.dev"),
+  ogImage = "/og-image.png",
+} = Astro.props;
+
+const siteName = "Abinash Selvarasu";
+const siteUrl = "https://abinash.dev";
+const twitterHandle = "@AbiXnash";
+const linkedInUrl = "https://linkedin.com/in/abinash-selvarasu";
+const githubUrl = "https://github.com/AbiXnash";
+const authorName = "Abinash Selvarasu";
+const authorEmail = "abinash@theabx.in";
 ---
 
 <!doctype html>
@@ -12,14 +25,194 @@ const { title = "abx" } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <link rel="icon" type="image/svg+xml" href="/arch-logo.svg" />
+
+    <!-- Primary Meta Tags -->
     <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="author" content={authorName} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="theme-color" content="#ff6b35" />
+    <meta name="color-scheme" content="dark" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/svg+xml" href="/arch-logo.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/arch-logo.svg" />
+    <meta name="msapplication-TileColor" content="#0f0f0f" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:creator" content={twitterHandle} />
+    <meta name="twitter:site" content={twitterHandle} />
+
+    <!-- LinkedIn -->
+    <meta property="article:author" content={linkedInUrl} />
+
+    <!-- Website Verification -->
+    <meta name="google-site-verification" content="" />
+
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title={siteName} href="/rss.xml" />
+
+    <!-- Sitemap -->
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+
+    <!-- JSON-LD Structured Data - Person -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": `${siteUrl}/#person`,
+      "name": authorName,
+      "alternateName": ["Abinash S", "AbiXnash"],
+      "url": siteUrl,
+      "sameAs": [
+        githubUrl,
+        linkedInUrl,
+        "https://x.com/theabxguy",
+        "https://instagram.com/theabxguy"
+      ],
+      "jobTitle": "Backend Engineer",
+      "description": description,
+      "knowsAbout": ["Java", "Spring Boot", "Microservices", "Payments", "Security", "APIs", "Backend Development"],
+      "skills": ["Java", "Spring Boot", "Microservices", "PostgreSQL", "OracleDB", "Payment Systems", "REST APIs"],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Mindgate Solutions",
+        "url": "https://www.mindgate.solutions"
+      },
+      "email": authorEmail,
+      "image": ogImage,
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": canonicalURL,
+        "url": canonicalURL,
+        "name": title,
+        "description": description
+      }
+    })} />
+
+    <!-- JSON-LD Structured Data - Website -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      "url": siteUrl,
+      "name": siteName,
+      "description": description,
+      "publisher": {
+        "@id": `${siteUrl}/#person`
+      },
+      "inLanguage": "en-US",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": `${siteUrl}/?q={search_term_string}`
+        },
+        "query-input": "required name=search_term_string"
+      }
+    })} />
+
+    <!-- JSON-LD Structured Data - BreadcrumbList -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": siteUrl
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": title.split(" | ")[1] || "Portfolio",
+          "item": canonicalURL
+        }
+      ]
+    })} />
+
+    <!-- JSON-LD FAQ for AEO (Answer Engine Optimization) -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does Abinash Selvarasu do?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Abinash Selvarasu is a Backend Engineer specializing in payments, security, and resilient systems. He works with Java, Spring Boot, microservices, and payment platforms."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What technologies does Abinash work with?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Abinash works with Java, Spring Boot, microservices architecture, OracleDB, PostgreSQL, payment systems, and API development."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where does Abinash work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Abinash currently works at Mindgate Solutions, focusing on banking and payment infrastructure."
+          }
+        }
+      ]
+    })} />
+
+    <!-- Knowledge Graph -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": `${siteUrl}/#person`,
+          "name": authorName,
+          "url": siteUrl
+        },
+        {
+          "@type": "WebSite",
+          "@id": `${siteUrl}/#website`,
+          "url": siteUrl,
+          "name": siteName
+        }
+      ]
+    })} />
   </head>
 
   <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <Header />
 
-    <main>
+    <main id="main-content" tabindex="-1">
       <slot />
     </main>
 
@@ -36,14 +229,29 @@ const { title = "abx" } = Astro.props;
 
   main {
     flex: 1;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 
   @media (min-width: 640px) {
     main {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
     }
+  }
+
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    background: var(--accent);
+    color: #000;
+    padding: 0.5rem 1rem;
+    z-index: 1000;
+    transition: top 200ms ease;
+  }
+
+  .skip-link:focus {
+    top: 0;
   }
 </style>
