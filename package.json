@@ -28,7 +28,6 @@
     "typecheck": "astro check"
   },
   "dependencies": {
-    "@astrojs/netlify": "^7.0.6",
     "@astrojs/sitemap": "^3.7.2",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^6.1.3",

@@ -1,17 +1,14 @@
 import { getRecentGithubActivity } from "../lib/githubActivity";
 
-export const prerender = false;
+export const prerender = true;
 
 export async function GET() {
   const activity = await getRecentGithubActivity("AbiXnash", 5);
 
-  const cacheMaxAge = activity.error === "rate-limited" ? 60 : 300;
-
   return new Response(JSON.stringify(activity), {
     headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "Cache-Control": `public, max-age=${cacheMaxAge}, s-maxage=${cacheMaxAge}`,
+      "Cache-Control": "public, max-age=300, s-maxage=300",
     },
-    status: activity.error === "rate-limited" ? 503 : 200,
   });
 }
