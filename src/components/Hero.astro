@@ -553,6 +553,7 @@ const username = "AbiXnash";
 </style>
 
 <script>
+  console.log('[GitHub Activity] Script loaded');
   const GITHUB_API_BASE = "https://api.github.com";
   const USERNAME = "AbiXnash";
   const COMMIT_LIMIT = 5;
@@ -568,13 +569,9 @@ const username = "AbiXnash";
     } catch { return null; }
   };
 
-  const setCachedActivity = (data) => {
-    try {
-      sessionStorage.setItem("github-activity-cache", JSON.stringify({ data, timestamp: Date.now() }));
-    } catch {}
-  };
-
+  console.log('[GitHub Activity] Starting...');
   document.addEventListener("DOMContentLoaded", () => {
+    console.log('[GitHub Activity] DOM ready');
     const shell = document.querySelector("[data-activity-shell]");
     if (!shell) return;
     const repoList = shell.querySelector("#repoList");
@@ -648,6 +645,7 @@ const username = "AbiXnash";
 
     const fetchActivity = async () => {
       try {
+        console.log('[GitHub Activity] Fetching events...');
         const headers: Record<string, string> = {
           Accept: "application/vnd.github+json",
           "X-GitHub-Api-Version": "2022-11-28",
@@ -668,6 +666,7 @@ const username = "AbiXnash";
         }
 
         const events = await response.json();
+        console.log('[GitHub Activity] Got', events.length, 'events');
         
         let commits = events
           .filter((e) => e.type === "PushEvent" && e.created_at && e.repo)
@@ -684,12 +683,16 @@ const username = "AbiXnash";
           .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
           .slice(0, COMMIT_LIMIT);
 
+        console.log('[GitHub Activity] Direct commits:', commits.length);
+
         if (!commits.length) {
+          console.log('[GitHub Activity] No commits, trying repo fallback...');
           const repos = events
             .filter((e) => e.type === "PushEvent" && e.repo?.name)
             .map((e) => e.repo.name.split("/")[1])
             .filter((v, i, a) => a.indexOf(v) === i)
             .slice(0, 5);
+          console.log('[GitHub Activity] Repos to fetch:', repos);
 
           const recentCommits = await Promise.all(
             repos.map(async (repo) => {
@@ -714,6 +717,7 @@ const username = "AbiXnash";
         renderActivity(commits);
         setCachedActivity(commits);
       } catch (err) {
+        console.error('[GitHub Activity] Error:', err);
         repoList.innerHTML = `
           <div class="repo-empty">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
