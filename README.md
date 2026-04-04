@@ -10,29 +10,20 @@ Built with [Astro](https://astro.build), featuring a clean terminal-inspired dar
 
 - **Clean Dark Theme** — Minimal design with `#0f0f0f` background and `#ff6b35` accent
 - **Terminal Aesthetic** — JetBrains Mono font, command-line inspired UI
-- **GitHub Activity** — Live commit feed from public GitHub events
+- **GitHub Activity** — Live commit feed from public GitHub events (client-side)
 - **Responsive** — Optimized for mobile with bottom sheet navigation
 - **SEO Optimized** — Full meta tags, Open Graph, Twitter cards, JSON-LD structured data
 - **Performance** — Static build, minimal dependencies
+- **Tested** — Unit tests with Bun
 
 ---
 
 ## Tech Stack
 
-- **Framework:** [Astro](https://astro.build) v5
+- **Framework:** [Astro](https://astro.build) v6
 - **Styling:** CSS with custom properties
 - **Font:** [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
-- **Deploy:** Static site (Vercel, Netlify, GitHub Pages, etc.)
-
----
-
-## Pages
-
-| Route      | Description                                      |
-| ---------- | ------------------------------------------------ |
-| `/`        | Home — Hero with GitHub activity and stats       |
-| `/resume`  | Experience — Work, projects, research, education |
-| `/contact` | Contact — Email CTA and social links             |
+- **Deploy:** GitHub Pages (static)
 
 ---
 
@@ -40,17 +31,40 @@ Built with [Astro](https://astro.build), featuring a clean terminal-inspired dar
 
 ```sh
 # Install dependencies
-npm install
+bun install
 
 # Development server
-npm run dev
+bun run dev
+
+# Run tests
+bun test
 
 # Production build
-npm run build
+bun run build
 
 # Preview production build
-npm run preview
+bun run preview
 ```
+
+---
+
+## GitHub Activity
+
+The GitHub activity section fetches commits client-side. For higher API rate limits:
+
+### Local Development
+
+Create `.env` file:
+
+```sh
+VITE_THE_REPO_TOKEN=ghp_your_github_token
+```
+
+### Production (GitHub Pages)
+
+Add `VITE_THE_REPO_TOKEN` secret in repo Settings → Secrets and variables → Actions.
+
+Get token: https://github.com/settings/tokens (classic, repo scope)
 
 ---
 
@@ -63,14 +77,23 @@ src/
 │   ├── Footer.astro     # Site footer
 │   ├── Header.astro     # Header with mobile bottom sheet nav
 │   ├── Hero.astro       # Hero section with GitHub activity
-│   └── Resume.astro     # Resume page with collapsible cards
+│   └── Resume.astro     # Resume page
 ├── layouts/
 │   └── BaseLayout.astro # Main layout with SEO/structured data
+├── lib/github/          # GitHub activity module (SOLID architecture)
+│   ├── activity-service.ts
+│   ├── api-client.ts
+│   ├── cache.ts
+│   ├── config.ts
+│   ├── index.ts
+│   ├── mapper.ts
+│   ├── types.ts
+│   └── ui.ts
 ├── pages/
 │   ├── index.astro
 │   ├── resume.astro
 │   ├── contact.astro
-│   └── github-activity.json.ts  # GitHub API endpoint
+│   └── github-activity.json.ts  # Static JSON endpoint
 ├── data/
 │   └── resume.json      # Resume content
 └── styles/
@@ -83,16 +106,14 @@ src/
 
 ### Personal Info
 
-Update these files to customize:
-
 - **Name/Title:** `src/components/Hero.astro`, `src/components/Footer.astro`
 - **Resume Content:** `src/data/resume.json`
 - **Social Links:** `src/components/Header.astro`, `src/components/Contact.astro`
-- **GitHub Username:** `src/components/Hero.astro` (line 2)
+- **GitHub Username:** `src/components/Hero.astro` (const USERNAME)
 
 ### Design Tokens
 
-All CSS variables are defined in `src/styles/global.css`:
+All CSS variables in `src/styles/global.css`:
 
 ```css
 :root {
@@ -127,7 +148,6 @@ The site includes comprehensive SEO optimization:
   - Person schema
   - Website schema
   - BreadcrumbList schema
-  - FAQPage schema
 
 ---
 
@@ -138,10 +158,20 @@ The site includes comprehensive SEO optimization:
 1. Push to `master` branch
 2. Enable GitHub Pages in repository settings
 3. Set source to `master` branch
+4. Add `VITE_THE_REPO_TOKEN` secret for GitHub API rate limits
 
-### Vercel / Netlify
+The site auto-deploys on push (via GitHub Actions).
 
-Connect repository and deploy automatically.
+---
+
+## Testing
+
+```sh
+bun test          # Run all tests
+bun test --watch # Watch mode
+```
+
+Tests are in `tests/` directory.
 
 ---
 

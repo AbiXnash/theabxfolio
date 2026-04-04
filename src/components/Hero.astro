@@ -574,7 +574,6 @@ const username = "AbiXnash";
     } catch {}
   };
 
-  console.log('[GitHub Activity] Starting...');
   document.addEventListener("DOMContentLoaded", () => {
     const shell = document.querySelector("[data-activity-shell]");
     if (!shell) return;
@@ -656,9 +655,7 @@ const username = "AbiXnash";
         };
         
         const token = import.meta.env.VITE_THE_REPO_TOKEN || import.meta.env.VITE_GITHUB_TOKEN || import.meta.env.THE_REPO_TOKEN || import.meta.env.GITHUB_TOKEN;
-        console.log('[GitHub Activity] Token raw value:', token ? 'exists' : 'missing', 'first 4 chars:', token?.slice(0,4));
         const hasToken = !!(token && (token.startsWith("ghp_") || token.startsWith("github_pat_")));
-        console.log('[GitHub Activity] Token available:', hasToken);
         if (hasToken) {
           headers.Authorization = `Bearer ${token}`;
         }
