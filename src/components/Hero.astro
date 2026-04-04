@@ -656,7 +656,9 @@ const username = "AbiXnash";
         };
         
         const token = import.meta.env.VITE_THE_REPO_TOKEN || import.meta.env.VITE_GITHUB_TOKEN || import.meta.env.THE_REPO_TOKEN || import.meta.env.GITHUB_TOKEN;
-        if (token && (token.startsWith("ghp_") || token.startsWith("github_pat_"))) {
+        const hasToken = !!(token && (token.startsWith("ghp_") || token.startsWith("github_pat_")));
+        console.log('[GitHub Activity] Token available:', hasToken);
+        if (hasToken) {
           headers.Authorization = `Bearer ${token}`;
         }
 
