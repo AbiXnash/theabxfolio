@@ -90,8 +90,10 @@ const isActive = (href) => Astro.url.pathname === href;
     position: sticky;
     top: 0;
     z-index: 100;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
+    background: rgba(15, 15, 15, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
 
   .header-inner {
@@ -114,6 +116,11 @@ const isActive = (href) => Astro.url.pathname === href;
     display: flex;
     align-items: center;
     gap: 0.4rem;
+    transition: transform 200ms ease;
+  }
+
+  .logo:hover {
+    transform: scale(1.05);
   }
 
   .logo-mark {
@@ -121,6 +128,7 @@ const isActive = (href) => Astro.url.pathname === href;
     color: var(--accent);
     font-weight: 500;
     font-size: 0.9rem;
+    text-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
   }
 
   .logo-name {
@@ -145,6 +153,18 @@ const isActive = (href) => Astro.url.pathname === href;
     font-size: 0.875rem;
     color: var(--text-muted);
     transition: color 150ms ease;
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 200ms ease;
   }
 
   .nav-link:hover,
@@ -154,6 +174,11 @@ const isActive = (href) => Astro.url.pathname === href;
 
   .nav-link.active {
     color: var(--accent);
+  }
+
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    width: 100%;
   }
 
   .nav-social {
@@ -174,11 +199,17 @@ const isActive = (href) => Astro.url.pathname === href;
     width: 36px;
     height: 36px;
     color: var(--text-muted);
-    transition: color 150ms ease;
+    transition: all 200ms ease;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid transparent;
   }
 
   .social-link:hover {
     color: var(--text);
+    border-color: rgba(255, 107, 53, 0.3);
+    background: rgba(255, 107, 53, 0.1);
+    transform: translateY(-2px);
   }
 
   .social-link svg {
@@ -192,8 +223,9 @@ const isActive = (href) => Astro.url.pathname === href;
     justify-content: center;
     width: 40px;
     height: 40px;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
+    background: rgba(23, 23, 23, 0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 10px;
     cursor: pointer;
     transition: all 150ms ease;
@@ -207,6 +239,7 @@ const isActive = (href) => Astro.url.pathname === href;
 
   .mobile-menu-btn:hover {
     border-color: var(--accent);
+    background: rgba(255, 107, 53, 0.1);
   }
 
   .mobile-menu-btn svg {
@@ -220,6 +253,7 @@ const isActive = (href) => Astro.url.pathname === href;
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
     z-index: 200;
     opacity: 0;
     transition: opacity 200ms ease;
@@ -235,8 +269,10 @@ const isActive = (href) => Astro.url.pathname === href;
     bottom: 0;
     left: 0;
     right: 0;
-    background: var(--bg-elevated);
-    border-top: 1px solid var(--border);
+    background: rgba(23, 23, 23, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 20px 20px 0 0;
     padding: 1.5rem 2rem 2.5rem;
     z-index: 201;
@@ -244,23 +280,11 @@ const isActive = (href) => Astro.url.pathname === href;
     transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
     max-height: 70vh;
     overflow-y: auto;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
   }
 
   .mobile-nav.open {
     transform: translateY(0);
-  }
-
-  .mobile-nav-handle {
-    display: flex;
-    justify-content: center;
-    padding: 0.5rem 0 1rem;
-  }
-
-  .handle-bar {
-    width: 40px;
-    height: 4px;
-    background: var(--border);
-    border-radius: 2px;
   }
 
   .mobile-nav-header {
@@ -268,7 +292,7 @@ const isActive = (href) => Astro.url.pathname === href;
     align-items: center;
     justify-content: space-between;
     padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     margin-bottom: 0.5rem;
   }
 
@@ -283,6 +307,7 @@ const isActive = (href) => Astro.url.pathname === href;
     color: var(--accent);
     font-weight: 500;
     font-size: 0.9rem;
+    text-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
   }
 
   .brand-name {
@@ -301,8 +326,8 @@ const isActive = (href) => Astro.url.pathname === href;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--bg);
-    border: 1px solid var(--border);
+    background: rgba(15, 15, 15, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 50%;
     cursor: pointer;
     transition: all 150ms ease;
@@ -310,6 +335,7 @@ const isActive = (href) => Astro.url.pathname === href;
 
   .mobile-nav-close:hover {
     border-color: var(--accent);
+    background: rgba(255, 107, 53, 0.1);
   }
 
   .mobile-nav-close svg {
@@ -331,8 +357,8 @@ const isActive = (href) => Astro.url.pathname === href;
     align-items: center;
     gap: 0.75rem;
     padding: 1.125rem 1.25rem;
-    background: var(--bg);
-    border: 1px solid var(--border);
+    background: rgba(15, 15, 15, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 12px;
     font-size: 1rem;
     color: var(--text-muted);
@@ -341,8 +367,9 @@ const isActive = (href) => Astro.url.pathname === href;
 
   .mobile-nav-link:hover,
   .mobile-nav-link.active {
-    border-color: var(--accent);
+    border-color: rgba(255, 107, 53, 0.4);
     color: var(--text);
+    background: rgba(255, 107, 53, 0.08);
   }
 
   .mobile-nav-link.active {
@@ -364,7 +391,7 @@ const isActive = (href) => Astro.url.pathname === href;
     gap: 0.75rem;
     margin-top: 1.5rem;
     padding-top: 1rem;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   .mobile-nav-social {
@@ -374,8 +401,8 @@ const isActive = (href) => Astro.url.pathname === href;
     justify-content: center;
     gap: 0.5rem;
     padding: 0.875rem 1.25rem;
-    background: var(--bg);
-    border: 1px solid var(--border);
+    background: rgba(15, 15, 15, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 10px;
     color: var(--text-muted);
     font-size: 0.8125rem;
@@ -384,8 +411,9 @@ const isActive = (href) => Astro.url.pathname === href;
   }
 
   .mobile-nav-social:hover {
-    border-color: var(--accent);
+    border-color: rgba(255, 107, 53, 0.4);
     color: var(--text);
+    background: rgba(255, 107, 53, 0.08);
   }
 
   .mobile-nav-social svg {

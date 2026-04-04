@@ -89,6 +89,7 @@ const organizationName = "Mindgate Solutions";
   </head>
 
   <body>
+    <canvas id="particles-canvas" aria-hidden="true"></canvas>
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <Header />
 
@@ -107,12 +108,24 @@ const organizationName = "Mindgate Solutions";
     min-height: 100vh;
   }
 
+  #particles-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
   main {
     flex: 0 0 auto;
     display: flex;
     flex-direction: column;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+    position: relative;
+    z-index: 1;
   }
 
   @media (min-width: 640px) {
@@ -137,3 +150,11 @@ const organizationName = "Mindgate Solutions";
     top: 0;
   }
 </style>
+
+<script>
+  import { initializeParticles } from "../lib/ui/particles";
+  import { initializeScrollReveal } from "../lib/ui/scroll-reveal";
+
+  initializeParticles(document.getElementById("particles-canvas"));
+  initializeScrollReveal();
+</script>
