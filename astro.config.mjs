@@ -1,5 +1,5 @@
 // @ts-check
-import vercel from "@astrojs/vercel";
+import netlify from "@astrojs/netlify";
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
@@ -9,7 +9,7 @@ export default defineConfig({
   site: "https://theabx.in",
   integrations: [sitemap()],
   output: "server",
-  adapter: vercel(),
+  adapter: netlify(),
   vite: {
     plugins: [tailwindcss()],
   },
