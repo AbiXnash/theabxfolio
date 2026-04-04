@@ -151,6 +151,7 @@ pre,
 
 .activity-body .repo-list {
   padding: 0;
+  overflow: hidden;
 }
 
 .activity-body .commit-item {
@@ -162,6 +163,7 @@ pre,
   border-bottom: 1px solid var(--border);
   text-decoration: none;
   transition: background 150ms ease;
+  overflow: hidden;
 }
 
 .activity-body .commit-item:last-child {
@@ -195,6 +197,8 @@ pre,
   flex-direction: column;
   gap: 0.35rem;
   min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .activity-body .commit-message {
@@ -203,6 +207,15 @@ pre,
   line-height: 1.4;
   font-size: 0.8125rem;
   font-family: "JetBrains Mono", monospace;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activity-body .commit-message:hover {
+  -webkit-line-clamp: unset;
 }
 
 .activity-body .commit-meta {
