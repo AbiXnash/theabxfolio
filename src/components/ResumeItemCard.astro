@@ -52,10 +52,8 @@ const detailLines = (details?: string) =>
 const tenure = calcTenure(item.startDate, item.endDate);
 const lines = detailLines(item.details);
 const showSkills = Array.isArray(item.skills) && item.skills.length;
-const links = [
-  ...(item.github ? [{ label: "GitHub", url: item.github }] : []),
-  ...((item.references ?? []).filter((reference) => reference.url !== item.github)),
-];
+const primaryLink = item.github || item.references?.[0]?.url;
+const primaryLinkLabel = item.github ? "View Project" : item.references?.[0]?.label;
 ---
 
 <details class="item-card" open={sectionKey === "work"}>
@@ -76,7 +74,6 @@ const links = [
   <div class="item-body">
     {lines.length > 0 && (
       <div class="item-block">
-        <div class="block-label">Overview</div>
         <ul class="story-list">
           {lines.map((line, i) => (
             <li class="story-item">
@@ -88,32 +85,19 @@ const links = [
       </div>
     )}
 
-    {links.length > 0 && (
-      <div class="item-block">
-        <div class="block-label">Links</div>
-        <div class="link-list">
-          {links.map((link) => (
-            <a class="item-link" href={link.url} target="_blank" rel="noreferrer">
-              {link.label}
-            </a>
-          ))}
-        </div>
-      </div>
-    )}
-
     {showSkills && (
       <div class="item-block">
-        <div class="block-label">Stack</div>
         <div class="skill-list">
-          {item.skills?.map((skill) => <span class="skill-tag">{skill}</span>)}
+          {item.skills?.slice(0, 6).map((skill) => <span class="skill-tag">{skill}</span>)}
         </div>
       </div>
     )}
 
-    {item.note && (
-      <div class="item-note">
-        <span class="note-icon">!</span>
-        <p>{item.note}</p>
+    {primaryLink && primaryLinkLabel && (
+      <div class="item-block">
+        <a class="item-link" href={primaryLink} target="_blank" rel="noreferrer">
+          {primaryLinkLabel}
+        </a>
       </div>
     )}
   </div>
@@ -259,21 +243,13 @@ const links = [
 
   .item-block {
     display: grid;
-    gap: 0.75rem;
-  }
-
-  .block-label {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--text-dim);
+    gap: 0.6rem;
   }
 
   .story-list {
     list-style: none;
     display: grid;
-    gap: 0.875rem;
+    gap: 0.7rem;
   }
 
   .story-item {
@@ -313,18 +289,13 @@ const links = [
     font-family: "JetBrains Mono", monospace;
   }
 
-  .link-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.65rem;
-  }
-
   .item-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 2.25rem;
-    padding: 0.55rem 0.9rem;
+    width: fit-content;
+    min-height: 2.1rem;
+    padding: 0.5rem 0.85rem;
     border-radius: 999px;
     border: 1px solid rgba(255, 107, 53, 0.2);
     background: linear-gradient(135deg, rgba(255, 107, 53, 0.12), rgba(255, 107, 53, 0.06));
@@ -341,32 +312,6 @@ const links = [
     background: rgba(255, 107, 53, 0.14);
     border-color: rgba(255, 107, 53, 0.35);
     transform: translateY(-1px);
-  }
-
-  .item-note {
-    display: flex;
-    gap: 0.75rem;
-    padding: 0.95rem 1rem;
-    background: linear-gradient(135deg, rgba(255, 107, 53, 0.08), rgba(255, 107, 53, 0.03));
-    border: 1px solid rgba(255, 107, 53, 0.16);
-    border-radius: 12px;
-    font-size: 0.8125rem;
-    color: var(--text-muted);
-    line-height: 1.65;
-  }
-
-  .note-icon {
-    flex-shrink: 0;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--accent);
-    color: #000;
-    border-radius: 50%;
-    font-size: 0.6875rem;
-    font-weight: 700;
   }
 
   @media (max-width: 560px) {

@@ -44,8 +44,7 @@ const totalExperienceYears = workItems[0]?.startDate
     )
   : 0;
 const primaryLanguages = ["Java", "Golang"];
-const focusAreas = ["Payments", "Distributed Systems", "Reliability", "Security"];
-const currentRole = workItems[0]?.title ?? "Software Engineer";
+const keyAreas = ["Payments", "Distributed Systems", "Reliability"];
 
 const sectionIcon = (sectionKey: string) => {
   if (sectionKey === "work") return "->";
@@ -60,85 +59,77 @@ const sectionIcon = (sectionKey: string) => {
     <span>resume</span>
   </header>
 
-  <div class="resume-hero reveal">
-    <div class="resume-copy">
-      <p class="eyebrow">Software Engineer</p>
-      <h1 class="resume-title">Resume</h1>
-      <p class="resume-lead">
-        Building transaction-heavy systems, developer-facing tools, and practical
-        projects with an emphasis on reliability, security, and operational clarity.
-      </p>
-      <div class="core-stack">
-        <span class="stack-label">Primary languages</span>
-        <div class="stack-list">
-          {primaryLanguages.map((language) => (
-            <span class="stack-pill">{language}</span>
-          ))}
+  <div class="overview-grid reveal">
+    <div class="resume-hero">
+      <div class="resume-copy">
+        <p class="eyebrow">Software Engineer</p>
+        <h1 class="resume-title">Resume</h1>
+        <p class="resume-lead">
+          Building transaction-heavy systems, developer-facing tools, and practical
+          projects with an emphasis on reliability, security, and operational clarity.
+        </p>
+        <div class="core-stack">
+          <span class="stack-label">Primary languages</span>
+          <div class="stack-list">
+            {primaryLanguages.map((language) => (
+              <span class="stack-pill">{language}</span>
+            ))}
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="resume-stats stagger-children">
-      <article class="stat-card">
-        <span class="stat-value">{totalExperienceYears}+</span>
-        <span class="stat-label">Years in production engineering</span>
-      </article>
-      <article class="stat-card">
-        <span class="stat-value">{totalProjects}</span>
-        <span class="stat-label">Selected projects and research builds</span>
-      </article>
-      <article class="stat-card">
-        <span class="stat-value">Production</span>
-        <span class="stat-label">Focused on reliable systems, payments, and delivery</span>
-      </article>
-    </div>
+  <div class="summary-strip reveal-delay-1">
+    <article class="summary-card">
+      <span class="summary-value">{totalExperienceYears}+</span>
+      <span class="summary-label">Years in production engineering</span>
+    </article>
+    <article class="summary-card">
+      <span class="summary-value">{totalProjects}</span>
+      <span class="summary-label">Selected projects</span>
+    </article>
+    <article class="summary-card">
+      <span class="summary-value">Core</span>
+      <span class="summary-label">{keyAreas.join(" · ")}</span>
+    </article>
   </div>
 
-  <div class="resume-layout">
-    <aside class="resume-rail reveal-delay-1">
-      <div class="rail-panel">
-        <p class="rail-label">Currently</p>
-        <h2 class="rail-title">{currentRole}</h2>
-        <p class="rail-copy">
-          Building production systems with an emphasis on clear service boundaries,
-          fault tolerance, and durable operational behavior.
-        </p>
-      </div>
+  <div class="resume-callout reveal-delay-1">
+    <p class="callout-copy">
+      Interested in how I build? Check my
+      <a href="https://github.com/AbiXnash" target="_blank" rel="noreferrer">GitHub profile</a>
+      or
+      <a href="https://github.com/AbiXnash/theabxfolio" target="_blank" rel="noreferrer">see the source</a>
+      for this site.
+    </p>
+  </div>
 
-      <div class="rail-panel">
-        <p class="rail-label">Navigate</p>
-        <nav class="rail-nav" aria-label="Resume sections">
-          {sections.map(([sectionKey, section]) => (
-            <a class="rail-link" href={`#${sectionKey}`}>
-              <span class="rail-link-icon">{sectionIcon(sectionKey)}</span>
-              <span>{section.label}</span>
-            </a>
-          ))}
-        </nav>
-      </div>
+  <nav class="section-nav reveal-delay-1" aria-label="Resume sections">
+    {sections.map(([sectionKey, section]) => (
+      <a class="section-nav-link" href={`#${sectionKey}`}>
+        <span class="section-nav-icon">{sectionIcon(sectionKey)}</span>
+        <span>{section.label}</span>
+      </a>
+    ))}
+  </nav>
+  </div>
 
-      <div class="rail-panel">
-        <p class="rail-label">Focus</p>
-        <div class="rail-tags">
-          {focusAreas.map((area) => (
-            <span class="rail-tag">{area}</span>
-          ))}
-        </div>
-      </div>
-    </aside>
-
-    <div class="resume-main">
-      {sections.map(([sectionKey, section]) => (
-        <section class="resume-section" id={sectionKey}>
-          <div class="section-shell">
-            <div class="section-header">
+  <div class="resume-main">
+    {sections.map(([sectionKey, section]) => (
+      <section class="resume-section" id={sectionKey}>
+        <div class="section-shell">
+          <div class="section-header">
+            <div class="section-label-row">
               <h2 class="section-heading">
                 <span class="heading-icon">{sectionIcon(sectionKey)}</span>
                 {section.label}
               </h2>
-              {section.description && <p class="section-description">{section.description}</p>}
+              <span class="section-count">{section.items.length}</span>
             </div>
+            {section.description && <p class="section-description">{section.description}</p>}
+          </div>
 
+          <div class="section-content">
             {section.items.length === 0 ? (
               <div class="empty-state">Nothing here yet.</div>
             ) : sectionKey === "projects" ? (
@@ -147,9 +138,9 @@ const sectionIcon = (sectionKey: string) => {
                   <div class="project-group">
                     <div class="project-group-header">
                       <h3 class="project-group-title">{groupName}</h3>
-                      <span class="project-group-count">{items.length} items</span>
+                      <span class="project-group-count">{items.length}</span>
                     </div>
-                    <div class="item-list">
+                    <div class="item-list dense-grid">
                       {items.map((item) => (
                         <ResumeItemCard item={item} sectionKey={sectionKey} />
                       ))}
@@ -158,16 +149,16 @@ const sectionIcon = (sectionKey: string) => {
                 ))}
               </div>
             ) : (
-              <div class="item-list">
+              <div class={`item-list ${sectionKey === "work" ? "" : "dense-grid"}`.trim()}>
                 {section.items.map((item) => (
                   <ResumeItemCard item={item} sectionKey={sectionKey} />
                 ))}
               </div>
             )}
           </div>
-        </section>
-      ))}
-    </div>
+        </div>
+      </section>
+    ))}
   </div>
 </section>
 
@@ -206,19 +197,21 @@ const sectionIcon = (sectionKey: string) => {
     }
   }
 
+  .overview-grid {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+  }
+
   .resume-hero {
     display: grid;
-    gap: 1.5rem;
-    margin-bottom: 3rem;
-    padding: 1.4rem;
+    gap: 1rem;
+    padding: 1.25rem;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 24px;
+    border-radius: 22px;
     background:
-      radial-gradient(circle at top right, rgba(255, 107, 53, 0.12), transparent 28%),
+      radial-gradient(circle at top right, rgba(255, 107, 53, 0.12), transparent 30%),
       linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
-    box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.04) inset,
-      0 22px 44px rgba(0, 0, 0, 0.16);
   }
 
   .eyebrow {
@@ -266,145 +259,119 @@ const sectionIcon = (sectionKey: string) => {
     box-shadow: 0 10px 24px rgba(255, 107, 53, 0.08);
   }
 
-  .resume-stats {
+  .summary-strip {
     display: grid;
     gap: 0.875rem;
+    margin-bottom: 1rem;
   }
 
-  .stat-card {
-    padding: 1rem 1.1rem;
-    background: rgba(23, 23, 23, 0.65);
+  .summary-card {
+    padding: 0.95rem 1rem;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 14px;
-    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.025);
   }
 
-  .stat-value {
+  .summary-value {
     display: block;
     margin-bottom: 0.35rem;
-    font-size: 1.35rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--text);
   }
 
-  .stat-label {
+  .summary-label {
     display: block;
     color: var(--text-muted);
-    font-size: 0.8125rem;
+    font-size: 0.8rem;
     line-height: 1.5;
   }
 
-  .resume-layout {
-    display: grid;
-    gap: 1.5rem;
-  }
-
-  .resume-rail {
-    display: grid;
-    gap: 1rem;
-    align-self: start;
-  }
-
-  .rail-panel {
-    padding: 1.1rem 1rem;
-    border-radius: 18px;
+  .resume-callout {
+    padding: 1rem 1.05rem;
     border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015)),
-      rgba(15, 15, 15, 0.5);
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.14);
+      linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(255, 255, 255, 0.02)),
+      rgba(255, 255, 255, 0.01);
+    margin-bottom: 1rem;
   }
 
-  .rail-label {
-    margin-bottom: 0.6rem;
-    font-family: "JetBrains Mono", monospace;
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--text-dim);
-  }
-
-  .rail-title {
-    font-size: 1.05rem;
-    font-weight: 600;
+  .callout-copy {
+    max-width: 62ch;
     color: var(--text);
+    font-size: 0.92rem;
+    line-height: 1.7;
   }
 
-  .rail-copy {
-    margin-top: 0.5rem;
-    color: var(--text-muted);
-    font-size: 0.84rem;
-    line-height: 1.65;
-  }
-
-  .rail-nav {
-    display: grid;
-    gap: 0.55rem;
-  }
-
-  .rail-link {
-    display: flex;
+  .callout-copy a {
+    display: inline-flex;
     align-items: center;
-    gap: 0.7rem;
-    padding: 0.7rem 0.85rem;
+    gap: 0.25rem;
+    margin: 0 0.15rem;
+    text-decoration: none;
+    color: var(--accent);
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255, 107, 53, 0.38);
+    transition:
+      color 160ms ease,
+      border-color 160ms ease,
+      transform 160ms ease;
+  }
+
+  .callout-copy a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  .section-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .section-nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.65rem 0.85rem;
     border-radius: 12px;
     color: var(--text-muted);
-    background: rgba(255, 255, 255, 0.025);
+    background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.05);
     transition:
       color 160ms ease,
-      transform 160ms ease,
       border-color 160ms ease,
       background 160ms ease;
   }
 
-  .rail-link:hover {
+  .section-nav-link:hover {
     color: var(--text);
     border-color: rgba(255, 107, 53, 0.22);
     background: rgba(255, 107, 53, 0.06);
-    transform: translateX(2px);
   }
 
-  .rail-link-icon {
+  .section-nav-icon {
     color: var(--accent);
     font-family: "JetBrains Mono", monospace;
     font-size: 0.78rem;
   }
 
-  .rail-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.55rem;
-  }
-
-  .rail-tag {
-    padding: 0.42rem 0.65rem;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: var(--text-muted);
-    font-size: 0.76rem;
-  }
-
   .resume-main {
     display: grid;
-    gap: 1.5rem;
+    gap: 1.15rem;
   }
 
   @media (min-width: 900px) {
-    .resume-hero {
-      grid-template-columns: minmax(0, 1.3fr) minmax(320px, 0.9fr);
+    .overview-grid {
+      grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.9fr);
       align-items: start;
     }
 
-    .resume-layout {
-      grid-template-columns: minmax(250px, 290px) minmax(0, 1fr);
-      align-items: start;
-    }
-
-    .resume-rail {
-      position: sticky;
-      top: 5.5rem;
+    .summary-strip {
+      grid-template-columns: 1fr;
     }
   }
 
@@ -413,6 +380,8 @@ const sectionIcon = (sectionKey: string) => {
   }
 
   .section-shell {
+    display: grid;
+    gap: 1.25rem;
     padding: 1.2rem;
     border-radius: 24px;
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -426,7 +395,7 @@ const sectionIcon = (sectionKey: string) => {
 
   .project-groups {
     display: grid;
-    gap: 1.5rem;
+    gap: 1.1rem;
   }
 
   .project-group {
@@ -439,7 +408,7 @@ const sectionIcon = (sectionKey: string) => {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding: 1rem 1rem;
+    padding: 0.85rem 0.95rem;
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 16px;
     background:
@@ -454,12 +423,20 @@ const sectionIcon = (sectionKey: string) => {
 
   .project-group-count {
     font-family: "JetBrains Mono", monospace;
-    font-size: 0.72rem;
+    font-size: 0.78rem;
     color: var(--text-muted);
   }
 
   .section-header {
-    margin-bottom: 1.4rem;
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .section-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
   }
 
   .section-heading {
@@ -476,11 +453,24 @@ const sectionIcon = (sectionKey: string) => {
     border-bottom: 1px solid var(--border);
   }
 
-  .section-description {
-    max-width: 70ch;
+  .section-count {
+    flex-shrink: 0;
+    min-width: 2rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     color: var(--text-muted);
-    line-height: 1.7;
-    font-size: 0.9rem;
+    text-align: center;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+  }
+
+  .section-description {
+    max-width: 62ch;
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-size: 0.86rem;
   }
 
   @media (min-width: 640px) {
@@ -511,6 +501,7 @@ const sectionIcon = (sectionKey: string) => {
 
   @media (max-width: 560px) {
     .resume-hero,
+    .resume-summary,
     .section-shell {
       padding: 1rem;
       border-radius: 18px;
@@ -519,6 +510,18 @@ const sectionIcon = (sectionKey: string) => {
     .project-group-header {
       flex-direction: column;
       align-items: flex-start;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .section-shell {
+      grid-template-columns: minmax(220px, 0.46fr) minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .section-header {
+      position: sticky;
+      top: 5rem;
     }
   }
 </style>
