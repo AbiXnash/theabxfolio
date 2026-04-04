@@ -66,7 +66,7 @@ const username = "AbiXnash";
   </div>
 
   <div class="hero-right">
-    <div class="activity-card" data-activity-shell data-activity-url="/github-activity.json" data-github-profile={`https://github.com/${username}`}>
+    <div class="activity-card" data-activity-shell>
       <div class="activity-header">
         <div class="header-left">
           <div class="header-dots">
@@ -558,13 +558,16 @@ const username = "AbiXnash";
 </style>
 
 <script>
+  const GITHUB_API_BASE = "https://api.github.com";
+  const USERNAME = "AbiXnash";
+  const COMMIT_LIMIT = 5;
+
   document.addEventListener("DOMContentLoaded", () => {
     const shell = document.querySelector("[data-activity-shell]");
     if (!shell) return;
     const repoList = shell.querySelector("#repoList");
     const commitsCount = shell.querySelector("#commitsCount");
-    const activityUrl = shell.getAttribute("data-activity-url");
-    if (!repoList || !activityUrl) return;
+    if (!repoList) return;
 
     const escapeHtml = (value) =>
       String(value).replace(/[&<>"']/g, (char) => ({
@@ -587,8 +590,8 @@ const username = "AbiXnash";
       return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
     };
 
-    const renderActivity = (payload) => {
-      if (!payload?.items?.length) {
+    const renderActivity = (commits) => {
+      if (!commits.length) {
         repoList.innerHTML = `
           <div class="repo-empty">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -601,11 +604,10 @@ const username = "AbiXnash";
         return;
       }
 
-      const count = payload.items.length;
-      if (commitsCount) commitsCount.textContent = count.toString();
+      if (commitsCount) commitsCount.textContent = commits.length.toString();
 
-      const commitsHtml = payload.items
-        .slice(0, 5)
+      const commitsHtml = commits
+        .slice(0, COMMIT_LIMIT)
         .map(
           (commit) => `
           <a href="${escapeHtml(commit.htmlUrl)}" target="_blank" rel="noreferrer" class="commit-item">
@@ -632,12 +634,40 @@ const username = "AbiXnash";
       repoList.innerHTML = commitsHtml;
     };
 
-    shell.classList.add("is-ready");
+    const fetchActivity = async () => {
+      try {
+        const response = await fetch(
+          `${GITHUB_API_BASE}/users/${USERNAME}/events/public?per_page=100`,
+          {
+            headers: {
+              Accept: "application/vnd.github+json",
+              "X-GitHub-Api-Version": "2022-11-28",
+            },
+          }
+        );
 
-    fetch(activityUrl)
-      .then((res) => res.json())
-      .then(renderActivity)
-      .catch(() => {
+        if (!response.ok) {
+          throw new Error(`GitHub API ${response.status}`);
+        }
+
+        const events = await response.json();
+        const commits = events
+          .filter((e) => e.type === "PushEvent" && e.created_at && e.repo)
+          .flatMap((e) =>
+            (e.payload?.commits || []).map((c) => ({
+              date: e.created_at,
+              htmlUrl: `https://github.com/${e.repo.name}`,
+              message: c.message || "Commit",
+              repoName: e.repo.name.split("/")[1],
+              sha: c.sha || "",
+            }))
+          )
+          .filter((c) => c.date)
+          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+          .slice(0, COMMIT_LIMIT);
+
+        renderActivity(commits);
+      } catch (err) {
         repoList.innerHTML = `
           <div class="repo-empty">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -646,6 +676,10 @@ const username = "AbiXnash";
             <span>failed to load</span>
           </div>
         `;
-      });
+      }
+    };
+
+    shell.classList.add("is-ready");
+    fetchActivity();
   });
 </script>
