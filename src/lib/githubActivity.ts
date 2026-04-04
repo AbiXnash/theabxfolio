@@ -49,13 +49,14 @@ export type GitHubActivityResult = {
 const token =
   import.meta.env.VITE_GITHUB_TOKEN ||
   import.meta.env.VITE_GH_TOKEN ||
+  import.meta.env.VITE_THE_REPO_TOKEN ||
   import.meta.env.GITHUB_TOKEN ||
   import.meta.env.GH_TOKEN ||
   import.meta.env.THE_REPO_TOKEN;
 
 if (!token) {
   console.warn(
-    "[githubActivity] No GitHub token found. Set VITE_GITHUB_TOKEN or GITHUB_TOKEN env var for higher rate limits.",
+    "[githubActivity] No GitHub token found. Set VITE_THE_REPO_TOKEN or THE_REPO_TOKEN env var for higher rate limits.",
   );
 }
 
