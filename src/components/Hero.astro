@@ -80,6 +80,29 @@ const username = "AbiXnash";
           <span class="status-indicator" aria-hidden="true"></span>
           <span class="visually-hidden">Live</span>
         </span>
+      </header>
+      
+      <header class="commits-header">
+        <h2 class="commits-label">Recent commits</h2>
+        <span class="commits-count" id="commitsCount" aria-live="polite"></span>
+      </header>
+      
+      <div class="activity-body">
+        <div class="activity-loader" aria-hidden="true">
+          <div class="loader-bars">
+            <span></span><span></span><span></span>
+          </div>
+          <span class="loading-text">loading...</span>
+        </div>
+        <div id="repoList" class="repo-list" aria-live="polite" aria-label="GitHub commit activity"></div>
+      </div>
+    </article>
+          <span class="mono">gh activity</span>
+        </div>
+        <span class="header-status" id="activity-heading">
+          <span class="status-indicator" aria-hidden="true"></span>
+          <span class="visually-hidden">Live</span>
+        </span>
       </div>
       
       <header class="commits-header">
