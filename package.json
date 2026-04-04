@@ -1,7 +1,7 @@
 {
   "name": "theabxfolio",
   "type": "module",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Personal portfolio website of Abinash Selvarasu - Backend Engineer specializing in payments, security, and resilient systems.",
   "author": "Abinash Selvarasu <abinash@theabx.in>",
   "license": "MIT",
@@ -25,7 +25,9 @@
     "astro": "astro",
     "format": "bunx prettier . --write",
     "lint": "eslint .",
-    "typecheck": "astro check"
+    "typecheck": "astro check",
+    "test": "bun test",
+    "test:run": "bun test --run"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",
@@ -35,6 +37,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
+    "bun": "^1.3.0",
     "@eslint/css": "^0.14.1",
     "@eslint/js": "^9.39.2",
     "@eslint/json": "^0.14.0",
