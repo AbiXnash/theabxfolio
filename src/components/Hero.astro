@@ -668,7 +668,8 @@ const username = "AbiXnash";
         }
 
         const events = await response.json();
-        const commits = events
+        
+        let commits = events
           .filter((e) => e.type === "PushEvent" && e.created_at && e.repo)
           .flatMap((e) =>
             (e.payload?.commits || []).map((c) => ({
@@ -682,6 +683,33 @@ const username = "AbiXnash";
           .filter((c) => c.date)
           .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
           .slice(0, COMMIT_LIMIT);
+
+        if (!commits.length) {
+          const repos = events
+            .filter((e) => e.type === "PushEvent" && e.repo?.name)
+            .map((e) => e.repo.name.split("/")[1])
+            .filter((v, i, a) => a.indexOf(v) === i)
+            .slice(0, 5);
+
+          const recentCommits = await Promise.all(
+            repos.map(async (repo) => {
+              try {
+                const res = await fetch(`${GITHUB_API_BASE}/repos/${USERNAME}/${repo}/commits?per_page=1`, { headers });
+                if (!res.ok) return null;
+                const data = await res.json();
+                if (!data[0]) return null;
+                return {
+                  date: data[0].commit?.author?.date,
+                  htmlUrl: `https://github.com/${USERNAME}/${repo}`,
+                  message: data[0].commit?.message || "Commit",
+                  repoName: repo,
+                  sha: data[0].sha || "",
+                };
+              } catch { return null; }
+            })
+          );
+          commits = recentCommits.filter(Boolean).slice(0, COMMIT_LIMIT);
+        }
 
         renderActivity(commits);
         setCachedActivity(commits);
