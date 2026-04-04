@@ -1,27 +1,57 @@
 ---
 import resume from "../data/resume.json";
+import ResumeItemCard from "./ResumeItemCard.astro";
 
-const calcTenure = (startDate, endDate) => {
-  if (!startDate) return "";
-  const start = new Date(startDate);
-  const now = new Date();
-
-  const months =
-    now.getFullYear() * 12 + now.getMonth() -
-    (start.getFullYear() * 12 + start.getMonth());
-  const years = Math.floor(months / 12);
-  const remMonths = months % 12;
-
-  const tenure =
-    years > 0
-      ? `${years} yr${years > 1 ? "s" : ""} ${remMonths} mo`
-      : `${remMonths} mo`;
-
-  return `${tenure}`;
+type ResumeItem = {
+  title: string;
+  meta?: string;
+  category?: string;
+  startDate?: string;
+  endDate?: string;
+  github?: string;
+  intro?: string;
+  details?: string;
+  skills?: string[];
+  note?: string;
+  references?: { label: string; url: string }[];
 };
 
-const detailLines = (details) =>
-  details ? details.trim().split("\n").filter((l) => l.trim()) : [];
+type ResumeSection = {
+  label: string;
+  description?: string;
+  items: ResumeItem[];
+};
+
+const sections = Object.entries(resume) as [string, ResumeSection][];
+const workItems = resume.work?.items ?? [];
+const projectItems = resume.projects?.items ?? [];
+const projectGroups = Object.entries(
+  projectItems.reduce<Record<string, ResumeItem[]>>((groups, item) => {
+    const category = item.category ?? "Other";
+    groups[category] ??= [];
+    groups[category].push(item);
+    return groups;
+  }, {}),
+);
+const totalProjects = projectItems.length;
+const totalExperienceYears = workItems[0]?.startDate
+  ? Math.max(
+      1,
+      Math.floor(
+        (Date.now() - new Date(workItems[0].startDate).getTime()) /
+          (1000 * 60 * 60 * 24 * 365),
+      ),
+    )
+  : 0;
+const primaryLanguages = ["Java", "Golang"];
+const focusAreas = ["Payments", "Distributed Systems", "Reliability", "Security"];
+const currentRole = workItems[0]?.title ?? "Software Engineer";
+
+const sectionIcon = (sectionKey: string) => {
+  if (sectionKey === "work") return "->";
+  if (sectionKey === "projects") return "<>";
+  return "[]";
+};
 ---
 
 <section class="resume-page container">
@@ -30,78 +60,115 @@ const detailLines = (details) =>
     <span>resume</span>
   </header>
 
-  <h1 class="resume-title">Experience</h1>
+  <div class="resume-hero reveal">
+    <div class="resume-copy">
+      <p class="eyebrow">Software Engineer</p>
+      <h1 class="resume-title">Resume</h1>
+      <p class="resume-lead">
+        Building transaction-heavy systems, developer-facing tools, and practical
+        projects with an emphasis on reliability, security, and operational clarity.
+      </p>
+      <div class="core-stack">
+        <span class="stack-label">Primary languages</span>
+        <div class="stack-list">
+          {primaryLanguages.map((language) => (
+            <span class="stack-pill">{language}</span>
+          ))}
+        </div>
+      </div>
+    </div>
 
-  {Object.entries(resume)
-    .filter(([sectionKey]) => sectionKey !== "education")
-    .map(([sectionKey, section]) => (
-    <section class="resume-section" id={sectionKey}>
-      <h2 class="section-heading">
-        <span class="heading-icon">{sectionKey === "work" ? "→" : sectionKey === "projects" ? "◈" : "✦"}</span>
-        {section.label}
-      </h2>
-      
-      {section.items.length === 0 ? (
-        <div class="empty-state">Nothing here yet.</div>
-      ) : (
-        <div class="item-list">
-          {section.items.map((item) => {
-            const tenure = calcTenure(item.startDate, item.endDate);
-            const lines = detailLines(item.details);
-            const showSkills = Array.isArray(item.skills) && item.skills.length;
+    <div class="resume-stats stagger-children">
+      <article class="stat-card">
+        <span class="stat-value">{totalExperienceYears}+</span>
+        <span class="stat-label">Years in production engineering</span>
+      </article>
+      <article class="stat-card">
+        <span class="stat-value">{totalProjects}</span>
+        <span class="stat-label">Selected projects and research builds</span>
+      </article>
+      <article class="stat-card">
+        <span class="stat-value">Production</span>
+        <span class="stat-label">Focused on reliable systems, payments, and delivery</span>
+      </article>
+    </div>
+  </div>
 
-            return (
-              <details class="item-card">
-                <summary class="item-summary">
-                  <div class="item-top">
-                    <div class="item-main">
-                      <h3 class="item-title">{item.title}</h3>
-                      <p class="item-org">{item.intro}</p>
+  <div class="resume-layout">
+    <aside class="resume-rail reveal-delay-1">
+      <div class="rail-panel">
+        <p class="rail-label">Currently</p>
+        <h2 class="rail-title">{currentRole}</h2>
+        <p class="rail-copy">
+          Building production systems with an emphasis on clear service boundaries,
+          fault tolerance, and durable operational behavior.
+        </p>
+      </div>
+
+      <div class="rail-panel">
+        <p class="rail-label">Navigate</p>
+        <nav class="rail-nav" aria-label="Resume sections">
+          {sections.map(([sectionKey, section]) => (
+            <a class="rail-link" href={`#${sectionKey}`}>
+              <span class="rail-link-icon">{sectionIcon(sectionKey)}</span>
+              <span>{section.label}</span>
+            </a>
+          ))}
+        </nav>
+      </div>
+
+      <div class="rail-panel">
+        <p class="rail-label">Focus</p>
+        <div class="rail-tags">
+          {focusAreas.map((area) => (
+            <span class="rail-tag">{area}</span>
+          ))}
+        </div>
+      </div>
+    </aside>
+
+    <div class="resume-main">
+      {sections.map(([sectionKey, section]) => (
+        <section class="resume-section" id={sectionKey}>
+          <div class="section-shell">
+            <div class="section-header">
+              <h2 class="section-heading">
+                <span class="heading-icon">{sectionIcon(sectionKey)}</span>
+                {section.label}
+              </h2>
+              {section.description && <p class="section-description">{section.description}</p>}
+            </div>
+
+            {section.items.length === 0 ? (
+              <div class="empty-state">Nothing here yet.</div>
+            ) : sectionKey === "projects" ? (
+              <div class="project-groups">
+                {projectGroups.map(([groupName, items]) => (
+                  <div class="project-group">
+                    <div class="project-group-header">
+                      <h3 class="project-group-title">{groupName}</h3>
+                      <span class="project-group-count">{items.length} items</span>
                     </div>
-                    <div class="item-badge">
-                      <span class="badge-time">{tenure}</span>
+                    <div class="item-list">
+                      {items.map((item) => (
+                        <ResumeItemCard item={item} sectionKey={sectionKey} />
+                      ))}
                     </div>
                   </div>
-                </summary>
-
-                <div class="item-body">
-                  {lines.length > 0 && (
-                    <div class="item-block">
-                      <ul class="story-list">
-                        {lines.map((line, i) => (
-                          <li class="story-item">
-                            <span class="story-num">{String(i + 1).padStart(2, '0')}</span>
-                            <span>{line}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {showSkills && (
-                    <div class="item-block">
-                      <div class="skill-list">
-                        {item.skills.map((s) => (
-                          <span class="skill-tag">{s}</span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {item.note && (
-                    <div class="item-note">
-                      <span class="note-icon">!</span>
-                      <p>{item.note}</p>
-                    </div>
-                  )}
-                </div>
-              </details>
-            );
-          })}
-        </div>
-      )}
-    </section>
-  ))}
+                ))}
+              </div>
+            ) : (
+              <div class="item-list">
+                {section.items.map((item) => (
+                  <ResumeItemCard item={item} sectionKey={sectionKey} />
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      ))}
+    </div>
+  </div>
 </section>
 
 <style>
@@ -129,18 +196,270 @@ const detailLines = (details) =>
   .resume-title {
     font-size: clamp(1.75rem, 6vw, 3rem);
     font-weight: 700;
-    margin-top: 0.5rem;
-    margin-bottom: 2.5rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.75rem;
   }
 
   @media (min-width: 768px) {
     .resume-title {
-      margin-bottom: 3rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .resume-hero {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    padding: 1.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    background:
+      radial-gradient(circle at top right, rgba(255, 107, 53, 0.12), transparent 28%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.04) inset,
+      0 22px 44px rgba(0, 0, 0, 0.16);
+  }
+
+  .eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .resume-lead {
+    max-width: 60ch;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+  }
+
+  .core-stack {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .stack-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+  }
+
+  .stack-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .stack-pill {
+    padding: 0.55rem 0.9rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.18), rgba(255, 107, 53, 0.08));
+    border: 1px solid rgba(255, 107, 53, 0.28);
+    color: var(--text);
+    font-weight: 600;
+    box-shadow: 0 10px 24px rgba(255, 107, 53, 0.08);
+  }
+
+  .resume-stats {
+    display: grid;
+    gap: 0.875rem;
+  }
+
+  .stat-card {
+    padding: 1rem 1.1rem;
+    background: rgba(23, 23, 23, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    backdrop-filter: blur(10px);
+  }
+
+  .stat-value {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .stat-label {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+
+  .resume-layout {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .resume-rail {
+    display: grid;
+    gap: 1rem;
+    align-self: start;
+  }
+
+  .rail-panel {
+    padding: 1.1rem 1rem;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015)),
+      rgba(15, 15, 15, 0.5);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.14);
+  }
+
+  .rail-label {
+    margin-bottom: 0.6rem;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+  }
+
+  .rail-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .rail-copy {
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.84rem;
+    line-height: 1.65;
+  }
+
+  .rail-nav {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .rail-link {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.7rem 0.85rem;
+    border-radius: 12px;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition:
+      color 160ms ease,
+      transform 160ms ease,
+      border-color 160ms ease,
+      background 160ms ease;
+  }
+
+  .rail-link:hover {
+    color: var(--text);
+    border-color: rgba(255, 107, 53, 0.22);
+    background: rgba(255, 107, 53, 0.06);
+    transform: translateX(2px);
+  }
+
+  .rail-link-icon {
+    color: var(--accent);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.78rem;
+  }
+
+  .rail-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .rail-tag {
+    padding: 0.42rem 0.65rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text-muted);
+    font-size: 0.76rem;
+  }
+
+  .resume-main {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 900px) {
+    .resume-hero {
+      grid-template-columns: minmax(0, 1.3fr) minmax(320px, 0.9fr);
+      align-items: start;
+    }
+
+    .resume-layout {
+      grid-template-columns: minmax(250px, 290px) minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .resume-rail {
+      position: sticky;
+      top: 5.5rem;
     }
   }
 
   .resume-section {
-    margin-bottom: 3rem;
+    scroll-margin-top: 6rem;
+  }
+
+  .section-shell {
+    padding: 1.2rem;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01)),
+      rgba(12, 12, 12, 0.3);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.04) inset,
+      0 20px 40px rgba(0, 0, 0, 0.14);
+  }
+
+  .project-groups {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .project-group {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .project-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    background:
+      linear-gradient(135deg, rgba(255, 107, 53, 0.08), rgba(255, 255, 255, 0.02));
+  }
+
+  .project-group-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .project-group-count {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+
+  .section-header {
+    margin-bottom: 1.4rem;
   }
 
   .section-heading {
@@ -157,10 +476,17 @@ const detailLines = (details) =>
     border-bottom: 1px solid var(--border);
   }
 
+  .section-description {
+    max-width: 70ch;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-size: 0.9rem;
+  }
+
   @media (min-width: 640px) {
     .section-heading {
       font-size: 0.9375rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 0.65rem;
     }
   }
 
@@ -174,143 +500,6 @@ const detailLines = (details) =>
     gap: 1rem;
   }
 
-  .item-card {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: border-color 200ms ease;
-  }
-
-  .item-card:hover {
-    border-color: var(--border-accent);
-  }
-
-  .item-card[open] {
-    border-color: var(--accent);
-  }
-
-  .item-summary {
-    list-style: none;
-    cursor: pointer;
-    padding: 1.125rem 1.25rem;
-  }
-
-  .item-summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .item-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .item-main {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .item-title {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 0.25rem;
-    color: var(--text);
-  }
-
-  .item-org {
-    color: var(--text-muted);
-    font-size: 0.875rem;
-  }
-
-  .item-badge {
-    flex-shrink: 0;
-  }
-
-  .badge-time {
-    display: inline-block;
-    padding: 0.25rem 0.6rem;
-    background: rgba(255, 107, 53, 0.1);
-    border: 1px solid rgba(255, 107, 53, 0.2);
-    border-radius: 100px;
-    font-family: "JetBrains Mono", monospace;
-    font-size: 0.6875rem;
-    color: var(--accent);
-  }
-
-  .item-body {
-    padding: 0 1.25rem 1.25rem;
-    border-top: 1px solid var(--border);
-    display: grid;
-    gap: 1.25rem;
-  }
-
-  .story-list {
-    list-style: none;
-    display: grid;
-    gap: 0.875rem;
-  }
-
-  .story-item {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0.75rem;
-    align-items: start;
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    line-height: 1.5;
-  }
-
-  .story-num {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 0.625rem;
-    color: var(--accent);
-    padding-top: 0.15rem;
-  }
-
-  .skill-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .skill-tag {
-    padding: 0.3rem 0.65rem;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    font-family: "JetBrains Mono", monospace;
-  }
-
-  .item-note {
-    display: flex;
-    gap: 0.75rem;
-    padding: 0.875rem;
-    background: rgba(255, 107, 53, 0.05);
-    border: 1px solid rgba(255, 107, 53, 0.15);
-    border-radius: 8px;
-    font-size: 0.8125rem;
-    color: var(--text-muted);
-    line-height: 1.5;
-  }
-
-  .note-icon {
-    flex-shrink: 0;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--accent);
-    color: #000;
-    border-radius: 50%;
-    font-size: 0.6875rem;
-    font-weight: 700;
-  }
-
   .empty-state {
     color: var(--text-dim);
     padding: 2rem;
@@ -321,22 +510,15 @@ const detailLines = (details) =>
   }
 
   @media (max-width: 560px) {
-    .item-top {
+    .resume-hero,
+    .section-shell {
+      padding: 1rem;
+      border-radius: 18px;
+    }
+
+    .project-group-header {
       flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .item-badge {
-      align-self: flex-start;
-    }
-
-    .story-item {
-      grid-template-columns: 1fr;
-      gap: 0.25rem;
-    }
-
-    .story-num {
-      display: none;
+      align-items: flex-start;
     }
   }
 </style>

@@ -12,10 +12,10 @@
         "contributors": [
           { "name": "Core Banking Team", "role": "Engineering" }
         ],
-        "intro": "Backend developer working on high-volume transaction systems, bulk corporate payments, and critical banking infrastructure.",
-        "details": "Building and maintaining production banking and payment platforms.\n\nResponsibilities:\n- Backend transaction processing and validation\n- Bulk corporate payment workflows\n- Critical infrastructure improvements and reliability work\n- Auditability, reconciliation, and traceability\n- Performance and resiliency tuning\n- Java, Spring Boot, microservices\n- OracleDB and PostgreSQL",
-        "skills": ["Java", "Spring Boot", "Microservices", "OracleDB", "PostgreSQL", "Payments", "Transactions"],
-        "note": "Notes emphasize production constraints: idempotency, reconciliation, audit trails, deterministic error handling, and operational safety.",
+        "intro": "Software engineer building high-volume banking workflows and transaction-heavy payment systems under strict production and audit constraints.",
+        "details": "Design and maintain backend services for transaction processing, validation, and bulk corporate payment flows.\n- Build services that prioritize correctness, traceability, and deterministic failure handling.\n- Improve resiliency and operational safety for critical banking workflows running in production.\n- Support reconciliation, auditability, and data consistency across payment processing paths.\n- Work with Java, Spring Boot, microservices, OracleDB, and PostgreSQL in a regulated environment.",
+        "skills": ["Java", "Golang", "Spring Boot", "Microservices", "OracleDB", "PostgreSQL", "Payments", "Transactions"],
+        "note": "Day-to-day engineering is shaped by idempotency, reconciliation, audit trails, production safety, and low-risk change management.",
         "references": [
           { "label": "Mindgate Solutions", "url": "https://www.mindgate.solutions/" },
           { "label": "Spring Boot", "url": "https://spring.io/projects/spring-boot" },
@@ -32,14 +32,15 @@
       {
         "title": "WiFi Trolley Bot — ESP32",
         "meta": "2023 · ESP32 · IoT · Embedded",
+        "category": "Embedded Systems",
         "github": "https://github.com/AbiXnash/WiFi-Trolley-Bot-using-ESP32",
         "contributors": [
           { "name": "Abinash S", "role": "Co-Creator" },
           { "name": "Srivatsan N", "role": "Co-Creator" },
           { "name": "HariPrasad", "role": "Co-Creator" }
         ],
-        "intro": "WiFi-controlled trolley bot built on ESP32 with real-time control logic.",
-        "details": "Designed an ESP32-based trolley bot with wireless control capability.\n\nHighlights:\n- ESP32 WiFi control\n- Motor control and navigation\n- Lightweight firmware structure\n- Hardware-software integration",
+        "intro": "ESP32-based trolley bot with wireless control, lightweight firmware, and real-time device coordination.",
+        "details": "Built an embedded control project around ESP32-based wireless command handling and motor control.\n- Implemented WiFi-driven command flow for responsive remote operation.\n- Integrated control logic with hardware behavior and navigation routines.\n- Kept the firmware structure lightweight and practical for iteration on embedded hardware.",
         "note": "Hands-on embedded project emphasizing control logic and reliable WiFi command handling.",
         "references": [
           { "label": "GitHub Repository", "url": "https://github.com/AbiXnash/WiFi-Trolley-Bot-using-ESP32" },
@@ -49,12 +50,13 @@
       {
         "title": "Conference Site",
         "meta": "2024 · Web · Frontend",
+        "category": "Web Builds",
         "github": "https://github.com/AbiXnash/conference-site",
         "contributors": [
           { "name": "Abinash S", "role": "Developer" }
         ],
-        "intro": "Website for SASTRA ICMAT conference with a structured flow for paper submissions.",
-        "details": "Built the ICMAT conference site for SASTRA, focused on clear submission flow and accessible event information.\n\nHighlights:\n- Paper submission guidance and calls\n- Schedule and speaker section layout\n- Clean, responsive UI\n- Structured content sections",
+        "intro": "Conference website for SASTRA ICMAT with a clear submission flow and structured event communication.",
+        "details": "Built an information-focused conference website designed to reduce friction for attendees and paper submitters.\n- Structured submission guidance, calls for papers, and deadline-related content for clarity.\n- Organized schedule and speaker information into a clean, accessible layout.\n- Delivered a responsive UI that keeps important event information easy to scan.",
         "note": "Designed to minimize confusion around submission requirements and keep deadlines and tracks easy to find.",
         "references": [
           { "label": "GitHub Repository", "url": "https://github.com/AbiXnash/conference-site" }
@@ -63,12 +65,13 @@
       {
         "title": "Theta2k23 — Event Web Presence",
         "meta": "2023 · Web · Event",
+        "category": "Web Builds",
         "github": "https://github.com/AbiXnash/theta2k23",
         "contributors": [
           { "name": "Abinash S", "role": "Developer" }
         ],
-        "intro": "Fest site for SASTRA Theta2k23 with fast access to events and updates.",
-        "details": "Created a fest website for Theta2k23, highlighting event lists, announcements, and quick navigation.\n\nHighlights:\n- Compact, focused content\n- Mobile-first layout\n- Simple navigation flow\n- Event-centric sections",
+        "intro": "Event website for SASTRA Theta2k23 focused on speed, navigation, and mobile-first access to updates.",
+        "details": "Created a compact event site optimized for attendees who need fast access to schedules, event lists, and announcements.\n- Prioritized mobile-first navigation and short interaction paths.\n- Organized event-centric content so updates remain easy to find under time pressure.\n- Kept the interface lightweight and focused on clarity over decoration.",
         "note": "Prioritizes speed and clarity for event attendees on mobile.",
         "references": [
           { "label": "GitHub Repository", "url": "https://github.com/AbiXnash/theta2k23" }
@@ -77,12 +80,13 @@
       {
         "title": "Hell Pine — VS Code Theme Extension",
         "meta": "2025 · TypeScript · VS Code Extension",
+        "category": "Developer Tooling",
         "github": "https://github.com/AbiXnash/hell-pine",
         "contributors": [
           { "name": "Abinash S", "role": "Author" }
         ],
-        "intro": "Forked from Rosé Pine and customized for higher contrast and personal workflow.",
-        "details": "Built a VS Code theme by forking Rosé Pine and customizing colors for clarity and long coding sessions.\n\nHighlights:\n- Rosé Pine base with tuned contrasts\n- Adjusted token colors for readability\n- Extension packaging and publishing\n- Consistent UI appearance",
+        "intro": "Custom VS Code theme tuned for contrast, readability, and long-form daily development work.",
+        "details": "Forked Rosé Pine and evolved it into a higher-contrast theme aimed at real developer workflow comfort.\n- Tuned token colors for readability across common coding contexts.\n- Packaged and published the extension for repeatable installation and maintenance.\n- Preserved the original theme character while improving visual clarity for daily use.",
         "note": "Theme focuses on readability and personalized color balance without losing the Rosé Pine character.",
         "references": [
           { "label": "GitHub Repository", "url": "https://github.com/AbiXnash/hell-pine" },
@@ -92,12 +96,13 @@
       {
         "title": "TheGlobe — Freelance Web Build",
         "meta": "2025 · Web · Freelance",
+        "category": "Web Builds",
         "github": "https://github.com/AbiXnash/theglobe",
         "contributors": [
           { "name": "Abinash S", "role": "Freelancer" }
         ],
-        "intro": "Website for a digital marketing organization with a clean, business-first layout.",
-        "details": "Delivered a freelance website for a digital marketing company, emphasizing clear service presentation and client trust.\n\nHighlights:\n- Business-focused information architecture\n- Responsive layout and performance\n- Clean components and styling system\n- Client-ready delivery",
+        "intro": "Freelance website for a digital marketing organization with business-first messaging and clean presentation.",
+        "details": "Delivered a client-facing marketing website built around trust, service clarity, and maintainable presentation.\n- Structured content around business goals and service discoverability.\n- Focused on responsive behavior, visual consistency, and clean component composition.\n- Shipped a practical handoff-ready build suitable for client ownership.",
         "note": "Focused on clarity, credibility, and a solid handoff for client ownership.",
         "references": [
           { "label": "GitHub Repository", "url": "https://github.com/AbiXnash/theglobe" }
@@ -106,12 +111,13 @@
       {
         "title": "Neovim Configuration — nvim",
         "meta": "2023–Present · Lua · Neovim",
+        "category": "Developer Tooling",
         "github": "https://github.com/AbiXnash/nvim",
         "contributors": [
           { "name": "Abinash S", "role": "Maintainer" }
         ],
-        "intro": "Modern Neovim setup for development speed, ergonomics, and consistent tooling.",
-        "details": "Curated Neovim configuration focused on developer velocity.\n\nHighlights:\n- Modular Lua configuration\n- LSP and formatter integration\n- Fast startup and workflow shortcuts\n- Opinionated plugin setup",
+        "intro": "Personal Neovim setup optimized for fast editing, consistent tooling, and maintainable configuration.",
+        "details": "Built and maintained a modular Neovim configuration to improve daily engineering workflow.\n- Organized the setup into modular Lua-based configuration units.\n- Integrated LSP, formatting, and workflow shortcuts for faster feedback loops.\n- Kept startup speed and maintainability as first-order priorities.",
         "note": "Config-first productivity project with an emphasis on speed and maintainability.",
         "references": [
           { "label": "GitHub Repository", "url": "https://github.com/AbiXnash/nvim" },
@@ -220,8 +226,8 @@
         "contributors": [
           { "name": "SASTRA CSE Dept", "role": "Institution" }
         ],
-        "intro": "Strong foundation in core CS topics and engineering practice.",
-        "details": "Focused on systems engineering, full-stack development, and applied ML.\n\nHighlights:\n- OS, DBMS, Networks, Data Structures\n- Research-oriented curriculum\n- Technical leadership roles",
+        "intro": "Computer Science degree with emphasis on systems fundamentals, software engineering, and applied research.",
+        "details": "Built a strong academic base across systems and software engineering with parallel exposure to applied ML research.\n- Studied operating systems, DBMS, computer networks, and data structures.\n- Worked on research-led projects in cybersecurity and machine learning.\n- Combined coursework with practical technical leadership and project execution.",
         "note": "Academics emphasize systems foundations and practical engineering practice with research exposure.",
         "references": [
           { "label": "SASTRA University", "url": "https://www.sastra.edu/" }

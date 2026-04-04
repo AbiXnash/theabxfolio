@@ -1,0 +1,395 @@
+---
+type ResumeItem = {
+  title: string;
+  meta?: string;
+  category?: string;
+  startDate?: string;
+  endDate?: string;
+  github?: string;
+  intro?: string;
+  details?: string;
+  skills?: string[];
+  note?: string;
+  references?: { label: string; url: string }[];
+};
+
+const { item, sectionKey } = Astro.props as {
+  item: ResumeItem;
+  sectionKey: string;
+};
+
+const calcTenure = (startDate?: string, endDate?: string) => {
+  if (!startDate) return "";
+  const start = new Date(startDate);
+  const finish = endDate && endDate !== "Present" ? new Date(endDate) : new Date();
+
+  const months =
+    finish.getFullYear() * 12 + finish.getMonth() -
+    (start.getFullYear() * 12 + start.getMonth());
+  const years = Math.floor(months / 12);
+  const remMonths = months % 12;
+
+  return years > 0
+    ? `${years} yr${years > 1 ? "s" : ""} ${remMonths} mo`
+    : `${remMonths} mo`;
+};
+
+const detailLines = (details?: string) =>
+  details
+    ? details
+        .trim()
+        .split("\n")
+        .map((line) => line.replace(/^[-*]\s*/, "").trim())
+        .filter(
+          (line) =>
+            line &&
+            !line.endsWith(":") &&
+            line !== "Highlights" &&
+            line !== "Responsibilities",
+        )
+    : [];
+
+const tenure = calcTenure(item.startDate, item.endDate);
+const lines = detailLines(item.details);
+const showSkills = Array.isArray(item.skills) && item.skills.length;
+const links = [
+  ...(item.github ? [{ label: "GitHub", url: item.github }] : []),
+  ...((item.references ?? []).filter((reference) => reference.url !== item.github)),
+];
+---
+
+<details class="item-card" open={sectionKey === "work"}>
+  <summary class="item-summary">
+    <div class="item-top">
+      <div class="item-main">
+        <h3 class="item-title">{item.title}</h3>
+        <p class="item-org">{item.intro}</p>
+      </div>
+      <div class="item-badges">
+        {item.meta && <span class="badge-meta">{item.meta}</span>}
+        {tenure && <span class="badge-time">{tenure}</span>}
+      </div>
+    </div>
+    <span class="expand-indicator" aria-hidden="true"></span>
+  </summary>
+
+  <div class="item-body">
+    {lines.length > 0 && (
+      <div class="item-block">
+        <div class="block-label">Overview</div>
+        <ul class="story-list">
+          {lines.map((line, i) => (
+            <li class="story-item">
+              <span class="story-num">{String(i + 1).padStart(2, "0")}</span>
+              <span>{line}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    {links.length > 0 && (
+      <div class="item-block">
+        <div class="block-label">Links</div>
+        <div class="link-list">
+          {links.map((link) => (
+            <a class="item-link" href={link.url} target="_blank" rel="noreferrer">
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {showSkills && (
+      <div class="item-block">
+        <div class="block-label">Stack</div>
+        <div class="skill-list">
+          {item.skills?.map((skill) => <span class="skill-tag">{skill}</span>)}
+        </div>
+      </div>
+    )}
+
+    {item.note && (
+      <div class="item-note">
+        <span class="note-icon">!</span>
+        <p>{item.note}</p>
+      </div>
+    )}
+  </div>
+</details>
+
+<style>
+  .item-card {
+    position: relative;
+    background: rgba(23, 23, 23, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.04) inset,
+      0 14px 32px rgba(0, 0, 0, 0.18);
+    transition:
+      border-color 200ms ease,
+      transform 200ms ease,
+      box-shadow 200ms ease;
+  }
+
+  .item-card:hover {
+    border-color: rgba(255, 107, 53, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  }
+
+  .item-card[open] {
+    border-color: var(--accent);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.04) inset,
+      0 18px 40px rgba(0, 0, 0, 0.24),
+      0 0 0 1px rgba(255, 107, 53, 0.12);
+  }
+
+  .item-summary {
+    position: relative;
+    list-style: none;
+    cursor: pointer;
+    padding: 1.25rem 3.75rem 1.15rem 1.25rem;
+    background:
+      radial-gradient(circle at top right, rgba(255, 107, 53, 0.09), transparent 32%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent);
+    transition:
+      background 180ms ease,
+      border-color 180ms ease;
+  }
+
+  .item-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .item-card[open] .item-summary {
+    background:
+      radial-gradient(circle at top right, rgba(255, 107, 53, 0.14), transparent 36%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0.01));
+  }
+
+  .item-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .item-main {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .item-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: var(--text);
+  }
+
+  .item-org {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    max-width: 58ch;
+  }
+
+  .item-badges {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.45rem;
+    flex-shrink: 0;
+  }
+
+  .badge-meta,
+  .badge-time {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    border-radius: 100px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.6875rem;
+  }
+
+  .badge-meta {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text-muted);
+  }
+
+  .badge-time {
+    background: rgba(255, 107, 53, 0.1);
+    border: 1px solid rgba(255, 107, 53, 0.2);
+    color: var(--accent);
+  }
+
+  .expand-indicator {
+    position: absolute;
+    top: 50%;
+    right: 1.25rem;
+    width: 1rem;
+    height: 1rem;
+    border-right: 2px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    transform: translateY(-65%) rotate(45deg);
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease;
+  }
+
+  .item-card[open] .expand-indicator {
+    border-color: var(--accent);
+    transform: translateY(-35%) rotate(225deg);
+  }
+
+  .item-body {
+    padding: 1rem 1.25rem 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    display: grid;
+    gap: 1.25rem;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 24%),
+      rgba(10, 10, 10, 0.18);
+  }
+
+  .item-block {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .block-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+  }
+
+  .story-list {
+    list-style: none;
+    display: grid;
+    gap: 0.875rem;
+  }
+
+  .story-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem;
+    align-items: start;
+    padding: 0.8rem 0.9rem;
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.875rem;
+    color: var(--text);
+    line-height: 1.65;
+  }
+
+  .story-num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.625rem;
+    color: var(--accent);
+    padding-top: 0.25rem;
+  }
+
+  .skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-tag {
+    padding: 0.45rem 0.75rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.025));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    color: var(--text);
+    font-family: "JetBrains Mono", monospace;
+  }
+
+  .link-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  .item-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.25rem;
+    padding: 0.55rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 107, 53, 0.2);
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.12), rgba(255, 107, 53, 0.06));
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition:
+      background 180ms ease,
+      border-color 180ms ease,
+      transform 180ms ease;
+  }
+
+  .item-link:hover {
+    background: rgba(255, 107, 53, 0.14);
+    border-color: rgba(255, 107, 53, 0.35);
+    transform: translateY(-1px);
+  }
+
+  .item-note {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.95rem 1rem;
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.08), rgba(255, 107, 53, 0.03));
+    border: 1px solid rgba(255, 107, 53, 0.16);
+    border-radius: 12px;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  .note-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent);
+    color: #000;
+    border-radius: 50%;
+    font-size: 0.6875rem;
+    font-weight: 700;
+  }
+
+  @media (max-width: 560px) {
+    .item-summary {
+      padding-right: 3.1rem;
+    }
+
+    .item-top {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .item-badges {
+      align-items: flex-start;
+    }
+
+    .story-item {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+
+    .story-num {
+      display: none;
+    }
+  }
+</style>
