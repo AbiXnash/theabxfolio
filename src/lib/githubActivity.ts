@@ -1,6 +1,7 @@
 const GITHUB_API_BASE = "https://api.github.com";
 const REQUEST_TIMEOUT_MS = 4000;
 const RECENT_REPO_LIMIT = 6;
+let cachedActivity: GitHubActivityResult | null = null;
 
 type GitHubPushEvent = {
   type?: string;
@@ -50,6 +51,12 @@ const token =
   import.meta.env.VITE_GH_TOKEN ||
   import.meta.env.GITHUB_TOKEN ||
   import.meta.env.GH_TOKEN;
+
+if (!token) {
+  console.warn(
+    "[githubActivity] No GitHub token found. Set VITE_GITHUB_TOKEN or GITHUB_TOKEN env var for higher rate limits.",
+  );
+}
 
 const requestHeaders = {
   Accept: "application/vnd.github+json",
@@ -183,7 +190,12 @@ export async function getRecentGithubActivity(
   try {
     const fromEvents = await fetchFromPublicEvents(username, limit);
     if (fromEvents.length) {
-      return { items: fromEvents, source: "public-events", error: null };
+      cachedActivity = {
+        items: fromEvents,
+        source: "public-events",
+        error: null,
+      };
+      return cachedActivity;
     }
     console.warn(
       `[githubActivity] no push events returned for ${username}, trying repo fallback`,
@@ -194,10 +206,17 @@ export async function getRecentGithubActivity(
       error,
     );
     if (isRateLimitError(error)) {
+      console.warn(
+        `[githubActivity] Rate limited. ${cachedActivity ? "Using cached activity." : "No cached activity available."}`,
+      );
+      if (cachedActivity) {
+        return { ...cachedActivity, error: "rate-limited" };
+      }
       try {
         const items = await fetchFromRecentRepos(username, limit);
         if (items.length) {
-          return { items, source: "repo-fallback", error: null };
+          cachedActivity = { items, source: "repo-fallback", error: null };
+          return cachedActivity;
         }
       } catch (fallbackError) {
         console.error(
@@ -212,11 +231,12 @@ export async function getRecentGithubActivity(
 
   try {
     const items = await fetchFromRecentRepos(username, limit);
-    return {
+    cachedActivity = {
       items,
       source: items.length ? "repo-fallback" : "none",
       error: items.length ? null : "request-failed",
     };
+    return cachedActivity;
   } catch (error) {
     console.error(
       `[githubActivity] all GitHub activity fetches failed for ${username}`,
