@@ -2,7 +2,7 @@
 const year = new Date().getFullYear();
 ---
 
-<footer class="footer">
+<footer class="footer reveal">
   <div class="footer-inner container">
     <div class="footer-main">
       <div class="footer-copy-block">
@@ -55,6 +55,18 @@ const year = new Date().getFullYear();
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.04) inset,
       0 16px 34px rgba(0, 0, 0, 0.14);
+    transition:
+      transform 220ms ease,
+      box-shadow 220ms ease,
+      border-color 220ms ease;
+  }
+
+  .footer-main:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 107, 53, 0.16);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.04) inset,
+      0 20px 40px rgba(0, 0, 0, 0.18);
   }
 
   .footer-copy-block {

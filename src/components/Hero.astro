@@ -1,82 +1,91 @@
+---
+const username = "AbiXnash";
+---
+
 <section class="hero container reveal" aria-labelledby="hero-name">
   <div class="hero-left">
-    <div class="hero-copy-shell section-shell">
-      <header class="hero-label">
-        <span class="prompt">~/</span>
-        <span>portfolio</span>
-      </header>
+    <div class="hero-label">
+      <span class="prompt">~/</span>
+      <span>portfolio</span>
+    </div>
+    
+    <h1 class="hero-name" id="hero-name">Abinash Selvarasu</h1>
+    
+    <p class="hero-role">
+      <span class="role-dot"></span>
+      Software Engineer
+    </p>
 
-      <div class="hero-copy">
-        <p class="hero-role">
-          <span class="role-dot" aria-hidden="true"></span>
-          <span>Software Engineer</span>
-        </p>
+    <p class="hero-bio">
+      Building resilient payment systems and security-focused platforms.
+    </p>
 
-        <h1 class="hero-name" id="hero-name">
-          Backend systems with reliability, clarity, and real product constraints.
-        </h1>
+    <div class="hero-tags">
+      <span class="tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        Payments
+      </span>
+      <span class="tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        Security
+      </span>
+      <span class="tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+        </svg>
+        APIs
+      </span>
+      <span class="tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+        </svg>
+        Microservices
+      </span>
+    </div>
 
-        <p class="hero-bio">
-          I build transaction-heavy software with Java and Golang, focused on payments,
-          integrations, internal platforms, and security-sensitive workflows.
-        </p>
-      </div>
-
-      <div class="hero-meta">
-        <div class="hero-focus">
-          <span class="hero-meta-label">Primary stack</span>
-          <div class="hero-highlights" aria-label="Technical highlights">
-            <span class="pill hero-pill pill-accent">Java</span>
-            <span class="pill hero-pill pill-accent">Golang</span>
-            <span class="pill hero-pill">APIs</span>
-            <span class="pill hero-pill">Payments</span>
-          </div>
-        </div>
-
-        <dl class="hero-proof" aria-label="Highlights">
-          <div class="proof-item">
-            <dt>5+</dt>
-            <dd>Years shipping production systems</dd>
-          </div>
-          <div class="proof-item">
-            <dt>50+</dt>
-            <dd>Projects across product, tooling, and research</dd>
-          </div>
-        </dl>
-      </div>
-
-      <nav class="hero-actions" aria-label="Navigation">
-        <a href="/resume" class="btn btn-primary">
-          <span>View resume</span>
-        </a>
-        <a href="/contact" class="btn btn-ghost">
-          <span>Get in touch</span>
-        </a>
-      </nav>
+    <div class="hero-actions">
+      <a href="/resume" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+        Resume
+      </a>
+      <a href="/contact" class="btn btn-ghost">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 6h16v12H4z"/><polyline points="4 7 12 13 20 7"/>
+        </svg>
+        Contact
+      </a>
     </div>
   </div>
 
   <div class="hero-right">
-    <article class="activity-card" data-activity-shell aria-labelledby="activity-heading">
-      <header class="activity-header">
+    <div class="activity-card" data-activity-shell data-activity-url="/github-activity.json" data-github-profile={`https://github.com/${username}`}>
+      <div class="activity-header">
         <div class="header-left">
-          <div class="header-dots" aria-hidden="true">
+          <div class="header-dots">
             <span class="dot red"></span>
             <span class="dot yellow"></span>
             <span class="dot green"></span>
           </div>
           <span class="mono">gh activity</span>
         </div>
-        <span class="header-status" id="activity-heading">
-          <span class="status-indicator" aria-hidden="true"></span>
-          <span class="visually-hidden">Live</span>
+        <span class="header-status">
+          <span class="status-indicator"></span>
+          live
         </span>
-      </header>
+      </div>
       
-      <header class="commits-header">
-        <h2 class="commits-label">Recent commits</h2>
-        <span class="commits-count" id="commitsCount" aria-live="polite"></span>
-      </header>
+      <div class="commits-header">
+        <span class="commits-label">Recent commits</span>
+        <span class="commits-count" id="commitsCount"></span>
+      </div>
       
       <div class="activity-body">
         <div class="activity-loader" aria-hidden="true">
@@ -85,26 +94,26 @@
           </div>
           <span class="loading-text">loading...</span>
         </div>
-        <div id="repoList" class="repo-list" aria-live="polite" aria-label="GitHub commit activity"></div>
+        <div id="repoList" class="repo-list"></div>
       </div>
-    </article>
+    </div>
 
-    <dl class="stats-row">
+    <div class="stats-row">
       <div class="stat-item">
-        <dt class="stat-value">5+</dt>
-        <dd class="stat-label">Years</dd>
+        <span class="stat-value">5+</span>
+        <span class="stat-label">Years</span>
       </div>
-      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-divider"></div>
       <div class="stat-item">
-        <dt class="stat-value">50+</dt>
-        <dd class="stat-label">Projects</dd>
+        <span class="stat-value">50+</span>
+        <span class="stat-label">Projects</span>
       </div>
-      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-divider"></div>
       <div class="stat-item">
-        <dt class="stat-value">99.9%</dt>
-        <dd class="stat-label">Uptime</dd>
+        <span class="stat-value">99.9%</span>
+        <span class="stat-label">Uptime</span>
       </div>
-    </dl>
+    </div>
   </div>
 </section>
 
@@ -118,7 +127,7 @@
   }
 
   .hero::before {
-    content: '';
+    content: "";
     position: absolute;
     top: -50%;
     left: -25%;
@@ -148,13 +157,7 @@
   .hero-left {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-  }
-
-  .hero-copy-shell {
-    display: grid;
     gap: 1.25rem;
-    padding: 1.4rem;
   }
 
   .hero-label {
@@ -168,9 +171,9 @@
   }
 
   .hero-name {
-    font-size: clamp(2.25rem, 7vw, 4rem);
+    font-size: clamp(2rem, 8vw, 3.5rem);
     font-weight: 700;
-    line-height: 1.02;
+    line-height: 1.15;
     letter-spacing: -0.02em;
     background: linear-gradient(135deg, var(--text) 0%, var(--text-muted) 100%);
     -webkit-background-clip: text;
@@ -178,17 +181,14 @@
     background-clip: text;
     word-break: break-word;
     overflow-wrap: break-word;
-    position: relative;
   }
 
   .hero-role {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.8rem;
+    font-size: 0.875rem;
     color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
   }
 
   .role-dot {
@@ -206,95 +206,58 @@
   }
 
   .hero-bio {
-    font-size: 1.02rem;
+    font-size: 1.0625rem;
     color: var(--text-muted);
-    line-height: 1.7;
-    max-width: 58ch;
+    line-height: 1.6;
   }
 
-  .hero-copy {
-    display: grid;
-    gap: 0.9rem;
-  }
-
-  .hero-meta {
-    display: grid;
-    gap: 1rem;
-    padding-top: 0.1rem;
-  }
-
-  @media (min-width: 900px) {
-    .hero-meta {
-      grid-template-columns: minmax(0, 1fr) minmax(240px, 0.9fr);
-      align-items: start;
-    }
-  }
-
-  .hero-focus {
-    display: grid;
-    gap: 0.65rem;
-  }
-
-  .hero-meta-label {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-  }
-
-  .hero-highlights {
+  .hero-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.55rem;
+    gap: 0.5rem;
   }
 
-  .hero-pill {
-    font-size: 0.74rem;
-  }
-
-  .hero-proof {
-    display: grid;
-    gap: 0.75rem;
-  }
-
-  .proof-item {
-    display: grid;
-    gap: 0.2rem;
-    padding: 0.85rem 0.95rem;
-    border-radius: 16px;
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.65rem;
+    background: rgba(23, 23, 23, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(255, 255, 255, 0.02);
+    border-radius: 100px;
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    transition: all 200ms ease;
   }
 
-  .proof-item dt {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 0.95rem;
+  .tag:hover {
+    border-color: rgba(255, 107, 53, 0.3);
+    background: rgba(23, 23, 23, 0.8);
     color: var(--text);
   }
 
-  .proof-item dd {
-    color: var(--text-muted);
-    font-size: 0.84rem;
-    line-height: 1.6;
+  .tag svg {
+    width: 12px;
+    height: 12px;
+    stroke: var(--accent);
   }
 
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
-    margin-top: 0.1rem;
+    margin-top: 0.5rem;
   }
 
   .btn {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    justify-content: center;
-    min-height: 2.75rem;
-    padding: 0.7rem 1rem;
-    border-radius: 999px;
-    font-size: 0.84rem;
+    padding: 0.6rem 1rem;
+    border-radius: 10px;
+    font-size: 0.8125rem;
     font-weight: 600;
     transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
@@ -302,7 +265,7 @@
   }
 
   .btn::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
@@ -310,8 +273,18 @@
     transition: opacity 250ms ease;
   }
 
+  .btn svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 250ms ease;
+  }
+
   .btn:hover::before {
     opacity: 1;
+  }
+
+  .btn:hover svg {
+    transform: translateX(2px);
   }
 
   .btn-primary {
@@ -327,7 +300,9 @@
   }
 
   .btn-ghost {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(23, 23, 23, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     color: var(--text);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -358,7 +333,7 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 
+    box-shadow:
       0 4px 24px rgba(0, 0, 0, 0.3),
       0 0 0 1px rgba(255, 107, 53, 0.05) inset;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -366,7 +341,7 @@
 
   .activity-card:hover {
     transform: translateY(-2px);
-    box-shadow: 
+    box-shadow:
       0 8px 32px rgba(0, 0, 0, 0.4),
       0 0 40px rgba(255, 107, 53, 0.1),
       0 0 0 1px rgba(255, 107, 53, 0.1) inset;
@@ -524,41 +499,32 @@
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
-    padding: 0.8rem 0.9rem;
+    padding: 0.625rem 0.875rem;
     background:
       linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01)),
       rgba(23, 23, 23, 0.6);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 16px;
+    border-radius: 12px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
   }
 
-  @media (max-width: 640px) {
-    .hero-copy-shell {
-      padding: 1.1rem;
-    }
-
-    .hero-name {
-      font-size: clamp(2rem, 9vw, 2.8rem);
-    }
-
-    .hero-meta {
-      gap: 0.8rem;
-    }
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
   }
 
-  .stats-row dt,
-  .stats-row .stat-value {
+  .stat-value {
     font-size: 1rem;
     font-weight: 700;
     color: var(--accent);
     font-family: "JetBrains Mono", monospace;
   }
 
-  .stats-row dd,
-  .stats-row .stat-label {
+  .stat-label {
     font-size: 0.5625rem;
     color: var(--text-dim);
     text-transform: uppercase;
@@ -671,34 +637,13 @@
 </style>
 
 <script>
-  const GITHUB_API_BASE = "https://api.github.com";
-  const USERNAME = "AbiXnash";
-  const COMMIT_LIMIT = 5;
-  const CACHE_TTL_MS = 60 * 1000;
-
-  const getCachedActivity = () => {
-    try {
-      const cached = sessionStorage.getItem("github-activity-cache");
-      if (!cached) return null;
-      const { data, timestamp } = JSON.parse(cached);
-      if (Date.now() - timestamp > CACHE_TTL_MS) return null;
-      return data;
-    } catch { return null; }
-  };
-
-  const setCachedActivity = (data) => {
-    try {
-      sessionStorage.setItem("github-activity-cache", JSON.stringify({ data, timestamp: Date.now() }));
-    } catch {}
-  };
-
   document.addEventListener("DOMContentLoaded", () => {
     const shell = document.querySelector("[data-activity-shell]");
     if (!shell) return;
-    
-    const repoList = document.querySelector("#repoList");
-    const commitsCount = document.querySelector("#commitsCount");
-    if (!repoList) return;
+    const repoList = shell.querySelector("#repoList");
+    const commitsCount = shell.querySelector("#commitsCount");
+    const activityUrl = shell.getAttribute("data-activity-url");
+    if (!repoList || !activityUrl) return;
 
     const escapeHtml = (value) =>
       String(value).replace(/[&<>"']/g, (char) => ({
@@ -721,8 +666,8 @@
       return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
     };
 
-    const renderActivity = (commits) => {
-      if (!commits.length) {
+    const renderActivity = (payload) => {
+      if (!payload?.items?.length) {
         repoList.innerHTML = `
           <div class="repo-empty">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -735,10 +680,11 @@
         return;
       }
 
-      if (commitsCount) commitsCount.textContent = commits.length.toString();
+      const count = payload.items.length;
+      if (commitsCount) commitsCount.textContent = count.toString();
 
-      const commitsHtml = commits
-        .slice(0, COMMIT_LIMIT)
+      const commitsHtml = payload.items
+        .slice(0, 5)
         .map(
           (commit) => `
           <a href="${escapeHtml(commit.htmlUrl)}" target="_blank" rel="noreferrer" class="commit-item">
@@ -765,79 +711,12 @@
       repoList.innerHTML = commitsHtml;
     };
 
-    const fetchActivity = async () => {
-      try {
-        const headers: Record<string, string> = {
-          Accept: "application/vnd.github+json",
-          "X-GitHub-Api-Version": "2022-11-28",
-        };
-        
-        const token = import.meta.env.VITE_THE_REPO_TOKEN || import.meta.env.VITE_GITHUB_TOKEN || import.meta.env.THE_REPO_TOKEN || import.meta.env.GITHUB_TOKEN;
-        const hasToken = !!(token && (token.startsWith("ghp_") || token.startsWith("github_pat_")));
-        if (hasToken) {
-          headers.Authorization = `Bearer ${token}`;
-        }
+    shell.classList.add("is-ready");
 
-        const response = await fetch(
-          `${GITHUB_API_BASE}/users/${USERNAME}/events/public?per_page=100`,
-          { headers }
-        );
-        
-        if (!response.ok) {
-          throw new Error(`GitHub API ${response.status}`);
-        }
-
-        const events = await response.json();
-        
-        let commits = events
-          .filter((e) => e.type === "PushEvent" && e.created_at && e.repo)
-          .flatMap((e) =>
-            (e.payload?.commits || []).map((c) => ({
-              date: e.created_at,
-              htmlUrl: `https://github.com/${e.repo.name}`,
-              message: c.message || "Commit",
-              repoName: e.repo.name.split("/")[1],
-              sha: c.sha || "",
-            }))
-          )
-          .filter((c) => c.date)
-          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-          .slice(0, COMMIT_LIMIT);
-
-        if (!commits.length) {
-          const repos = events
-            .filter((e) => e.type === "PushEvent" && e.repo?.name)
-            .map((e) => e.repo.name.split("/")[1])
-            .filter((v, i, a) => a.indexOf(v) === i)
-            .slice(0, 5);
-
-          const recentCommits = await Promise.all(
-            repos.map(async (repo) => {
-              try {
-                const res = await fetch(`${GITHUB_API_BASE}/repos/${USERNAME}/${repo}/commits?per_page=1`, { headers });
-                if (!res.ok || res.status === 404) {
-                  return null;
-                }
-                const data = await res.json();
-                if (!data[0]) return null;
-                return {
-                  date: data[0].commit?.author?.date,
-                  htmlUrl: `https://github.com/${USERNAME}/${repo}`,
-                  message: data[0].commit?.message || "Commit",
-                  repoName: repo,
-                  sha: data[0].sha || "",
-                };
-              } catch { 
-                return null; 
-              }
-            })
-          );
-          commits = recentCommits.filter(Boolean).slice(0, COMMIT_LIMIT);
-        }
-
-        renderActivity(commits);
-        setCachedActivity(commits);
-      } catch (err) {
+    fetch(activityUrl)
+      .then((res) => res.json())
+      .then(renderActivity)
+      .catch(() => {
         repoList.innerHTML = `
           <div class="repo-empty">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -846,17 +725,6 @@
             <span>failed to load</span>
           </div>
         `;
-      }
-    };
-
-    shell.classList.add("is-ready");
-
-    const cached = getCachedActivity();
-    if (cached) {
-      renderActivity(cached);
-      fetchActivity();
-    } else {
-      fetchActivity();
-    }
+      });
   });
 </script>

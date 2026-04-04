@@ -56,7 +56,7 @@ const primaryLink = item.github || item.references?.[0]?.url;
 const primaryLinkLabel = item.github ? "View Project" : item.references?.[0]?.label;
 ---
 
-<details class="item-card" open={sectionKey === "work"}>
+<details class="item-card reveal" open={sectionKey === "work"}>
   <summary class="item-summary">
     <div class="item-top">
       <div class="item-main">
@@ -132,6 +132,22 @@ const primaryLinkLabel = item.github ? "View Project" : item.references?.[0]?.la
       0 1px 0 rgba(255, 255, 255, 0.04) inset,
       0 18px 40px rgba(0, 0, 0, 0.24),
       0 0 0 1px rgba(255, 107, 53, 0.12);
+  }
+
+  .item-card[open] .story-item {
+    animation: cardItemLift 280ms ease both;
+  }
+
+  .item-card[open] .story-item:nth-child(2) {
+    animation-delay: 50ms;
+  }
+
+  .item-card[open] .story-item:nth-child(3) {
+    animation-delay: 100ms;
+  }
+
+  .item-card[open] .story-item:nth-child(4) {
+    animation-delay: 150ms;
   }
 
   .item-summary {
@@ -312,6 +328,17 @@ const primaryLinkLabel = item.github ? "View Project" : item.references?.[0]?.la
     background: rgba(255, 107, 53, 0.14);
     border-color: rgba(255, 107, 53, 0.35);
     transform: translateY(-1px);
+  }
+
+  @keyframes cardItemLift {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   @media (max-width: 560px) {
