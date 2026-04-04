@@ -4,131 +4,165 @@ const year = new Date().getFullYear();
 
 <footer class="footer reveal">
   <div class="footer-inner container">
-    <div class="footer-main">
-      <div class="footer-copy-block">
-        <span class="footer-kicker">Built with intent</span>
-        <h2 class="footer-name">Abinash Selvarasu</h2>
-        <p class="footer-note">
-          Software engineer focused on payments, resilient systems, and practical product engineering.
-        </p>
-      </div>
+    <div class="footer-left">
+      <span class="footer-name">Abinash Selvarasu</span>
+      <span class="footer-role">Software Engineer</span>
+    </div>
 
-      <div class="footer-meta">
-        <nav class="footer-links" aria-label="Footer navigation">
-          <a href="/" class="surface-link">home</a>
-          <a href="/resume" class="surface-link">resume</a>
-          <a href="/contact" class="surface-link">contact</a>
-          <a href="https://github.com/AbiXnash" target="_blank" rel="noreferrer" class="surface-link">github</a>
-        </nav>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="/" class="footer-link">home</a>
+      <a href="/resume" class="footer-link">resume</a>
+      <a href="/contact" class="footer-link">contact</a>
+      <a href="https://github.com/AbiXnash" target="_blank" rel="noreferrer" class="footer-link">github</a>
+    </nav>
 
-        <div class="footer-stamp">
-          <span class="mono footer-year">{year}</span>
-          <span class="footer-role">Software Engineer</span>
-        </div>
-      </div>
+    <div class="footer-copy">
+      <span class="mono">{year}</span>
     </div>
   </div>
 </footer>
 
 <style>
   .footer {
-    padding: 2.25rem 0 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 2.1rem 0 1.85rem;
     margin-top: auto;
     width: 100%;
   }
 
   .footer-inner {
-    padding-top: 0.25rem;
-  }
-
-  .footer-main {
-    display: grid;
-    gap: 1.25rem;
-    padding: 1.35rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 1.05rem;
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 24px;
     background:
-      radial-gradient(circle at top right, rgba(255, 107, 53, 0.12), transparent 30%),
-      linear-gradient(135deg, rgba(255, 107, 53, 0.06), rgba(255, 255, 255, 0.015)),
-      rgba(255, 255, 255, 0.01);
+      radial-gradient(circle at top right, rgba(255, 107, 53, 0.14), transparent 30%),
+      linear-gradient(135deg, rgba(255, 107, 53, 0.06), rgba(255, 255, 255, 0.018)),
+      rgba(255, 255, 255, 0.012);
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.04) inset,
-      0 16px 34px rgba(0, 0, 0, 0.14);
+      0 18px 36px rgba(0, 0, 0, 0.16);
     transition:
       transform 220ms ease,
       box-shadow 220ms ease,
       border-color 220ms ease;
   }
 
-  .footer-main:hover {
+  .footer-inner:hover {
     transform: translateY(-2px);
-    border-color: rgba(255, 107, 53, 0.16);
+    border-color: rgba(255, 107, 53, 0.18);
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.04) inset,
-      0 20px 40px rgba(0, 0, 0, 0.18);
+      0 22px 42px rgba(0, 0, 0, 0.2);
   }
 
-  .footer-copy-block {
-    display: grid;
-    gap: 0.55rem;
+  @media (min-width: 640px) {
+    .footer-inner {
+      padding: 1.05rem 1.2rem;
+    }
   }
 
-  .footer-kicker {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
+  @media (min-width: 720px) {
+    .footer-inner {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.35rem;
+    }
+  }
+
+  .footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+  }
+
+  @media (min-width: 480px) {
+    .footer-left {
+      flex-direction: row;
+      align-items: center;
+      gap: 0.75rem;
+    }
   }
 
   .footer-name {
-    font-size: 1.1rem;
-    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.92rem;
+    font-weight: 600;
     color: var(--text);
+    line-height: 1;
   }
 
-  .footer-note {
-    max-width: 50ch;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    line-height: 1.7;
-  }
-
-  .footer-meta {
-    display: grid;
-    gap: 1rem;
+  .footer-role {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1;
   }
 
   .footer-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.65rem;
+    gap: 0.6rem;
   }
 
-  .footer-stamp {
-    display: flex;
+  .footer-link {
+    display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding-top: 0.25rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    justify-content: center;
+    min-height: 2.2rem;
+    padding: 0.5rem 0.88rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015)),
+      rgba(255, 255, 255, 0.01);
+    color: var(--text-muted);
+    font-size: 0.79rem;
+    transition:
+      color 180ms ease,
+      border-color 180ms ease,
+      background 180ms ease,
+      transform 180ms ease,
+      box-shadow 180ms ease;
   }
 
-  .footer-year,
-  .footer-role {
-    font-size: 0.75rem;
+  .footer-link:hover {
+    color: var(--text);
+    border-color: rgba(255, 107, 53, 0.24);
+    background:
+      linear-gradient(180deg, rgba(255, 107, 53, 0.12), rgba(255, 107, 53, 0.04)),
+      rgba(255, 255, 255, 0.01);
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.12);
+    transform: translateY(-1px);
+  }
+
+  .footer-copy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.2rem;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.03);
     color: var(--text-dim);
+    font-size: 0.72rem;
   }
 
   .mono {
     font-family: "JetBrains Mono", monospace;
   }
 
-  @media (min-width: 900px) {
-    .footer-main {
-      grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.9fr);
-      align-items: end;
+  @media (max-width: 719px) {
+    .footer-copy {
+      width: fit-content;
     }
   }
 </style>

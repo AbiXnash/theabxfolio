@@ -2,7 +2,7 @@
 const isActive = (href: string) => Astro.url.pathname === href;
 ---
 
-<header class="header reveal visible" role="banner">
+<header class="header" role="banner">
   <div class="header-inner container">
     <a href="/" class="logo" itemprop="url">
       <span class="brand-mark" aria-hidden="true">$</span>
@@ -13,9 +13,12 @@ const isActive = (href: string) => Astro.url.pathname === href;
     </a>
 
     <nav class="nav-desktop" role="navigation" aria-label="Main navigation">
-      <a href="/" class:list={["nav-link", { active: isActive("/") }]} itemprop="url">home</a>
-      <a href="/resume" class:list={["nav-link", { active: isActive("/resume") }]} itemprop="url">resume</a>
-      <a href="/contact" class:list={["nav-link", { active: isActive("/contact") }]} itemprop="url">contact</a>
+      <span class="nav-caption mono">explore</span>
+      <div class="nav-track">
+        <a href="/" class:list={["nav-link", { active: isActive("/") }]} itemprop="url">home</a>
+        <a href="/resume" class:list={["nav-link", { active: isActive("/resume") }]} itemprop="url">resume</a>
+        <a href="/contact" class:list={["nav-link", { active: isActive("/contact") }]} itemprop="url">contact</a>
+      </div>
     </nav>
 
     <div class="header-actions">
@@ -50,11 +53,12 @@ const isActive = (href: string) => Astro.url.pathname === href;
 <nav class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation" aria-hidden="true">
   <div class="mobile-nav-header">
     <div class="mobile-nav-intro">
+      <span class="mobile-nav-kicker">Menu</span>
       <span class="mobile-nav-brand">
         <span class="brand-mark" aria-hidden="true">$</span>
         <span class="brand-name">abx</span>
       </span>
-      <p class="mobile-nav-label">Navigate the site</p>
+      <p class="mobile-nav-label">Software Engineer building reliable backend systems and practical products.</p>
     </div>
     <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -66,16 +70,22 @@ const isActive = (href: string) => Astro.url.pathname === href;
   
   <div class="mobile-nav-links">
     <a href="/" class:list={["mobile-nav-link", { active: isActive("/") }]}>
-      <span class="link-icon">~/</span>
-      <span>home</span>
+      <span class="mobile-link-copy">
+        <span class="link-icon">~/</span>
+        <span class="mobile-link-label">home</span>
+      </span>
     </a>
     <a href="/resume" class:list={["mobile-nav-link", { active: isActive("/resume") }]}>
-      <span class="link-icon">~/</span>
-      <span>resume</span>
+      <span class="mobile-link-copy">
+        <span class="link-icon">~/</span>
+        <span class="mobile-link-label">resume</span>
+      </span>
     </a>
     <a href="/contact" class:list={["mobile-nav-link", { active: isActive("/contact") }]}>
-      <span class="link-icon">~/</span>
-      <span>contact</span>
+      <span class="mobile-link-copy">
+        <span class="link-icon">~/</span>
+        <span class="mobile-link-label">contact</span>
+      </span>
     </a>
   </div>
 
@@ -100,11 +110,10 @@ const isActive = (href: string) => Astro.url.pathname === href;
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(12, 12, 12, 0.72);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    padding-top: 0.3rem;
+    background: linear-gradient(180deg, rgba(8, 8, 8, 0.82), rgba(8, 8, 8, 0.38));
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     transition:
       background 180ms ease,
       border-color 180ms ease,
@@ -117,14 +126,23 @@ const isActive = (href: string) => Astro.url.pathname === href;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding: 0.85rem 1rem;
-    max-width: 1120px;
+    padding: 0.58rem 0.85rem;
+    width: 100%;
     margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    background:
+      radial-gradient(circle at top right, rgba(255, 107, 53, 0.12), transparent 30%),
+      linear-gradient(135deg, rgba(255, 107, 53, 0.06), rgba(255, 255, 255, 0.015)),
+      rgba(255, 255, 255, 0.01);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.04) inset,
+      0 16px 34px rgba(0, 0, 0, 0.14);
   }
 
   @media (min-width: 640px) {
     .header-inner {
-      padding: 1rem 1.5rem;
+      padding: 0.62rem 0.95rem;
     }
   }
 
@@ -133,18 +151,18 @@ const isActive = (href: string) => Astro.url.pathname === href;
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
       align-items: center;
-      gap: 1.25rem;
-      padding-top: 1.05rem;
-      padding-bottom: 1.05rem;
+      gap: 0.85rem;
+      padding-top: 0.62rem;
+      padding-bottom: 0.62rem;
     }
   }
 
   .logo {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.5rem;
     min-width: 0;
-    padding: 0.2rem 0;
+    padding: 0.05rem;
     transition: opacity 160ms ease, transform 160ms ease;
   }
 
@@ -156,11 +174,16 @@ const isActive = (href: string) => Astro.url.pathname === href;
   .nav-desktop {
     display: none;
     align-items: center;
-    gap: 0.35rem;
-    padding: 0.35rem;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.03);
+    gap: 0.45rem;
+    padding: 0.18rem 0.22rem 0.18rem 0.68rem;
+    border-radius: 16px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015)),
+      rgba(255, 255, 255, 0.01);
     border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.03) inset,
+      0 10px 18px rgba(0, 0, 0, 0.08);
   }
 
   @media (min-width: 768px) {
@@ -170,16 +193,41 @@ const isActive = (href: string) => Astro.url.pathname === href;
     }
   }
 
+  .nav-caption {
+    font-size: 0.56rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
+  .nav-track {
+    display: flex;
+    align-items: center;
+    gap: 0.16rem;
+    padding: 0.18rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
   .nav-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 2.25rem;
-    padding: 0.45rem 0.9rem;
-    border-radius: 999px;
-    font-size: 0.875rem;
+    min-height: 1.8rem;
+    padding: 0.32rem 0.68rem;
+    border-radius: 10px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
     color: var(--text-muted);
-    transition: color 160ms ease, background 160ms ease, transform 160ms ease;
+    transition:
+      color 160ms ease,
+      background 160ms ease,
+      transform 160ms ease,
+      box-shadow 160ms ease,
+      border-color 160ms ease;
   }
 
   .nav-link:hover,
@@ -189,9 +237,14 @@ const isActive = (href: string) => Astro.url.pathname === href;
   }
 
   .nav-link.active {
-    color: #111;
-    background: linear-gradient(135deg, var(--accent), #ff8a5c);
-    box-shadow: 0 8px 18px rgba(255, 107, 53, 0.18);
+    color: var(--text);
+    background:
+      linear-gradient(180deg, rgba(255, 107, 53, 0.14), rgba(255, 107, 53, 0.05)),
+      rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 107, 53, 0.24);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.03) inset,
+      0 8px 18px rgba(255, 107, 53, 0.12);
     animation: navActivePulse 420ms ease-out;
   }
 
@@ -206,10 +259,20 @@ const isActive = (href: string) => Astro.url.pathname === href;
     }
   }
 
+  @media (max-width: 900px) {
+    .nav-caption {
+      display: none;
+    }
+
+    .nav-desktop {
+      padding-left: 0.24rem;
+    }
+  }
+
   .header-actions {
     display: flex;
     align-items: center;
-    gap: 0.65rem;
+    gap: 0.45rem;
     margin-left: auto;
   }
 
@@ -224,33 +287,37 @@ const isActive = (href: string) => Astro.url.pathname === href;
     font-family: "JetBrains Mono", monospace;
     color: var(--accent);
     font-weight: 500;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     text-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
   }
 
   .brand-name {
     font-family: "JetBrains Mono", monospace;
-    font-size: 0.9rem;
+    font-size: 0.82rem;
     font-weight: 500;
     color: var(--text);
   }
 
   .brand-copy {
     display: grid;
-    gap: 0.1rem;
+    gap: 0.02rem;
     min-width: 0;
   }
 
   .brand-role {
-    font-size: 0.7rem;
+    font-size: 0.58rem;
     color: var(--text-dim);
-    letter-spacing: 0.06em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
   }
 
   .header-side-note {
     display: none;
-    font-size: 0.68rem;
+    padding: 0.18rem 0.42rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    font-size: 0.54rem;
     color: var(--text-dim);
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -286,9 +353,9 @@ const isActive = (href: string) => Astro.url.pathname === href;
   }
 
   .social-link {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
   }
 
   .social-link:hover {
@@ -296,8 +363,8 @@ const isActive = (href: string) => Astro.url.pathname === href;
   }
 
   .social-link svg {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
   }
 
   .mobile-menu-btn {
@@ -307,13 +374,23 @@ const isActive = (href: string) => Astro.url.pathname === href;
     gap: 0.5rem;
     min-width: 40px;
     height: 40px;
-    background: rgba(23, 23, 23, 0.6);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+      rgba(16, 16, 16, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.05) inset,
+      0 12px 24px rgba(0, 0, 0, 0.14);
     border-radius: 999px;
     cursor: pointer;
-    transition: all 150ms ease;
-    padding: 0 0.85rem;
+    transition:
+      transform 150ms ease,
+      border-color 150ms ease,
+      background 150ms ease,
+      box-shadow 150ms ease;
+    padding: 0 0.75rem;
   }
 
   @media (min-width: 768px) {
@@ -323,21 +400,35 @@ const isActive = (href: string) => Astro.url.pathname === href;
   }
 
   .mobile-menu-btn:hover {
-    border-color: var(--accent);
-    background: rgba(255, 107, 53, 0.1);
+    border-color: rgba(255, 107, 53, 0.35);
+    background:
+      linear-gradient(180deg, rgba(255, 107, 53, 0.12), rgba(255, 107, 53, 0.04)),
+      rgba(16, 16, 16, 0.78);
+    transform: translateY(-1px);
+  }
+
+  .mobile-menu-btn[aria-expanded='true'] {
+    border-color: rgba(255, 107, 53, 0.35);
+    background:
+      linear-gradient(180deg, rgba(255, 107, 53, 0.14), rgba(255, 107, 53, 0.05)),
+      rgba(16, 16, 16, 0.82);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.05) inset,
+      0 16px 28px rgba(0, 0, 0, 0.2);
   }
 
   .mobile-menu-text {
     font-family: "JetBrains Mono", monospace;
-    font-size: 0.68rem;
+    font-size: 0.62rem;
+    font-weight: 500;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--text-muted);
   }
 
   .mobile-menu-btn svg {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     color: var(--text-muted);
   }
 
@@ -359,15 +450,18 @@ const isActive = (href: string) => Astro.url.pathname === href;
 
   .mobile-nav {
     position: fixed;
-    top: 1rem;
+    top: 0.9rem;
     left: 1rem;
     right: 1rem;
-    background: rgba(18, 18, 18, 0.94);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 24px;
-    padding: 1.15rem 1rem 1rem;
+    background:
+      radial-gradient(circle at top right, rgba(255, 107, 53, 0.14), transparent 34%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015)),
+      rgba(14, 14, 14, 0.94);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 26px;
+    padding: 1.1rem 1rem 1rem;
     z-index: 201;
     transform: translateY(-1rem);
     opacity: 0;
@@ -377,7 +471,9 @@ const isActive = (href: string) => Astro.url.pathname === href;
       opacity 240ms ease;
     max-height: calc(100vh - 2rem);
     overflow-y: auto;
-    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.34);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.04) inset,
+      0 28px 54px rgba(0, 0, 0, 0.38);
   }
 
   .mobile-nav.open {
@@ -393,44 +489,64 @@ const isActive = (href: string) => Astro.url.pathname === href;
     gap: 1rem;
     padding: 0 0 1rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.9rem;
   }
 
   .mobile-nav-intro {
     display: grid;
-    gap: 0.45rem;
+    gap: 0.35rem;
     min-width: 0;
+  }
+
+  .mobile-nav-kicker {
+    display: inline-flex;
+    width: fit-content;
+    padding: 0.24rem 0.55rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.64rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
   }
 
   .mobile-nav-brand {
     display: flex;
     align-items: center;
     gap: 0.35rem;
+    font-size: 1rem;
   }
 
   .mobile-nav-label {
     color: var(--text-muted);
-    font-size: 0.85rem;
-    line-height: 1.5;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    max-width: 30ch;
   }
 
   .mobile-nav-close {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(15, 15, 15, 0.8);
+    background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 50%;
     cursor: pointer;
-    transition: all 150ms ease;
+    transition:
+      transform 150ms ease,
+      border-color 150ms ease,
+      background 150ms ease;
   }
 
   .mobile-nav-close:hover {
-    border-color: var(--accent);
+    border-color: rgba(255, 107, 53, 0.35);
     background: rgba(255, 107, 53, 0.1);
+    transform: rotate(90deg);
   }
 
   .mobile-nav-close svg {
@@ -443,8 +559,8 @@ const isActive = (href: string) => Astro.url.pathname === href;
   .mobile-nav-links {
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
-    padding-top: 0.35rem;
+    gap: 0.7rem;
+    padding-top: 0.15rem;
   }
 
   .mobile-nav-link {
@@ -453,30 +569,42 @@ const isActive = (href: string) => Astro.url.pathname === href;
     justify-content: space-between;
     gap: 0.75rem;
     padding: 1rem 1rem;
-    background: rgba(15, 15, 15, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 14px;
-    font-size: 0.96rem;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015)),
+      rgba(13, 13, 13, 0.58);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 16px;
+    font-size: 0.98rem;
+    font-weight: 500;
     color: var(--text-muted);
-    transition: all 180ms ease;
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease,
+      background 180ms ease,
+      color 180ms ease,
+      box-shadow 180ms ease;
   }
 
   .mobile-nav-link:hover,
   .mobile-nav-link.active {
     border-color: rgba(255, 107, 53, 0.4);
     color: var(--text);
-    background: rgba(255, 107, 53, 0.08);
+    background:
+      linear-gradient(180deg, rgba(255, 107, 53, 0.12), rgba(255, 107, 53, 0.04)),
+      rgba(13, 13, 13, 0.62);
+    box-shadow: 0 12px 22px rgba(0, 0, 0, 0.18);
+    transform: translateY(-1px);
   }
 
   .mobile-nav-link.active {
-    color: var(--accent);
+    color: var(--text);
   }
 
   .mobile-nav-link::after {
     content: '->';
     font-family: "JetBrains Mono", monospace;
     font-size: 0.72rem;
-    color: rgba(255, 255, 255, 0.28);
+    color: rgba(255, 255, 255, 0.32);
     transition: color 160ms ease, transform 160ms ease;
   }
 
@@ -490,6 +618,17 @@ const isActive = (href: string) => Astro.url.pathname === href;
     color: var(--accent);
   }
 
+  .mobile-link-copy {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+  }
+
+  .mobile-link-label {
+    color: inherit;
+  }
+
   .link-icon {
     font-family: "JetBrains Mono", monospace;
     font-size: 0.75rem;
@@ -499,17 +638,18 @@ const isActive = (href: string) => Astro.url.pathname === href;
   .mobile-nav-footer {
     display: flex;
     gap: 0.65rem;
-    margin-top: 1.1rem;
-    padding-top: 0.9rem;
+    margin-top: 1.2rem;
+    padding-top: 1rem;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   .mobile-nav-social {
     flex: 1;
     gap: 0.5rem;
-    padding: 0.875rem 1.25rem;
-    border-radius: 10px;
-    font-size: 0.8125rem;
+    justify-content: flex-start;
+    padding: 0.9rem 1rem;
+    border-radius: 14px;
+    font-size: 0.8rem;
     min-width: 0;
   }
 
