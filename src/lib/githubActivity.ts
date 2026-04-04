@@ -45,7 +45,11 @@ export type GitHubActivityResult = {
   error: "rate-limited" | "request-failed" | null;
 };
 
-const token = import.meta.env.GITHUB_TOKEN || import.meta.env.GH_TOKEN;
+const token =
+  import.meta.env.VITE_GITHUB_TOKEN ||
+  import.meta.env.VITE_GH_TOKEN ||
+  import.meta.env.GITHUB_TOKEN ||
+  import.meta.env.GH_TOKEN;
 
 const requestHeaders = {
   Accept: "application/vnd.github+json",
@@ -82,11 +86,18 @@ function isEmptyRepoError(error: unknown) {
   return error instanceof Error && error.message.includes("API 409");
 }
 
-function mapPushEventsToActivity(events: GitHubPushEvent[], limit: number): GitHubActivityItem[] {
+function mapPushEventsToActivity(
+  events: GitHubPushEvent[],
+  limit: number,
+): GitHubActivityItem[] {
   return events
-    .filter((event) => event.type === "PushEvent" && event.created_at && event.repo?.name)
+    .filter(
+      (event) =>
+        event.type === "PushEvent" && event.created_at && event.repo?.name,
+    )
     .flatMap((event) => {
-      const repoName = event.repo?.name?.split("/")[1] || event.repo?.name || "Repository";
+      const repoName =
+        event.repo?.name?.split("/")[1] || event.repo?.name || "Repository";
       const htmlUrl = toRepoUrl(event.repo?.name);
       const date = event.created_at || "";
 
@@ -103,14 +114,20 @@ function mapPushEventsToActivity(events: GitHubPushEvent[], limit: number): GitH
     .slice(0, limit);
 }
 
-async function fetchFromPublicEvents(username: string, limit: number): Promise<GitHubActivityItem[]> {
+async function fetchFromPublicEvents(
+  username: string,
+  limit: number,
+): Promise<GitHubActivityItem[]> {
   const events = await fetchGithubJson<GitHubPushEvent[]>(
     `/users/${username}/events/public?per_page=100`,
   );
   return mapPushEventsToActivity(events, limit);
 }
 
-async function fetchFromRecentRepos(username: string, limit: number): Promise<GitHubActivityItem[]> {
+async function fetchFromRecentRepos(
+  username: string,
+  limit: number,
+): Promise<GitHubActivityItem[]> {
   const repos = await fetchGithubJson<GitHubRepo[]>(
     `/users/${username}/repos?sort=pushed&per_page=${RECENT_REPO_LIMIT}`,
   );
@@ -132,12 +149,16 @@ async function fetchFromRecentRepos(username: string, limit: number): Promise<Gi
             date: latest.commit.author.date,
             htmlUrl: repo.html_url || toRepoUrl(repo.full_name),
             message: latest.commit.message || "Commit",
-            repoName: repo.full_name?.split("/")[1] || repo.full_name || "Repository",
+            repoName:
+              repo.full_name?.split("/")[1] || repo.full_name || "Repository",
             sha: latest.sha || "",
           } satisfies GitHubActivityItem;
         } catch (error) {
           if (!isEmptyRepoError(error)) {
-            console.warn(`[githubActivity] repo fallback failed for ${repo.full_name}`, error);
+            console.warn(
+              `[githubActivity] repo fallback failed for ${repo.full_name}`,
+              error,
+            );
           }
           return null;
         }
@@ -151,7 +172,9 @@ async function fetchFromRecentRepos(username: string, limit: number): Promise<Gi
 }
 
 const isRateLimitError = (error: unknown) =>
-  error instanceof Error && error.message.includes("API 403") && error.message.includes("rate limit");
+  error instanceof Error &&
+  error.message.includes("API 403") &&
+  error.message.includes("rate limit");
 
 export async function getRecentGithubActivity(
   username: string,
@@ -162,9 +185,14 @@ export async function getRecentGithubActivity(
     if (fromEvents.length) {
       return { items: fromEvents, source: "public-events", error: null };
     }
-    console.warn(`[githubActivity] no push events returned for ${username}, trying repo fallback`);
+    console.warn(
+      `[githubActivity] no push events returned for ${username}, trying repo fallback`,
+    );
   } catch (error) {
-    console.warn(`[githubActivity] public events fetch failed for ${username}`, error);
+    console.warn(
+      `[githubActivity] public events fetch failed for ${username}`,
+      error,
+    );
     if (isRateLimitError(error)) {
       try {
         const items = await fetchFromRecentRepos(username, limit);
@@ -172,7 +200,10 @@ export async function getRecentGithubActivity(
           return { items, source: "repo-fallback", error: null };
         }
       } catch (fallbackError) {
-        console.error(`[githubActivity] all GitHub activity fetches failed for ${username}`, fallbackError);
+        console.error(
+          `[githubActivity] all GitHub activity fetches failed for ${username}`,
+          fallbackError,
+        );
       }
 
       return { items: [], source: "none", error: "rate-limited" };
@@ -187,7 +218,10 @@ export async function getRecentGithubActivity(
       error: items.length ? null : "request-failed",
     };
   } catch (error) {
-    console.error(`[githubActivity] all GitHub activity fetches failed for ${username}`, error);
+    console.error(
+      `[githubActivity] all GitHub activity fetches failed for ${username}`,
+      error,
+    );
     return {
       items: [],
       source: "none",
