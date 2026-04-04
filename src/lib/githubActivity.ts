@@ -50,7 +50,8 @@ const token =
   import.meta.env.VITE_GITHUB_TOKEN ||
   import.meta.env.VITE_GH_TOKEN ||
   import.meta.env.GITHUB_TOKEN ||
-  import.meta.env.GH_TOKEN;
+  import.meta.env.GH_TOKEN ||
+  import.meta.env.THE_REPO_TOKEN;
 
 if (!token) {
   console.warn(
