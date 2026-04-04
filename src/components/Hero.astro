@@ -1,68 +1,59 @@
----
-const username = "AbiXnash";
----
-
 <section class="hero container reveal" aria-labelledby="hero-name">
   <div class="hero-left">
-    <header class="hero-label">
-      <span class="prompt">~/</span>
-      <span>portfolio</span>
-    </header>
-    
-    <h1 class="hero-name" id="hero-name">Abinash Selvarasu</h1>
-    
-    <p class="hero-role">
-      <span class="role-dot" aria-hidden="true"></span>
-      <span>Software Engineer</span>
-    </p>
+    <div class="hero-copy-shell section-shell">
+      <header class="hero-label">
+        <span class="prompt">~/</span>
+        <span>portfolio</span>
+      </header>
 
-    <p class="hero-bio">
-      Building resilient payment systems and security-focused platforms.
-    </p>
+      <div class="hero-copy">
+        <p class="hero-role">
+          <span class="role-dot" aria-hidden="true"></span>
+          <span>Software Engineer</span>
+        </p>
 
-    <nav class="hero-tags" aria-label="Technical expertise">
-      <span class="tag">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-        </svg>
-        <span>Payments</span>
-      </span>
-      <span class="tag">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-        </svg>
-        <span>Security</span>
-      </span>
-      <span class="tag">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
-        </svg>
-        <span>APIs</span>
-      </span>
-      <span class="tag">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
-        </svg>
-        <span>Microservices</span>
-      </span>
-    </nav>
+        <h1 class="hero-name" id="hero-name">
+          Backend systems with reliability, clarity, and real product constraints.
+        </h1>
 
-    <nav class="hero-actions" aria-label="Navigation">
-      <a href="/resume" class="btn btn-primary">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-          <polyline points="14 2 14 8 20 8"/>
-          <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
-        </svg>
-        <span>Resume</span>
-      </a>
-      <a href="/contact" class="btn btn-ghost">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M4 6h16v12H4z"/><polyline points="4 7 12 13 20 7"/>
-        </svg>
-        <span>Contact</span>
-      </a>
-    </nav>
+        <p class="hero-bio">
+          I build transaction-heavy software with Java and Golang, focused on payments,
+          integrations, internal platforms, and security-sensitive workflows.
+        </p>
+      </div>
+
+      <div class="hero-meta">
+        <div class="hero-focus">
+          <span class="hero-meta-label">Primary stack</span>
+          <div class="hero-highlights" aria-label="Technical highlights">
+            <span class="pill hero-pill pill-accent">Java</span>
+            <span class="pill hero-pill pill-accent">Golang</span>
+            <span class="pill hero-pill">APIs</span>
+            <span class="pill hero-pill">Payments</span>
+          </div>
+        </div>
+
+        <dl class="hero-proof" aria-label="Highlights">
+          <div class="proof-item">
+            <dt>5+</dt>
+            <dd>Years shipping production systems</dd>
+          </div>
+          <div class="proof-item">
+            <dt>50+</dt>
+            <dd>Projects across product, tooling, and research</dd>
+          </div>
+        </dl>
+      </div>
+
+      <nav class="hero-actions" aria-label="Navigation">
+        <a href="/resume" class="btn btn-primary">
+          <span>View resume</span>
+        </a>
+        <a href="/contact" class="btn btn-ghost">
+          <span>Get in touch</span>
+        </a>
+      </nav>
+    </div>
   </div>
 
   <div class="hero-right">
@@ -157,7 +148,13 @@ const username = "AbiXnash";
   .hero-left {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
+  }
+
+  .hero-copy-shell {
+    display: grid;
     gap: 1.25rem;
+    padding: 1.4rem;
   }
 
   .hero-label {
@@ -171,9 +168,9 @@ const username = "AbiXnash";
   }
 
   .hero-name {
-    font-size: clamp(2rem, 8vw, 3.5rem);
+    font-size: clamp(2.25rem, 7vw, 4rem);
     font-weight: 700;
-    line-height: 1.15;
+    line-height: 1.02;
     letter-spacing: -0.02em;
     background: linear-gradient(135deg, var(--text) 0%, var(--text-muted) 100%);
     -webkit-background-clip: text;
@@ -188,8 +185,10 @@ const username = "AbiXnash";
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
 
   .role-dot {
@@ -207,58 +206,95 @@ const username = "AbiXnash";
   }
 
   .hero-bio {
-    font-size: 1.0625rem;
+    font-size: 1.02rem;
     color: var(--text-muted);
-    line-height: 1.6;
+    line-height: 1.7;
+    max-width: 58ch;
   }
 
-  .hero-tags {
+  .hero-copy {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .hero-meta {
+    display: grid;
+    gap: 1rem;
+    padding-top: 0.1rem;
+  }
+
+  @media (min-width: 900px) {
+    .hero-meta {
+      grid-template-columns: minmax(0, 1fr) minmax(240px, 0.9fr);
+      align-items: start;
+    }
+  }
+
+  .hero-focus {
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .hero-meta-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .hero-highlights {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.55rem;
   }
 
-  .tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    padding: 0.35rem 0.65rem;
-    background: rgba(23, 23, 23, 0.6);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+  .hero-pill {
+    font-size: 0.74rem;
+  }
+
+  .hero-proof {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .proof-item {
+    display: grid;
+    gap: 0.2rem;
+    padding: 0.85rem 0.95rem;
+    border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 100px;
-    font-size: 0.6875rem;
-    color: var(--text-muted);
-    transition: all 200ms ease;
+    background: rgba(255, 255, 255, 0.02);
   }
 
-  .tag:hover {
-    border-color: rgba(255, 107, 53, 0.3);
-    background: rgba(23, 23, 23, 0.8);
+  .proof-item dt {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.95rem;
     color: var(--text);
   }
 
-  .tag svg {
-    width: 12px;
-    height: 12px;
-    stroke: var(--accent);
+  .proof-item dd {
+    color: var(--text-muted);
+    font-size: 0.84rem;
+    line-height: 1.6;
   }
 
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
-    margin-top: 0.5rem;
+    margin-top: 0.1rem;
   }
 
   .btn {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    padding: 0.6rem 1rem;
-    border-radius: 10px;
-    font-size: 0.8125rem;
+    justify-content: center;
+    min-height: 2.75rem;
+    padding: 0.7rem 1rem;
+    border-radius: 999px;
+    font-size: 0.84rem;
     font-weight: 600;
     transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
@@ -278,16 +314,6 @@ const username = "AbiXnash";
     opacity: 1;
   }
 
-  .btn svg {
-    width: 16px;
-    height: 16px;
-    transition: transform 250ms ease;
-  }
-
-  .btn:hover svg {
-    transform: translateX(2px);
-  }
-
   .btn-primary {
     background: linear-gradient(135deg, var(--accent) 0%, #ff8855 100%);
     color: #000;
@@ -301,9 +327,7 @@ const username = "AbiXnash";
   }
 
   .btn-ghost {
-    background: rgba(23, 23, 23, 0.6);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.03);
     color: var(--text);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -324,7 +348,9 @@ const username = "AbiXnash";
   }
 
   .activity-card {
-    background: rgba(23, 23, 23, 0.7);
+    background:
+      radial-gradient(circle at top right, rgba(255, 107, 53, 0.08), transparent 28%),
+      rgba(23, 23, 23, 0.7);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -498,13 +524,29 @@ const username = "AbiXnash";
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
-    padding: 0.625rem 0.875rem;
-    background: rgba(23, 23, 23, 0.6);
+    padding: 0.8rem 0.9rem;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01)),
+      rgba(23, 23, 23, 0.6);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 12px;
+    border-radius: 16px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  @media (max-width: 640px) {
+    .hero-copy-shell {
+      padding: 1.1rem;
+    }
+
+    .hero-name {
+      font-size: clamp(2rem, 9vw, 2.8rem);
+    }
+
+    .hero-meta {
+      gap: 0.8rem;
+    }
   }
 
   .stats-row dt,

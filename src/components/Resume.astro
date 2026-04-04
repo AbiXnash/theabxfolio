@@ -104,19 +104,12 @@ const sectionIcon = (sectionKey: string) => {
     </p>
   </div>
 
-  <nav class="section-nav reveal-delay-1" aria-label="Resume sections">
-    {sections.map(([sectionKey, section]) => (
-      <a class="section-nav-link" href={`#${sectionKey}`}>
-        <span class="section-nav-icon">{sectionIcon(sectionKey)}</span>
-        <span>{section.label}</span>
-      </a>
-    ))}
-  </nav>
   </div>
 
   <div class="resume-main">
     {sections.map(([sectionKey, section]) => (
-      <section class="resume-section" id={sectionKey}>
+      <section class="resume-section">
+        <div class="section-anchor" id={sectionKey} aria-hidden="true"></div>
         <div class="section-shell">
           <div class="section-header">
             <div class="section-label-row">
@@ -288,6 +281,7 @@ const sectionIcon = (sectionKey: string) => {
   }
 
   .resume-callout {
+    grid-column: 1 / -1;
     padding: 1rem 1.05rem;
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
@@ -298,7 +292,6 @@ const sectionIcon = (sectionKey: string) => {
   }
 
   .callout-copy {
-    max-width: 62ch;
     color: var(--text);
     font-size: 0.92rem;
     line-height: 1.7;
@@ -325,40 +318,6 @@ const sectionIcon = (sectionKey: string) => {
     transform: translateY(-1px);
   }
 
-  .section-nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.65rem;
-    margin-bottom: 1.75rem;
-  }
-
-  .section-nav-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.65rem 0.85rem;
-    border-radius: 12px;
-    color: var(--text-muted);
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition:
-      color 160ms ease,
-      border-color 160ms ease,
-      background 160ms ease;
-  }
-
-  .section-nav-link:hover {
-    color: var(--text);
-    border-color: rgba(255, 107, 53, 0.22);
-    background: rgba(255, 107, 53, 0.06);
-  }
-
-  .section-nav-icon {
-    color: var(--accent);
-    font-family: "JetBrains Mono", monospace;
-    font-size: 0.78rem;
-  }
-
   .resume-main {
     display: grid;
     gap: 1.15rem;
@@ -376,7 +335,8 @@ const sectionIcon = (sectionKey: string) => {
   }
 
   .resume-section {
-    scroll-margin-top: 6rem;
+    scroll-margin-top: 0;
+    position: relative;
   }
 
   .section-shell {
@@ -391,6 +351,14 @@ const sectionIcon = (sectionKey: string) => {
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.04) inset,
       0 20px 40px rgba(0, 0, 0, 0.14);
+  }
+
+  .section-anchor {
+    position: relative;
+    top: -8rem;
+    height: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
 
   .project-groups {
@@ -521,7 +489,7 @@ const sectionIcon = (sectionKey: string) => {
 
     .section-header {
       position: sticky;
-      top: 5rem;
+      top: 6rem;
     }
   }
 </style>
