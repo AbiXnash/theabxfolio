@@ -1,6 +1,6 @@
 # theabxfolio
 
-Personal portfolio of [Abinash Selvarasu](https://theabx.in) — Backend Engineer specializing in payments, security, and resilient systems.
+Personal portfolio of [Abinash Selvarasu](https://theabx.in) — Software Engineer specializing in payments, security, and resilient systems.
 
 Built with [Astro](https://astro.build), featuring a clean terminal-inspired dark theme with orange accents.
 
