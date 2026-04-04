@@ -2,90 +2,90 @@
 const username = "AbiXnash";
 ---
 
-<section class="hero container">
+<section class="hero container" aria-labelledby="hero-name">
   <div class="hero-left">
-    <div class="hero-label">
+    <header class="hero-label">
       <span class="prompt">~/</span>
       <span>portfolio</span>
-    </div>
+    </header>
     
-    <h1 class="hero-name">Abinash Selvarasu</h1>
+    <h1 class="hero-name" id="hero-name">Abinash Selvarasu</h1>
     
     <p class="hero-role">
-      <span class="role-dot"></span>
-      Backend Engineer
+      <span class="role-dot" aria-hidden="true"></span>
+      <span>Backend Engineer</span>
     </p>
 
     <p class="hero-bio">
       Building resilient payment systems and security-focused platforms.
     </p>
 
-    <div class="hero-tags">
+    <nav class="hero-tags" aria-label="Technical expertise">
       <span class="tag">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
         </svg>
-        Payments
+        <span>Payments</span>
       </span>
       <span class="tag">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
         </svg>
-        Security
+        <span>Security</span>
       </span>
       <span class="tag">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
         </svg>
-        APIs
+        <span>APIs</span>
       </span>
       <span class="tag">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
         </svg>
-        Microservices
+        <span>Microservices</span>
       </span>
-    </div>
+    </nav>
 
-    <div class="hero-actions">
+    <nav class="hero-actions" aria-label="Navigation">
       <a href="/resume" class="btn btn-primary">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
           <polyline points="14 2 14 8 20 8"/>
           <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
         </svg>
-        Resume
+        <span>Resume</span>
       </a>
       <a href="/contact" class="btn btn-ghost">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M4 6h16v12H4z"/><polyline points="4 7 12 13 20 7"/>
         </svg>
-        Contact
+        <span>Contact</span>
       </a>
-    </div>
+    </nav>
   </div>
 
   <div class="hero-right">
-    <div class="activity-card" data-activity-shell>
-      <div class="activity-header">
+    <article class="activity-card" data-activity-shell aria-labelledby="activity-heading">
+      <header class="activity-header">
         <div class="header-left">
-          <div class="header-dots">
+          <div class="header-dots" aria-hidden="true">
             <span class="dot red"></span>
             <span class="dot yellow"></span>
             <span class="dot green"></span>
           </div>
           <span class="mono">gh activity</span>
         </div>
-        <span class="header-status">
-          <span class="status-indicator"></span>
-          live
+        <span class="header-status" id="activity-heading">
+          <span class="status-indicator" aria-hidden="true"></span>
+          <span class="visually-hidden">Live</span>
         </span>
       </div>
       
-      <div class="commits-header">
-        <span class="commits-label">Recent commits</span>
-        <span class="commits-count" id="commitsCount"></span>
-      </div>
+      <header class="commits-header">
+        <h2 class="commits-label">Recent commits</h2>
+        <span class="commits-count" id="commitsCount" aria-live="polite"></span>
+      </header>
       
       <div class="activity-body">
         <div class="activity-loader" aria-hidden="true">
@@ -94,26 +94,26 @@ const username = "AbiXnash";
           </div>
           <span class="loading-text">loading...</span>
         </div>
-        <div id="repoList" class="repo-list"></div>
+        <div id="repoList" class="repo-list" aria-live="polite" aria-label="GitHub commit activity"></div>
       </div>
-    </div>
+    </article>
 
-    <div class="stats-row">
+    <dl class="stats-row">
       <div class="stat-item">
-        <span class="stat-value">5+</span>
-        <span class="stat-label">Years</span>
+        <dt class="stat-value">5+</dt>
+        <dd class="stat-label">Years</dd>
       </div>
-      <div class="stat-divider"></div>
+      <div class="stat-divider" aria-hidden="true"></div>
       <div class="stat-item">
-        <span class="stat-value">50+</span>
-        <span class="stat-label">Projects</span>
+        <dt class="stat-value">50+</dt>
+        <dd class="stat-label">Projects</dd>
       </div>
-      <div class="stat-divider"></div>
+      <div class="stat-divider" aria-hidden="true"></div>
       <div class="stat-item">
-        <span class="stat-value">99.9%</span>
-        <span class="stat-label">Uptime</span>
+        <dt class="stat-value">99.9%</dt>
+        <dd class="stat-label">Uptime</dd>
       </div>
-    </div>
+    </dl>
   </div>
 </section>
 
@@ -431,21 +431,16 @@ const username = "AbiXnash";
     border-radius: 10px;
   }
 
-  .stat-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.1rem;
-  }
-
-  .stat-value {
+  .stats-row dt,
+  .stats-row .stat-value {
     font-size: 1rem;
     font-weight: 700;
     color: var(--accent);
     font-family: "JetBrains Mono", monospace;
   }
 
-  .stat-label {
+  .stats-row dd,
+  .stats-row .stat-label {
     font-size: 0.5625rem;
     color: var(--text-dim);
     text-transform: uppercase;

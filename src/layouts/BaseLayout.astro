@@ -64,12 +64,19 @@ const authorEmail = "abinash@theabx.in";
     <!-- LinkedIn -->
     <meta property="article:author" content={linkedInUrl} />
 
-    <!-- Preconnect to external domains -->
+    <!-- Preconnect to external domains for fast loading -->
+    <link rel="preconnect" href="https://api.github.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- DNS prefetch for additional domains -->
+    <link rel="dns-prefetch" href="https://api.github.com" />
+
+    <!-- Google Fonts with display swap for performance -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    </noscript>
 
     <!-- RSS Feed -->
     <link rel="alternate" type="application/rss+xml" title={siteName} href="/rss.xml" />
