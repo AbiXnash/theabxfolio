@@ -561,6 +561,23 @@ const username = "AbiXnash";
   const GITHUB_API_BASE = "https://api.github.com";
   const USERNAME = "AbiXnash";
   const COMMIT_LIMIT = 5;
+  const CACHE_TTL_MS = 60 * 1000; // 1 minute
+
+  const getCachedActivity = () => {
+    try {
+      const cached = sessionStorage.getItem("github-activity-cache");
+      if (!cached) return null;
+      const { data, timestamp } = JSON.parse(cached);
+      if (Date.now() - timestamp > CACHE_TTL_MS) return null;
+      return data;
+    } catch { return null; }
+  };
+
+  const setCachedActivity = (data) => {
+    try {
+      sessionStorage.setItem("github-activity-cache", JSON.stringify({ data, timestamp: Date.now() }));
+    } catch {}
+  };
 
   document.addEventListener("DOMContentLoaded", () => {
     const shell = document.querySelector("[data-activity-shell]");
@@ -672,6 +689,7 @@ const username = "AbiXnash";
           .slice(0, COMMIT_LIMIT);
 
         renderActivity(commits);
+        setCachedActivity(commits);
       } catch (err) {
         repoList.innerHTML = `
           <div class="repo-empty">
@@ -685,6 +703,13 @@ const username = "AbiXnash";
     };
 
     shell.classList.add("is-ready");
-    fetchActivity();
+
+    const cached = getCachedActivity();
+    if (cached) {
+      renderActivity(cached);
+      fetchActivity(); // refresh in background
+    } else {
+      fetchActivity();
+    }
   });
 </script>
