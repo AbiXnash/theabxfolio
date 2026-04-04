@@ -658,7 +658,7 @@ const username = "AbiXnash";
           "X-GitHub-Api-Version": "2022-11-28",
         };
         
-        const token = "VITE_THE_REPO_TOKEN";
+        const token = import.meta.env.VITE_THE_REPO_TOKEN;
         if (token && token.startsWith("ghp_")) {
           headers.Authorization = `Bearer ${token}`;
         }
