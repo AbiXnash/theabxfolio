@@ -79,7 +79,7 @@ const sectionIcon = (sectionKey: string) => {
       </div>
     </div>
 
-  <div class="summary-strip reveal-delay-1">
+  <div class="summary-strip reveal reveal-delay-1">
     <article class="summary-card">
       <span class="summary-value">{totalExperienceYears}+</span>
       <span class="summary-label">Years in production engineering</span>
@@ -94,7 +94,7 @@ const sectionIcon = (sectionKey: string) => {
     </article>
   </div>
 
-  <div class="resume-callout reveal-delay-1">
+  <div class="resume-callout reveal reveal-delay-2">
     <p class="callout-copy">
       Interested in how I build? Check my
       <a href="https://github.com/AbiXnash" target="_blank" rel="noreferrer">GitHub profile</a>
@@ -108,7 +108,7 @@ const sectionIcon = (sectionKey: string) => {
 
   <div class="resume-main">
     {sections.map(([sectionKey, section]) => (
-      <section class="resume-section">
+      <section class="resume-section reveal reveal-delay-1">
         <div class="section-anchor" id={sectionKey} aria-hidden="true"></div>
         <div class="section-shell">
           <div class="section-header">

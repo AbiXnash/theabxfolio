@@ -18,6 +18,14 @@
   --surface-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
   --radius-lg: 20px;
   --radius-md: 14px;
+  --motion-enter-duration: 560ms;
+  --motion-enter-distance: 18px;
+  --motion-enter-blur: 4px;
+  --motion-enter-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-delay-1: 90ms;
+  --motion-delay-2: 160ms;
+  --motion-delay-3: 230ms;
+  --motion-delay-4: 300ms;
 }
 
 * {
@@ -44,7 +52,7 @@ body {
 }
 
 main {
-  animation: pageFadeIn 480ms ease-out;
+  animation: pageFadeIn 480ms var(--motion-enter-ease);
 }
 
 a {
@@ -162,12 +170,12 @@ pre,
 
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
-  filter: blur(4px);
+  transform: translateY(var(--motion-enter-distance));
+  filter: blur(var(--motion-enter-blur));
   transition:
-    opacity 560ms ease,
-    transform 560ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 560ms ease;
+    opacity var(--motion-enter-duration) ease,
+    transform var(--motion-enter-duration) var(--motion-enter-ease),
+    filter var(--motion-enter-duration) ease;
 }
 
 .reveal.visible {
@@ -177,19 +185,27 @@ pre,
 }
 
 .reveal-delay-1 {
-  transition-delay: 90ms;
+  transition-delay: var(--motion-delay-1);
 }
 
 .reveal-delay-2 {
-  transition-delay: 160ms;
+  transition-delay: var(--motion-delay-2);
+}
+
+.reveal-delay-3 {
+  transition-delay: var(--motion-delay-3);
+}
+
+.reveal-delay-4 {
+  transition-delay: var(--motion-delay-4);
 }
 
 .stagger-children > * {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(calc(var(--motion-enter-distance) - 2px));
   transition:
-    opacity 520ms ease,
-    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+    opacity calc(var(--motion-enter-duration) - 40ms) ease,
+    transform calc(var(--motion-enter-duration) - 40ms) var(--motion-enter-ease);
 }
 
 .stagger-children.visible > * {
