@@ -2,15 +2,15 @@
 const username = "AbiXnash";
 ---
 
-<section class="hero container reveal" aria-labelledby="hero-name">
+<section class="hero reveal container" aria-labelledby="hero-name">
   <div class="hero-left">
     <div class="hero-label">
       <span class="prompt">~/</span>
       <span>portfolio</span>
     </div>
-    
+
     <h1 class="hero-name" id="hero-name">Abinash Selvarasu</h1>
-    
+
     <p class="hero-role">
       <span class="role-dot"></span>
       Software Engineer
@@ -22,26 +22,52 @@ const username = "AbiXnash";
 
     <div class="hero-tags">
       <span class="tag">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+          ></path>
         </svg>
         Payments
       </span>
       <span class="tag">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
         </svg>
         Security
       </span>
       <span class="tag">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <polyline points="16 18 22 12 16 6"></polyline><polyline
+            points="8 6 2 12 8 18"></polyline>
         </svg>
         APIs
       </span>
       <span class="tag">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line
+            x1="8"
+            y1="21"
+            x2="16"
+            y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line>
         </svg>
         Microservices
       </span>
@@ -49,16 +75,32 @@ const username = "AbiXnash";
 
     <div class="hero-actions">
       <a href="/resume" class="btn btn-primary">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-          <polyline points="14 2 14 8 20 8"/>
-          <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+          ></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line><line
+            x1="16"
+            y1="17"
+            x2="8"
+            y2="17"></line>
         </svg>
         Resume
       </a>
       <a href="/contact" class="btn btn-ghost">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M4 6h16v12H4z"/><polyline points="4 7 12 13 20 7"/>
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M4 6h16v12H4z"></path><polyline points="4 7 12 13 20 7"
+          ></polyline>
         </svg>
         Contact
       </a>
@@ -66,7 +108,12 @@ const username = "AbiXnash";
   </div>
 
   <div class="hero-right">
-    <div class="activity-card" data-activity-shell data-activity-url="/github-activity.json" data-github-profile={`https://github.com/${username}`}>
+    <div
+      class="activity-card"
+      data-activity-shell
+      data-activity-url="/github-activity.json"
+      data-github-profile={`https://github.com/${username}`}
+    >
       <div class="activity-header">
         <div class="header-left">
           <div class="header-dots">
@@ -81,12 +128,12 @@ const username = "AbiXnash";
           live
         </span>
       </div>
-      
+
       <div class="commits-header">
         <span class="commits-label">Recent commits</span>
         <span class="commits-count" id="commitsCount"></span>
       </div>
-      
+
       <div class="activity-body">
         <div class="activity-loader" aria-hidden="true">
           <div class="loader-bars">
@@ -133,7 +180,11 @@ const username = "AbiXnash";
     left: -25%;
     width: 150%;
     height: 200%;
-    background: radial-gradient(ellipse at center, rgba(255, 107, 53, 0.08) 0%, transparent 60%);
+    background: radial-gradient(
+      ellipse at center,
+      rgba(255, 107, 53, 0.08) 0%,
+      transparent 60%
+    );
     pointer-events: none;
     z-index: -1;
   }
@@ -201,8 +252,13 @@ const username = "AbiXnash";
   }
 
   @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
   }
 
   .hero-bio {
@@ -268,7 +324,11 @@ const username = "AbiXnash";
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 50%
+    );
     opacity: 0;
     transition: opacity 250ms ease;
   }
@@ -324,7 +384,11 @@ const username = "AbiXnash";
 
   .activity-card {
     background:
-      radial-gradient(circle at top right, rgba(255, 107, 53, 0.08), transparent 28%),
+      radial-gradient(
+        circle at top right,
+        rgba(255, 107, 53, 0.08),
+        transparent 28%
+      ),
       rgba(23, 23, 23, 0.7);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -336,7 +400,9 @@ const username = "AbiXnash";
     box-shadow:
       0 4px 24px rgba(0, 0, 0, 0.3),
       0 0 0 1px rgba(255, 107, 53, 0.05) inset;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
   }
 
   .activity-card:hover {
@@ -374,9 +440,15 @@ const username = "AbiXnash";
     border-radius: 50%;
   }
 
-  .dot.red { background: #ff5f57; }
-  .dot.yellow { background: #febc2e; }
-  .dot.green { background: #28c840; }
+  .dot.red {
+    background: #ff5f57;
+  }
+  .dot.yellow {
+    background: #febc2e;
+  }
+  .dot.green {
+    background: #28c840;
+  }
 
   .mono {
     font-family: "JetBrains Mono", monospace;
@@ -404,8 +476,13 @@ const username = "AbiXnash";
   }
 
   @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
   }
 
   .activity-body {
@@ -475,13 +552,26 @@ const username = "AbiXnash";
     animation: loaderBounce 1s ease-in-out infinite;
   }
 
-  .loader-bars span:nth-child(1) { animation-delay: 0s; }
-  .loader-bars span:nth-child(2) { animation-delay: 0.1s; }
-  .loader-bars span:nth-child(3) { animation-delay: 0.2s; }
+  .loader-bars span:nth-child(1) {
+    animation-delay: 0s;
+  }
+  .loader-bars span:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  .loader-bars span:nth-child(3) {
+    animation-delay: 0.2s;
+  }
 
   @keyframes loaderBounce {
-    0%, 100% { transform: scaleY(0.5); opacity: 0.5; }
-    50% { transform: scaleY(1); opacity: 1; }
+    0%,
+    100% {
+      transform: scaleY(0.5);
+      opacity: 0.5;
+    }
+    50% {
+      transform: scaleY(1);
+      opacity: 1;
+    }
   }
 
   .loading-text {
@@ -501,7 +591,11 @@ const username = "AbiXnash";
     gap: 0.75rem;
     padding: 0.625rem 0.875rem;
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01)),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.02),
+        rgba(255, 255, 255, 0.01)
+      ),
       rgba(23, 23, 23, 0.6);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -646,13 +740,17 @@ const username = "AbiXnash";
     if (!repoList || !activityUrl) return;
 
     const escapeHtml = (value) =>
-      String(value).replace(/[&<>"']/g, (char) => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;",
-      }[char] || char));
+      String(value).replace(
+        /[&<>"']/g,
+        (char) =>
+          ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;",
+          })[char] || char,
+      );
 
     const formatTime = (iso) => {
       const date = new Date(iso);
@@ -660,10 +758,13 @@ const username = "AbiXnash";
       const diff = now - date;
       const hours = Math.floor(diff / 3600000);
       const days = Math.floor(diff / 86400000);
-      if (hours < 1) return 'just now';
+      if (hours < 1) return "just now";
       if (hours < 24) return `${hours}h ago`;
       if (days < 7) return `${days}d ago`;
-      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      return date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      });
     };
 
     const renderActivity = (payload) => {
@@ -676,7 +777,7 @@ const username = "AbiXnash";
             <span>no commits found</span>
           </div>
         `;
-        if (commitsCount) commitsCount.textContent = '0';
+        if (commitsCount) commitsCount.textContent = "0";
         return;
       }
 

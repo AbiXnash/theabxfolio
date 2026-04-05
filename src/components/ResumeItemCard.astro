@@ -21,10 +21,12 @@ const { item, sectionKey } = Astro.props as {
 const calcTenure = (startDate?: string, endDate?: string) => {
   if (!startDate) return "";
   const start = new Date(startDate);
-  const finish = endDate && endDate !== "Present" ? new Date(endDate) : new Date();
+  const finish =
+    endDate && endDate !== "Present" ? new Date(endDate) : new Date();
 
   const months =
-    finish.getFullYear() * 12 + finish.getMonth() -
+    finish.getFullYear() * 12 +
+    finish.getMonth() -
     (start.getFullYear() * 12 + start.getMonth());
   const years = Math.floor(months / 12);
   const remMonths = months % 12;
@@ -53,7 +55,9 @@ const tenure = calcTenure(item.startDate, item.endDate);
 const lines = detailLines(item.details);
 const showSkills = Array.isArray(item.skills) && item.skills.length;
 const primaryLink = item.github || item.references?.[0]?.url;
-const primaryLinkLabel = item.github ? "View Project" : item.references?.[0]?.label;
+const primaryLinkLabel = item.github
+  ? "View Project"
+  : item.references?.[0]?.label;
 ---
 
 <details class="item-card reveal" open={sectionKey === "work"}>
@@ -72,34 +76,47 @@ const primaryLinkLabel = item.github ? "View Project" : item.references?.[0]?.la
   </summary>
 
   <div class="item-body">
-    {lines.length > 0 && (
-      <div class="item-block">
-        <ul class="story-list">
-          {lines.map((line, i) => (
-            <li class="story-item">
-              <span class="story-num">{String(i + 1).padStart(2, "0")}</span>
-              <span>{line}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    )}
-
-    {showSkills && (
-      <div class="item-block">
-        <div class="skill-list">
-          {item.skills?.slice(0, 6).map((skill) => <span class="skill-tag">{skill}</span>)}
+    {
+      lines.length > 0 && (
+        <div class="item-block">
+          <ul class="story-list">
+            {lines.map((line, i) => (
+              <li class="story-item">
+                <span class="story-num">{String(i + 1).padStart(2, "0")}</span>
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-      </div>
-    )}
+      )
+    }
 
-    {primaryLink && primaryLinkLabel && (
-      <div class="item-block">
-        <a class="item-link" href={primaryLink} target="_blank" rel="noreferrer">
-          {primaryLinkLabel}
-        </a>
-      </div>
-    )}
+    {
+      showSkills && (
+        <div class="item-block">
+          <div class="skill-list">
+            {item.skills?.slice(0, 6).map((skill) => (
+              <span class="skill-tag">{skill}</span>
+            ))}
+          </div>
+        </div>
+      )
+    }
+
+    {
+      primaryLink && primaryLinkLabel && (
+        <div class="item-block">
+          <a
+            class="item-link"
+            href={primaryLink}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {primaryLinkLabel}
+          </a>
+        </div>
+      )
+    }
   </div>
 </details>
 
@@ -156,7 +173,11 @@ const primaryLinkLabel = item.github ? "View Project" : item.references?.[0]?.la
     cursor: pointer;
     padding: 1.25rem 3.75rem 1.15rem 1.25rem;
     background:
-      radial-gradient(circle at top right, rgba(255, 107, 53, 0.09), transparent 32%),
+      radial-gradient(
+        circle at top right,
+        rgba(255, 107, 53, 0.09),
+        transparent 32%
+      ),
       linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent);
     transition:
       background 180ms ease,
@@ -169,8 +190,16 @@ const primaryLinkLabel = item.github ? "View Project" : item.references?.[0]?.la
 
   .item-card[open] .item-summary {
     background:
-      radial-gradient(circle at top right, rgba(255, 107, 53, 0.14), transparent 36%),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0.01));
+      radial-gradient(
+        circle at top right,
+        rgba(255, 107, 53, 0.14),
+        transparent 36%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.025),
+        rgba(255, 255, 255, 0.01)
+      );
   }
 
   .item-top {
@@ -275,7 +304,11 @@ const primaryLinkLabel = item.github ? "View Project" : item.references?.[0]?.la
     align-items: start;
     padding: 0.8rem 0.9rem;
     border-radius: 12px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.04),
+      rgba(255, 255, 255, 0.02)
+    );
     border: 1px solid rgba(255, 255, 255, 0.05);
     font-size: 0.875rem;
     color: var(--text);
@@ -297,7 +330,11 @@ const primaryLinkLabel = item.github ? "View Project" : item.references?.[0]?.la
 
   .skill-tag {
     padding: 0.45rem 0.75rem;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.025));
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.025)
+    );
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 999px;
     font-size: 0.75rem;
@@ -314,7 +351,11 @@ const primaryLinkLabel = item.github ? "View Project" : item.references?.[0]?.la
     padding: 0.5rem 0.85rem;
     border-radius: 999px;
     border: 1px solid rgba(255, 107, 53, 0.2);
-    background: linear-gradient(135deg, rgba(255, 107, 53, 0.12), rgba(255, 107, 53, 0.06));
+    background: linear-gradient(
+      135deg,
+      rgba(255, 107, 53, 0.12),
+      rgba(255, 107, 53, 0.06)
+    );
     color: var(--accent);
     font-size: 0.8rem;
     font-weight: 500;

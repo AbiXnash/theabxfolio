@@ -134,7 +134,9 @@ export function initializeParticles(canvas: HTMLCanvasElement | null): void {
 
   const handleResize = () => {
     resize();
-    particles = particles.filter((particle) => particle.x < width && particle.y < height);
+    particles = particles.filter(
+      (particle) => particle.x < width && particle.y < height,
+    );
 
     while (particles.length < PARTICLE_COUNT) {
       particles.push(createParticle());

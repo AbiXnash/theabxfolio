@@ -64,28 +64,39 @@ const organizationName = "Mindgate Solutions";
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
     <noscript>
-      <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
     </noscript>
 
     <!-- Sitemap -->
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 
     <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": authorName,
-      "url": siteUrl,
-      "jobTitle": "Software Engineer",
-      "description": description,
-      "sameAs": [githubUrl, linkedInUrl],
-      "worksFor": {
-        "@type": "Organization",
-        "name": organizationName
-      }
-    })} />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: authorName,
+        url: siteUrl,
+        jobTitle: "Software Engineer",
+        description: description,
+        sameAs: [githubUrl, linkedInUrl],
+        worksFor: {
+          "@type": "Organization",
+          name: organizationName,
+        },
+      })}
+    />
   </head>
 
   <body>

@@ -65,93 +65,107 @@ const sectionIcon = (sectionKey: string) => {
         <p class="eyebrow">Software Engineer</p>
         <h1 class="resume-title">Resume</h1>
         <p class="resume-lead">
-          Building transaction-heavy systems, developer-facing tools, and practical
-          projects with an emphasis on reliability, security, and operational clarity.
+          Building transaction-heavy systems, developer-facing tools, and
+          practical projects with an emphasis on reliability, security, and
+          operational clarity.
         </p>
         <div class="core-stack">
           <span class="stack-label">Primary languages</span>
           <div class="stack-list">
-            {primaryLanguages.map((language) => (
-              <span class="stack-pill">{language}</span>
-            ))}
+            {
+              primaryLanguages.map((language) => (
+                <span class="stack-pill">{language}</span>
+              ))
+            }
           </div>
         </div>
       </div>
     </div>
 
-  <div class="summary-strip reveal reveal-delay-1">
-    <article class="summary-card">
-      <span class="summary-value">{totalExperienceYears}+</span>
-      <span class="summary-label">Years in production engineering</span>
-    </article>
-    <article class="summary-card">
-      <span class="summary-value">{totalProjects}</span>
-      <span class="summary-label">Selected projects</span>
-    </article>
-    <article class="summary-card">
-      <span class="summary-value">Core</span>
-      <span class="summary-label">{keyAreas.join(" · ")}</span>
-    </article>
-  </div>
+    <div class="summary-strip reveal reveal-delay-1">
+      <article class="summary-card">
+        <span class="summary-value">{totalExperienceYears}+</span>
+        <span class="summary-label">Years in production engineering</span>
+      </article>
+      <article class="summary-card">
+        <span class="summary-value">{totalProjects}</span>
+        <span class="summary-label">Selected projects</span>
+      </article>
+      <article class="summary-card">
+        <span class="summary-value">Core</span>
+        <span class="summary-label">{keyAreas.join(" · ")}</span>
+      </article>
+    </div>
 
-  <div class="resume-callout reveal reveal-delay-2">
-    <p class="callout-copy">
-      Interested in how I build? Check my
-      <a href="https://github.com/AbiXnash" target="_blank" rel="noreferrer">GitHub profile</a>
-      or
-      <a href="https://github.com/AbiXnash/theabxfolio" target="_blank" rel="noreferrer">see the source</a>
-      for this site.
-    </p>
-  </div>
-
+    <div class="resume-callout reveal reveal-delay-2">
+      <p class="callout-copy">
+        Interested in how I build? Check my
+        <a href="https://github.com/AbiXnash" target="_blank" rel="noreferrer"
+          >GitHub profile</a
+        >
+        or
+        <a
+          href="https://github.com/AbiXnash/theabxfolio"
+          target="_blank"
+          rel="noreferrer">see the source</a
+        >
+        for this site.
+      </p>
+    </div>
   </div>
 
   <div class="resume-main">
-    {sections.map(([sectionKey, section]) => (
-      <section class="resume-section reveal reveal-delay-1">
-        <div class="section-anchor" id={sectionKey} aria-hidden="true"></div>
-        <div class="section-shell">
-          <div class="section-header">
-            <div class="section-label-row">
-              <h2 class="section-heading">
-                <span class="heading-icon">{sectionIcon(sectionKey)}</span>
-                {section.label}
-              </h2>
-              <span class="section-count">{section.items.length}</span>
+    {
+      sections.map(([sectionKey, section]) => (
+        <section class="resume-section reveal reveal-delay-1">
+          <div class="section-anchor" id={sectionKey} aria-hidden="true" />
+          <div class="section-shell">
+            <div class="section-header">
+              <div class="section-label-row">
+                <h2 class="section-heading">
+                  <span class="heading-icon">{sectionIcon(sectionKey)}</span>
+                  {section.label}
+                </h2>
+                <span class="section-count">{section.items.length}</span>
+              </div>
+              {section.description && (
+                <p class="section-description">{section.description}</p>
+              )}
             </div>
-            {section.description && <p class="section-description">{section.description}</p>}
-          </div>
 
-          <div class="section-content">
-            {section.items.length === 0 ? (
-              <div class="empty-state">Nothing here yet.</div>
-            ) : sectionKey === "projects" ? (
-              <div class="project-groups">
-                {projectGroups.map(([groupName, items]) => (
-                  <div class="project-group">
-                    <div class="project-group-header">
-                      <h3 class="project-group-title">{groupName}</h3>
-                      <span class="project-group-count">{items.length}</span>
+            <div class="section-content">
+              {section.items.length === 0 ? (
+                <div class="empty-state">Nothing here yet.</div>
+              ) : sectionKey === "projects" ? (
+                <div class="project-groups">
+                  {projectGroups.map(([groupName, items]) => (
+                    <div class="project-group">
+                      <div class="project-group-header">
+                        <h3 class="project-group-title">{groupName}</h3>
+                        <span class="project-group-count">{items.length}</span>
+                      </div>
+                      <div class="item-list dense-grid">
+                        {items.map((item) => (
+                          <ResumeItemCard item={item} sectionKey={sectionKey} />
+                        ))}
+                      </div>
                     </div>
-                    <div class="item-list dense-grid">
-                      {items.map((item) => (
-                        <ResumeItemCard item={item} sectionKey={sectionKey} />
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div class={`item-list ${sectionKey === "work" ? "" : "dense-grid"}`.trim()}>
-                {section.items.map((item) => (
-                  <ResumeItemCard item={item} sectionKey={sectionKey} />
-                ))}
-              </div>
-            )}
+                  ))}
+                </div>
+              ) : (
+                <div
+                  class={`item-list ${sectionKey === "work" ? "" : "dense-grid"}`.trim()}
+                >
+                  {section.items.map((item) => (
+                    <ResumeItemCard item={item} sectionKey={sectionKey} />
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      </section>
-    ))}
+        </section>
+      ))
+    }
   </div>
 </section>
 
@@ -203,8 +217,16 @@ const sectionIcon = (sectionKey: string) => {
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 22px;
     background:
-      radial-gradient(circle at top right, rgba(255, 107, 53, 0.12), transparent 30%),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+      radial-gradient(
+        circle at top right,
+        rgba(255, 107, 53, 0.12),
+        transparent 30%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.03),
+        rgba(255, 255, 255, 0.01)
+      );
   }
 
   .eyebrow {
@@ -245,7 +267,11 @@ const sectionIcon = (sectionKey: string) => {
   .stack-pill {
     padding: 0.55rem 0.9rem;
     border-radius: 999px;
-    background: linear-gradient(135deg, rgba(255, 107, 53, 0.18), rgba(255, 107, 53, 0.08));
+    background: linear-gradient(
+      135deg,
+      rgba(255, 107, 53, 0.18),
+      rgba(255, 107, 53, 0.08)
+    );
     border: 1px solid rgba(255, 107, 53, 0.28);
     color: var(--text);
     font-weight: 600;
@@ -286,7 +312,11 @@ const sectionIcon = (sectionKey: string) => {
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
     background:
-      linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(255, 255, 255, 0.02)),
+      linear-gradient(
+        135deg,
+        rgba(255, 107, 53, 0.1),
+        rgba(255, 255, 255, 0.02)
+      ),
       rgba(255, 255, 255, 0.01);
     margin-bottom: 1rem;
   }
@@ -346,7 +376,11 @@ const sectionIcon = (sectionKey: string) => {
     border-radius: 24px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01)),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.02),
+        rgba(255, 255, 255, 0.01)
+      ),
       rgba(12, 12, 12, 0.3);
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.04) inset,
@@ -379,8 +413,11 @@ const sectionIcon = (sectionKey: string) => {
     padding: 0.85rem 0.95rem;
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 16px;
-    background:
-      linear-gradient(135deg, rgba(255, 107, 53, 0.08), rgba(255, 255, 255, 0.02));
+    background: linear-gradient(
+      135deg,
+      rgba(255, 107, 53, 0.08),
+      rgba(255, 255, 255, 0.02)
+    );
   }
 
   .project-group-title {

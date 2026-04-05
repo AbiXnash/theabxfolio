@@ -17,7 +17,9 @@ export function initializeScrollReveal(): void {
     },
   );
 
-  for (const element of document.querySelectorAll(".reveal, .stagger-children")) {
+  for (const element of document.querySelectorAll(
+    ".reveal, .stagger-children",
+  )) {
     observer.observe(element);
   }
 }
