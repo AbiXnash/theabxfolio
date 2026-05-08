@@ -7,32 +7,47 @@ const { work, projects, research, education } = resumeData;
 
 <BaseLayout title="Abinash S. | Software Engineer">
   <!-- Hero Section -->
-  <header class="flex flex-col gap-6 pt-12 pb-8">
-    <h1
-      class="text-apple-text max-w-3xl text-5xl leading-tight font-semibold tracking-tight sm:text-7xl"
-    >
-      Software Engineer building resilient systems.
-    </h1>
-    <p
-      class="text-apple-textMuted max-w-2xl text-xl leading-relaxed font-medium tracking-tight sm:text-2xl"
-    >
-      Specializing in payments, security, and high-volume banking workflows
-      under strict production constraints.
-    </p>
-    <div class="mt-4 flex gap-4">
-      <a
-        href="mailto:abinash@theabx.in"
-        class="bg-apple-text text-apple-bg rounded-full px-6 py-3 text-sm font-medium transition-transform duration-300 hover:scale-105"
+  <header
+    class="flex flex-col-reverse gap-8 pt-12 pb-8 sm:flex-row sm:items-center sm:justify-between"
+  >
+    <div class="flex flex-col gap-6">
+      <h1
+        class="text-apple-text max-w-3xl text-5xl leading-tight font-semibold tracking-tight sm:text-7xl"
       >
-        Contact Me
-      </a>
-      <a
-        href="https://github.com/AbiXnash"
-        target="_blank"
-        class="bg-apple-surface border-apple-border text-apple-text hover:bg-apple-surfaceHover rounded-full border px-6 py-3 text-sm font-medium transition-colors duration-300"
+        Software Engineer building resilient systems.
+      </h1>
+      <p
+        class="text-apple-textMuted max-w-2xl text-xl leading-relaxed font-medium tracking-tight sm:text-2xl"
       >
-        GitHub
-      </a>
+        Specializing in payments, security, and high-volume banking workflows
+        under strict production constraints.
+      </p>
+      <div class="mt-4 flex gap-4">
+        <a
+          href="mailto:abinash@theabx.in"
+          class="bg-apple-text text-apple-bg rounded-full px-6 py-3 text-sm font-medium transition-transform duration-300 hover:scale-105"
+        >
+          Contact Me
+        </a>
+        <a
+          href="https://github.com/AbiXnash"
+          target="_blank"
+          class="bg-apple-surface border-apple-border text-apple-text hover:bg-apple-surfaceHover rounded-full border px-6 py-3 text-sm font-medium transition-colors duration-300"
+        >
+          GitHub
+        </a>
+      </div>
+    </div>
+    <div class="flex-shrink-0">
+      <div
+        class="border-apple-border/50 relative h-32 w-32 overflow-hidden rounded-full border-4 sm:h-48 sm:w-48"
+      >
+        <img
+          src="/profile.jpg"
+          alt="Abinash Selvarasu"
+          class="h-full w-full object-cover transition-transform duration-500 hover:scale-110"
+        />
+      </div>
     </div>
   </header>
 
