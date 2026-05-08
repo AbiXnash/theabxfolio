@@ -9,136 +9,80 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body class="flex min-h-screen flex-col items-center antialiased">
-    <!-- Minimal Apple-like Glassmorphism Navbar -->
-    <nav
-      class="glass border-apple-border/50 fixed top-0 right-0 left-0 z-50 border-b"
+  <body
+    class="bg-ide-bg text-ide-text flex h-screen w-screen flex-col overflow-hidden text-[13px] sm:text-sm"
+  >
+    <!-- macOS style window bar -->
+    <div
+      class="bg-ide-activity border-ide-border flex h-8 shrink-0 items-center border-b px-4 select-none"
     >
-      <div
-        class="mx-auto flex h-14 max-w-4xl items-center justify-between px-6 text-sm font-medium tracking-wide"
-      >
-        <a
-          href="#"
-          class="text-apple-text hover:text-apple-accent font-bold tracking-tight transition-colors"
-          >Abinash Selvarasu</a
-        >
+      <div class="flex gap-2">
+        <div class="h-3 w-3 rounded-full bg-[#ff5f56]"></div>
+        <div class="h-3 w-3 rounded-full bg-[#ffbd2e]"></div>
+        <div class="h-3 w-3 rounded-full bg-[#27c93f]"></div>
+      </div>
+      <div class="text-ide-comment flex-1 text-center text-xs font-medium">
+        Abinash Selvarasu — Portfolio IDE
+      </div>
+    </div>
 
-        <!-- Desktop Nav -->
-        <div class="hidden gap-8 sm:flex">
-          <a
-            href="#experience"
-            class="text-apple-textMuted hover:text-apple-text transition-colors"
-            >Experience</a
-          >
-          <a
-            href="#projects"
-            class="text-apple-textMuted hover:text-apple-text transition-colors"
-            >Projects</a
-          >
-          <a
-            href="#research"
-            class="text-apple-textMuted hover:text-apple-text transition-colors"
-            >Research</a
-          >
+    <!-- Main IDE Area -->
+    <div class="flex flex-1 overflow-hidden">
+      <slot />
+    </div>
+
+    <!-- Neovim Status Line -->
+    <div
+      class="bg-ide-activity border-ide-border flex h-6 shrink-0 items-center justify-between border-t px-2 text-xs select-none"
+    >
+      <div class="flex h-full items-center gap-4">
+        <div
+          class="bg-ide-function text-ide-activity flex h-full items-center px-2 font-bold"
+        >
+          NORMAL
         </div>
-
-        <!-- Mobile Hamburger -->
-        <button
-          id="mobile-menu-btn"
-          class="text-apple-text -mr-2 p-2 focus:outline-none sm:hidden"
-          aria-label="Toggle menu"
-        >
+        <div class="text-ide-comment flex items-center gap-1">
           <svg
-            width="24"
-            height="24"
+            width="12"
+            height="12"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
+            ><path d="M6 3v12"></path><circle cx="18" cy="6" r="3"
+            ></circle><circle cx="6" cy="18" r="3"></circle><path
+              d="M18 9a9 9 0 0 1-9 9"></path></svg
           >
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-        </button>
-      </div>
-
-      <!-- Mobile Dropdown -->
-      <div
-        id="mobile-menu"
-        class="border-apple-border/50 bg-apple-bg/95 hidden border-t backdrop-blur-xl sm:hidden"
-      >
-        <div class="flex flex-col gap-4 px-6 py-4 text-sm font-medium">
-          <a
-            href="#experience"
-            class="mobile-link text-apple-textMuted hover:text-apple-text"
-            >Experience</a
-          >
-          <a
-            href="#projects"
-            class="mobile-link text-apple-textMuted hover:text-apple-text"
-            >Projects</a
-          >
-          <a
-            href="#research"
-            class="mobile-link text-apple-textMuted hover:text-apple-text"
-            >Research</a
-          >
+          main
+        </div>
+        <div class="text-ide-accent hidden sm:block">
+          "Jack of all trades, master of one"
         </div>
       </div>
-    </nav>
-
-    <div
-      class="relative flex w-full max-w-4xl flex-col gap-24 px-6 pt-24 pb-20"
-    >
-      <slot />
-
-      <!-- Cute floating pixel character -->
-      <div class="pointer-events-none fixed right-6 bottom-6 z-50">
-        <div class="pixel-pet"></div>
+      <div class="text-ide-comment flex items-center gap-4">
+        <div id="status-filename">readme.md</div>
+        <div>utf-8</div>
+        <div>TypeScript React</div>
       </div>
     </div>
-
-    <script>
-      const btn = document.getElementById("mobile-menu-btn");
-      const menu = document.getElementById("mobile-menu");
-      const links = document.querySelectorAll(".mobile-link");
-
-      btn?.addEventListener("click", () => {
-        menu?.classList.toggle("hidden");
-      });
-
-      links.forEach((link) => {
-        link.addEventListener("click", () => {
-          menu?.classList.add("hidden");
-        });
-      });
-
-      // Scroll Reveal
-      const revealElements = document.querySelectorAll(".reveal");
-      const revealObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("active");
-              revealObserver.unobserve(entry.target); // Reveal only once
-            }
-          });
-        },
-        { rootMargin: "0px 0px -50px 0px", threshold: 0.1 },
-      );
-
-      revealElements.forEach((el) => revealObserver.observe(el));
-    </script>
   </body>
 </html>

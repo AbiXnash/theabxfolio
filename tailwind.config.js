@@ -4,35 +4,33 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: [
-          "-apple-system",
-          "BlinkMacSystemFont",
-          '"Segoe UI"',
-          "Roboto",
-          "Helvetica",
-          "Arial",
-          "sans-serif",
-          '"Apple Color Emoji"',
-          '"Segoe UI Emoji"',
-          '"Segoe UI Symbol"',
+        mono: [
+          '"JetBrains Mono"',
+          '"Fira Code"',
+          "ui-monospace",
+          "SFMono-Regular",
+          "Menlo",
+          "Monaco",
+          "Consolas",
+          "monospace",
         ],
       },
       colors: {
-        apple: {
-          bg: "#ffffff",
-          surface: "#f5f5f7",
-          surfaceHover: "#ebebeb",
-          border: "#d2d2d7",
-          text: "#1d1d1f",
-          textMuted: "#86868b",
-          accent: "#0066cc",
+        ide: {
+          bg: "#1e1e2e",
+          sidebar: "#181825",
+          activity: "#11111b",
+          border: "#313244",
+          highlight: "#313244",
+          text: "#cdd6f4",
+          comment: "#6c7086",
+          keyword: "#cba6f7",
+          string: "#a6e3a1",
+          function: "#89b4fa",
+          variable: "#f38ba8",
+          number: "#fab387",
+          accent: "#89dceb",
         },
-      },
-      boxShadow: {
-        apple:
-          "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)",
-        "apple-hover":
-          "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
       },
     },
   },
