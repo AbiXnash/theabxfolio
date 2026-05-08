@@ -9,7 +9,7 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,15 +19,150 @@ const { title } = Astro.props;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=JetBrains+Mono:wght@400;700&display=swap"
       rel="stylesheet"
     />
   </head>
-  <body class="bg-term-bg text-term-text min-h-screen p-4 sm:p-8">
-    <div
-      class="mx-auto flex w-full max-w-4xl flex-col gap-1 break-words whitespace-pre-wrap"
+  <body class="bg-gruv-bg text-gruv-text bg-dots min-h-screen antialiased">
+    <!-- Premium Sticky Navbar -->
+    <nav
+      class="glass border-gruv-border/30 fixed top-0 right-0 left-0 z-50 h-16 border-b"
     >
-      <slot />
-    </div>
+      <div
+        class="mx-auto flex h-full max-w-6xl items-center justify-between px-6"
+      >
+        <div class="flex items-center gap-3">
+          <div
+            class="bg-gruv-orange h-8 w-8 flex-shrink-0 rotate-12 rounded-lg"
+          >
+          </div>
+          <span class="hidden text-lg font-bold tracking-tighter sm:block"
+            >abinash.selvarasu</span
+          >
+          <span class="text-lg font-bold tracking-tighter sm:hidden">abx</span>
+        </div>
+
+        <!-- Desktop Links -->
+        <div class="hidden items-center gap-10 text-sm font-medium md:flex">
+          <a
+            href="#experience"
+            class="text-gruv-muted hover:text-gruv-orange transition-colors"
+            >Experience</a
+          >
+          <a
+            href="#projects"
+            class="text-gruv-muted hover:text-gruv-orange transition-colors"
+            >Projects</a
+          >
+          <a
+            href="#research"
+            class="text-gruv-muted hover:text-gruv-orange transition-colors"
+            >Research</a
+          >
+          <a
+            href="mailto:abinash@theabx.in"
+            class="bg-gruv-orange text-gruv-bg rounded-full px-5 py-2 transition-transform hover:scale-105"
+            >Hire Me</a
+          >
+        </div>
+
+        <!-- Mobile Toggle -->
+        <button id="menu-toggle" class="text-gruv-text p-2 md:hidden">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            ><line x1="3" y1="12" x2="21" y2="12"></line><line
+              x1="3"
+              y1="6"
+              x2="21"
+              y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg
+          >
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="bg-gruv-surface border-gruv-border shadow-premium absolute top-16 right-0 left-0 flex hidden flex-col gap-6 border-b p-6 md:hidden"
+      >
+        <a href="#experience" class="mobile-link text-lg font-medium"
+          >Experience</a
+        >
+        <a href="#projects" class="mobile-link text-lg font-medium">Projects</a>
+        <a href="#research" class="mobile-link text-lg font-medium">Research</a>
+        <a
+          href="mailto:abinash@theabx.in"
+          class="bg-gruv-orange text-gruv-bg rounded-xl px-5 py-3 text-center font-bold"
+          >Contact Me</a
+        >
+      </div>
+    </nav>
+
+    <slot />
+
+    <footer class="border-gruv-border/30 mt-20 border-t px-6 py-20">
+      <div
+        class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-10 md:flex-row"
+      >
+        <div class="flex flex-col gap-2 text-center md:text-left">
+          <div class="text-2xl font-bold tracking-tighter">
+            Let's build something resilient.
+          </div>
+          <p class="text-gruv-muted">
+            Available for high-stakes backend engineering roles.
+          </p>
+        </div>
+        <div class="flex gap-6">
+          <a
+            href="https://github.com/AbiXnash"
+            target="_blank"
+            class="text-gruv-muted hover:text-gruv-orange transition-colors"
+            >GitHub</a
+          >
+          <a
+            href="mailto:abinash@theabx.in"
+            class="text-gruv-muted hover:text-gruv-orange transition-colors"
+            >Email</a
+          >
+        </div>
+      </div>
+      <div
+        class="text-gruv-muted mx-auto mt-20 max-w-6xl text-center text-xs tracking-widest uppercase opacity-50"
+      >
+        © {new Date().getFullYear()} Abinash S. — SYSTEM_STATUS: OPERATIONAL
+      </div>
+    </footer>
+
+    <script>
+      // Mobile Menu Toggle
+      const toggle = document.getElementById("menu-toggle");
+      const menu = document.getElementById("mobile-menu");
+      const links = document.querySelectorAll(".mobile-link");
+
+      toggle?.addEventListener("click", () => menu?.classList.toggle("hidden"));
+      links.forEach((l) =>
+        l.addEventListener("click", () => menu?.classList.add("hidden")),
+      );
+
+      // Scroll Reveal Observer
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("active");
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
+      );
+
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
+    </script>
   </body>
 </html>

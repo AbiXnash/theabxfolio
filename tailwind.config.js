@@ -4,29 +4,31 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        mono: [
-          '"JetBrains Mono"',
-          '"Fira Code"',
-          "ui-monospace",
-          "SFMono-Regular",
-          "Menlo",
-          "Monaco",
-          "Consolas",
-          "monospace",
-        ],
+        sans: ["Inter", "system-ui", "sans-serif"],
+        mono: ['"JetBrains Mono"', "monospace"],
+        pixel: ['"Press Start 2P"', "monospace"],
       },
       colors: {
-        term: {
-          bg: "#282828",
-          text: "#ebdbb2", // gruvbox fg
-          muted: "#928374", // gruvbox gray
-          prompt: "#b8bb26", // gruvbox green
-          path: "#83a598", // gruvbox blue
-          branch: "#d3869b", // gruvbox purple
-          command: "#fabd2f", // gruvbox yellow
-          accent: "#fe8019", // gruvbox orange
-          error: "#fb4934", // gruvbox red
+        gruv: {
+          bg: "#1d2021",
+          surface: "#282828",
+          border: "#3c3836",
+          text: "#ebdbb2",
+          muted: "#928374",
+          green: "#b8bb26",
+          blue: "#83a598",
+          purple: "#d3869b",
+          yellow: "#fabd2f",
+          orange: "#fe8019",
+          red: "#fb4934",
         },
+      },
+      boxShadow: {
+        premium: "0 20px 50px rgba(0, 0, 0, 0.3)",
+        "premium-hover": "0 30px 60px rgba(0, 0, 0, 0.4)",
+      },
+      borderRadius: {
+        apple: "2.5rem",
       },
     },
   },
