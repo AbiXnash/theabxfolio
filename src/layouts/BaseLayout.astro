@@ -123,6 +123,22 @@ const { title } = Astro.props;
           menu?.classList.add("hidden");
         });
       });
+
+      // Scroll Reveal
+      const revealElements = document.querySelectorAll(".reveal");
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("active");
+              revealObserver.unobserve(entry.target); // Reveal only once
+            }
+          });
+        },
+        { rootMargin: "0px 0px -50px 0px", threshold: 0.1 },
+      );
+
+      revealElements.forEach((el) => revealObserver.observe(el));
     </script>
   </body>
 </html>

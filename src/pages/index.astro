@@ -91,7 +91,7 @@ const { work, projects, research, education } = resumeData;
     <h2 class="text-2xl font-semibold tracking-tight">Selected Projects</h2>
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
       {
-        projects.items.slice(0, 4).map((item) => (
+        projects.items.map((item) => (
           <a
             href={item.github}
             target="_blank"
@@ -162,7 +162,7 @@ const { work, projects, research, education } = resumeData;
   </section>
 
   <!-- Education -->
-  <section class="flex flex-col gap-8">
+  <section class="reveal flex flex-col gap-8">
     <h2 class="text-2xl font-semibold tracking-tight">Education</h2>
     <div
       class="bg-apple-surface border-apple-border/50 shadow-apple rounded-3xl border p-8"
@@ -201,3 +201,5 @@ const { work, projects, research, education } = resumeData;
     </div>
   </footer>
 </BaseLayout>
+s="hover:text-apple-text transition-colors">Email
+
