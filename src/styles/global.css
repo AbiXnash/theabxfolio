@@ -5,107 +5,87 @@
     "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco,
     Consolas, monospace;
 
-  /* Catppuccin Mocha / Hell Pine inspired deep dark palette */
-  --color-ide-bg: #1e1e2e;
-  --color-ide-sidebar: #181825;
-  --color-ide-activity: #11111b;
-  --color-ide-border: #313244;
-  --color-ide-highlight: #313244;
-  --color-ide-text: #cdd6f4;
-
-  /* Syntax colors */
-  --color-ide-comment: #6c7086;
-  --color-ide-keyword: #cba6f7;
-  --color-ide-string: #a6e3a1;
-  --color-ide-function: #89b4fa;
-  --color-ide-variable: #f38ba8;
-  --color-ide-number: #fab387;
-  --color-ide-accent: #89dceb;
+  /* Pure Terminal Palette */
+  --color-term-bg: #000000;
+  --color-term-text: #e2e8f0;
+  --color-term-muted: #71717a;
+  --color-term-prompt: #22c55e;
+  --color-term-path: #3b82f6;
+  --color-term-branch: #a855f7;
+  --color-term-command: #eab308;
+  --color-term-accent: #ff6b35;
+  --color-term-error: #ef4444;
 }
 
 body {
   font-family: var(--font-mono);
-  background-color: var(--color-ide-bg);
-  color: var(--color-ide-text);
+  background-color: var(--color-term-bg);
+  color: var(--color-term-text);
   line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
   margin: 0;
   padding: 0;
-  overflow: hidden; /* IDE layout handles its own scrolling */
+  overflow-x: hidden;
+  /* Raw terminal styling - no fancy smooth scrolling needed */
 }
 
-/* Syntax Highlighting Utilities */
-.syn-keyword {
-  color: var(--color-ide-keyword);
-}
-.syn-string {
-  color: var(--color-ide-string);
-}
-.syn-function {
-  color: var(--color-ide-function);
-}
-.syn-variable {
-  color: var(--color-ide-variable);
-}
-.syn-number {
-  color: var(--color-ide-number);
-}
-.syn-comment {
-  color: var(--color-ide-comment);
-  font-style: italic;
+::selection {
+  background-color: var(--color-term-muted);
+  color: #ffffff;
 }
 
-/* Custom Scrollbar for IDE feel */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-::-webkit-scrollbar-track {
-  background: var(--color-ide-bg);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--color-ide-border);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-ide-comment);
-}
-::-webkit-scrollbar-corner {
-  background: var(--color-ide-bg);
-}
-
-/* Line Numbers Counter Counter */
-.editor-content {
-  counter-reset: line;
-}
-.editor-line {
-  display: flex;
-  min-height: 1.6rem;
-  line-height: 1.8;
-}
-.editor-line::before {
-  counter-increment: line;
-  content: counter(line);
+/* Blinking Cursor */
+.cursor {
   display: inline-block;
-  flex-shrink: 0;
-  width: 2.5rem;
-  padding-right: 1rem;
-  margin-right: 1rem;
-  text-align: right;
-  color: var(--color-ide-comment);
-  border-right: 1px solid var(--color-ide-border);
-  user-select: none;
-  opacity: 0.5;
-}
-.editor-line:hover::before {
-  color: var(--color-ide-text);
-  opacity: 1;
+  width: 0.6em;
+  height: 1em;
+  background-color: var(--color-term-text);
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
+  margin-left: 4px;
 }
 
-/* Hide files by default */
-.file-content {
-  display: none;
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
-.file-content.active {
-  display: block;
+
+/* Terminal link styling */
+a.term-link {
+  color: var(--color-term-accent);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--color-term-muted);
+  transition: all 0.1s ease;
+}
+
+a.term-link:hover {
+  color: var(--color-term-bg);
+  background-color: var(--color-term-accent);
+  border-bottom-color: var(--color-term-accent);
+}
+
+/* ASCII formatting helpers */
+.indent-1 {
+  padding-left: 2rem;
+}
+.indent-2 {
+  padding-left: 4rem;
+}
+
+@media (max-width: 640px) {
+  .indent-1 {
+    padding-left: 1rem;
+  }
+  .indent-2 {
+    padding-left: 2rem;
+  }
+  body {
+    font-size: 13px; /* Slightly smaller on mobile to fit terminal output */
+  }
 }

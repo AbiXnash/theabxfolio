@@ -12,10 +12,7 @@ const { title } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
@@ -26,63 +23,11 @@ const { title } = Astro.props;
       rel="stylesheet"
     />
   </head>
-  <body
-    class="bg-ide-bg text-ide-text flex h-screen w-screen flex-col overflow-hidden text-[13px] sm:text-sm"
-  >
-    <!-- macOS style window bar -->
+  <body class="bg-term-bg text-term-text min-h-screen p-4 sm:p-8">
     <div
-      class="bg-ide-activity border-ide-border flex h-8 shrink-0 items-center border-b px-4 select-none"
+      class="mx-auto flex w-full max-w-4xl flex-col gap-1 break-words whitespace-pre-wrap"
     >
-      <div class="flex gap-2">
-        <div class="h-3 w-3 rounded-full bg-[#ff5f56]"></div>
-        <div class="h-3 w-3 rounded-full bg-[#ffbd2e]"></div>
-        <div class="h-3 w-3 rounded-full bg-[#27c93f]"></div>
-      </div>
-      <div class="text-ide-comment flex-1 text-center text-xs font-medium">
-        Abinash Selvarasu — Portfolio IDE
-      </div>
-    </div>
-
-    <!-- Main IDE Area -->
-    <div class="relative flex flex-1 overflow-hidden">
       <slot />
-    </div>
-
-    <!-- Neovim Status Line -->
-    <div
-      class="bg-ide-activity border-ide-border flex h-6 shrink-0 items-center justify-between border-t px-2 text-xs select-none"
-    >
-      <div class="flex h-full items-center gap-4">
-        <div
-          class="bg-ide-function text-ide-activity flex h-full items-center px-2 font-bold"
-        >
-          NORMAL
-        </div>
-        <div class="text-ide-comment flex items-center gap-1">
-          <svg
-            width="12"
-            height="12"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            ><path d="M6 3v12"></path><circle cx="18" cy="6" r="3"
-            ></circle><circle cx="6" cy="18" r="3"></circle><path
-              d="M18 9a9 9 0 0 1-9 9"></path></svg
-          >
-          main
-        </div>
-        <div class="text-ide-accent hidden sm:block">
-          "Jack of all trades, master of one"
-        </div>
-      </div>
-      <div class="text-ide-comment flex items-center gap-4">
-        <div id="status-filename">readme.md</div>
-        <div>utf-8</div>
-        <div>TypeScript React</div>
-      </div>
     </div>
   </body>
 </html>

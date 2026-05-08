@@ -3,233 +3,102 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import resumeData from '../data/resume.json';
 
 const { work, projects, research, education } = resumeData;
-
-const openBrace = '{';
-const closeBrace = '}';
-
-const files = [
-  { id: 'readme', name: 'readme.md', icon: '📝' },
-  { id: 'experience', name: 'experience.java', icon: '☕' },
-  { id: 'projects', name: 'projects.go', icon: '🐹' },
-  { id: 'research', name: 'research.py', icon: '🐍' },
-  { id: 'education', name: 'education.ts', icon: '📘' },
-];
 ---
 
-<BaseLayout title="Abinash S. | IDE">
-  <!-- Sidebar / File Explorer -->
-  <aside class="w-64 bg-ide-sidebar border-r border-ide-border hidden md:flex flex-col shrink-0 select-none">
-    <div class="px-4 py-2 text-xs font-bold text-ide-comment uppercase tracking-wider">Explorer</div>
-    <div class="flex flex-col">
-      <div class="px-2 py-1 text-ide-text font-bold text-xs flex items-center gap-1 cursor-pointer">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transform rotate-90"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        PORTFOLIO
-      </div>
-      <div class="flex flex-col pl-4 mt-1" id="file-explorer">
-        {files.map(file => (
-          <button 
-            class={`file-tab-btn flex items-center gap-2 px-2 py-1 hover:bg-ide-highlight cursor-pointer text-left ${file.id === 'readme' ? 'bg-ide-highlight text-ide-accent' : 'text-ide-comment'}`}
-            data-target={file.id}
-          >
-            <span>{file.icon}</span>
-            <span>{file.name}</span>
-          </button>
-        ))}
-      </div>
+<BaseLayout title="abx@server:~">
+  
+  <div class="mb-4">
+    <span class="text-term-prompt font-bold">abx@server</span>:<span class="text-term-path font-bold">~</span>$ <span class="text-term-command font-bold">./resume.sh</span>
+  </div>
+
+  <!-- Hero / Intro -->
+  <div><span class="text-term-muted">Loading profile data... OK.</span></div>
+  <div class="mt-4">
+    <div class="font-bold text-lg text-term-text">ABINASH SELVARASU</div>
+    <div class="text-term-muted">Software Engineer building resilient systems.</div>
+    <div class="text-term-muted">Specializing in payments, security, and high-volume banking workflows.</div>
+  </div>
+  
+  <div class="mt-4">
+    <div>[+] Links:</div>
+    <div class="indent-1">
+      <div><span class="text-term-muted">GitHub:</span> <a href="https://github.com/AbiXnash" target="_blank" class="term-link">github.com/AbiXnash</a></div>
+      <div><span class="text-term-muted">Email:</span> <a href="mailto:abinash@theabx.in" class="term-link">abinash@theabx.in</a></div>
     </div>
-  </aside>
+  </div>
 
-  <!-- Editor Area -->
-  <main class="flex-1 flex flex-col min-w-0 bg-ide-bg">
-    <!-- Editor Tabs -->
-    <div class="flex h-10 bg-ide-sidebar border-b border-ide-border overflow-x-auto no-scrollbar shrink-0 select-none items-center" id="editor-tabs">
-      <button id="sidebar-toggle" class="md:hidden px-3 text-ide-comment hover:text-ide-text border-r border-ide-border h-full flex items-center shrink-0 cursor-pointer">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-      </button>
-      {files.map(file => (
-        <button 
-          class={`editor-tab-btn flex items-center gap-2 px-4 h-full border-r border-ide-border cursor-pointer hover:bg-ide-bg whitespace-nowrap ${file.id === 'readme' ? 'bg-ide-bg text-ide-accent border-t-2 border-t-ide-accent' : 'text-ide-comment border-t-2 border-t-transparent'}`}
-          data-target={file.id}
-        >
-          <span>{file.icon}</span>
-          <span>{file.name}</span>
-        </button>
-      ))}
-    </div>
-
-    <!-- Editor Content Container -->
-    <div class="flex-1 overflow-y-auto p-4 editor-content" id="editor-container">
-      
-      <!-- README.md -->
-      <div id="readme" class="file-content active">
-        <div class="editor-line"><span class="syn-comment"># Abinash Selvarasu</span></div>
-        <div class="editor-line">&nbsp;</div>
-        <div class="editor-line">> Software Engineer building <span class="syn-keyword">resilient systems</span>.</div>
-        <div class="editor-line">> Specializing in payments, security, and high-volume banking workflows.</div>
-        <div class="editor-line">&nbsp;</div>
-        <div class="editor-line"><span class="syn-comment">## Quick Links</span></div>
-        <div class="editor-line">- [<span class="syn-string">GitHub</span>](<a href="https://github.com/AbiXnash" target="_blank" class="syn-accent underline hover:text-ide-text">https://github.com/AbiXnash</a>)</div>
-        <div class="editor-line">- [<span class="syn-string">Email</span>](<a href="mailto:abinash@theabx.in" class="syn-accent underline hover:text-ide-text">mailto:abinash@theabx.in</a>)</div>
-      </div>
-
-      <!-- EXPERIENCE.JAVA -->
-      <div id="experience" class="file-content">
-        <div class="editor-line"><span class="syn-keyword">package</span> <span class="syn-variable">portfolio.experience</span>;</div>
-        <div class="editor-line">&nbsp;</div>
-        <div class="editor-line"><span class="syn-keyword">public class</span> <span class="syn-function">Experience</span> {openBrace}</div>
-        {work.items.map(item => (
-          <Fragment>
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-comment">/**</span></div>
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-comment"> * {item.title}</span></div>
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-comment"> * {item.meta}</span></div>
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-comment"> */</span></div>
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-keyword">public void</span> <span class="syn-function">executeRole</span>() {openBrace}</div>
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-variable">String</span> <span class="syn-text">intro</span> = <span class="syn-string">"{item.intro}"</span>;</div>
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-variable">String</span>[] <span class="syn-text">responsibilities</span> = {openBrace}</div>
+  <!-- Work Experience -->
+  <div class="mt-8 mb-4 text-term-accent font-bold">==> Loading Work Experience</div>
+  <div class="flex flex-col gap-6">
+    {work.items.map(item => (
+      <div>
+        <div class="font-bold text-term-text">[+] {item.title} <span class="text-term-muted font-normal">({item.meta})</span></div>
+        <div class="indent-1">
+          <div class="mb-2 text-term-muted">{item.intro}</div>
+          <div class="flex flex-col gap-1">
             {item.details.split('\n').filter(line => line.startsWith('-')).map(line => (
-              <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-string">"{line.replace('- ', '')}"</span>,</div>
+               <div><span class="text-term-prompt">-</span> {line.replace('- ', '')}</div>
             ))}
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{closeBrace};</div>
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;{closeBrace}</div>
-            <div class="editor-line">&nbsp;</div>
-          </Fragment>
-        ))}
-        <div class="editor-line">{closeBrace}</div>
+          </div>
+        </div>
       </div>
+    ))}
+  </div>
 
-      <!-- PROJECTS.GO -->
-      <div id="projects" class="file-content">
-        <div class="editor-line"><span class="syn-keyword">package</span> <span class="syn-variable">portfolio</span></div>
-        <div class="editor-line">&nbsp;</div>
-        <div class="editor-line"><span class="syn-keyword">import</span> (</div>
-        <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-string">"fmt"</span></div>
-        <div class="editor-line">)</div>
-        <div class="editor-line">&nbsp;</div>
-        <div class="editor-line"><span class="syn-keyword">type</span> <span class="syn-function">Project</span> <span class="syn-keyword">struct</span> {openBrace}</div>
-        <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-variable">Name</span>        <span class="syn-function">string</span></div>
-        <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-variable">Description</span> <span class="syn-function">string</span></div>
-        <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-variable">URL</span>         <span class="syn-function">string</span></div>
-        <div class="editor-line">{closeBrace}</div>
-        <div class="editor-line">&nbsp;</div>
-        <div class="editor-line"><span class="syn-keyword">func</span> <span class="syn-function">GetProjects</span>() []<span class="syn-function">Project</span> {openBrace}</div>
-        <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-keyword">return</span> []<span class="syn-function">Project</span>{openBrace}</div>
-        {projects.items.map(item => (
-          <Fragment>
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{openBrace}</div>
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-variable">Name</span>:        <span class="syn-string">"{item.title}"</span>, <span class="syn-comment">// {item.category}</span></div>
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-variable">Description</span>: <span class="syn-string">"{item.intro}"</span>,</div>
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-variable">URL</span>:         <span class="syn-string">"<a href={item.github} target="_blank" class="hover:underline">{item.github}</a>"</span>,</div>
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{closeBrace},</div>
-          </Fragment>
-        ))}
-        <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;{closeBrace}</div>
-        <div class="editor-line">{closeBrace}</div>
+  <!-- Projects -->
+  <div class="mt-8 mb-4 text-term-accent font-bold">==> Fetching Projects from Registry</div>
+  <div class="flex flex-col gap-6">
+    {projects.items.map(item => (
+      <div>
+        <div class="font-bold text-term-text">
+            [+] {item.title} 
+            <span class="text-term-muted font-normal">[{item.category}]</span>
+        </div>
+        <div class="indent-1">
+          <div class="text-term-text mb-1">{item.intro}</div>
+          <div class="text-term-muted mb-1">{item.details.split('\n')[0]}</div>
+          <div><a href={item.github} target="_blank" class="term-link">-> source code</a></div>
+        </div>
       </div>
+    ))}
+  </div>
 
-      <!-- RESEARCH.PY -->
-      <div id="research" class="file-content">
-        <div class="editor-line"><span class="syn-keyword">class</span> <span class="syn-function">ResearchPortfolio</span>:</div>
-        <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-keyword">def</span> <span class="syn-function">__init__</span>(<span class="syn-variable">self</span>):</div>
-        <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-variable">self</span>.<span class="syn-text">papers</span> = [</div>
-        {research.items.map(item => (
-          <Fragment>
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{openBrace}</div>
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-string">"title"</span>: <span class="syn-string">"{item.title}"</span>,</div>
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-string">"abstract"</span>: <span class="syn-string">"{item.intro}"</span>,</div>
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-string">"link"</span>: <span class="syn-string">"<a href={item.github} target="_blank" class="hover:underline">{item.github}</a>"</span></div>
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{closeBrace},</div>
-          </Fragment>
-        ))}
-        <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]</div>
+  <!-- Research -->
+  <div class="mt-8 mb-4 text-term-accent font-bold">==> Compiling Research Papers</div>
+  <div class="flex flex-col gap-6">
+    {research.items.map(item => (
+      <div>
+        <div class="font-bold text-term-text">[+] {item.title}</div>
+        <div class="indent-1">
+          <div class="text-term-muted mb-1">{item.meta}</div>
+          <div class="text-term-text mb-1">{item.intro}</div>
+          <div><a href={item.github} target="_blank" class="term-link">-> read paper</a></div>
+        </div>
       </div>
+    ))}
+  </div>
 
-      <!-- EDUCATION.TS -->
-      <div id="education" class="file-content">
-        <div class="editor-line"><span class="syn-keyword">interface</span> <span class="syn-function">Education</span> {openBrace}</div>
-        <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-text">degree</span>: <span class="syn-variable">string</span>;</div>
-        <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-text">timeline</span>: <span class="syn-variable">string</span>;</div>
-        <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-text">details</span>: <span class="syn-variable">string</span>;</div>
-        <div class="editor-line">{closeBrace}</div>
-        <div class="editor-line">&nbsp;</div>
-        <div class="editor-line"><span class="syn-keyword">const</span> <span class="syn-variable">myEducation</span>: <span class="syn-function">Education</span>[] = [</div>
-        {education.items.map(item => (
-          <Fragment>
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;{openBrace}</div>
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-text">degree</span>: <span class="syn-string">'{item.title}'</span>,</div>
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-text">timeline</span>: <span class="syn-string">'{item.meta}'</span>,</div>
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syn-text">details</span>: <span class="syn-string">'{item.intro}'</span>,</div>
-            <div class="editor-line">&nbsp;&nbsp;&nbsp;&nbsp;{closeBrace},</div>
-          </Fragment>
-        ))}
-        <div class="editor-line">];</div>
+  <!-- Education -->
+  <div class="mt-8 mb-4 text-term-accent font-bold">==> Verifying Academic Credentials</div>
+  <div class="flex flex-col gap-4">
+    {education.items.map(item => (
+      <div>
+        <div class="font-bold text-term-text">[+] {item.title}</div>
+        <div class="indent-1">
+          <div class="text-term-muted mb-1">{item.meta}</div>
+          <div class="text-term-text">{item.intro}</div>
+        </div>
       </div>
+    ))}
+  </div>
 
-    </div>
-  </main>
+  <!-- End of Script -->
+  <div class="mt-8 mb-4">
+    <span class="text-term-muted">Execution completed. Time elapsed: 0.42s</span>
+  </div>
+  
+  <div>
+    <span class="text-term-prompt font-bold">abx@server</span>:<span class="text-term-path font-bold">~</span>$ <span class="cursor"></span>
+  </div>
+
 </BaseLayout>
-
-<script>
-  // Mobile sidebar logic
-  const sidebarToggle = document.getElementById('sidebar-toggle');
-  const mobileSidebar = document.getElementById('mobile-sidebar');
-  const mobileOverlay = document.getElementById('mobile-overlay');
-
-  function toggleSidebar() {
-    mobileSidebar?.classList.toggle('-translate-x-full');
-    mobileOverlay?.classList.toggle('hidden');
-  }
-
-  sidebarToggle?.addEventListener('click', toggleSidebar);
-  mobileOverlay?.addEventListener('click', toggleSidebar);
-
-  // Tab switching logic
-  const fileBtns = document.querySelectorAll('.file-tab-btn, .editor-tab-btn');
-  const fileContents = document.querySelectorAll('.file-content');
-  const statusFilename = document.getElementById('status-filename');
-
-  fileBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const targetId = btn.getAttribute('data-target');
-
-      // Close mobile sidebar if open
-      if (mobileOverlay && !mobileOverlay.classList.contains('hidden')) {
-        toggleSidebar();
-      }
-      
-      // Update contents
-      fileContents.forEach(content => {
-        if (content.id === targetId) {
-          content.classList.add('active');
-        } else {
-          content.classList.remove('active');
-        }
-      });
-
-      // Update sidebar buttons
-      document.querySelectorAll('.file-tab-btn').forEach(b => {
-        if (b.getAttribute('data-target') === targetId) {
-          b.classList.remove('text-ide-comment');
-          b.classList.add('bg-ide-highlight', 'text-ide-accent');
-        } else {
-          b.classList.add('text-ide-comment');
-          b.classList.remove('bg-ide-highlight', 'text-ide-accent');
-        }
-      });
-
-      // Update top tab buttons
-      document.querySelectorAll('.editor-tab-btn').forEach(b => {
-        if (b.getAttribute('data-target') === targetId) {
-          b.classList.remove('text-ide-comment', 'border-t-transparent');
-          b.classList.add('bg-ide-bg', 'text-ide-accent', 'border-t-ide-accent');
-          // Update status bar filename
-          if (statusFilename) {
-              statusFilename.textContent = b.querySelector('span:last-child')?.textContent || targetId;
-          }
-        } else {
-          b.classList.add('text-ide-comment', 'border-t-transparent');
-          b.classList.remove('bg-ide-bg', 'text-ide-accent', 'border-t-ide-accent');
-        }
-      });
-    });
-  });
-</script>

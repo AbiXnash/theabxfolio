@@ -16,20 +16,16 @@ export default {
         ],
       },
       colors: {
-        ide: {
-          bg: "#1e1e2e",
-          sidebar: "#181825",
-          activity: "#11111b",
-          border: "#313244",
-          highlight: "#313244",
-          text: "#cdd6f4",
-          comment: "#6c7086",
-          keyword: "#cba6f7",
-          string: "#a6e3a1",
-          function: "#89b4fa",
-          variable: "#f38ba8",
-          number: "#fab387",
-          accent: "#89dceb",
+        term: {
+          bg: "#000000",
+          text: "#e2e8f0", // zinc-200
+          muted: "#71717a", // zinc-500
+          prompt: "#22c55e", // green-500
+          path: "#3b82f6", // blue-500
+          branch: "#a855f7", // purple-500
+          command: "#eab308", // yellow-500
+          accent: "#ff6b35", // theabx orange
+          error: "#ef4444", // red-500
         },
       },
     },
