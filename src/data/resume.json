@@ -48,6 +48,46 @@
     "description": "Selected engineering systems spanning secure banking platforms, web builds, tooling, and applied prototypes.",
     "items": [
       {
+        "title": "gos — Golang Starter Template",
+        "meta": "2025 · Go · Backend",
+        "category": "Backend System",
+        "github": "https://github.com/AbiXnash/gos",
+        "contributors": [{ "name": "Abinash S", "role": "Author" }],
+        "intro": "Personal Golang starter template built with a robust Logger and Server structure.",
+        "details": "A backend starter template designed to accelerate Go API development.\n- Implements structured logging and clean server initialization.\n- Follows idiomatic Go practices for maintainable project structures.",
+        "note": "Designed for fast scaffolding of robust backend microservices."
+      },
+      {
+        "title": "abxnvim — Modular Neovim Setup",
+        "meta": "2025 · Lua · Neovim",
+        "category": "Developer Tooling",
+        "github": "https://github.com/AbiXnash/abxnvim",
+        "contributors": [{ "name": "Abinash S", "role": "Maintainer" }],
+        "intro": "Fast, modular Neovim configuration optimized for Java, Svelte, and React workflows.",
+        "details": "A modernized, language-specific Neovim setup built for performance.\n- Pre-configured LSP and formatting for enterprise Java and modern frontend stacks.\n- Keeps a low footprint while delivering full IDE capabilities.",
+        "note": "Evolved from the previous 'nvim' config to explicitly support enterprise and frontend stacks."
+      },
+      {
+        "title": "Handwritten Digit Recognition",
+        "meta": "2024 · Python · Machine Learning",
+        "category": "Machine Learning",
+        "github": "https://github.com/AbiXnash/Handwritten-Recognition",
+        "contributors": [{ "name": "Abinash S", "role": "Author" }],
+        "intro": "Handwritten Digit Recognition system using Machine Learning and Computer Vision techniques.",
+        "details": "A computer vision model built to accurately identify and classify handwritten digits.\n- Uses standard ML libraries to process and classify image data.\n- Implements robust evaluation metrics to tune performance.",
+        "note": "Applied machine learning project focusing on image classification."
+      },
+      {
+        "title": "event-manager — Go Service",
+        "meta": "2024 · Go · Backend",
+        "category": "Backend System",
+        "github": "https://github.com/AbiXnash/event-manager",
+        "contributors": [{ "name": "Abinash S", "role": "Developer" }],
+        "intro": "Backend event management system built with Go for high concurrency.",
+        "details": "A microservice built to handle event tracking and coordination.\n- Leverages Go's concurrency primitives for efficient handling.\n- Structured for clean API integration and data consistency.",
+        "note": "Demonstrates practical backend microservice design in Go."
+      },
+      {
         "title": "WiFi Trolley Bot — ESP32",
         "meta": "2023 · ESP32 · IoT · Embedded",
         "category": "Embedded Systems",
@@ -59,17 +99,7 @@
         ],
         "intro": "ESP32-based trolley bot with wireless control, lightweight firmware, and real-time device coordination.",
         "details": "Built an embedded control project around ESP32-based wireless command handling and motor control.\n- Implemented WiFi-driven command flow for responsive remote operation.\n- Integrated control logic with hardware behavior and navigation routines.\n- Kept the firmware structure lightweight and practical for iteration on embedded hardware.",
-        "note": "Hands-on embedded project emphasizing control logic and reliable WiFi command handling.",
-        "references": [
-          {
-            "label": "GitHub Repository",
-            "url": "https://github.com/AbiXnash/WiFi-Trolley-Bot-using-ESP32"
-          },
-          {
-            "label": "ESP32",
-            "url": "https://www.espressif.com/en/products/socs/esp32"
-          }
-        ]
+        "note": "Hands-on embedded project emphasizing control logic and reliable WiFi command handling."
       },
       {
         "title": "Conference Site",
@@ -79,13 +109,7 @@
         "contributors": [{ "name": "Abinash S", "role": "Developer" }],
         "intro": "Conference website for SASTRA ICMAT with a clear submission flow and structured event communication.",
         "details": "Built an information-focused conference website designed to reduce friction for attendees and paper submitters.\n- Structured submission guidance, calls for papers, and deadline-related content for clarity.\n- Organized schedule and speaker information into a clean, accessible layout.\n- Delivered a responsive UI that keeps important event information easy to scan.",
-        "note": "Designed to minimize confusion around submission requirements and keep deadlines and tracks easy to find.",
-        "references": [
-          {
-            "label": "GitHub Repository",
-            "url": "https://github.com/AbiXnash/conference-site"
-          }
-        ]
+        "note": "Designed to minimize confusion around submission requirements and keep deadlines and tracks easy to find."
       },
       {
         "title": "Theta2k23 — Event Web Presence",
@@ -95,13 +119,7 @@
         "contributors": [{ "name": "Abinash S", "role": "Developer" }],
         "intro": "Event website for SASTRA Theta2k23 focused on speed, navigation, and mobile-first access to updates.",
         "details": "Created a compact event site optimized for attendees who need fast access to schedules, event lists, and announcements.\n- Prioritized mobile-first navigation and short interaction paths.\n- Organized event-centric content so updates remain easy to find under time pressure.\n- Kept the interface lightweight and focused on clarity over decoration.",
-        "note": "Prioritizes speed and clarity for event attendees on mobile.",
-        "references": [
-          {
-            "label": "GitHub Repository",
-            "url": "https://github.com/AbiXnash/theta2k23"
-          }
-        ]
+        "note": "Prioritizes speed and clarity for event attendees on mobile."
       },
       {
         "title": "Hell Pine — VS Code Theme Extension",
@@ -111,17 +129,7 @@
         "contributors": [{ "name": "Abinash S", "role": "Author" }],
         "intro": "Custom VS Code theme tuned for contrast, readability, and long-form daily development work.",
         "details": "Forked Rosé Pine and evolved it into a higher-contrast theme aimed at real developer workflow comfort.\n- Tuned token colors for readability across common coding contexts.\n- Packaged and published the extension for repeatable installation and maintenance.\n- Preserved the original theme character while improving visual clarity for daily use.",
-        "note": "Theme focuses on readability and personalized color balance without losing the Rosé Pine character.",
-        "references": [
-          {
-            "label": "GitHub Repository",
-            "url": "https://github.com/AbiXnash/hell-pine"
-          },
-          {
-            "label": "VS Code Marketplace (Hell Pine)",
-            "url": "https://marketplace.visualstudio.com/items?itemName=ABX.hell-pine"
-          }
-        ]
+        "note": "Theme focuses on readability and personalized color balance without losing the Rosé Pine character."
       },
       {
         "title": "TheGlobe — Freelance Web Build",
@@ -131,13 +139,7 @@
         "contributors": [{ "name": "Abinash S", "role": "Freelancer" }],
         "intro": "Freelance website for a digital marketing organization with business-first messaging and clean presentation.",
         "details": "Delivered a client-facing marketing website built around trust, service clarity, and maintainable presentation.\n- Structured content around business goals and service discoverability.\n- Focused on responsive behavior, visual consistency, and clean component composition.\n- Shipped a practical handoff-ready build suitable for client ownership.",
-        "note": "Focused on clarity, credibility, and a solid handoff for client ownership.",
-        "references": [
-          {
-            "label": "GitHub Repository",
-            "url": "https://github.com/AbiXnash/theglobe"
-          }
-        ]
+        "note": "Focused on clarity, credibility, and a solid handoff for client ownership."
       },
       {
         "title": "Neovim Configuration — nvim",
@@ -147,14 +149,7 @@
         "contributors": [{ "name": "Abinash S", "role": "Maintainer" }],
         "intro": "Personal Neovim setup optimized for fast editing, consistent tooling, and maintainable configuration.",
         "details": "Built and maintained a modular Neovim configuration to improve daily engineering workflow.\n- Organized the setup into modular Lua-based configuration units.\n- Integrated LSP, formatting, and workflow shortcuts for faster feedback loops.\n- Kept startup speed and maintainability as first-order priorities.",
-        "note": "Config-first productivity project with an emphasis on speed and maintainability.",
-        "references": [
-          {
-            "label": "GitHub Repository",
-            "url": "https://github.com/AbiXnash/nvim"
-          },
-          { "label": "Neovim", "url": "https://neovim.io/" }
-        ]
+        "note": "Config-first productivity project with an emphasis on speed and maintainability."
       }
     ]
   },
@@ -173,21 +168,7 @@
         ],
         "intro": "Hybrid deep-learning intrusion detection system for cyber-physical networks.",
         "details": "Hybrid IDS model combining Hierarchical Gated CNN (HGCNN) for spatial feature extraction and LSTM for temporal sequence modeling.\n\nKey Contributions:\n- HGCNN + LSTM end-to-end pipeline\n- Multi-class CPS attack detection\n- Evaluation on IIoT benchmark data\n- Clear ablation and error analysis",
-        "note": "Notebook-driven experiments detailing preprocessing, feature engineering, and model training with reproducible metrics.",
-        "references": [
-          {
-            "label": "Research Repo (Notebooks)",
-            "url": "https://github.com/AbiXnash/An-Intrusion-Detection-System-using-Deep-Learning-models-on-UNSW_NB15-dataset"
-          },
-          {
-            "label": "Project Report (PDF)",
-            "url": "https://github.com/AbiXnash/An-Intrusion-Detection-System-using-Deep-Learning-models-on-UNSW_NB15-dataset/blob/main/C7_Batch_Mini_Project_CSE300.pdf"
-          },
-          {
-            "label": "UNSW-NB15 Dataset (UNSW)",
-            "url": "https://research.unsw.edu.au/projects/unsw-nb15-dataset"
-          }
-        ]
+        "note": "Notebook-driven experiments detailing preprocessing, feature engineering, and model training with reproducible metrics."
       },
       {
         "title": "Intrusion Detection System (IIoT) — Hybrid CNN + LSTM",
@@ -200,21 +181,16 @@
         ],
         "intro": "Deep-learning IDS for IIoT networks using a hybrid CNN + LSTM approach.",
         "details": "Hybrid CNN + LSTM IDS designed to detect malicious IIoT traffic with improved accuracy on benchmark data.\n\nHighlights:\n- UNSW-NB15 benchmark dataset\n- CNN for attack event detection\n- LSTM for temporal sequence modeling\n- Focus on lowering misclassification and false alarms",
-        "note": "Notebook-driven workflow with clear dataset preprocessing, model training, and evaluation steps.",
-        "references": [
-          {
-            "label": "GitHub Repository",
-            "url": "https://github.com/AbiXnash/An-Intrusion-Detection-System-using-Deep-Learning-models-on-UNSW_NB15-dataset"
-          },
-          {
-            "label": "Project Report (PDF)",
-            "url": "https://github.com/AbiXnash/An-Intrusion-Detection-System-using-Deep-Learning-models-on-UNSW_NB15-dataset/blob/main/C7_Batch_Mini_Project_CSE300.pdf"
-          },
-          {
-            "label": "UNSW-NB15 Dataset (UNSW)",
-            "url": "https://research.unsw.edu.au/projects/unsw-nb15-dataset"
-          }
-        ]
+        "note": "Notebook-driven workflow with clear dataset preprocessing, model training, and evaluation steps."
+      },
+      {
+        "title": "Image-Prediction-CIFAR",
+        "meta": "2024 · Jupyter · Python",
+        "github": "https://github.com/AbiXnash/Image-Prediction-CIFAR",
+        "contributors": [{ "name": "Abinash S", "role": "Author" }],
+        "intro": "CIFAR-10 image prediction project implementing deep learning classification.",
+        "details": "Image classification model trained on the CIFAR-10 dataset.\n- Leverages neural networks for feature extraction.\n- Documents training loops and prediction accuracy across 10 object classes.",
+        "note": "Computer vision experimentation with standard benchmark datasets."
       },
       {
         "title": "HGCNN-LSTM — Cyber Attack Detection in Cyber-Physical Systems",
@@ -226,13 +202,7 @@
         ],
         "intro": "Data-driven intrusion detection research using HGCNN + LSTM for CPS environments.",
         "details": "Research implementation focused on cyber-physical system security.\n\nHighlights:\n- HGCNN + LSTM architecture\n- Sequence modeling for CPS data\n- Multi-class detection focus\n- Reproducible notebook workflow",
-        "note": "Detailed model notebook includes preprocessing, training curves, and confusion-matrix evaluation.",
-        "references": [
-          {
-            "label": "GitHub Repository",
-            "url": "https://github.com/AbiXnash/HGCNN-LSTM-A-Data-driven-Approach-for-Cyber-Attack-Detection-in-Cyber-Physical-Systems"
-          }
-        ]
+        "note": "Detailed model notebook includes preprocessing, training curves, and confusion-matrix evaluation."
       },
       {
         "title": "HyperCoar-DAM — Robust IDS for IIoT Networks",
@@ -245,13 +215,7 @@
         ],
         "intro": "Robust intrusion detection approach focused on IIoT network protection.",
         "details": "Research prototype targeting robust IDS performance in IIoT.\n\nHighlights:\n- Robust detection objective\n- Focus on IIoT threat resilience\n- Notebook-based workflow\n- Reproducible experimentation",
-        "note": "Research artifact documents robustness-focused training and evaluation within Jupyter notebooks.",
-        "references": [
-          {
-            "label": "GitHub Repository",
-            "url": "https://github.com/AbiXnash/HyperCoar-DAM-A-Robust-Intrusion-Detection-System-for-Enhancing-IIoT-Networks-Protection"
-          }
-        ]
+        "note": "Research artifact documents robustness-focused training and evaluation within Jupyter notebooks."
       },
       {
         "title": "Genetic Programming Approach for Advanced Persistent Threat Detection",
@@ -264,13 +228,7 @@
         ],
         "intro": "Tree-based genetic programming approach for APT detection on highly imbalanced cyber-attack data.",
         "details": "Research project targeting APT detection using a tree-based genetic programming algorithm trained on highly imbalanced data (99:1).\n\nHighlights:\n- Genetic programming classifier (tree-based)\n- Handles extreme class imbalance (99:1)\n- Python-based experimentation pipeline\n- Reproducible training and evaluation workflow",
-        "note": "Focuses on imbalance-aware training and GP-driven model evolution for minority attack detection.",
-        "references": [
-          {
-            "label": "GitHub Repository",
-            "url": "https://github.com/AbiXnash/gp-apt"
-          }
-        ]
+        "note": "Focuses on imbalance-aware training and GP-driven model evolution for minority attack detection."
       }
     ]
   },
@@ -285,10 +243,7 @@
         "contributors": [{ "name": "SASTRA CSE Dept", "role": "Institution" }],
         "intro": "Computer Science degree with emphasis on systems fundamentals, software engineering, and applied research.",
         "details": "Built a strong academic base across systems and software engineering with parallel exposure to applied ML research.\n- Studied operating systems, DBMS, computer networks, and data structures.\n- Worked on research-led projects in cybersecurity and machine learning.\n- Combined coursework with practical technical leadership and project execution.",
-        "note": "Academics emphasize systems foundations and practical engineering practice with research exposure.",
-        "references": [
-          { "label": "SASTRA University", "url": "https://www.sastra.edu/" }
-        ]
+        "note": "Academics emphasize systems foundations and practical engineering practice with research exposure."
       }
     ]
   }

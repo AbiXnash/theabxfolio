@@ -140,7 +140,7 @@ const { work, projects, research, education } = resumeData;
     <h2 class="text-2xl font-semibold tracking-tight">Research & Papers</h2>
     <div class="flex flex-col gap-4">
       {
-        research.items.slice(0, 3).map((item) => (
+        research.items.map((item) => (
           <a
             href={item.github}
             target="_blank"
