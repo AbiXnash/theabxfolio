@@ -1,23 +1,40 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
     extend: {
       fontFamily: {
-        pixel: ['"Press Start 2P"', 'monospace'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: [
+          "-apple-system",
+          "BlinkMacSystemFont",
+          '"Segoe UI"',
+          "Roboto",
+          "Helvetica",
+          "Arial",
+          "sans-serif",
+          '"Apple Color Emoji"',
+          '"Segoe UI Emoji"',
+          '"Segoe UI Symbol"',
+        ],
       },
       colors: {
-        portfolio: {
-          bg: '#09090b',
-          surface: '#18181b',
-          border: '#27272a',
-          text: '#f4f4f5',
-          muted: '#a1a1aa',
-          accent: '#0ea5e9',
-        }
-      }
+        apple: {
+          bg: "#ffffff",
+          surface: "#f5f5f7",
+          surfaceHover: "#ebebeb",
+          border: "#d2d2d7",
+          text: "#1d1d1f",
+          textMuted: "#86868b",
+          accent: "#0066cc",
+        },
+      },
+      boxShadow: {
+        apple:
+          "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)",
+        "apple-hover":
+          "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+      },
     },
   },
   plugins: [],
-}
+};

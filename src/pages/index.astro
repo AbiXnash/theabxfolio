@@ -1,98 +1,203 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Section from '../components/Section.astro';
-import resumeData from '../data/resume.json';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import resumeData from "../data/resume.json";
 
 const { work, projects, research, education } = resumeData;
 ---
 
 <BaseLayout title="Abinash S. | Software Engineer">
-  <!-- Header / Hero -->
-  <header class="flex flex-col md:flex-row items-start md:items-center gap-8 py-12 mt-8">
-    <div class="avatar-idle shrink-0"></div>
-    <div class="flex flex-col gap-3">
-      <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight text-portfolio-text">
-        Abinash S.
-      </h1>
-      <p class="text-portfolio-accent pixel-heading text-xs sm:text-sm typewriter-cursor inline-block pr-2">
-        Software Engineer
-      </p>
-      <p class="text-portfolio-muted max-w-2xl text-sm sm:text-base mt-2 leading-relaxed">
-        Specializing in payments, security, and resilient systems. Building high-volume banking workflows and transaction-heavy payment systems under strict production constraints.
-      </p>
+  <!-- Hero Section -->
+  <header class="flex flex-col gap-6 pt-12 pb-8">
+    <h1
+      class="text-apple-text max-w-3xl text-5xl leading-tight font-semibold tracking-tight sm:text-7xl"
+    >
+      Software Engineer building resilient systems.
+    </h1>
+    <p
+      class="text-apple-textMuted max-w-2xl text-xl leading-relaxed font-medium tracking-tight sm:text-2xl"
+    >
+      Specializing in payments, security, and high-volume banking workflows
+      under strict production constraints.
+    </p>
+    <div class="mt-4 flex gap-4">
+      <a
+        href="mailto:abinash@theabx.in"
+        class="bg-apple-text text-apple-bg rounded-full px-6 py-3 text-sm font-medium transition-transform duration-300 hover:scale-105"
+      >
+        Contact Me
+      </a>
+      <a
+        href="https://github.com/AbiXnash"
+        target="_blank"
+        class="bg-apple-surface border-apple-border text-apple-text hover:bg-apple-surfaceHover rounded-full border px-6 py-3 text-sm font-medium transition-colors duration-300"
+      >
+        GitHub
+      </a>
     </div>
   </header>
 
-  <main class="flex flex-col gap-24 w-full">
-    <Section title="Experience">
-      {work.items.map(item => (
-        <div class="flex flex-col gap-2 relative pl-5 sm:pl-6 border-l border-portfolio-border">
-          <div class="absolute w-2 h-2 bg-portfolio-accent rounded-none -left-[4.5px] top-2 pixelated"></div>
-          <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4 mb-2">
-            <h3 class="font-semibold text-portfolio-text text-lg">{item.title}</h3>
-            <span class="pixel-heading text-[8px] text-portfolio-muted">{item.meta}</span>
-          </div>
-          <p class="text-portfolio-muted text-sm mb-3 leading-relaxed">{item.intro}</p>
-          <ul class="flex flex-col gap-3">
-            {item.details.split('\n').filter(line => line.startsWith('-')).map(line => (
-               <li class="text-sm flex items-start text-portfolio-muted">
-                 <span class="text-portfolio-accent mr-3 font-pixel text-[8px] mt-1 shrink-0">&gt;</span>
-                 <span class="flex-1 opacity-90 leading-relaxed">{line.replace('- ', '')}</span>
-               </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </Section>
-
-    <Section title="Selected Projects">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {projects.items.slice(0, 4).map(item => (
-          <a href={item.github} target="_blank" class="pixel-card p-6 flex flex-col gap-4 group no-underline">
-            <div class="flex justify-between items-start gap-4">
-              <h3 class="font-semibold text-portfolio-text group-hover:text-portfolio-accent transition-colors">{item.title}</h3>
-              <span class="pixel-heading text-[8px] text-portfolio-muted shrink-0 mt-1 border border-portfolio-border px-2 py-1 bg-portfolio-bg">{item.category}</span>
-            </div>
-            <p class="text-sm text-portfolio-muted leading-relaxed flex-1">{item.intro}</p>
-          </a>
-        ))}
-      </div>
-    </Section>
-
-    <Section title="Research & Papers">
-      <div class="flex flex-col gap-8">
-        {research.items.slice(0, 3).map(item => (
-          <div class="flex flex-col gap-2 group">
-            <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-              <h3 class="font-semibold text-portfolio-text group-hover:text-portfolio-accent transition-colors">
-                <a href={item.github} target="_blank">{item.title}</a>
+  <!-- Experience -->
+  <section id="experience" class="flex scroll-mt-24 flex-col gap-8">
+    <h2 class="text-2xl font-semibold tracking-tight">Experience</h2>
+    <div class="flex flex-col gap-6">
+      {
+        work.items.map((item) => (
+          <div class="bg-apple-surface border-apple-border/50 shadow-apple hover:shadow-apple-hover rounded-3xl border p-8 transition-shadow duration-300 sm:p-10">
+            <div class="mb-4 flex flex-col justify-between gap-2 sm:flex-row sm:items-baseline">
+              <h3 class="text-apple-text text-xl font-semibold">
+                {item.title}
               </h3>
-              <span class="pixel-heading text-[8px] text-portfolio-muted">{item.meta.split('·')[0].trim()}</span>
+              <span class="text-apple-textMuted text-sm font-medium">
+                {item.meta}
+              </span>
             </div>
-            <p class="text-sm text-portfolio-muted leading-relaxed">{item.intro}</p>
+            <p class="text-apple-text mb-6 text-lg leading-relaxed font-medium">
+              {item.intro}
+            </p>
+            <ul class="flex flex-col gap-3">
+              {item.details
+                .split("\n")
+                .filter((line) => line.startsWith("-"))
+                .map((line) => (
+                  <li class="text-apple-textMuted flex items-start gap-3 text-base">
+                    <span class="text-apple-accent mt-1 flex-shrink-0 opacity-70">
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    </span>
+                    <span class="leading-relaxed">
+                      {line.replace("- ", "")}
+                    </span>
+                  </li>
+                ))}
+            </ul>
           </div>
-        ))}
-      </div>
-    </Section>
+        ))
+      }
+    </div>
+  </section>
 
-    <Section title="Education">
-      {education.items.map(item => (
-        <div class="flex flex-col gap-2">
-          <div class="flex justify-between items-baseline">
-            <h3 class="font-semibold text-portfolio-text">{item.title}</h3>
-            <span class="pixel-heading text-[8px] text-portfolio-muted">{item.meta}</span>
+  <!-- Projects -->
+  <section id="projects" class="flex scroll-mt-24 flex-col gap-8">
+    <h2 class="text-2xl font-semibold tracking-tight">Selected Projects</h2>
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      {
+        projects.items.slice(0, 4).map((item) => (
+          <a
+            href={item.github}
+            target="_blank"
+            class="group bg-apple-surface border-apple-border/50 shadow-apple hover:shadow-apple-hover block rounded-3xl border p-8 transition-all duration-300 hover:-translate-y-1"
+          >
+            <div class="flex h-full flex-col justify-between gap-8">
+              <div>
+                <div class="text-apple-accent mb-3 text-xs font-semibold tracking-wider uppercase">
+                  {item.category}
+                </div>
+                <h3 class="text-apple-text group-hover:text-apple-accent mb-3 text-xl font-semibold transition-colors">
+                  {item.title}
+                </h3>
+                <p class="text-apple-textMuted text-base leading-relaxed">
+                  {item.intro}
+                </p>
+              </div>
+              <div class="text-apple-textMuted group-hover:text-apple-accent flex items-center gap-1 text-sm font-medium transition-colors">
+                View Project
+                <svg
+                  class="-translate-x-2 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <>
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </>
+                </svg>
+              </div>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Research & Papers -->
+  <section id="research" class="flex scroll-mt-24 flex-col gap-8">
+    <h2 class="text-2xl font-semibold tracking-tight">Research & Papers</h2>
+    <div class="flex flex-col gap-4">
+      {
+        research.items.slice(0, 3).map((item) => (
+          <a
+            href={item.github}
+            target="_blank"
+            class="group bg-apple-surface border-apple-border/50 shadow-apple hover:shadow-apple-hover flex flex-col justify-between gap-4 rounded-2xl border p-6 transition-all duration-300 sm:flex-row sm:items-center"
+          >
+            <div class="flex flex-col gap-2">
+              <h3 class="text-apple-text group-hover:text-apple-accent text-lg font-semibold transition-colors">
+                {item.title}
+              </h3>
+              <p class="text-apple-textMuted text-sm">{item.intro}</p>
+            </div>
+            <div class="text-apple-textMuted bg-apple-surfaceHover shrink-0 rounded-full px-3 py-1.5 text-xs font-medium">
+              {item.meta.split("·")[0].trim()}
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section class="flex flex-col gap-8">
+    <h2 class="text-2xl font-semibold tracking-tight">Education</h2>
+    <div
+      class="bg-apple-surface border-apple-border/50 shadow-apple rounded-3xl border p-8"
+    >
+      {
+        education.items.map((item) => (
+          <div class="flex flex-col gap-2">
+            <div class="flex flex-col justify-between gap-1 sm:flex-row sm:items-baseline">
+              <h3 class="text-apple-text text-xl font-semibold">
+                {item.title}
+              </h3>
+              <span class="text-apple-textMuted text-sm font-medium">
+                {item.meta}
+              </span>
+            </div>
+            <p class="text-apple-textMuted text-base">{item.intro}</p>
           </div>
-          <p class="text-sm text-portfolio-muted">{item.intro}</p>
-        </div>
-      ))}
-    </Section>
-  </main>
+        ))
+      }
+    </div>
+  </section>
 
-  <footer class="mt-12 mb-12 border-t border-portfolio-border pt-12 flex flex-col items-center gap-6 text-center w-full">
-    <a href="mailto:abinash@theabx.in" class="pixel-card px-8 py-4 font-semibold text-portfolio-text hover:text-portfolio-accent inline-block text-sm uppercase tracking-wider transition-colors">
-      <span class="pixel-heading text-xs mr-2">&gt;</span> Initialize Contact
-    </a>
-    <p class="pixel-heading text-[8px] text-portfolio-muted mt-8">© {new Date().getFullYear()} Abinash S. // SYSTEM.ONLINE</p>
+  <footer
+    class="border-apple-border/50 text-apple-textMuted mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 text-sm font-medium sm:flex-row"
+  >
+    <p>© {new Date().getFullYear()} Abinash S.</p>
+    <div class="flex gap-4">
+      <a
+        href="https://github.com/AbiXnash"
+        class="hover:text-apple-text transition-colors">GitHub</a
+      >
+      <a
+        href="mailto:abinash@theabx.in"
+        class="hover:text-apple-text transition-colors">Email</a
+      >
+    </div>
   </footer>
-
 </BaseLayout>

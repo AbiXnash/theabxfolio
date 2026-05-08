@@ -1,8 +1,8 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
 
 interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
@@ -10,19 +10,48 @@ const { title } = Astro.props;
 
 <!doctype html>
 <html lang="en" class="scroll-smooth">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Press+Start+2P&display=swap" rel="stylesheet">
-	</head>
-	<body class="bg-portfolio-bg text-portfolio-text font-sans min-h-screen flex flex-col items-center py-12 px-6 sm:px-8">
-		<div class="w-full max-w-3xl relative z-10 flex flex-col gap-16">
-			<slot />
-		</div>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="flex min-h-screen flex-col items-center antialiased">
+    <!-- Minimal Apple-like Glassmorphism Navbar -->
+    <nav
+      class="glass border-apple-border/50 fixed top-0 right-0 left-0 z-50 border-b"
+    >
+      <div
+        class="mx-auto flex h-12 max-w-4xl items-center justify-between px-6 text-xs font-medium tracking-wide"
+      >
+        <a
+          href="#"
+          class="text-apple-text hover:text-apple-accent transition-colors"
+          >Abinash Selvarasu</a
+        >
+        <div class="flex gap-6">
+          <a
+            href="#experience"
+            class="text-apple-textMuted hover:text-apple-text hidden transition-colors sm:block"
+            >Experience</a
+          >
+          <a
+            href="#projects"
+            class="text-apple-textMuted hover:text-apple-text hidden transition-colors sm:block"
+            >Projects</a
+          >
+          <a
+            href="#research"
+            class="text-apple-textMuted hover:text-apple-text hidden transition-colors sm:block"
+            >Research</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <div class="flex w-full max-w-4xl flex-col gap-24 px-6 pt-24 pb-20">
+      <slot />
+    </div>
+  </body>
 </html>
