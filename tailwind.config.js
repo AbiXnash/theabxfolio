@@ -17,15 +17,15 @@ export default {
       },
       colors: {
         term: {
-          bg: "#000000",
-          text: "#e2e8f0", // zinc-200
-          muted: "#71717a", // zinc-500
-          prompt: "#22c55e", // green-500
-          path: "#3b82f6", // blue-500
-          branch: "#a855f7", // purple-500
-          command: "#eab308", // yellow-500
-          accent: "#ff6b35", // theabx orange
-          error: "#ef4444", // red-500
+          bg: "#282828",
+          text: "#ebdbb2", // gruvbox fg
+          muted: "#928374", // gruvbox gray
+          prompt: "#b8bb26", // gruvbox green
+          path: "#83a598", // gruvbox blue
+          branch: "#d3869b", // gruvbox purple
+          command: "#fabd2f", // gruvbox yellow
+          accent: "#fe8019", // gruvbox orange
+          error: "#fb4934", // gruvbox red
         },
       },
     },

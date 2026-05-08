@@ -6,15 +6,15 @@
     Consolas, monospace;
 
   /* Pure Terminal Palette */
-  --color-term-bg: #000000;
-  --color-term-text: #e2e8f0;
-  --color-term-muted: #71717a;
-  --color-term-prompt: #22c55e;
-  --color-term-path: #3b82f6;
-  --color-term-branch: #a855f7;
-  --color-term-command: #eab308;
-  --color-term-accent: #ff6b35;
-  --color-term-error: #ef4444;
+  --color-term-bg: #282828;
+  --color-term-text: #ebdbb2;
+  --color-term-muted: #928374;
+  --color-term-prompt: #b8bb26;
+  --color-term-path: #83a598;
+  --color-term-branch: #d3869b;
+  --color-term-command: #fabd2f;
+  --color-term-accent: #fe8019;
+  --color-term-error: #fb4934;
 }
 
 body {
