@@ -1,115 +1,98 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import DialogueBox from "../components/DialogueBox.astro";
-import resumeData from "../data/resume.json";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import resumeData from '../data/resume.json';
 
 const { work, projects, research, education } = resumeData;
 ---
 
-<BaseLayout title="ABX.folio - Player 1 Start">
+<BaseLayout title="Abinash S. | Software Engineer">
   <!-- Header / Hero -->
-  <div class="mt-12 mb-8 flex flex-col items-center gap-4">
-    <div class="avatar-walk"></div>
-    <div class="text-center">
-      <h1 class="text-game-primary typewriter mb-2 text-xl sm:text-2xl">
-        ABINASH S.
+  <header class="flex flex-col md:flex-row items-start md:items-center gap-8 py-12 mt-8">
+    <div class="avatar-idle shrink-0"></div>
+    <div class="flex flex-col gap-3">
+      <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight text-portfolio-text">
+        Abinash S.
       </h1>
-      <p class="text-game-secondary text-xs uppercase sm:text-sm">
-        Lv. 99 Backend Engineer
+      <p class="text-portfolio-accent pixel-heading text-xs sm:text-sm typewriter-cursor inline-block pr-2">
+        Software Engineer
+      </p>
+      <p class="text-portfolio-muted max-w-2xl text-sm sm:text-base mt-2 leading-relaxed">
+        Specializing in payments, security, and resilient systems. Building high-volume banking workflows and transaction-heavy payment systems under strict production constraints.
       </p>
     </div>
-  </div>
+  </header>
 
-  <DialogueBox title="Intro">
-    <p class="text-game-secondary mb-2">* Player 1 has entered the server.</p>
-    <p>
-      Software Engineer specializing in payments, security, and resilient
-      systems. Building high-volume banking workflows and transaction-heavy
-      payment systems under strict production constraints.
-    </p>
-  </DialogueBox>
-
-  <DialogueBox title="Current Quests (Work)">
-    {
-      work.items.map((item) => (
-        <div class="mb-6 last:mb-0">
-          <h3 class="text-game-primary mb-1">&gt; {item.title}</h3>
-          <p class="text-game-secondary mb-2 text-[10px] uppercase sm:text-xs">
-            {item.meta}
-          </p>
-          <p class="mb-4">{item.intro}</p>
-          <ul class="list-none space-y-2 pl-2 sm:pl-4">
-            {item.details
-              .split("\n")
-              .filter((line) => line.startsWith("-"))
-              .map((line) => (
-                <li class="before:text-game-secondary flex items-start before:mr-2 before:content-['*']">
-                  <span class="flex-1">{line.replace("- ", "")}</span>
-                </li>
-              ))}
+  <main class="flex flex-col gap-24 w-full">
+    <Section title="Experience">
+      {work.items.map(item => (
+        <div class="flex flex-col gap-2 relative pl-5 sm:pl-6 border-l border-portfolio-border">
+          <div class="absolute w-2 h-2 bg-portfolio-accent rounded-none -left-[4.5px] top-2 pixelated"></div>
+          <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4 mb-2">
+            <h3 class="font-semibold text-portfolio-text text-lg">{item.title}</h3>
+            <span class="pixel-heading text-[8px] text-portfolio-muted">{item.meta}</span>
+          </div>
+          <p class="text-portfolio-muted text-sm mb-3 leading-relaxed">{item.intro}</p>
+          <ul class="flex flex-col gap-3">
+            {item.details.split('\n').filter(line => line.startsWith('-')).map(line => (
+               <li class="text-sm flex items-start text-portfolio-muted">
+                 <span class="text-portfolio-accent mr-3 font-pixel text-[8px] mt-1 shrink-0">&gt;</span>
+                 <span class="flex-1 opacity-90 leading-relaxed">{line.replace('- ', '')}</span>
+               </li>
+            ))}
           </ul>
         </div>
-      ))
-    }
-  </DialogueBox>
+      ))}
+    </Section>
 
-  <DialogueBox title="Inventory (Projects)">
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
-      {
-        projects.items.slice(0, 4).map((item) => (
-          <div class="border-game-border border-2 border-dashed p-3 transition-all hover:border-solid">
-            <h3 class="text-game-primary mb-1 text-xs sm:text-sm">
-              <a
-                href={item.github}
-                target="_blank"
-                class="hover:text-game-text hover:bg-game-primary -ml-1 block truncate px-1 transition-colors"
-              >
-                {item.title}
-              </a>
-            </h3>
-            <p class="text-game-secondary mb-2 text-[10px]">{item.category}</p>
-            <p class="text-[10px] leading-relaxed sm:text-xs">{item.intro}</p>
+    <Section title="Selected Projects">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {projects.items.slice(0, 4).map(item => (
+          <a href={item.github} target="_blank" class="pixel-card p-6 flex flex-col gap-4 group no-underline">
+            <div class="flex justify-between items-start gap-4">
+              <h3 class="font-semibold text-portfolio-text group-hover:text-portfolio-accent transition-colors">{item.title}</h3>
+              <span class="pixel-heading text-[8px] text-portfolio-muted shrink-0 mt-1 border border-portfolio-border px-2 py-1 bg-portfolio-bg">{item.category}</span>
+            </div>
+            <p class="text-sm text-portfolio-muted leading-relaxed flex-1">{item.intro}</p>
+          </a>
+        ))}
+      </div>
+    </Section>
+
+    <Section title="Research & Papers">
+      <div class="flex flex-col gap-8">
+        {research.items.slice(0, 3).map(item => (
+          <div class="flex flex-col gap-2 group">
+            <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+              <h3 class="font-semibold text-portfolio-text group-hover:text-portfolio-accent transition-colors">
+                <a href={item.github} target="_blank">{item.title}</a>
+              </h3>
+              <span class="pixel-heading text-[8px] text-portfolio-muted">{item.meta.split('·')[0].trim()}</span>
+            </div>
+            <p class="text-sm text-portfolio-muted leading-relaxed">{item.intro}</p>
           </div>
-        ))
-      }
-    </div>
-  </DialogueBox>
+        ))}
+      </div>
+    </Section>
 
-  <DialogueBox title="Lore (Research)">
-    <div class="flex flex-col gap-4">
-      {
-        research.items.slice(0, 2).map((item) => (
-          <div class="border-game-secondary border-l-2 pl-3">
-            <h3 class="text-game-primary mb-1 text-xs sm:text-sm">
-              ? {item.title}
-            </h3>
-            <p class="text-[10px] sm:text-xs">{item.intro}</p>
+    <Section title="Education">
+      {education.items.map(item => (
+        <div class="flex flex-col gap-2">
+          <div class="flex justify-between items-baseline">
+            <h3 class="font-semibold text-portfolio-text">{item.title}</h3>
+            <span class="pixel-heading text-[8px] text-portfolio-muted">{item.meta}</span>
           </div>
-        ))
-      }
-    </div>
-  </DialogueBox>
-
-  <DialogueBox title="Training (Education)">
-    {
-      education.items.map((item) => (
-        <div>
-          <h3 class="text-game-primary mb-1 text-xs sm:text-sm">
-            ^ {item.title}
-          </h3>
-          <p class="text-game-secondary mb-2 text-[10px]">{item.meta}</p>
-          <p class="text-[10px] sm:text-xs">{item.intro}</p>
+          <p class="text-sm text-portfolio-muted">{item.intro}</p>
         </div>
-      ))
-    }
-  </DialogueBox>
+      ))}
+    </Section>
+  </main>
 
-  <div class="mt-8 mb-12 text-center">
-    <a
-      href="mailto:abinash@theabx.in"
-      class="pixel-border hover:bg-game-text hover:text-game-bg inline-block cursor-pointer px-6 py-3 text-xs uppercase transition-colors sm:text-sm"
-    >
-      Connect P2 -&gt;
+  <footer class="mt-12 mb-12 border-t border-portfolio-border pt-12 flex flex-col items-center gap-6 text-center w-full">
+    <a href="mailto:abinash@theabx.in" class="pixel-card px-8 py-4 font-semibold text-portfolio-text hover:text-portfolio-accent inline-block text-sm uppercase tracking-wider transition-colors">
+      <span class="pixel-heading text-xs mr-2">&gt;</span> Initialize Contact
     </a>
-  </div>
+    <p class="pixel-heading text-[8px] text-portfolio-muted mt-8">© {new Date().getFullYear()} Abinash S. // SYSTEM.ONLINE</p>
+  </footer>
+
 </BaseLayout>

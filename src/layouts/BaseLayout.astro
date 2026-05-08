@@ -1,34 +1,28 @@
 ---
-import "../styles/global.css";
+import '../styles/global.css';
 
 interface Props {
-  title: string;
+	title: string;
 }
 
 const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-  </head>
-  <body
-    class="bg-game-bg text-game-text font-pixel bg-clouds relative flex min-h-screen flex-col items-center justify-center overflow-hidden p-4 sm:p-8"
-  >
-    <!-- Overlay for CRT scanlines effect (optional, minimal) -->
-    <div
-      class="pointer-events-none fixed inset-0 z-50 opacity-10"
-      style="background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); background-size: 100% 2px, 3px 100%;"
-    >
-    </div>
-
-    <div class="relative z-10 flex w-full max-w-3xl flex-col gap-6">
-      <slot />
-    </div>
-  </body>
+<html lang="en" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+	</head>
+	<body class="bg-portfolio-bg text-portfolio-text font-sans min-h-screen flex flex-col items-center py-12 px-6 sm:px-8">
+		<div class="w-full max-w-3xl relative z-10 flex flex-col gap-16">
+			<slot />
+		</div>
+	</body>
 </html>
