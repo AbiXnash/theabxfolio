@@ -42,7 +42,10 @@ const files = [
   <!-- Editor Area -->
   <main class="flex-1 flex flex-col min-w-0 bg-ide-bg">
     <!-- Editor Tabs -->
-    <div class="flex h-10 bg-ide-sidebar border-b border-ide-border overflow-x-auto no-scrollbar shrink-0 select-none" id="editor-tabs">
+    <div class="flex h-10 bg-ide-sidebar border-b border-ide-border overflow-x-auto no-scrollbar shrink-0 select-none items-center" id="editor-tabs">
+      <button id="sidebar-toggle" class="md:hidden px-3 text-ide-comment hover:text-ide-text border-r border-ide-border h-full flex items-center shrink-0 cursor-pointer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
       {files.map(file => (
         <button 
           class={`editor-tab-btn flex items-center gap-2 px-4 h-full border-r border-ide-border cursor-pointer hover:bg-ide-bg whitespace-nowrap ${file.id === 'readme' ? 'bg-ide-bg text-ide-accent border-t-2 border-t-ide-accent' : 'text-ide-comment border-t-2 border-t-transparent'}`}
@@ -166,6 +169,19 @@ const files = [
 </BaseLayout>
 
 <script>
+  // Mobile sidebar logic
+  const sidebarToggle = document.getElementById('sidebar-toggle');
+  const mobileSidebar = document.getElementById('mobile-sidebar');
+  const mobileOverlay = document.getElementById('mobile-overlay');
+
+  function toggleSidebar() {
+    mobileSidebar?.classList.toggle('-translate-x-full');
+    mobileOverlay?.classList.toggle('hidden');
+  }
+
+  sidebarToggle?.addEventListener('click', toggleSidebar);
+  mobileOverlay?.addEventListener('click', toggleSidebar);
+
   // Tab switching logic
   const fileBtns = document.querySelectorAll('.file-tab-btn, .editor-tab-btn');
   const fileContents = document.querySelectorAll('.file-content');
@@ -174,6 +190,11 @@ const files = [
   fileBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const targetId = btn.getAttribute('data-target');
+
+      // Close mobile sidebar if open
+      if (mobileOverlay && !mobileOverlay.classList.contains('hidden')) {
+        toggleSidebar();
+      }
       
       // Update contents
       fileContents.forEach(content => {

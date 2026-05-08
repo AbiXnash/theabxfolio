@@ -80,11 +80,14 @@ body {
 }
 .editor-line {
   display: flex;
+  min-height: 1.6rem;
+  line-height: 1.8;
 }
 .editor-line::before {
   counter-increment: line;
   content: counter(line);
   display: inline-block;
+  flex-shrink: 0;
   width: 2.5rem;
   padding-right: 1rem;
   margin-right: 1rem;
