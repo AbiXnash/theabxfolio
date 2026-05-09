@@ -1,8 +1,22 @@
 ---
+import { getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import resumeData from '../data/resume.json';
+import ExperienceCard from '../components/ExperienceCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 
-const { work, projects, research, education } = resumeData;
+const resumeEntry = await getEntry('resume', 'resume');
+if (!resumeEntry) {
+    throw new Error('Could not find resume data in content collection');
+}
+
+const { work, projects, research } = resumeEntry.data;
+
+// Order research by year (descending)
+const sortedResearch = [...research.items].sort((a, b) => {
+    const yearA = parseInt(a.meta.match(/\d{4}/)?.[0] || '0');
+    const yearB = parseInt(b.meta.match(/\d{4}/)?.[0] || '0');
+    return yearB - yearA;
+});
 ---
 
 <BaseLayout title="Abinash Selvarasu | Backend Engineer">
@@ -38,37 +52,6 @@ const { work, projects, research, education } = resumeData;
       </div>
     </section>
 
-    <!-- Stats / Bento Lite -->
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
-        <div class="bg-gruv-surface/40 border border-gruv-border/30 rounded-apple p-8 sm:p-10 flex flex-col justify-between gap-10 hover:border-gruv-orange/50 transition-colors group">
-            <div class="text-gruv-orange">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-            </div>
-            <div>
-                <h3 class="text-2xl font-bold tracking-tight mb-2 group-hover:text-gruv-orange transition-colors">Security First</h3>
-                <p class="text-gruv-muted">Hardened banking systems with deterministic failure handling and full traceability.</p>
-            </div>
-        </div>
-        <div class="bg-gruv-surface/40 border border-gruv-border/30 rounded-apple p-8 sm:p-10 flex flex-col justify-between gap-10 hover:border-gruv-orange/50 transition-colors group">
-            <div class="text-gruv-orange">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-            </div>
-            <div>
-                <h3 class="text-2xl font-bold tracking-tight mb-2 group-hover:text-gruv-orange transition-colors">High Scale</h3>
-                <p class="text-gruv-muted">Processing millions of transactions with strict reconciliation and idempotency.</p>
-            </div>
-        </div>
-        <div class="bg-gruv-surface/40 border border-gruv-border/30 rounded-apple p-8 sm:p-10 flex flex-col justify-between gap-10 hover:border-gruv-orange/50 transition-colors group">
-            <div class="text-gruv-orange">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-            </div>
-            <div>
-                <h3 class="text-2xl font-bold tracking-tight mb-2 group-hover:text-gruv-orange transition-colors">Clean Logic</h3>
-                <p class="text-gruv-muted">Modular, maintainable codebases built on systems foundations and research.</p>
-            </div>
-        </div>
-    </section>
-
     <!-- Experience -->
     <section id="experience" class="flex flex-col gap-12 sm:gap-20 scroll-mt-32 reveal">
         <div class="flex flex-col gap-4">
@@ -77,35 +60,7 @@ const { work, projects, research, education } = resumeData;
         </div>
         <div class="flex flex-col gap-8">
             {work.items.map(item => (
-                <div class="bg-gruv-surface border border-gruv-border/50 rounded-apple p-8 sm:p-12 shadow-premium hover:shadow-premium-hover transition-all duration-500 group">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
-                        <div class="flex flex-col gap-1">
-                            <h4 class="text-2xl sm:text-3xl font-bold tracking-tight group-hover:text-gruv-orange transition-colors">{item.title}</h4>
-                            <span class="text-gruv-muted font-medium text-lg uppercase tracking-wide">{item.meta}</span>
-                        </div>
-                        <div class="px-4 py-2 bg-gruv-border/30 rounded-xl text-gruv-orange font-bold text-sm">PROD_GRADE</div>
-                    </div>
-                    <p class="text-xl text-gruv-text mb-10 leading-relaxed max-w-3xl font-medium">
-                        {item.intro}
-                    </p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                        <ul class="flex flex-col gap-4">
-                            {item.details.split('\n').filter(line => line.startsWith('-')).map(line => (
-                                <li class="flex items-start gap-4 text-gruv-muted">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-gruv-orange mt-2.5 shrink-0"></span>
-                                    <span class="text-lg leading-relaxed">{line.replace('- ', '')}</span>
-                                </li>
-                            ))}
-                        </ul>
-                        <div class="flex flex-wrap h-fit gap-3">
-                            {item.skills?.map(skill => (
-                                <span class="bg-gruv-bg border border-gruv-border/50 px-4 py-2 rounded-full text-sm font-bold text-gruv-muted hover:border-gruv-orange hover:text-gruv-text transition-colors">
-                                    #{skill}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
-                </div>
+                <ExperienceCard {...item} />
             ))}
         </div>
     </section>
@@ -121,27 +76,12 @@ const { work, projects, research, education } = resumeData;
                 Full Registry (GitHub) <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </a>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Mobile scroll control: use a horizontal carousel on small screens, grid on desktop -->
+        <div class="flex md:grid md:grid-cols-2 gap-8 overflow-x-auto md:overflow-visible pb-10 md:pb-0 no-scrollbar snap-x snap-mandatory">
             {projects.items.map(item => (
-                <a href={item.github} target="_blank" class="group bg-gruv-surface/30 border border-gruv-border/30 rounded-apple p-10 flex flex-col justify-between gap-12 hover:bg-gruv-surface hover:border-gruv-orange/50 shadow-premium transition-all duration-500">
-                    <div class="flex flex-col gap-6">
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs font-bold text-gruv-muted uppercase tracking-widest">{item.category}</span>
-                            <div class="w-8 h-8 rounded-full bg-gruv-bg border border-gruv-border/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-3">
-                            <h4 class="text-3xl font-bold tracking-tighter group-hover:text-gruv-orange transition-colors leading-none">{item.title}</h4>
-                            <p class="text-lg text-gruv-muted leading-relaxed line-clamp-3">
-                                {item.intro}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="text-sm font-bold text-gruv-orange tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity translate-x-[-10px] group-hover:translate-x-0 duration-300">
-                        Explore Source_
-                    </div>
-                </a>
+                <div class="min-w-[85vw] md:min-w-0 snap-center">
+                    <ProjectCard {...item} />
+                </div>
             ))}
         </div>
     </section>
@@ -153,7 +93,7 @@ const { work, projects, research, education } = resumeData;
             <h3 class="text-4xl sm:text-6xl font-extrabold tracking-tighter">Applied Science.</h3>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {research.items.map(item => (
+            {sortedResearch.map(item => (
                 <div class="bg-gruv-surface/40 border border-gruv-border/30 rounded-[2rem] p-8 flex flex-col justify-between gap-6 hover:border-gruv-blue/50 transition-colors group">
                     <div class="flex flex-col gap-4">
                         <div class="text-gruv-blue font-bold text-[10px] uppercase tracking-widest opacity-60">Research Paper</div>
@@ -171,25 +111,26 @@ const { work, projects, research, education } = resumeData;
         </div>
     </section>
 
-    <!-- Education -->
+    <!-- Education Replacement: Current Focus -->
     <section class="flex flex-col gap-12 sm:gap-20 reveal">
         <div class="flex flex-col gap-4 text-center items-center">
-            <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-xs sm:text-sm">Foundations</h2>
-            <h3 class="text-4xl sm:text-6xl font-extrabold tracking-tighter">Education.</h3>
+            <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-xs sm:text-sm">Currently.init()</h2>
+            <h3 class="text-4xl sm:text-6xl font-extrabold tracking-tighter">Modern Tech Stack.</h3>
         </div>
         <div class="max-w-4xl mx-auto w-full bg-gruv-surface/50 border border-gruv-border/30 rounded-apple p-10 sm:p-16 flex flex-col sm:flex-row items-center justify-between gap-10">
-            {education.items.map(item => (
-                <>
-                    <div class="flex flex-col gap-4 text-center sm:text-left">
-                        <div class="text-gruv-orange font-bold text-lg uppercase tracking-widest leading-none">{item.meta}</div>
-                        <h4 class="text-3xl sm:text-4xl font-extrabold tracking-tighter">{item.title}</h4>
-                        <p class="text-xl text-gruv-muted max-w-md">{item.intro}</p>
-                    </div>
-                    <div class="w-24 h-24 bg-gruv-border/30 rounded-full flex items-center justify-center shrink-0">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path></svg>
-                    </div>
-                </>
-            ))}
+            <div class="flex flex-col gap-6 text-center sm:text-left">
+                <div class="text-gruv-orange font-bold text-lg uppercase tracking-widest leading-none">Primary Focus</div>
+                <h4 class="text-3xl sm:text-4xl font-extrabold tracking-tighter">Java / Go / Astro / Bun</h4>
+                <div class="flex flex-wrap justify-center sm:justify-start gap-4">
+                    <span class="px-4 py-2 bg-gruv-bg rounded-lg font-mono text-sm border border-gruv-border/50">Spring Boot</span>
+                    <span class="px-4 py-2 bg-gruv-bg rounded-lg font-mono text-sm border border-gruv-border/50">PostgreSQL</span>
+                    <span class="px-4 py-2 bg-gruv-bg rounded-lg font-mono text-sm border border-gruv-border/50">Microservices</span>
+                    <span class="px-4 py-2 bg-gruv-bg rounded-lg font-mono text-sm border border-gruv-border/50">Distributed Systems</span>
+                </div>
+            </div>
+            <div class="w-32 h-32 bg-gruv-border/30 rounded-full flex items-center justify-center shrink-0 animate-pulse">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+            </div>
         </div>
     </section>
 

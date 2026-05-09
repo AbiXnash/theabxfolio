@@ -1,0 +1,63 @@
+---
+interface Props {
+  title: string;
+  category?: string;
+  intro: string;
+  github: string;
+}
+
+const { title, category, intro, github } = Astro.props;
+---
+
+<a
+  href={github}
+  target="_blank"
+  class="group bg-gruv-surface/30 border-gruv-border/30 rounded-apple hover:bg-gruv-surface hover:border-gruv-orange/50 shadow-premium flex flex-col justify-between gap-12 border p-10 transition-all duration-500"
+>
+  <div class="flex flex-col gap-6">
+    <div class="flex items-center justify-between">
+      {
+        category && (
+          <span class="text-gruv-muted text-xs font-bold tracking-widest uppercase">
+            {category}
+          </span>
+        )
+      }
+      <div
+        class="bg-gruv-bg border-gruv-border/50 flex h-8 w-8 items-center justify-center rounded-full border opacity-0 transition-opacity group-hover:opacity-100"
+      >
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          ><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+          ></path><polyline points="15 3 21 3 21 9"></polyline><line
+            x1="10"
+            y1="14"
+            x2="21"
+            y2="3"></line></svg
+        >
+      </div>
+    </div>
+    <div class="flex flex-col gap-3">
+      <h4
+        class="group-hover:text-gruv-orange text-3xl leading-none font-bold tracking-tighter transition-colors"
+      >
+        {title}
+      </h4>
+      <p class="text-gruv-muted line-clamp-3 text-lg leading-relaxed">
+        {intro}
+      </p>
+    </div>
+  </div>
+  <div
+    class="text-gruv-orange translate-x-[-10px] text-sm font-bold tracking-widest uppercase opacity-0 transition-opacity duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+  >
+    Explore Source_
+  </div>
+</a>

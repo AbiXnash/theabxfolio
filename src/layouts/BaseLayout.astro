@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 
 interface Props {
@@ -22,11 +23,13 @@ const { title } = Astro.props;
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=JetBrains+Mono:wght@400;700&display=swap"
       rel="stylesheet"
     />
+    <ClientRouter />
   </head>
   <body class="bg-gruv-bg text-gruv-text bg-dots min-h-screen antialiased">
     <!-- Premium Sticky Navbar -->
     <nav
       class="glass border-gruv-border/30 fixed top-0 right-0 left-0 z-50 h-16 border-b"
+      transition:persist
     >
       <div
         class="mx-auto flex h-full max-w-6xl items-center justify-between px-6"
@@ -46,16 +49,19 @@ const { title } = Astro.props;
         <div class="hidden items-center gap-10 text-sm font-medium md:flex">
           <a
             href="#experience"
+            data-astro-prefetch
             class="text-gruv-muted hover:text-gruv-orange transition-colors"
             >Experience</a
           >
           <a
             href="#projects"
+            data-astro-prefetch
             class="text-gruv-muted hover:text-gruv-orange transition-colors"
             >Projects</a
           >
           <a
             href="#research"
+            data-astro-prefetch
             class="text-gruv-muted hover:text-gruv-orange transition-colors"
             >Research</a
           >
@@ -138,31 +144,41 @@ const { title } = Astro.props;
     </footer>
 
     <script>
-      // Mobile Menu Toggle
-      const toggle = document.getElementById("menu-toggle");
-      const menu = document.getElementById("mobile-menu");
-      const links = document.querySelectorAll(".mobile-link");
+      function setup() {
+        // Mobile Menu Toggle
+        const toggle = document.getElementById("menu-toggle");
+        const menu = document.getElementById("mobile-menu");
+        const links = document.querySelectorAll(".mobile-link");
 
-      toggle?.addEventListener("click", () => menu?.classList.toggle("hidden"));
-      links.forEach((l) =>
-        l.addEventListener("click", () => menu?.classList.add("hidden")),
-      );
+        toggle?.addEventListener("click", () =>
+          menu?.classList.toggle("hidden"),
+        );
+        links.forEach((l) =>
+          l.addEventListener("click", () => menu?.classList.add("hidden")),
+        );
 
-      // Scroll Reveal Observer
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("active");
-            }
-          });
-        },
-        { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
-      );
+        // Scroll Reveal Observer
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("active");
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
+        );
 
-      document
-        .querySelectorAll(".reveal")
-        .forEach((el) => observer.observe(el));
+        document
+          .querySelectorAll(".reveal")
+          .forEach((el) => observer.observe(el));
+      }
+
+      // Initial setup
+      setup();
+
+      // Re-setup on view transitions
+      document.addEventListener("astro:after-swap", setup);
     </script>
   </body>
 </html>

@@ -1,0 +1,64 @@
+---
+interface Props {
+  title: string;
+  meta: string;
+  intro: string;
+  details: string;
+  skills?: string[];
+}
+
+const { title, meta, intro, details, skills } = Astro.props;
+---
+
+<div
+  class="bg-gruv-surface border-gruv-border/50 rounded-apple shadow-premium hover:shadow-premium-hover group border p-8 transition-all duration-500 sm:p-12"
+>
+  <div
+    class="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-center"
+  >
+    <div class="flex flex-col gap-1">
+      <h4
+        class="group-hover:text-gruv-orange text-2xl font-bold tracking-tight transition-colors sm:text-3xl"
+      >
+        {title}
+      </h4>
+      <span class="text-gruv-muted text-lg font-medium tracking-wide uppercase"
+        >{meta}</span
+      >
+    </div>
+    <div
+      class="bg-gruv-border/30 text-gruv-orange rounded-xl px-4 py-2 text-sm font-bold"
+    >
+      PROD_GRADE
+    </div>
+  </div>
+  <p class="text-gruv-text mb-10 max-w-3xl text-xl leading-relaxed font-medium">
+    {intro}
+  </p>
+  <div class="grid grid-cols-1 gap-10 md:grid-cols-2">
+    <ul class="flex flex-col gap-4">
+      {
+        details
+          .split("\n")
+          .filter((line) => line.startsWith("-"))
+          .map((line) => (
+            <li class="text-gruv-muted flex items-start gap-4">
+              <span class="bg-gruv-orange mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full" />
+              <span class="text-lg leading-relaxed">
+                {line.replace("- ", "")}
+              </span>
+            </li>
+          ))
+      }
+    </ul>
+    <div class="flex h-fit flex-wrap gap-3">
+      {
+        skills?.map((skill) => (
+          <span class="bg-gruv-bg border-gruv-border/50 text-gruv-muted hover:border-gruv-orange hover:text-gruv-text rounded-full border px-4 py-2 text-sm font-bold transition-colors">
+            #{skill}
+          </span>
+        ))
+      }
+    </div>
+  </div>
+</div>
