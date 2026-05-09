@@ -5,9 +5,9 @@
   --font-mono: "JetBrains Mono", monospace;
   --font-pixel: "Press Start 2P", monospace;
 
-  --color-gruv-bg: #1d2021;
-  --color-gruv-surface: #282828;
-  --color-gruv-border: #3c3836;
+  --color-gruv-bg: #0d0e0f;
+  --color-gruv-surface: #161819;
+  --color-gruv-border: #2a2c2d;
   --color-gruv-text: #ebdbb2;
   --color-gruv-muted: #928374;
   --color-gruv-green: #b8bb26;
@@ -16,6 +16,10 @@
   --color-gruv-yellow: #fabd2f;
   --color-gruv-orange: #fe8019;
   --color-gruv-red: #fb4934;
+}
+
+html {
+  color-scheme: dark;
 }
 
 body {
@@ -28,7 +32,7 @@ body {
 
 /* Glassmorphism utility */
 .glass {
-  background: rgba(40, 40, 40, 0.72);
+  background: rgba(13, 14, 15, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
@@ -36,10 +40,14 @@ body {
 /* Subtle dot background */
 .bg-dots {
   background-image: radial-gradient(
-    rgba(146, 131, 116, 0.1) 1px,
+    rgba(254, 128, 25, 0.07) 1px,
     transparent 1px
   );
   background-size: 32px 32px;
+}
+
+.text-shadow-glow {
+  text-shadow: 0 0 20px rgba(254, 128, 25, 0.4);
 }
 
 /* Scroll Reveal Utilities */

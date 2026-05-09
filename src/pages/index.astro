@@ -4,9 +4,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ExperienceCard from '../components/ExperienceCard.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 
-const resumeEntry = await getEntry('resume', 'resume');
+// Use getEntry to fetch the single resume data object
+const resumeEntry = await getEntry('resume', 'main');
+
 if (!resumeEntry) {
-    throw new Error('Could not find resume data in content collection');
+    throw new Error('Could not find resume data in content collection. ID used: main');
 }
 
 const { work, projects, research } = resumeEntry.data;
@@ -31,7 +33,7 @@ const sortedResearch = [...research.items].sort((a, b) => {
                 <span class="w-10 h-[1px] bg-gruv-orange"></span> Software Engineer
             </h2>
             <h1 class="text-5xl sm:text-8xl font-extrabold tracking-tighter leading-[0.9] text-gruv-text">
-                Building <span class="text-gruv-orange">resilient</span> backend systems.
+                Building <span class="text-gruv-orange text-shadow-glow">resilient</span> backend systems.
             </h1>
         </div>
         <p class="text-xl sm:text-2xl text-gruv-muted leading-relaxed font-medium max-w-xl">
@@ -76,7 +78,7 @@ const sortedResearch = [...research.items].sort((a, b) => {
                 Full Registry (GitHub) <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </a>
         </div>
-        <!-- Mobile scroll control: use a horizontal carousel on small screens, grid on desktop -->
+        <!-- Mobile scroll control: horizontal carousel -->
         <div class="flex md:grid md:grid-cols-2 gap-8 overflow-x-auto md:overflow-visible pb-10 md:pb-0 no-scrollbar snap-x snap-mandatory">
             {projects.items.map(item => (
                 <div class="min-w-[85vw] md:min-w-0 snap-center">
@@ -111,25 +113,29 @@ const sortedResearch = [...research.items].sort((a, b) => {
         </div>
     </section>
 
-    <!-- Education Replacement: Current Focus -->
-    <section class="flex flex-col gap-12 sm:gap-20 reveal">
+    <!-- Education Replacement: Technical Arsenal -->
+    <section class="flex flex-col gap-12 sm:gap-20 reveal mb-20">
         <div class="flex flex-col gap-4 text-center items-center">
-            <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-xs sm:text-sm">Currently.init()</h2>
-            <h3 class="text-4xl sm:text-6xl font-extrabold tracking-tighter">Modern Tech Stack.</h3>
+            <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-xs sm:text-sm">Arsenal</h2>
+            <h3 class="text-4xl sm:text-6xl font-extrabold tracking-tighter">System Stack.</h3>
         </div>
         <div class="max-w-4xl mx-auto w-full bg-gruv-surface/50 border border-gruv-border/30 rounded-apple p-10 sm:p-16 flex flex-col sm:flex-row items-center justify-between gap-10">
-            <div class="flex flex-col gap-6 text-center sm:text-left">
-                <div class="text-gruv-orange font-bold text-lg uppercase tracking-widest leading-none">Primary Focus</div>
-                <h4 class="text-3xl sm:text-4xl font-extrabold tracking-tighter">Java / Go / Astro / Bun</h4>
-                <div class="flex flex-wrap justify-center sm:justify-start gap-4">
-                    <span class="px-4 py-2 bg-gruv-bg rounded-lg font-mono text-sm border border-gruv-border/50">Spring Boot</span>
-                    <span class="px-4 py-2 bg-gruv-bg rounded-lg font-mono text-sm border border-gruv-border/50">PostgreSQL</span>
-                    <span class="px-4 py-2 bg-gruv-bg rounded-lg font-mono text-sm border border-gruv-border/50">Microservices</span>
-                    <span class="px-4 py-2 bg-gruv-bg rounded-lg font-mono text-sm border border-gruv-border/50">Distributed Systems</span>
+            <div class="flex flex-col gap-8 text-center sm:text-left flex-1">
+                <div class="flex flex-col gap-2">
+                    <div class="text-gruv-orange font-bold text-lg uppercase tracking-widest leading-none">Core Foundations</div>
+                    <h4 class="text-3xl sm:text-4xl font-extrabold tracking-tighter">Java & Go Performance</h4>
+                </div>
+                <div class="flex flex-wrap justify-center sm:justify-start gap-3">
+                    {['Spring Boot', 'PostgreSQL', 'Microservices', 'Distributed Systems', 'Astro', 'Bun', 'TypeScript'].map(tech => (
+                        <span class="px-5 py-2.5 bg-gruv-bg rounded-xl font-mono text-sm border border-gruv-border/50 text-gruv-muted hover:text-gruv-orange hover:border-gruv-orange transition-all duration-300 cursor-default">
+                            {tech}
+                        </span>
+                    ))}
                 </div>
             </div>
-            <div class="w-32 h-32 bg-gruv-border/30 rounded-full flex items-center justify-center shrink-0 animate-pulse">
-                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+            <div class="w-32 h-32 bg-gruv-border/30 rounded-full flex items-center justify-center shrink-0 animate-pulse relative">
+                <div class="absolute inset-0 bg-gruv-orange/20 blur-xl rounded-full"></div>
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-gruv-orange relative z-10"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
             </div>
         </div>
     </section>
