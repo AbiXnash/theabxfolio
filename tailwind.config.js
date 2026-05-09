@@ -30,6 +30,9 @@ export default {
       borderRadius: {
         apple: "2.5rem",
       },
+      letterSpacing: {
+        tightest: "-0.06em",
+      },
     },
   },
   plugins: [],

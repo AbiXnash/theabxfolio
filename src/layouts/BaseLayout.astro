@@ -26,7 +26,7 @@ const { title } = Astro.props;
     <ClientRouter />
   </head>
   <body class="bg-gruv-bg text-gruv-text bg-dots min-h-screen antialiased">
-    <!-- Premium Sticky Navbar -->
+    <!-- Personal Portfolio Navbar -->
     <nav
       class="glass border-gruv-border/30 fixed top-0 right-0 left-0 z-50 h-16 border-b"
       transition:persist
@@ -34,42 +34,59 @@ const { title } = Astro.props;
       <div
         class="mx-auto flex h-full max-w-6xl items-center justify-between px-6"
       >
-        <div class="flex items-center gap-3">
-          <div
-            class="bg-gruv-orange h-8 w-8 flex-shrink-0 rotate-12 rounded-lg"
+        <div class="flex items-center gap-4">
+          <a href="/" class="group flex items-center gap-2">
+            <span
+              class="text-gruv-text group-hover:text-gruv-orange text-lg font-bold tracking-tight transition-colors"
+              >abx <span class="text-gruv-muted font-normal">//</span> selvarasu</span
+            >
+          </a>
+          <div class="bg-gruv-border/50 hidden h-4 w-[1px] sm:block"></div>
+          <span
+            class="text-gruv-muted hidden text-[10px] font-bold tracking-widest uppercase sm:block"
           >
-          </div>
-          <span class="hidden text-lg font-bold tracking-tighter sm:block"
-            >abinash.selvarasu</span
-          >
-          <span class="text-lg font-bold tracking-tighter sm:hidden">abx</span>
+            Backend Engineer
+          </span>
         </div>
 
         <!-- Desktop Links -->
-        <div class="hidden items-center gap-10 text-sm font-medium md:flex">
+        <div
+          class="hidden items-center gap-8 text-xs font-bold tracking-widest uppercase md:flex"
+        >
           <a
             href="#experience"
             data-astro-prefetch
-            class="text-gruv-muted hover:text-gruv-orange transition-colors"
-            >Experience</a
+            class="text-gruv-muted hover:text-gruv-text transition-colors"
+            >Work</a
           >
           <a
             href="#projects"
             data-astro-prefetch
-            class="text-gruv-muted hover:text-gruv-orange transition-colors"
-            >Projects</a
+            class="text-gruv-muted hover:text-gruv-text transition-colors"
+            >Lab</a
           >
           <a
             href="#research"
             data-astro-prefetch
-            class="text-gruv-muted hover:text-gruv-orange transition-colors"
-            >Research</a
+            class="text-gruv-muted hover:text-gruv-text transition-colors"
+            >Notes</a
           >
           <a
             href="mailto:abinash@theabx.in"
-            class="bg-gruv-orange text-gruv-bg rounded-full px-5 py-2 transition-transform hover:scale-105"
-            >Hire Me</a
+            class="text-gruv-orange flex items-center gap-2 transition-all hover:brightness-125"
           >
+            Say Hello
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              ><line x1="22" y1="2" x2="11" y2="13"></line><polyline
+                points="22 2 15 22 11 13 2 9 22 2"></polyline></svg
+            >
+          </a>
         </div>
 
         <!-- Mobile Toggle -->
@@ -95,15 +112,13 @@ const { title } = Astro.props;
         id="mobile-menu"
         class="bg-gruv-surface border-gruv-border shadow-premium absolute top-16 right-0 left-0 flex hidden flex-col gap-6 border-b p-6 md:hidden"
       >
-        <a href="#experience" class="mobile-link text-lg font-medium"
-          >Experience</a
-        >
-        <a href="#projects" class="mobile-link text-lg font-medium">Projects</a>
-        <a href="#research" class="mobile-link text-lg font-medium">Research</a>
+        <a href="#experience" class="mobile-link text-lg font-medium">Work</a>
+        <a href="#projects" class="mobile-link text-lg font-medium">Lab</a>
+        <a href="#research" class="mobile-link text-lg font-medium">Notes</a>
         <a
           href="mailto:abinash@theabx.in"
           class="bg-gruv-orange text-gruv-bg rounded-xl px-5 py-3 text-center font-bold"
-          >Contact Me</a
+          >Say Hello</a
         >
       </div>
     </nav>
