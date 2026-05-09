@@ -23,17 +23,21 @@ const sortedResearch = [...research.items].sort((a, b) => {
 
 <BaseLayout title="Abinash Selvarasu | Backend Engineer">
   
-  <main class="max-w-6xl mx-auto px-6 pt-20 sm:pt-48 flex flex-col gap-16 sm:gap-48">
+  <main class="max-w-6xl mx-auto px-6 pt-20 sm:pt-48 flex flex-col gap-16 sm:gap-48 overflow-hidden">
     
     <!-- Personal Hero Section -->
     <section class="flex flex-col items-center text-center gap-10 reveal relative pt-8 sm:pt-0">
-      
-      <div class="flex flex-col items-center gap-8 max-w-4xl">
-        <div class="flex flex-col gap-4">
-            <div class="flex items-center justify-center gap-4 mb-2">
-                <span class="text-gruv-muted font-mono text-[10px] uppercase tracking-widest">abx.in // active_</span>
+      <div class="flex flex-col items-center gap-8 max-w-4xl relative">
+        <!-- Floating Pet with Speech Bubble -->
+        <div class="flex items-center justify-center gap-4 mb-2 relative group">
+            <span class="text-gruv-muted font-mono text-[10px] uppercase tracking-widest">abx.in // active_</span>
+            <div class="relative">
+                <div id="ghost-bubble" class="speech-bubble">Hi.</div>
                 <div class="pixel-pet scale-75"></div>
             </div>
+        </div>
+
+        <div class="flex flex-col gap-4">
             <h1 class="text-5xl sm:text-[9rem] font-black tracking-tightest leading-[0.85] sm:leading-[0.8] text-gruv-text">
                 I build <span class="text-gruv-orange text-shadow-glow">invisible</span> systems.
             </h1>
@@ -131,7 +135,7 @@ const sortedResearch = [...research.items].sort((a, b) => {
     </section>
 
     <!-- Education Replacement: Technical Arsenal -->
-    <section class="flex flex-col gap-8 sm:gap-20 reveal mb-20 px-2 sm:px-0">
+    <section id="toolkit" class="flex flex-col gap-8 sm:gap-20 reveal mb-20 px-2 sm:px-0">
         <div class="flex flex-col gap-4 text-center items-center">
             <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-[10px] sm:text-sm">Toolkit</h2>
             <h3 class="text-4xl sm:text-6xl font-extrabold tracking-tighter">My daily drivers.</h3>
@@ -173,9 +177,48 @@ const sortedResearch = [...research.items].sort((a, b) => {
         }
     }
 
+    function setupGhostTalk() {
+        const bubble = document.getElementById('ghost-bubble');
+        if (!bubble) return;
+
+        const messages: Record<string, string> = {
+            'experience': "Where I broke things (and fixed them).",
+            'projects': "Artifacts from my digital hoard.",
+            'research': "Academic flex. Proceed with caution.",
+            'toolkit': "My daily drivers. Yes, I like orange."
+        };
+
+        const visited = new Set();
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !visited.has(entry.target.id)) {
+                    const msg = messages[entry.target.id];
+                    if (msg) {
+                        visited.add(entry.target.id);
+                        bubble.textContent = msg;
+                        bubble.classList.add('visible');
+                        setTimeout(() => {
+                            bubble.classList.remove('visible');
+                        }, 3500);
+                    }
+                }
+            });
+        }, { threshold: 0.3 });
+
+        Object.keys(messages).forEach(id => {
+            const el = document.getElementById(id);
+            if (el) observer.observe(el);
+        });
+    }
+
     // Initial setup
     setupLoadMore();
+    setupGhostTalk();
 
     // Re-setup on view transitions
-    document.addEventListener('astro:after-swap', setupLoadMore);
+    document.addEventListener('astro:after-swap', () => {
+        setupLoadMore();
+        setupGhostTalk();
+    });
 </script>
