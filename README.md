@@ -1,188 +1,102 @@
 # theabxfolio
 
-Personal portfolio of [Abinash Selvarasu](https://theabx.in) — Software Engineer specializing in payments, security, and resilient systems.
+Personal portfolio of [Abinash Selvarasu](https://theabx.in) — Software Engineer building resilient, high-stakes backend systems.
 
-Built with [Astro](https://astro.build), featuring a clean terminal-inspired dark theme with orange accents.
-
----
-
-## Features
-
-- **Clean Dark Theme** — Minimal design with `#0f0f0f` background and `#ff6b35` accent
-- **Terminal Aesthetic** — JetBrains Mono font, command-line inspired UI
-- **GitHub Activity** — Live commit feed from public GitHub events (client-side)
-- **Responsive** — Optimized for mobile with bottom sheet navigation
-- **SEO Optimized** — Full meta tags, Open Graph, Twitter cards, JSON-LD structured data
-- **Performance** — Static build, minimal dependencies
-- **Tested** — Unit tests with Bun
+Built with **Astro 6**, **Bun**, and **Tailwind v4**, featuring a premium "Apple-Impact" design system with the iconic **Gruvbox Dark** color palette.
 
 ---
 
-## Tech Stack
+## 🚀 Key Features
 
-- **Framework:** [Astro](https://astro.build) v6
-- **Styling:** CSS with custom properties
-- **Font:** [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
-- **Deploy:** GitHub Pages (static)
+- **Apple-Impact Design** — Premium, high-contrast layout with elegant whitespace and massive typography.
+- **Gruvbox Aesthetic** — Warm, retro-dark theme featuring the legendary Gruvbox color palette.
+- **Astro 6 Content Layer** — Type-safe data management with high-performance loaders for `resume.json`.
+- **View Transitions** — Instant, app-like navigation using Astro's `ClientRouter`.
+- **Interactive Personality** — A sarcastic, floating **Pixel Ghost Pet** with scroll-triggered speech bubbles.
+- **Mobile Optimized** — Native-feeling **Bottom Drawer Menu** and compact section gaps.
+- **Scroll Control** — "Load More" functionality for the Lab (Projects) section to maintain a clean UX.
+- **SEO Ready** — Full meta tags, JSON-LD structured data, and high-performance static builds.
 
 ---
 
-## Quick Start
+## 🛠 Tech Stack
+
+- **Framework:** [Astro](https://astro.build) v6 (Content Layer, View Transitions)
+- **Runtime:** [Bun](https://bun.sh) (Builds, Package Management, Macros)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com) v4 (Vite plugin integration)
+- **Typography:** Inter (Sans-serif), JetBrains Mono (Monospace), Press Start 2P (Pixel)
+- **Deploy:** GitHub Pages (Static)
+
+---
+
+## ⚡ Quick Start
 
 ```sh
-# Install dependencies
+# Install dependencies (ultra-fast with Bun)
 bun install
 
 # Development server
 bun run dev
 
-# Run tests
-bun test
-
 # Production build
 bun run build
 
-# Preview production build
+# Preview production build locally
 bun run preview
 ```
 
 ---
 
-## GitHub Activity
-
-The GitHub activity section fetches commits client-side. For higher API rate limits:
-
-### Local Development
-
-Create `.env` file:
-
-```sh
-VITE_THE_REPO_TOKEN=ghp_your_github_token
-```
-
-### Production (GitHub Pages)
-
-Add `VITE_THE_REPO_TOKEN` secret in repo Settings → Secrets and variables → Actions.
-
-Get token: https://github.com/settings/tokens (classic, repo scope)
-
----
-
-## Project Structure
+## 📂 Project Structure
 
 ```
 src/
-├── components/
-│   ├── Contact.astro    # Contact page with social links
-│   ├── Footer.astro     # Site footer
-│   ├── Header.astro     # Header with mobile bottom sheet nav
-│   ├── Hero.astro       # Hero section with GitHub activity
-│   └── Resume.astro     # Resume page
-├── layouts/
-│   └── BaseLayout.astro # Main layout with SEO/structured data
-├── lib/github/          # GitHub activity module (SOLID architecture)
-│   ├── activity-service.ts
-│   ├── api-client.ts
-│   ├── cache.ts
-│   ├── config.ts
-│   ├── index.ts
-│   ├── mapper.ts
-│   ├── types.ts
-│   └── ui.ts
-├── pages/
-│   ├── index.astro
-│   ├── resume.astro
-│   ├── contact.astro
-│   └── github-activity.json.ts  # Static JSON endpoint
-├── data/
-│   └── resume.json      # Resume content
-└── styles/
-    └── global.css       # CSS variables, global styles
+├── components/          # Reusable UI (Experience, Project cards, etc.)
+├── content/             # Astro 6 Content Collections (config.ts)
+├── data/                # Source of truth (resume.json)
+├── layouts/             # Page skeletons (BaseLayout.astro)
+├── lib/                 # Logic and helper macros
+├── pages/               # Main routes (index.astro)
+└── styles/              # Global CSS and theme definitions
 ```
 
 ---
 
-## Customization
-
-### Personal Info
-
-- **Name/Title:** `src/components/Hero.astro`, `src/components/Footer.astro`
-- **Resume Content:** `src/data/resume.json`
-- **Social Links:** `src/components/Header.astro`, `src/components/Contact.astro`
-- **GitHub Username:** `src/components/Hero.astro` (const USERNAME)
+## 🎨 Customization
 
 ### Design Tokens
 
-All CSS variables in `src/styles/global.css`:
+All primary tokens are managed via the Tailwind v4 `@theme` directive in `src/styles/global.css`:
 
 ```css
-:root {
-  --bg: #0f0f0f;
-  --accent: #ff6b35;
-  --text: #ffffff;
-  --border: #1a1a1a;
+@theme {
+  --color-gruv-bg: #1d2021;
+  --color-gruv-surface: #282828;
+  --color-gruv-orange: #fe8019;
+  --font-sans: Inter, system-ui;
 }
 ```
 
-### Colors
-
-| Variable         | Value     | Usage                    |
-| ---------------- | --------- | ------------------------ |
-| `--bg`           | `#0f0f0f` | Background               |
-| `--bg-elevated`  | `#141414` | Cards, elevated surfaces |
-| `--accent`       | `#ff6b35` | Primary accent (orange)  |
-| `--accent-hover` | `#ff8c5a` | Accent hover state       |
-| `--text`         | `#ffffff` | Primary text             |
-| `--text-muted`   | `#888888` | Secondary text           |
-| `--border`       | `#1a1a1a` | Borders                  |
-
 ---
 
-## SEO & Structured Data
-
-The site includes comprehensive SEO optimization:
-
-- Meta tags (title, description, robots)
-- Open Graph and Twitter Card tags
-- JSON-LD structured data:
-  - Person schema
-  - Website schema
-  - BreadcrumbList schema
-
----
-
-## Deployment
+## 📊 Deployment
 
 ### GitHub Pages
 
-1. Push to `master` branch
-2. Enable GitHub Pages in repository settings
-3. Set source to `master` branch
-4. Add `VITE_THE_REPO_TOKEN` secret for GitHub API rate limits
-
-The site auto-deploys on push (via GitHub Actions).
+1. Push to `master` branch.
+2. The site auto-deploys via GitHub Actions (`.github/workflows/astro.yml`).
+3. Ensure GitHub Pages settings are pointed to the `gh-pages` branch or root depending on your workflow.
 
 ---
 
-## Testing
+## 📝 License
 
-```sh
-bun test          # Run all tests
-bun test --watch # Watch mode
-```
-
-Tests are in `tests/` directory.
+MIT License — Feel free to fork this and make it your own!
 
 ---
 
-## License
+## 🔗 References
 
-MIT License — Feel free to use as a template for your own portfolio.
-
----
-
-## References
-
-- [Astro Documentation](https://docs.astro.build)
-- [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
-- [GitHub REST API](https://docs.github.com/en/rest)
+- [Astro Docs](https://docs.astro.build)
+- [Tailwind CSS v4](https://tailwindcss.com/docs/v4-beta)
+- [Gruvbox Palette](https://github.com/morhetz/gruvbox)
