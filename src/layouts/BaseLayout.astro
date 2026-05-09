@@ -90,7 +90,7 @@ const { title } = Astro.props;
         </div>
 
         <!-- Mobile Toggle -->
-        <button id="menu-toggle" class="text-gruv-text p-2 md:hidden">
+        <button id="menu-toggle" class="text-gruv-text p-2 md:hidden" aria-label="Toggle Menu">
           <svg
             width="24"
             height="24"
@@ -106,22 +106,30 @@ const { title } = Astro.props;
           >
         </button>
       </div>
-
-      <!-- Mobile Menu -->
-      <div
-        id="mobile-menu"
-        class="bg-gruv-surface border-gruv-border shadow-premium absolute top-16 right-0 left-0 flex hidden flex-col gap-6 border-b p-6 md:hidden"
-      >
-        <a href="#experience" class="mobile-link text-lg font-medium">Work</a>
-        <a href="#projects" class="mobile-link text-lg font-medium">Lab</a>
-        <a href="#research" class="mobile-link text-lg font-medium">Notes</a>
-        <a
-          href="mailto:abinash@theabx.in"
-          class="bg-gruv-orange text-gruv-bg rounded-xl px-5 py-3 text-center font-bold"
-          >Say Hello</a
-        >
-      </div>
     </nav>
+
+    <!-- Mobile Bottom Drawer Overlay -->
+    <div id="mobile-overlay" class="fixed inset-0 z-[60] hidden bg-black/60 backdrop-blur-sm transition-opacity duration-300 md:hidden"></div>
+
+    <!-- Mobile Bottom Drawer -->
+    <div
+      id="mobile-menu"
+      class="bg-gruv-surface border-gruv-border fixed right-0 bottom-0 left-0 z-[70] flex translate-y-full flex-col gap-6 border-t rounded-t-[2.5rem] p-8 transition-transform duration-300 ease-out md:hidden"
+    >
+        <!-- Drawer Handle -->
+        <div class="mx-auto h-1.5 w-12 rounded-full bg-gruv-border mb-2"></div>
+        
+        <div class="flex flex-col gap-8 items-center text-center">
+            <a href="#experience" class="mobile-link text-2xl font-black tracking-tightest uppercase italic">Work</a>
+            <a href="#projects" class="mobile-link text-2xl font-black tracking-tightest uppercase italic">Lab</a>
+            <a href="#research" class="mobile-link text-2xl font-black tracking-tightest uppercase italic">Notes</a>
+            <a
+              href="mailto:abinash@theabx.in"
+              class="bg-gruv-orange text-gruv-bg w-full rounded-full px-5 py-4 text-center text-lg font-bold shadow-premium"
+              >Say Hello</a
+            >
+        </div>
+    </div>
 
     <slot />
 
@@ -160,16 +168,34 @@ const { title } = Astro.props;
 
     <script>
       function setup() {
-        // Mobile Menu Toggle
         const toggle = document.getElementById("menu-toggle");
         const menu = document.getElementById("mobile-menu");
+        const overlay = document.getElementById("mobile-overlay");
         const links = document.querySelectorAll(".mobile-link");
 
-        toggle?.addEventListener("click", () =>
-          menu?.classList.toggle("hidden"),
-        );
+        function toggleMenu() {
+            const isOpen = menu?.classList.contains("translate-y-0");
+            
+            if (isOpen) {
+                // Close
+                menu?.classList.remove("translate-y-0");
+                menu?.classList.add("translate-y-full");
+                overlay?.classList.add("hidden");
+                document.body.style.overflow = "";
+            } else {
+                // Open
+                menu?.classList.remove("translate-y-full");
+                menu?.classList.add("translate-y-0");
+                overlay?.classList.remove("hidden");
+                document.body.style.overflow = "hidden"; // Prevent background scroll
+            }
+        }
+
+        toggle?.addEventListener("click", toggleMenu);
+        overlay?.addEventListener("click", toggleMenu);
+        
         links.forEach((l) =>
-          l.addEventListener("click", () => menu?.classList.add("hidden")),
+          l.addEventListener("click", toggleMenu),
         );
 
         // Scroll Reveal Observer
