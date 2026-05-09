@@ -23,34 +23,42 @@ const sortedResearch = [...research.items].sort((a, b) => {
 
 <BaseLayout title="Abinash Selvarasu | Backend Engineer">
   
-  <main class="max-w-6xl mx-auto px-6 pt-32 sm:pt-48 flex flex-col gap-32 sm:gap-48 overflow-hidden">
+  <main class="max-w-6xl mx-auto px-6 pt-32 sm:pt-48 flex flex-col gap-32 sm:gap-48">
     
     <!-- Hero Section -->
-    <section class="flex flex-col md:flex-row items-center justify-between gap-16 reveal">
-      <div class="flex flex-col gap-8 max-w-3xl">
-        <div class="flex flex-col gap-4">
-            <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-xs sm:text-sm flex items-center gap-3">
-                <span class="w-10 h-[1px] bg-gruv-orange"></span> Software Engineer
+    <section class="flex flex-col items-center text-center gap-12 reveal relative">
+      <!-- Glow background -->
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-gruv-orange/5 blur-[120px] rounded-full pointer-events-none -z-10"></div>
+      
+      <div class="flex flex-col items-center gap-10 max-w-4xl">
+        <div class="relative group">
+            <div class="pixel-pet scale-125 mb-4 group-hover:scale-150 transition-transform duration-500"></div>
+            <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-12 h-2 bg-black/20 blur-md rounded-full"></div>
+        </div>
+
+        <div class="flex flex-col gap-6">
+            <h2 class="text-gruv-orange font-bold uppercase tracking-[0.3em] text-[10px] sm:text-xs flex items-center justify-center gap-4">
+                <span class="w-8 h-[1px] bg-gruv-orange/30"></span> 
+                Available for Innovation 
+                <span class="w-8 h-[1px] bg-gruv-orange/30"></span>
             </h2>
-            <h1 class="text-5xl sm:text-8xl font-extrabold tracking-tighter leading-[0.9] text-gruv-text">
-                Building <span class="text-gruv-orange text-shadow-glow">resilient</span> backend systems.
+            <h1 class="text-6xl sm:text-[10rem] font-extrabold tracking-[calc(-0.04em)] leading-[0.85] text-gruv-text italic">
+                CRAFTING <br class="hidden sm:block" /> <span class="text-gruv-orange text-shadow-glow">SYSTEMS.</span>
             </h1>
         </div>
-        <p class="text-xl sm:text-2xl text-gruv-muted leading-relaxed font-medium max-w-xl">
-            Specializing in payments, security, and high-volume banking workflows under strict production constraints.
+
+        <p class="text-xl sm:text-3xl text-gruv-muted leading-relaxed font-medium max-w-2xl tracking-tight">
+            Software Engineer specializing in <span class="text-gruv-text">high-stakes</span> backend architecture and <span class="text-gruv-text">resilient</span> payment workflows.
         </p>
-        <div class="flex flex-wrap gap-6 items-center">
-            <a href="mailto:abinash@theabx.in" class="bg-gruv-text text-gruv-bg px-8 py-4 rounded-full font-bold text-lg hover:scale-105 hover:bg-gruv-orange transition-all duration-300">
-                Get in Touch
+
+        <div class="flex flex-col sm:flex-row gap-8 items-center mt-4">
+            <a href="mailto:abinash@theabx.in" class="bg-gruv-text text-gruv-bg px-10 py-5 rounded-full font-bold text-xl hover:scale-105 hover:bg-gruv-orange transition-all duration-500 shadow-premium">
+                Initialize Contact
             </a>
-            <a href="#projects" class="text-gruv-text font-bold text-lg border-b-2 border-gruv-orange py-1 hover:text-gruv-orange transition-colors">
-                View My Work
+            <a href="#projects" class="text-gruv-muted font-bold text-lg hover:text-gruv-orange transition-colors flex items-center gap-2 group">
+                Review Artifacts <svg class="group-hover:translate-x-1 transition-transform" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </a>
         </div>
-      </div>
-      <div class="shrink-0 flex items-center justify-center relative">
-        <div class="absolute w-64 h-64 bg-gruv-orange/10 blur-[100px] rounded-full"></div>
-        <div class="pixel-pet relative z-10"></div>
       </div>
     </section>
 
