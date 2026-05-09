@@ -3,6 +3,7 @@ import { getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ExperienceCard from '../components/ExperienceCard.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import { sortResearchByYear } from '../lib/utils';
 
 // Use getEntry to fetch the single resume data object
 const resumeEntry = await getEntry('resume', 'resume');
@@ -14,11 +15,7 @@ if (!resumeEntry) {
 const { work, projects, research } = resumeEntry.data;
 
 // Order research by year (descending)
-const sortedResearch = [...research.items].sort((a, b) => {
-    const yearA = parseInt(a.meta.match(/\d{4}/)?.[0] || '0');
-    const yearB = parseInt(b.meta.match(/\d{4}/)?.[0] || '0');
-    return yearB - yearA;
-});
+const sortedResearch = sortResearchByYear(research.items);
 ---
 
 <BaseLayout title="Abinash Selvarasu | Backend Engineer">
