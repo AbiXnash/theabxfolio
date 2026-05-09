@@ -142,6 +142,16 @@
         "note": "Focused on clarity, credibility, and a solid handoff for client ownership."
       },
       {
+        "title": "theabxfolio — Personal Brand",
+        "meta": "2026 · Astro · Bun · Tailwind",
+        "category": "Web Builds",
+        "github": "https://github.com/AbiXnash/theabxfolio",
+        "contributors": [{ "name": "Abinash S", "role": "Author" }],
+        "intro": "The engine powering my personal brand. Built with Astro 6, Bun, and Tailwind v4 for extreme performance and deep personalization.",
+        "details": "High-performance portfolio architecture leveraging Astro's Content Layer.\n- Uses Bun for lightning-fast builds and package management.\n- Features premium fluid animations and a custom Gruvbox-Impact design system.",
+        "note": "A living document of my engineering philosophy and visual style."
+      },
+      {
         "title": "Neovim Configuration — nvim",
         "meta": "2023–Present · Lua · Neovim",
         "category": "Developer Tooling",
