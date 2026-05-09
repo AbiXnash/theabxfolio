@@ -5,10 +5,10 @@ import ExperienceCard from '../components/ExperienceCard.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 
 // Use getEntry to fetch the single resume data object
-const resumeEntry = await getEntry('resume', 'main');
+const resumeEntry = await getEntry('resume', 'resume');
 
 if (!resumeEntry) {
-    throw new Error('Could not find resume data in content collection. ID used: main');
+    throw new Error('Could not find resume data in content collection. ID used: resume');
 }
 
 const { work, projects, research } = resumeEntry.data;

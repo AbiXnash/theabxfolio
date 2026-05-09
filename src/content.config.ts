@@ -1,12 +1,8 @@
 import { defineCollection, z } from "astro:content";
-import { file } from "astro/loaders";
-import fs from "node:fs";
+import { glob } from "astro/loaders";
 
 const resume = defineCollection({
-  loader: async () => {
-    const data = JSON.parse(fs.readFileSync("./src/data/resume.json", "utf-8"));
-    return [{ id: "main", ...data }];
-  },
+  loader: glob({ pattern: "resume.json", base: "./src/data" }),
   schema: z.object({
     work: z.object({
       label: z.string(),
