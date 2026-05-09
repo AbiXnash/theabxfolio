@@ -129,3 +129,38 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Ambient glowing blobs */
+.glow-blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: -1;
+  opacity: 0.15;
+  pointer-events: none;
+}
+.glow-blob-1 {
+  background: var(--color-gruv-orange);
+  width: 60vw;
+  height: 60vw;
+  top: -10vw;
+  right: -10vw;
+  animation: float-blob-1 20s infinite alternate ease-in-out;
+}
+.glow-blob-2 {
+  background: var(--color-gruv-blue);
+  width: 50vw;
+  height: 50vw;
+  bottom: -5vw;
+  left: -10vw;
+  animation: float-blob-2 25s infinite alternate ease-in-out;
+}
+
+@keyframes float-blob-1 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-5vw, 10vh) scale(1.1); }
+}
+@keyframes float-blob-2 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(10vw, -5vh) scale(1.05); }
+}
