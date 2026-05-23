@@ -89,15 +89,19 @@ const {
       </div>
     </div>
 
+    <!-- Scroll progress bar -->
+    <div id="scroll-bar" class="fixed top-0 left-0 z-[60] h-0.5 bg-gruv-orange transition-all duration-150" style="width: 0%"></div>
+
     <!-- Personal Portfolio Navbar -->
     <nav
-      class="bg-gruv-bg border-gruv-border/30 fixed top-0 right-0 left-0 z-50 h-16 border-b"
+      id="navbar"
+      class="fixed top-0 right-0 left-0 z-50 h-16 border-b border-gruv-border/30 transition-all duration-500"
       transition:persist
     >
       <div
         class="mx-auto flex h-full max-w-6xl items-center justify-between px-6"
       >
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-3">
           <a href="/" class="group flex items-center gap-2">
             <span
               class="text-gruv-text group-hover:text-gruv-orange text-lg font-bold tracking-tight transition-colors"
@@ -114,29 +118,35 @@ const {
 
         <!-- Desktop Links -->
         <div
-          class="hidden items-center gap-8 text-xs font-bold tracking-widest uppercase md:flex"
+          class="hidden items-center gap-1 text-xs font-bold tracking-widest uppercase md:flex"
         >
           <a
             href="#experience"
-            data-astro-prefetch
-            class="text-gruv-muted hover:text-gruv-text transition-colors"
+            data-section="Work"
+            class="nav-link text-gruv-muted hover:text-gruv-text hover:bg-gruv-surface/50 rounded-lg px-4 py-2 transition-all"
             >Work</a
           >
           <a
             href="#projects"
-            data-astro-prefetch
-            class="text-gruv-muted hover:text-gruv-text transition-colors"
+            data-section="Projects"
+            class="nav-link text-gruv-muted hover:text-gruv-text hover:bg-gruv-surface/50 rounded-lg px-4 py-2 transition-all"
             >Projects</a
           >
           <a
             href="#education"
-            data-astro-prefetch
-            class="text-gruv-muted hover:text-gruv-text transition-colors"
+            data-section="Education"
+            class="nav-link text-gruv-muted hover:text-gruv-text hover:bg-gruv-surface/50 rounded-lg px-4 py-2 transition-all"
             >Education</a
           >
           <a
+            href="#opensource"
+            data-section="Open Source"
+            class="nav-link text-gruv-muted hover:text-gruv-text hover:bg-gruv-surface/50 rounded-lg px-4 py-2 transition-all"
+            >Activity</a
+          >
+          <a
             href="mailto:abinash@theabx.in"
-            class="text-gruv-orange flex items-center gap-2 transition-all hover:brightness-125"
+            class="text-gruv-orange hover:bg-gruv-orange/10 flex items-center gap-2 rounded-lg px-4 py-2 transition-all"
           >
             Email
             <svg
@@ -155,7 +165,7 @@ const {
         <!-- Mobile Toggle -->
         <button
           id="menu-toggle"
-          class="text-gruv-text p-2 md:hidden"
+          class="text-gruv-text hover:bg-gruv-surface/50 rounded-lg p-2 transition-colors md:hidden"
           aria-label="Toggle Menu"
         >
           <svg
@@ -248,6 +258,18 @@ const {
           <span>Education</span>
           <svg class="ml-auto text-gruv-muted opacity-0 transition-all group-hover:opacity-100 group-hover:translate-x-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </a>
+        <a
+          href="#opensource"
+          class="mobile-link group relative flex items-center gap-4 rounded-2xl border border-transparent px-5 py-4 text-xl font-bold tracking-tight transition-all hover:border-gruv-border/40 hover:bg-gruv-bg/40 hover:pl-7"
+          data-section="Open Source"
+        >
+          <span class="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-gruv-green opacity-0 transition-all duration-300 group-[.active]:opacity-100"></span>
+          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gruv-bg/60 text-gruv-green transition-all duration-300 group-[.active]:bg-gruv-green group-[.active]:text-gruv-bg">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          </span>
+          <span>Activity</span>
+          <svg class="ml-auto text-gruv-muted opacity-0 transition-all group-hover:opacity-100 group-hover:translate-x-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
       </div>
 
       <a
@@ -261,42 +283,52 @@ const {
 
     <slot />
 
-    <footer class="border-gruv-border/30 mt-20 border-t px-6 py-20">
-      <div
-        class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-10 md:flex-row"
-      >
-        <div class="flex flex-col gap-2 text-center md:text-left">
-          <div class="text-2xl font-bold tracking-tighter">
-            Interested in backend engineering work?
+    <footer class="border-gruv-border/20 mt-20 border-t px-6 py-24">
+      <div class="mx-auto flex max-w-6xl flex-col">
+        <div class="flex flex-col items-center justify-between gap-12 md:flex-row">
+          <div class="flex flex-col gap-4 text-center md:text-left">
+            <div>
+              <div class="text-2xl font-bold tracking-tighter">
+                Let's work together
+              </div>
+              <p class="text-gruv-muted text-sm">
+                Java · Go · Payments · Platform
+              </p>
+            </div>
           </div>
-          <p class="text-gruv-muted">
-            Contact me about Java, Go, payments, or platform roles.
-          </p>
+          <div class="flex flex-col items-center gap-4 sm:flex-row">
+            <div class="flex items-center gap-3">
+              <a
+                href="https://github.com/AbiXnash"
+                target="_blank"
+                class="text-gruv-muted hover:text-gruv-text hover:bg-gruv-surface/50 flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold tracking-widest uppercase transition-all"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                GitHub
+              </a>
+              <a
+                href="https://instagram.com/abx.engg"
+                target="_blank"
+                class="text-gruv-muted hover:text-gruv-text hover:bg-gruv-surface/50 flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold tracking-widest uppercase transition-all"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                Instagram
+              </a>
+            </div>
+            <a
+              href="mailto:abinash@theabx.in"
+              class="bg-gruv-orange text-gruv-bg hover:shadow-[0_0_30px_rgba(254,128,25,0.3)] rounded-full px-6 py-3 text-sm font-bold transition-all hover:scale-105"
+            >
+              Email me
+            </a>
+          </div>
         </div>
-        <div class="flex gap-6">
-          <a
-            href="https://github.com/AbiXnash"
-            target="_blank"
-            class="text-gruv-muted hover:text-gruv-orange transition-colors"
-            >GitHub</a
-          >
-          <a
-            href="https://instagram.com/abx.engg"
-            target="_blank"
-            class="text-gruv-muted hover:text-gruv-orange transition-colors"
-            >Instagram</a
-          >
-          <a
-            href="mailto:abinash@theabx.in"
-            class="text-gruv-muted hover:text-gruv-orange transition-colors"
-            >Email</a
-          >
+        <div class="bg-gruv-border/10 mx-auto mt-16 h-px w-full max-w-md"></div>
+        <div class="text-gruv-muted mx-auto mt-8 flex items-center gap-4 text-[11px] tracking-widest uppercase">
+          <span>© {new Date().getFullYear()} Abinash Selvarasu</span>
+          <span class="text-gruv-border">·</span>
+          <span class="tracking-normal text-gruv-muted/60 font-mono text-[10px]">crafted with gruvbox</span>
         </div>
-      </div>
-      <div
-        class="text-gruv-muted mx-auto mt-20 max-w-6xl text-center text-xs tracking-widest uppercase opacity-50"
-      >
-        © {new Date().getFullYear()} Abinash Selvarasu
       </div>
     </footer>
 
@@ -376,18 +408,48 @@ const {
           .querySelectorAll(".reveal")
           .forEach((el) => revealObserver.observe(el));
 
-        // Section tracking for mobile nav
+        // Scroll bar and glass nav
+        const scrollBar = document.getElementById("scroll-bar");
+        const navbar = document.getElementById("navbar");
+
+        function onScroll() {
+          const docEl = document.documentElement;
+          const scrollTop = docEl.scrollTop || document.body.scrollTop;
+          const scrollHeight = docEl.scrollHeight - docEl.clientHeight;
+
+          // Scroll progress bar
+          if (scrollBar && scrollHeight > 0) {
+            scrollBar.style.width = `${(scrollTop / scrollHeight) * 100}%`;
+          }
+
+          // Glass nav effect
+          if (navbar) {
+            const hero = document.querySelector("section");
+            const heroBottom = hero?.getBoundingClientRect().bottom ?? 200;
+            if (scrollTop > 60) {
+              navbar.classList.add("bg-gruv-bg/80", "backdrop-blur-xl", "border-gruv-border/50");
+              navbar.classList.remove("bg-gruv-bg", "border-gruv-border/30");
+            } else {
+              navbar.classList.remove("bg-gruv-bg/80", "backdrop-blur-xl", "border-gruv-border/50");
+              navbar.classList.add("bg-gruv-bg", "border-gruv-border/30");
+            }
+          }
+        }
+
+        // Section tracking
         const sections = [
           { id: "experience", name: "Work" },
           { id: "projects", name: "Projects" },
           { id: "education", name: "Education" },
+          { id: "opensource", name: "Open Source" },
         ];
         const sectionElements = sections
           .map((s) => document.getElementById(s.id))
           .filter(Boolean);
         const currentSectionEl = document.getElementById("current-section");
-        const progressEl = document.getElementById("section-progress");
+        const drawerProgressEl = document.getElementById("section-progress");
         const mobileLinks = document.querySelectorAll<HTMLElement>(".mobile-link");
+        const navLinks = document.querySelectorAll<HTMLElement>(".nav-link");
 
         const sectionObserver = new IntersectionObserver(
           (entries) => {
@@ -405,27 +467,25 @@ const {
                   link.getAttribute("data-section") === name,
                 );
               });
+              navLinks.forEach((link) => {
+                link.classList.toggle(
+                  "text-gruv-text",
+                  link.getAttribute("data-section") === name,
+                );
+                link.classList.toggle(
+                  "text-gruv-muted",
+                  link.getAttribute("data-section") !== name,
+                );
+              });
             }
-            // Progress
-            const docEl = document.documentElement;
-            const scrollTop = docEl.scrollTop || document.body.scrollTop;
-            const scrollHeight = docEl.scrollHeight - docEl.clientHeight;
-            if (progressEl && scrollHeight > 0) {
-              progressEl.style.width = `${(scrollTop / scrollHeight) * 100}%`;
-            }
+            onScroll();
           },
           { threshold: 0.2, rootMargin: "0px 0px -30% 0px" },
         );
 
         sectionElements.forEach((el) => sectionObserver.observe(el));
-        document.addEventListener("scroll", () => {
-          const docEl = document.documentElement;
-          const scrollTop = docEl.scrollTop || document.body.scrollTop;
-          const scrollHeight = docEl.scrollHeight - docEl.clientHeight;
-          if (progressEl && scrollHeight > 0) {
-            progressEl.style.width = `${(scrollTop / scrollHeight) * 100}%`;
-          }
-        });
+        document.addEventListener("scroll", onScroll);
+        onScroll();
       }
 
       // Initial setup
