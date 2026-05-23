@@ -3,6 +3,7 @@ import { getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ExperienceCard from '../components/ExperienceCard.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import GitHubRepoCard from '../components/GitHubRepoCard.astro';
 
 const resumeEntry = await getEntry('resume', 'resume');
 
@@ -13,6 +14,34 @@ if (!resumeEntry) {
 const { work, projects, education } = resumeEntry.data;
 
 const currentRole = work.items[0];
+
+const repos = await (async () => {
+  try {
+    const res = await fetch("https://api.github.com/users/AbiXnash/repos?sort=updated&per_page=4");
+    if (!res.ok) return [];
+    const data = (await res.json()) as { name: string; description: string | null; language: string | null; html_url: string; pushed_at: string; stargazers_count: number }[];
+    const commitCounts = await Promise.all(data.map(async (r) => {
+      try {
+        const c = await fetch(`https://api.github.com/repos/AbiXnash/${r.name}/commits?per_page=1`, { method: "HEAD" });
+        const link = c.headers.get("link") ?? "";
+        const m = link.match(/page=(\d+)>; rel="last"/);
+        return m ? Number(m[1]) : 0;
+      } catch {
+        return 0;
+      }
+    }));
+    return data.map((r, i) => ({
+      name: r.name,
+      description: r.description ?? "",
+      language: r.language,
+      url: r.html_url,
+      pushedAt: r.pushed_at ?? "",
+      commits: commitCounts[i],
+    }));
+  } catch {
+    return [];
+  }
+})();
 const skills = [...new Set(work.items.flatMap(w => w.skills ?? []))];
 
 const jsonLd = {
@@ -155,6 +184,24 @@ const jsonLd = {
             ))}
         </div>
     </section>
+
+    <!-- Open Source -->
+    {repos.length > 0 && (
+    <section id="opensource" class="flex flex-col gap-8 sm:gap-20 reveal px-2 sm:px-0">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-8">
+            <div class="flex flex-col gap-4">
+                <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-[10px] sm:text-sm">Open Source</h2>
+                <h3 class="text-4xl sm:text-6xl font-extrabold tracking-tighter">Recent activity.</h3>
+            </div>
+            <a href="https://github.com/AbiXnash" target="_blank" class="text-gruv-muted font-bold hover:text-gruv-orange transition-colors flex items-center gap-2 text-base sm:text-lg">
+                View GitHub <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+            {repos.map(r => <GitHubRepoCard {...r} />)}
+        </div>
+    </section>
+    )}
 
     <!-- Toolkit -->
     <section id="toolkit" class="flex flex-col gap-8 sm:gap-20 reveal mb-20 px-2 sm:px-0">
