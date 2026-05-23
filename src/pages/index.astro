@@ -4,7 +4,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ExperienceCard from '../components/ExperienceCard.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 
-// Use getEntry to fetch the single resume data object
 const resumeEntry = await getEntry('resume', 'resume');
 
 if (!resumeEntry) {
@@ -12,9 +11,48 @@ if (!resumeEntry) {
 }
 
 const { work, projects, education } = resumeEntry.data;
+
+const currentRole = work.items[0];
+const skills = [...new Set(work.items.flatMap(w => w.skills ?? []))];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Abinash Selvarasu",
+  givenName: "Abinash",
+  familyName: "Selvarasu",
+  jobTitle: currentRole?.title ?? "Backend Engineer",
+  description: "Backend engineer working with Java, Go, and payment systems.",
+  url: "https://theabx.in",
+  email: "abinash@theabx.in",
+  image: "https://theabx.in/og-image.svg",
+  sameAs: [
+    "https://github.com/AbiXnash",
+    "https://instagram.com/abx.engg",
+  ],
+  knowsAbout: skills,
+  worksFor: currentRole
+    ? {
+        "@type": "Organization",
+        name: currentRole.title.split("—").pop()?.trim() ?? "Mindgate Solutions",
+      }
+    : undefined,
+  alumniOf: education.items.map(e => ({
+    "@type": "EducationalOrganization",
+    name: e.title.split("—").pop()?.trim() ?? e.title,
+  })),
+};
 ---
 
-<BaseLayout title="Abinash Selvarasu | Backend Engineer">
+<BaseLayout
+  title="Abinash Selvarasu | Backend Engineer"
+  description={jsonLd.description}
+  socialLinks={[
+    { name: "GitHub", url: "https://github.com/AbiXnash" },
+    { name: "Instagram", url: "https://instagram.com/abx.engg" },
+  ]}
+  jsonLd={jsonLd}
+>
   
   <main class="max-w-6xl mx-auto px-6 pt-20 sm:pt-48 flex flex-col gap-16 sm:gap-48 overflow-hidden">
     

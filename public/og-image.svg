@@ -1,0 +1,11 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#1D2021"/>
+  <circle cx="1050" cy="80" r="360" fill="#FE8019" opacity="0.08"/>
+  <circle cx="150" cy="550" r="300" fill="#83A598" opacity="0.06"/>
+  <rect x="80" y="80" width="1040" height="470" rx="32" stroke="#3C3836" stroke-width="1" fill="#282828" fill-opacity="0.5"/>
+  <text x="640" y="230" font-family="system-ui, sans-serif" font-size="88" font-weight="800" fill="#EBDDB2" text-anchor="middle" letter-spacing="-3">backend software.</text>
+  <text x="640" y="310" font-family="system-ui, sans-serif" font-size="32" font-weight="500" fill="#928374" text-anchor="middle">Abinash Selvarasu · Java, Go, Payment Systems</text>
+  <text x="120" y="440" font-family="monospace" font-size="18" font-weight="700" fill="#FE8019" letter-spacing="4">ABX // DEV</text>
+  <text x="1090" y="440" font-family="monospace" font-size="14" font-weight="700" fill="#928374" text-anchor="end" letter-spacing="2">THEABX.IN</text>
+  <rect x="640" y="372" width="2" height="40" fill="#FE8019" rx="1"/>
+</svg>
