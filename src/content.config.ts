@@ -26,19 +26,14 @@ const resume = defineCollection({
           meta: z.string(),
           category: z.string(),
           github: z.string(),
-          intro: z.string(),
-          details: z.string().optional(),
-        }),
-      ),
-    }),
-    research: z.object({
-      label: z.string(),
-      description: z.string(),
-      items: z.array(
-        z.object({
-          title: z.string(),
-          meta: z.string(),
-          github: z.string(),
+          links: z
+            .array(
+              z.object({
+                label: z.string(),
+                url: z.string(),
+              }),
+            )
+            .optional(),
           intro: z.string(),
           details: z.string().optional(),
         }),

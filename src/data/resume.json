@@ -1,7 +1,7 @@
 {
   "work": {
     "label": "work",
-    "description": "Production-grade backend engineering in banking and payments, focused on reliability, security, and transaction integrity at scale.",
+    "description": "Backend engineering experience in banking and payments.",
     "items": [
       {
         "title": "Java Developer — Mindgate Solutions",
@@ -12,19 +12,20 @@
         "contributors": [
           { "name": "Core Banking Team", "role": "Engineering" }
         ],
-        "intro": "Software engineer building high-volume banking workflows and transaction-heavy payment systems under strict production and audit constraints.",
-        "details": "Design and maintain backend services for transaction processing, validation, and bulk corporate payment flows.\n- Build services that prioritize correctness, traceability, and deterministic failure handling.\n- Improve resiliency and operational safety for critical banking workflows running in production.\n- Support reconciliation, auditability, and data consistency across payment processing paths.\n- Work with Java, Spring Boot, microservices, OracleDB, and PostgreSQL in a regulated environment.",
+        "intro": "Java developer building tax-payment products and internal banking tools at Mindgate Solutions.",
+        "details": "Backend development for banking and regulatory payment integrations.\n- Built tax-payment portal services for a multinational banking client across multiple Nigerian payment channels.\n- Created an internal cryptographic digital-signature generator for a regulatory API integration in the Middle East.\n- Built migration tools and supporting internal utilities used by the engineering team.\n- Developed microservices with Java, Spring Boot, WebSphere, Kafka, Oracle Database, and PostgreSQL.",
         "skills": [
           "Java",
-          "Golang",
           "Spring Boot",
           "Microservices",
-          "OracleDB",
+          "WebSphere",
+          "Kafka",
+          "Oracle DB",
           "PostgreSQL",
           "Payments",
-          "Transactions"
+          "Internal Tools"
         ],
-        "note": "Day-to-day engineering is shaped by idempotency, reconciliation, audit trails, production safety, and low-risk change management.",
+        "note": "Work includes tax-payment integrations, regulator API signing, platform migration tooling, and production support.",
         "references": [
           {
             "label": "Mindgate Solutions",
@@ -45,47 +46,37 @@
   },
   "projects": {
     "label": "projects",
-    "description": "Selected engineering systems spanning secure banking platforms, web builds, tooling, and applied prototypes.",
+    "description": "Selected backend, tooling, embedded, and web projects.",
     "items": [
       {
-        "title": "gos — Golang Starter Template",
-        "meta": "2025 · Go · Backend",
-        "category": "Backend System",
-        "github": "https://github.com/AbiXnash/gos",
+        "title": "Four Market — Event Management Site",
+        "meta": "2026 · Kotlin · TypeScript · Web",
+        "category": "Full Stack",
+        "github": "https://github.com/AbiXnash/four-market-web",
+        "links": [
+          {
+            "label": "Web repository",
+            "url": "https://github.com/AbiXnash/four-market-web"
+          },
+          {
+            "label": "API repository",
+            "url": "https://github.com/AbiXnash/four-market-api"
+          }
+        ],
         "contributors": [{ "name": "Abinash S", "role": "Author" }],
-        "intro": "Personal Golang starter template built with a robust Logger and Server structure.",
-        "details": "A backend starter template designed to accelerate Go API development.\n- Implements structured logging and clean server initialization.\n- Follows idiomatic Go practices for maintainable project structures.",
-        "note": "Designed for fast scaffolding of robust backend microservices."
+        "intro": "An in-progress event management site with a TypeScript web frontend and a Kotlin API.",
+        "details": "A full-stack event management project split into frontend and backend repositories.\n- Builds the web interface with TypeScript and Vite.\n- Builds the service layer as a Kotlin Gradle application.",
+        "note": "A current full-stack project with separate web and API codebases."
       },
       {
-        "title": "abxnvim — Modular Neovim Setup",
-        "meta": "2025 · Lua · Neovim",
+        "title": "nvim — Neovim Configuration",
+        "meta": "2026 · Lua · Neovim",
         "category": "Developer Tooling",
-        "github": "https://github.com/AbiXnash/abxnvim",
+        "github": "https://github.com/AbiXnash/nvim",
         "contributors": [{ "name": "Abinash S", "role": "Maintainer" }],
-        "intro": "Fast, modular Neovim configuration optimized for Java, Svelte, and React workflows.",
-        "details": "A modernized, language-specific Neovim setup built for performance.\n- Pre-configured LSP and formatting for enterprise Java and modern frontend stacks.\n- Keeps a low footprint while delivering full IDE capabilities.",
-        "note": "Evolved from the previous 'nvim' config to explicitly support enterprise and frontend stacks."
-      },
-      {
-        "title": "Handwritten Digit Recognition",
-        "meta": "2024 · Python · Machine Learning",
-        "category": "Machine Learning",
-        "github": "https://github.com/AbiXnash/Handwritten-Recognition",
-        "contributors": [{ "name": "Abinash S", "role": "Author" }],
-        "intro": "Handwritten Digit Recognition system using Machine Learning and Computer Vision techniques.",
-        "details": "A computer vision model built to accurately identify and classify handwritten digits.\n- Uses standard ML libraries to process and classify image data.\n- Implements robust evaluation metrics to tune performance.",
-        "note": "Applied machine learning project focusing on image classification."
-      },
-      {
-        "title": "event-manager — Go Service",
-        "meta": "2024 · Go · Backend",
-        "category": "Backend System",
-        "github": "https://github.com/AbiXnash/event-manager",
-        "contributors": [{ "name": "Abinash S", "role": "Developer" }],
-        "intro": "Backend event management system built with Go for high concurrency.",
-        "details": "A microservice built to handle event tracking and coordination.\n- Leverages Go's concurrency primitives for efficient handling.\n- Structured for clean API integration and data consistency.",
-        "note": "Demonstrates practical backend microservice design in Go."
+        "intro": "My Neovim 0.11+ setup in Lua, with LSP, fuzzy finding, Git tools, and completion configured for daily use.",
+        "details": "A modular editor configuration built around the tools I use every day.\n- Configures language servers for Lua, Go, TypeScript/JavaScript, Rust, and Zig.\n- Uses Blink.cmp, Telescope, FZF-Lua, Fugitive, Diffview, Gitsigns, Harpoon2, and Lualine.\n- Includes theme choices and documented keybindings for navigation and diagnostics.",
+        "note": "Maintained configuration with recent Zig LSP support and Neovim 0.11+ compatibility."
       },
       {
         "title": "WiFi Trolley Bot — ESP32",
@@ -97,9 +88,9 @@
           { "name": "Srivatsan N", "role": "Co-Creator" },
           { "name": "HariPrasad", "role": "Co-Creator" }
         ],
-        "intro": "ESP32-based trolley bot with wireless control, lightweight firmware, and real-time device coordination.",
-        "details": "Built an embedded control project around ESP32-based wireless command handling and motor control.\n- Implemented WiFi-driven command flow for responsive remote operation.\n- Integrated control logic with hardware behavior and navigation routines.\n- Kept the firmware structure lightweight and practical for iteration on embedded hardware.",
-        "note": "Hands-on embedded project emphasizing control logic and reliable WiFi command handling."
+        "intro": "An ESP32 trolley bot controlled over WiFi, built with two classmates.",
+        "details": "An embedded project combining WiFi commands with motor control.\n- Handled remote control commands on the ESP32.\n- Connected firmware behavior to the physical trolley movement.",
+        "note": "A collaborative hardware and firmware project."
       },
       {
         "title": "Conference Site",
@@ -107,9 +98,9 @@
         "category": "Web Builds",
         "github": "https://github.com/AbiXnash/conference-site",
         "contributors": [{ "name": "Abinash S", "role": "Developer" }],
-        "intro": "Conference website for SASTRA ICMAT with a clear submission flow and structured event communication.",
-        "details": "Built an information-focused conference website designed to reduce friction for attendees and paper submitters.\n- Structured submission guidance, calls for papers, and deadline-related content for clarity.\n- Organized schedule and speaker information into a clean, accessible layout.\n- Delivered a responsive UI that keeps important event information easy to scan.",
-        "note": "Designed to minimize confusion around submission requirements and keep deadlines and tracks easy to find."
+        "intro": "A conference website for SASTRA ICMAT with submission, schedule, and speaker information.",
+        "details": "Built an information website for a conference.\n- Presented calls for papers and submission guidance.\n- Organized deadlines, schedule, and speaker information in a responsive layout.",
+        "note": "Built to keep attendee and submission information easy to find."
       },
       {
         "title": "Theta2k23 — Event Web Presence",
@@ -117,9 +108,9 @@
         "category": "Web Builds",
         "github": "https://github.com/AbiXnash/theta2k23",
         "contributors": [{ "name": "Abinash S", "role": "Developer" }],
-        "intro": "Event website for SASTRA Theta2k23 focused on speed, navigation, and mobile-first access to updates.",
-        "details": "Created a compact event site optimized for attendees who need fast access to schedules, event lists, and announcements.\n- Prioritized mobile-first navigation and short interaction paths.\n- Organized event-centric content so updates remain easy to find under time pressure.\n- Kept the interface lightweight and focused on clarity over decoration.",
-        "note": "Prioritizes speed and clarity for event attendees on mobile."
+        "intro": "An event website for SASTRA Theta2k23, designed for browsing schedules and event details on mobile.",
+        "details": "Created a compact event site.\n- Provided mobile navigation for schedules and event lists.\n- Kept announcements and event information accessible from small screens.",
+        "note": "A mobile-oriented event information site."
       },
       {
         "title": "Hell Pine — VS Code Theme Extension",
@@ -127,9 +118,9 @@
         "category": "Developer Tooling",
         "github": "https://github.com/AbiXnash/hell-pine",
         "contributors": [{ "name": "Abinash S", "role": "Author" }],
-        "intro": "Custom VS Code theme tuned for contrast, readability, and long-form daily development work.",
-        "details": "Forked Rosé Pine and evolved it into a higher-contrast theme aimed at real developer workflow comfort.\n- Tuned token colors for readability across common coding contexts.\n- Packaged and published the extension for repeatable installation and maintenance.\n- Preserved the original theme character while improving visual clarity for daily use.",
-        "note": "Theme focuses on readability and personalized color balance without losing the Rosé Pine character."
+        "intro": "A VS Code theme based on Rosé Pine, adjusted for the contrast and colors I prefer.",
+        "details": "Forked Rosé Pine into a personal editor theme.\n- Adjusted syntax and UI colors for contrast.\n- Packaged the result as a VS Code extension.",
+        "note": "My daily VS Code color theme."
       },
       {
         "title": "TheGlobe — Freelance Web Build",
@@ -137,123 +128,34 @@
         "category": "Web Builds",
         "github": "https://github.com/AbiXnash/theglobe",
         "contributors": [{ "name": "Abinash S", "role": "Freelancer" }],
-        "intro": "Freelance website for a digital marketing organization with business-first messaging and clean presentation.",
-        "details": "Delivered a client-facing marketing website built around trust, service clarity, and maintainable presentation.\n- Structured content around business goals and service discoverability.\n- Focused on responsive behavior, visual consistency, and clean component composition.\n- Shipped a practical handoff-ready build suitable for client ownership.",
-        "note": "Focused on clarity, credibility, and a solid handoff for client ownership."
+        "intro": "A freelance marketing website built for TheGlobe.",
+        "details": "Delivered a client-facing website for a digital marketing organization.\n- Organized service and business content in a responsive layout.\n- Built reusable UI components for maintenance after delivery.",
+        "note": "A client website project."
       },
       {
-        "title": "theabxfolio — Personal Brand",
+        "title": "theabxfolio — Portfolio Site",
         "meta": "2026 · Astro · Bun · Tailwind",
         "category": "Web Builds",
         "github": "https://github.com/AbiXnash/theabxfolio",
         "contributors": [{ "name": "Abinash S", "role": "Author" }],
-        "intro": "The engine powering my personal brand. Built with Astro 6, Bun, and Tailwind v4 for extreme performance and deep personalization.",
-        "details": "High-performance portfolio architecture leveraging Astro's Content Layer.\n- Uses Bun for lightning-fast builds and package management.\n- Features premium fluid animations and a custom Gruvbox-Impact design system.",
-        "note": "A living document of my engineering philosophy and visual style."
-      },
-      {
-        "title": "Neovim Configuration — nvim",
-        "meta": "2023–Present · Lua · Neovim",
-        "category": "Developer Tooling",
-        "github": "https://github.com/AbiXnash/nvim",
-        "contributors": [{ "name": "Abinash S", "role": "Maintainer" }],
-        "intro": "Personal Neovim setup optimized for fast editing, consistent tooling, and maintainable configuration.",
-        "details": "Built and maintained a modular Neovim configuration to improve daily engineering workflow.\n- Organized the setup into modular Lua-based configuration units.\n- Integrated LSP, formatting, and workflow shortcuts for faster feedback loops.\n- Kept startup speed and maintainability as first-order priorities.",
-        "note": "Config-first productivity project with an emphasis on speed and maintainability."
-      }
-    ]
-  },
-  "research": {
-    "label": "research",
-    "description": "Academic research in cybersecurity and applied machine learning, centered on intrusion detection models and IIoT datasets.",
-    "items": [
-      {
-        "title": "HGCNN–LSTM Intrusion Detection",
-        "meta": "2024 · Jupyter · Python",
-        "github": "https://github.com/AbiXnash",
-        "contributors": [
-          { "name": "Abinash S", "role": "Author" },
-          { "name": "Priyanga S", "role": "Author, Project Guide" },
-          { "name": "Srivatsan N", "role": "Author" }
-        ],
-        "intro": "Hybrid deep-learning intrusion detection system for cyber-physical networks.",
-        "details": "Hybrid IDS model combining Hierarchical Gated CNN (HGCNN) for spatial feature extraction and LSTM for temporal sequence modeling.\n\nKey Contributions:\n- HGCNN + LSTM end-to-end pipeline\n- Multi-class CPS attack detection\n- Evaluation on IIoT benchmark data\n- Clear ablation and error analysis",
-        "note": "Notebook-driven experiments detailing preprocessing, feature engineering, and model training with reproducible metrics."
-      },
-      {
-        "title": "Intrusion Detection System (IIoT) — Hybrid CNN + LSTM",
-        "meta": "2024 · Jupyter · Python",
-        "github": "https://github.com/AbiXnash/An-Intrusion-Detection-System-using-Deep-Learning-models-on-UNSW_NB15-dataset",
-        "contributors": [
-          { "name": "Abinash S", "role": "Author" },
-          { "name": "Priyanga S", "role": "Author, Project Guide" },
-          { "name": "Srivatsan N", "role": "Author" }
-        ],
-        "intro": "Deep-learning IDS for IIoT networks using a hybrid CNN + LSTM approach.",
-        "details": "Hybrid CNN + LSTM IDS designed to detect malicious IIoT traffic with improved accuracy on benchmark data.\n\nHighlights:\n- UNSW-NB15 benchmark dataset\n- CNN for attack event detection\n- LSTM for temporal sequence modeling\n- Focus on lowering misclassification and false alarms",
-        "note": "Notebook-driven workflow with clear dataset preprocessing, model training, and evaluation steps."
-      },
-      {
-        "title": "Image-Prediction-CIFAR",
-        "meta": "2024 · Jupyter · Python",
-        "github": "https://github.com/AbiXnash/Image-Prediction-CIFAR",
-        "contributors": [{ "name": "Abinash S", "role": "Author" }],
-        "intro": "CIFAR-10 image prediction project implementing deep learning classification.",
-        "details": "Image classification model trained on the CIFAR-10 dataset.\n- Leverages neural networks for feature extraction.\n- Documents training loops and prediction accuracy across 10 object classes.",
-        "note": "Computer vision experimentation with standard benchmark datasets."
-      },
-      {
-        "title": "HGCNN-LSTM — Cyber Attack Detection in Cyber-Physical Systems",
-        "meta": "2024 · Jupyter · Python",
-        "github": "https://github.com/AbiXnash/HGCNN-LSTM-A-Data-driven-Approach-for-Cyber-Attack-Detection-in-Cyber-Physical-Systems",
-        "contributors": [
-          { "name": "Abinash S", "role": "Author" },
-          { "name": "Priyanga S", "role": "Author, Project Guide" }
-        ],
-        "intro": "Data-driven intrusion detection research using HGCNN + LSTM for CPS environments.",
-        "details": "Research implementation focused on cyber-physical system security.\n\nHighlights:\n- HGCNN + LSTM architecture\n- Sequence modeling for CPS data\n- Multi-class detection focus\n- Reproducible notebook workflow",
-        "note": "Detailed model notebook includes preprocessing, training curves, and confusion-matrix evaluation."
-      },
-      {
-        "title": "HyperCoar-DAM — Robust IDS for IIoT Networks",
-        "meta": "2023 · Jupyter · Python",
-        "github": "https://github.com/AbiXnash/HyperCoar-DAM-A-Robust-Intrusion-Detection-System-for-Enhancing-IIoT-Networks-Protection",
-        "contributors": [
-          { "name": "Abinash S", "role": "Author" },
-          { "name": "Priyanga S", "role": "Author, Project Guide" },
-          { "name": "Srivatsan N", "role": "Author" }
-        ],
-        "intro": "Robust intrusion detection approach focused on IIoT network protection.",
-        "details": "Research prototype targeting robust IDS performance in IIoT.\n\nHighlights:\n- Robust detection objective\n- Focus on IIoT threat resilience\n- Notebook-based workflow\n- Reproducible experimentation",
-        "note": "Research artifact documents robustness-focused training and evaluation within Jupyter notebooks."
-      },
-      {
-        "title": "Genetic Programming Approach for Advanced Persistent Threat Detection",
-        "meta": "2025 · Jupyter · Python",
-        "github": "https://github.com/AbiXnash/gp-apt",
-        "contributors": [
-          { "name": "Abinash S", "role": "Author" },
-          { "name": "Priyanga S", "role": "Author, Project Guide" },
-          { "name": "Srivatsan N", "role": "Author" }
-        ],
-        "intro": "Tree-based genetic programming approach for APT detection on highly imbalanced cyber-attack data.",
-        "details": "Research project targeting APT detection using a tree-based genetic programming algorithm trained on highly imbalanced data (99:1).\n\nHighlights:\n- Genetic programming classifier (tree-based)\n- Handles extreme class imbalance (99:1)\n- Python-based experimentation pipeline\n- Reproducible training and evaluation workflow",
-        "note": "Focuses on imbalance-aware training and GP-driven model evolution for minority attack detection."
+        "intro": "This portfolio site, built with Astro, Tailwind CSS, and Bun.",
+        "details": "A static portfolio that reads project and work data through Astro's content layer.\n- Uses Tailwind CSS for the Gruvbox-inspired UI.\n- Uses Bun for local scripts and package management.",
+        "note": "The source for this website."
       }
     ]
   },
   "education": {
     "label": "education",
-    "description": "Formal academic background with a focus on systems, software engineering, and ML fundamentals.",
+    "description": "Formal computer science education.",
     "items": [
       {
         "title": "B.Tech Computer Science — SASTRA",
         "meta": "2021–2025",
         "github": "",
         "contributors": [{ "name": "SASTRA CSE Dept", "role": "Institution" }],
-        "intro": "Computer Science degree with emphasis on systems fundamentals, software engineering, and applied research.",
-        "details": "Built a strong academic base across systems and software engineering with parallel exposure to applied ML research.\n- Studied operating systems, DBMS, computer networks, and data structures.\n- Worked on research-led projects in cybersecurity and machine learning.\n- Combined coursework with practical technical leadership and project execution.",
-        "note": "Academics emphasize systems foundations and practical engineering practice with research exposure."
+        "intro": "B.Tech in Computer Science and Engineering at SASTRA University, completed in 2025.",
+        "details": "Computer science undergraduate degree.\n- Studied operating systems, databases, computer networks, and data structures.\n- Completed project work in software development and cybersecurity.",
+        "note": "Completed in 2025."
       }
     ]
   }

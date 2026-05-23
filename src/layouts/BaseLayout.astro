@@ -26,6 +26,24 @@ const { title } = Astro.props;
     <ClientRouter />
   </head>
   <body class="bg-gruv-bg text-gruv-text min-h-screen antialiased">
+    <div
+      id="page-loader"
+      class="page-loader"
+      role="status"
+      aria-label="Loading site"
+    >
+      <div class="page-loader__mark" aria-hidden="true">
+        <span class="page-loader__dot"></span>
+        <span class="page-loader__dot"></span>
+        <span class="page-loader__dot"></span>
+      </div>
+      <div
+        class="text-gruv-muted font-mono text-[10px] tracking-widest uppercase"
+      >
+        abx // loading
+      </div>
+    </div>
+
     <!-- Personal Portfolio Navbar -->
     <nav
       class="bg-gruv-bg border-gruv-border/30 fixed top-0 right-0 left-0 z-50 h-16 border-b"
@@ -38,14 +56,14 @@ const { title } = Astro.props;
           <a href="/" class="group flex items-center gap-2">
             <span
               class="text-gruv-text group-hover:text-gruv-orange text-lg font-bold tracking-tight transition-colors"
-              >abx <span class="text-gruv-muted font-normal">//</span> selvarasu</span
+              >abx <span class="text-gruv-muted font-normal">//</span> dev</span
             >
           </a>
           <div class="bg-gruv-border/50 hidden h-4 w-[1px] sm:block"></div>
           <span
             class="text-gruv-muted hidden text-[10px] font-bold tracking-widest uppercase sm:block"
           >
-            Backend Engineer
+            Software Engineer
           </span>
         </div>
 
@@ -63,19 +81,19 @@ const { title } = Astro.props;
             href="#projects"
             data-astro-prefetch
             class="text-gruv-muted hover:text-gruv-text transition-colors"
-            >Lab</a
+            >Projects</a
           >
           <a
-            href="#research"
+            href="#education"
             data-astro-prefetch
             class="text-gruv-muted hover:text-gruv-text transition-colors"
-            >Notes</a
+            >Education</a
           >
           <a
             href="mailto:abinash@theabx.in"
             class="text-gruv-orange flex items-center gap-2 transition-all hover:brightness-125"
           >
-            Say Hello
+            Email
             <svg
               width="14"
               height="14"
@@ -90,7 +108,11 @@ const { title } = Astro.props;
         </div>
 
         <!-- Mobile Toggle -->
-        <button id="menu-toggle" class="text-gruv-text p-2 md:hidden" aria-label="Toggle Menu">
+        <button
+          id="menu-toggle"
+          class="text-gruv-text p-2 md:hidden"
+          aria-label="Toggle Menu"
+        >
           <svg
             width="24"
             height="24"
@@ -109,26 +131,42 @@ const { title } = Astro.props;
     </nav>
 
     <!-- Mobile Bottom Drawer Overlay -->
-    <div id="mobile-overlay" class="fixed inset-0 z-[60] hidden bg-black/60 backdrop-blur-sm transition-opacity duration-300 md:hidden"></div>
+    <div
+      id="mobile-overlay"
+      class="fixed inset-0 z-[60] hidden bg-black/60 backdrop-blur-sm transition-opacity duration-300 md:hidden"
+    >
+    </div>
 
     <!-- Mobile Bottom Drawer -->
     <div
       id="mobile-menu"
-      class="bg-gruv-surface border-gruv-border fixed right-0 bottom-0 left-0 z-[70] flex translate-y-full flex-col gap-6 border-t rounded-t-[2.5rem] p-8 transition-transform duration-300 ease-out md:hidden"
+      class="bg-gruv-surface border-gruv-border fixed right-0 bottom-0 left-0 z-[70] flex translate-y-full flex-col gap-6 rounded-t-[2.5rem] border-t p-8 transition-transform duration-300 ease-out md:hidden"
     >
-        <!-- Drawer Handle -->
-        <div class="mx-auto h-1.5 w-12 rounded-full bg-gruv-border mb-2"></div>
-        
-        <div class="flex flex-col gap-8 items-center text-center">
-            <a href="#experience" class="mobile-link text-2xl font-black tracking-tightest uppercase italic">Work</a>
-            <a href="#projects" class="mobile-link text-2xl font-black tracking-tightest uppercase italic">Lab</a>
-            <a href="#research" class="mobile-link text-2xl font-black tracking-tightest uppercase italic">Notes</a>
-            <a
-              href="mailto:abinash@theabx.in"
-              class="bg-gruv-orange text-gruv-bg w-full rounded-full px-5 py-4 text-center text-lg font-bold shadow-premium"
-              >Say Hello</a
-            >
-        </div>
+      <!-- Drawer Handle -->
+      <div class="bg-gruv-border mx-auto mb-2 h-1.5 w-12 rounded-full"></div>
+
+      <div class="flex flex-col items-center gap-8 text-center">
+        <a
+          href="#experience"
+          class="mobile-link tracking-tightest text-2xl font-black uppercase italic"
+          >Work</a
+        >
+        <a
+          href="#projects"
+          class="mobile-link tracking-tightest text-2xl font-black uppercase italic"
+          >Projects</a
+        >
+        <a
+          href="#education"
+          class="mobile-link tracking-tightest text-2xl font-black uppercase italic"
+          >Education</a
+        >
+        <a
+          href="mailto:abinash@theabx.in"
+          class="bg-gruv-orange text-gruv-bg shadow-premium w-full rounded-full px-5 py-4 text-center text-lg font-bold"
+          >Email</a
+        >
+      </div>
     </div>
 
     <slot />
@@ -139,10 +177,10 @@ const { title } = Astro.props;
       >
         <div class="flex flex-col gap-2 text-center md:text-left">
           <div class="text-2xl font-bold tracking-tighter">
-            Let's build something resilient.
+            Interested in backend engineering work?
           </div>
           <p class="text-gruv-muted">
-            Available for high-stakes backend engineering roles.
+            Contact me about Java, Go, payments, or platform roles.
           </p>
         </div>
         <div class="flex gap-6">
@@ -168,11 +206,41 @@ const { title } = Astro.props;
       <div
         class="text-gruv-muted mx-auto mt-20 max-w-6xl text-center text-xs tracking-widest uppercase opacity-50"
       >
-        © {new Date().getFullYear()} Abinash S. — SYSTEM_STATUS: OPERATIONAL
+        © {new Date().getFullYear()} Abinash Selvarasu
       </div>
     </footer>
 
     <script>
+      const loaderStartedAt = performance.now();
+      const minimumLoaderDuration = 1300;
+
+      function dismissLoader(immediate = false) {
+        const loader = document.getElementById("page-loader");
+        if (!loader || loader.classList.contains("is-hidden")) return;
+
+        if (!immediate) {
+          const remainingDuration =
+            minimumLoaderDuration - (performance.now() - loaderStartedAt);
+
+          if (remainingDuration > 0) {
+            window.setTimeout(() => dismissLoader(), remainingDuration);
+            return;
+          }
+        }
+
+        loader.classList.add("is-hidden");
+        loader.addEventListener("transitionend", () => loader.remove(), {
+          once: true,
+        });
+        window.setTimeout(() => loader.remove(), 500);
+      }
+
+      if (document.readyState === "complete") {
+        dismissLoader();
+      } else {
+        window.addEventListener("load", () => dismissLoader(), { once: true });
+      }
+
       function setup() {
         const toggle = document.getElementById("menu-toggle");
         const menu = document.getElementById("mobile-menu");
@@ -180,29 +248,27 @@ const { title } = Astro.props;
         const links = document.querySelectorAll(".mobile-link");
 
         function toggleMenu() {
-            const isOpen = menu?.classList.contains("translate-y-0");
-            
-            if (isOpen) {
-                // Close
-                menu?.classList.remove("translate-y-0");
-                menu?.classList.add("translate-y-full");
-                overlay?.classList.add("hidden");
-                document.body.style.overflow = "";
-            } else {
-                // Open
-                menu?.classList.remove("translate-y-full");
-                menu?.classList.add("translate-y-0");
-                overlay?.classList.remove("hidden");
-                document.body.style.overflow = "hidden"; // Prevent background scroll
-            }
+          const isOpen = menu?.classList.contains("translate-y-0");
+
+          if (isOpen) {
+            // Close
+            menu?.classList.remove("translate-y-0");
+            menu?.classList.add("translate-y-full");
+            overlay?.classList.add("hidden");
+            document.body.style.overflow = "";
+          } else {
+            // Open
+            menu?.classList.remove("translate-y-full");
+            menu?.classList.add("translate-y-0");
+            overlay?.classList.remove("hidden");
+            document.body.style.overflow = "hidden"; // Prevent background scroll
+          }
         }
 
         toggle?.addEventListener("click", toggleMenu);
         overlay?.addEventListener("click", toggleMenu);
-        
-        links.forEach((l) =>
-          l.addEventListener("click", toggleMenu),
-        );
+
+        links.forEach((l) => l.addEventListener("click", toggleMenu));
 
         // Scroll Reveal Observer
         const observer = new IntersectionObserver(
@@ -224,8 +290,11 @@ const { title } = Astro.props;
       // Initial setup
       setup();
 
-      // Re-setup on view transitions
-      document.addEventListener("astro:after-swap", setup);
+      // Re-setup after client-side navigation and remove any swapped-in loader.
+      document.addEventListener("astro:after-swap", () => {
+        dismissLoader(true);
+        setup();
+      });
     </script>
   </body>
 </html>

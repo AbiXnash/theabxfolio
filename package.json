@@ -1,8 +1,8 @@
 {
   "name": "theabxfolio",
   "type": "module",
-  "version": "3.1.1",
-  "description": "Personal portfolio website of Abinash Selvarasu - Software Engineer specializing in payments, security, and resilient systems.",
+  "version": "3.2.0",
+  "description": "Portfolio website of Abinash Selvarasu, a backend engineer working with Java, Go, and payment systems.",
   "author": "Abinash Selvarasu <abinash@theabx.in>",
   "license": "MIT",
   "homepage": "https://theabx.in",

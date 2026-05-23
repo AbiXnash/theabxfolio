@@ -3,7 +3,6 @@ import { getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ExperienceCard from '../components/ExperienceCard.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import { sortResearchByYear } from '../lib/utils';
 
 // Use getEntry to fetch the single resume data object
 const resumeEntry = await getEntry('resume', 'resume');
@@ -12,10 +11,7 @@ if (!resumeEntry) {
     throw new Error('Could not find resume data in content collection. ID used: resume');
 }
 
-const { work, projects, research } = resumeEntry.data;
-
-// Order research by year (descending)
-const sortedResearch = sortResearchByYear(research.items);
+const { work, projects, education } = resumeEntry.data;
 ---
 
 <BaseLayout title="Abinash Selvarasu | Backend Engineer">
@@ -25,35 +21,29 @@ const sortedResearch = sortResearchByYear(research.items);
     <!-- Personal Hero Section -->
     <section class="flex flex-col items-center text-center gap-10 reveal relative pt-8 sm:pt-0">
       <div class="flex flex-col items-center gap-8 max-w-4xl relative">
-        <!-- Floating Pet with Speech Bubble -->
+        <!-- Decorative pixel mark -->
         <div class="flex items-center justify-center gap-4 mb-2 relative group">
-            <span class="text-gruv-muted font-mono text-[10px] uppercase tracking-widest">abx.in // active_</span>
-            <div class="relative">
-                <div id="ghost-bubble" class="speech-bubble">Hi.</div>
-                <div class="pixel-pet scale-75"></div>
-            </div>
+            <span class="text-gruv-muted font-mono text-[10px] uppercase tracking-widest">Abinash Selvarasu / Backend Engineer</span>
+            <div class="pixel-pet scale-75"></div>
         </div>
 
         <div class="flex flex-col gap-4">
             <h1 class="text-5xl sm:text-[9rem] font-black tracking-tightest leading-[0.85] sm:leading-[0.8] text-gruv-text">
-                I build <span class="text-gruv-orange text-shadow-glow">invisible</span> systems.
+                I build <span class="text-gruv-orange text-shadow-glow">backend software.</span>
             </h1>
         </div>
 
         <p class="text-lg sm:text-3xl text-gruv-muted leading-snug font-medium max-w-2xl tracking-tight px-4 sm:px-0">
-            I'm <span class="text-gruv-text text-shadow-glow">Abinash Selvarasu</span>. I spend my time over-engineering backend systems so they actually stay upright when people start hitting them.
+            I'm <span class="text-gruv-text text-shadow-glow">Abinash Selvarasu</span>, a Java developer at Mindgate Solutions. I work on banking and payment flows, and build side projects in Go and TypeScript.
         </p>
 
         <div class="flex flex-col sm:flex-row gap-6 sm:gap-8 items-center mt-6">
             <a href="mailto:abinash@theabx.in" class="w-full sm:w-auto bg-gruv-orange text-gruv-bg px-8 sm:px-10 py-4 sm:py-5 rounded-full font-bold text-lg sm:text-xl hover:scale-105 transition-all duration-500 shadow-premium">
-                Let's Work Together
+                Email me
             </a>
             <div class="flex items-center gap-8 sm:gap-6">
                 <a href="https://github.com/AbiXnash" target="_blank" class="text-gruv-muted hover:text-gruv-text transition-colors">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                </a>
-                <a href="https://linkedin.com" target="_blank" class="text-gruv-muted hover:text-gruv-text transition-colors">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                 </a>
                 <a href="https://instagram.com/abx.engg" target="_blank" class="text-gruv-muted hover:text-gruv-text transition-colors">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
@@ -67,24 +57,27 @@ const sortedResearch = sortResearchByYear(research.items);
     <section id="experience" class="flex flex-col gap-8 sm:gap-20 scroll-mt-32 reveal px-2 sm:px-0">
         <div class="flex flex-col gap-4">
             <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-[10px] sm:text-sm">Experience</h2>
-            <h3 class="text-4xl sm:text-6xl font-extrabold tracking-tighter">Where I've been.</h3>
+            <h3 class="text-4xl sm:text-6xl font-extrabold tracking-tighter">Work experience.</h3>
         </div>
         <div class="flex flex-col gap-6 sm:gap-8">
             {work.items.map(item => (
                 <ExperienceCard {...item} />
             ))}
         </div>
+        <p class="text-gruv-muted text-sm leading-relaxed max-w-3xl">
+            Public summary only. Client, market, and integration details are intentionally generalized to respect confidentiality.
+        </p>
     </section>
 
     <!-- Projects -->
     <section id="projects" class="flex flex-col gap-8 sm:gap-20 scroll-mt-32 reveal px-2 sm:px-0">
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-8">
             <div class="flex flex-col gap-4">
-                <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-[10px] sm:text-sm">Lab</h2>
-                <h3 class="text-4xl sm:text-6xl font-extrabold tracking-tighter">What I've built.</h3>
+                <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-[10px] sm:text-sm">Projects</h2>
+                <h3 class="text-4xl sm:text-6xl font-extrabold tracking-tighter">Things I've made.</h3>
             </div>
             <a href="https://github.com/AbiXnash" target="_blank" class="text-gruv-muted font-bold hover:text-gruv-orange transition-colors flex items-center gap-2 text-base sm:text-lg">
-                Full Registry <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                View GitHub <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </a>
         </div>
         
@@ -99,52 +92,46 @@ const sortedResearch = sortResearchByYear(research.items);
         {projects.items.length > 4 && (
             <div class="flex justify-center mt-8">
                 <button id="load-more-projects" class="px-8 py-3 rounded-full border border-gruv-border text-gruv-text font-bold hover:bg-gruv-surface transition-all flex items-center gap-2 group text-sm uppercase tracking-widest cursor-pointer">
-                    Load More Artifacts
+                    Show more projects
                     <svg class="group-hover:translate-y-1 transition-transform" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
                 </button>
             </div>
         )}
     </section>
 
-    <!-- Research -->
-    <section id="research" class="flex flex-col gap-8 sm:gap-20 scroll-mt-32 reveal px-2 sm:px-0">
+    <!-- Education -->
+    <section id="education" class="flex flex-col gap-8 sm:gap-20 scroll-mt-32 reveal px-2 sm:px-0">
         <div class="flex flex-col gap-4">
-            <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-[10px] sm:text-sm">Notes</h2>
-            <h3 class="text-4xl sm:text-6xl font-extrabold tracking-tighter">What I've learned.</h3>
+            <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-[10px] sm:text-sm">Education</h2>
+            <h3 class="text-4xl sm:text-6xl font-extrabold tracking-tighter">Computer science foundation.</h3>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {sortedResearch.map(item => (
-                <div class="bg-gruv-surface/40 border border-gruv-border/30 rounded-[2rem] p-8 flex flex-col justify-between gap-6 hover:border-gruv-blue/50 transition-colors group">
-                    <div class="flex flex-col gap-4">
-                        <div class="text-gruv-blue font-bold text-[10px] uppercase tracking-widest opacity-60">Research Paper</div>
-                        <h4 class="text-xl font-bold tracking-tight group-hover:text-gruv-blue transition-colors leading-tight">{item.title}</h4>
-                        <p class="text-sm text-gruv-muted leading-relaxed line-clamp-3">{item.intro}</p>
+        <div class="grid grid-cols-1 gap-6">
+            {education.items.map(item => (
+                <div class="bg-gruv-surface/40 border border-gruv-border/30 rounded-[2rem] p-8 sm:p-12 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:border-gruv-blue/50 transition-colors group">
+                    <div class="flex flex-col gap-3">
+                        <h4 class="text-2xl sm:text-3xl font-bold tracking-tight group-hover:text-gruv-blue transition-colors leading-tight">{item.title}</h4>
+                        <p class="text-base sm:text-lg text-gruv-muted leading-relaxed max-w-3xl">{item.intro}</p>
                     </div>
-                    <div class="flex items-center justify-between mt-4">
-                        <span class="text-xs font-medium text-gruv-muted">{item.meta.split('·')[0].trim()}</span>
-                        <a href={item.github} target="_blank" class="w-10 h-10 rounded-full bg-gruv-bg flex items-center justify-center text-gruv-muted hover:text-gruv-blue transition-colors">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-                        </a>
-                    </div>
+                    <span class="text-sm font-bold text-gruv-blue uppercase tracking-widest shrink-0">{item.meta}</span>
                 </div>
             ))}
         </div>
     </section>
 
-    <!-- Education Replacement: Technical Arsenal -->
+    <!-- Toolkit -->
     <section id="toolkit" class="flex flex-col gap-8 sm:gap-20 reveal mb-20 px-2 sm:px-0">
         <div class="flex flex-col gap-4 text-center items-center">
             <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-[10px] sm:text-sm">Toolkit</h2>
-            <h3 class="text-4xl sm:text-6xl font-extrabold tracking-tighter">My daily drivers.</h3>
+            <h3 class="text-4xl sm:text-6xl font-extrabold tracking-tighter">Tools I work with.</h3>
         </div>
         <div class="max-w-4xl mx-auto w-full bg-gruv-surface/50 border border-gruv-border/30 rounded-apple p-10 sm:p-16 flex flex-col sm:flex-row items-center justify-between gap-10">
             <div class="flex flex-col gap-8 text-center sm:text-left flex-1">
                 <div class="flex flex-col gap-2">
-                    <div class="text-gruv-orange font-bold text-lg uppercase tracking-widest leading-none">Core Foundations</div>
-                    <h4 class="text-3xl sm:text-4xl font-extrabold tracking-tighter">Java & Go Performance</h4>
+                    <div class="text-gruv-orange font-bold text-lg uppercase tracking-widest leading-none">Languages and frameworks</div>
+                    <h4 class="text-3xl sm:text-4xl font-extrabold tracking-tighter">Backend to frontend</h4>
                 </div>
                 <div class="flex flex-wrap justify-center sm:justify-start gap-3">
-                    {['Spring Boot', 'PostgreSQL', 'Microservices', 'Distributed Systems', 'Astro', 'Bun', 'TypeScript'].map(tech => (
+                    {['Neovim', 'Java', 'Lua', 'Golang', 'React', 'Svelte', 'Angular', 'Kotlin', 'TypeScript', 'Rust'].map(tech => (
                         <span class="px-4 sm:px-5 py-2 sm:py-2.5 bg-gruv-bg rounded-xl font-mono text-[10px] sm:text-sm border border-gruv-border/50 text-gruv-muted hover:text-gruv-orange hover:border-gruv-orange transition-all duration-300 cursor-default">
                             {tech}
                         </span>
@@ -174,48 +161,11 @@ const sortedResearch = sortResearchByYear(research.items);
         }
     }
 
-    function setupGhostTalk() {
-        const bubble = document.getElementById('ghost-bubble');
-        if (!bubble) return;
-
-        const messages: Record<string, string> = {
-            'experience': "Where I broke things (and fixed them).",
-            'projects': "Artifacts from my digital hoard.",
-            'research': "Academic flex. Proceed with caution.",
-            'toolkit': "My daily drivers. Yes, I like orange."
-        };
-
-        const visited = new Set();
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !visited.has(entry.target.id)) {
-                    const msg = messages[entry.target.id];
-                    if (msg) {
-                        visited.add(entry.target.id);
-                        bubble.textContent = msg;
-                        bubble.classList.add('visible');
-                        setTimeout(() => {
-                            bubble.classList.remove('visible');
-                        }, 3500);
-                    }
-                }
-            });
-        }, { threshold: 0.3 });
-
-        Object.keys(messages).forEach(id => {
-            const el = document.getElementById(id);
-            if (el) observer.observe(el);
-        });
-    }
-
     // Initial setup
     setupLoadMore();
-    setupGhostTalk();
 
     // Re-setup on view transitions
     document.addEventListener('astro:after-swap', () => {
         setupLoadMore();
-        setupGhostTalk();
     });
 </script>
