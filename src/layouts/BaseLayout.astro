@@ -373,17 +373,16 @@ const {
           const isOpen = menu?.classList.contains("translate-y-0");
 
           if (isOpen) {
-            // Close
             menu?.classList.remove("translate-y-0");
             menu?.classList.add("translate-y-full");
             overlay?.classList.add("hidden");
             document.body.style.overflow = "";
           } else {
-            // Open
             menu?.classList.remove("translate-y-full");
             menu?.classList.add("translate-y-0");
             overlay?.classList.remove("hidden");
-            document.body.style.overflow = "hidden"; // Prevent background scroll
+            document.body.style.overflow = "hidden";
+            history.pushState({ menu: true }, "");
           }
         }
 
@@ -487,6 +486,19 @@ const {
         document.addEventListener("scroll", onScroll);
         onScroll();
       }
+
+      // Close menu on back gesture/button (registered once, outside setup)
+      let menu: HTMLElement | null;
+      window.addEventListener("popstate", () => {
+        menu = document.getElementById("mobile-menu");
+        if (menu?.classList.contains("translate-y-0")) {
+          const overlay = document.getElementById("mobile-overlay");
+          menu.classList.remove("translate-y-0");
+          menu.classList.add("translate-y-full");
+          overlay?.classList.add("hidden");
+          document.body.style.overflow = "";
+        }
+      });
 
       // Initial setup
       setup();
