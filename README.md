@@ -22,7 +22,8 @@ Built with **Astro 6**, **Bun**, and **Tailwind v4**, using a Gruvbox-inspired d
 - **Runtime:** [Bun](https://bun.sh) (Builds, Package Management, Macros)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com) v4 (Vite plugin integration)
 - **Typography:** Inter (Sans-serif), JetBrains Mono (Monospace), Press Start 2P (Pixel)
-- **Deploy:** GitHub Pages (Static)
+- **Deploy:** GitHub Pages (Static) + Cloudflare Workers (API proxy)
+- **API:** Cloudflare Worker proxying GitHub REST API (keeps token server-side)
 
 ---
 
@@ -55,6 +56,8 @@ src/
 ├── lib/                 # Logic and helper macros
 ├── pages/               # Main routes (index.astro)
 └── styles/              # Global CSS and theme definitions
+workers/
+└── repos.js             # Cloudflare Worker — proxies GitHub API
 ```
 
 ---
@@ -78,13 +81,44 @@ All primary tokens are managed via the Tailwind v4 `@theme` directive in `src/st
 
 ## Deployment
 
-### GitHub Pages
+### GitHub Pages + Cloudflare Worker
 
-1. Push to `master` branch.
-2. The site auto-deploys via GitHub Actions (`.github/workflows/astro.yml`).
-3. Ensure GitHub Pages settings are pointed to the `gh-pages` branch or root depending on your workflow.
+Repo data (repos, commit counts) is fetched from a Cloudflare Worker at `api.theabx.in`, which proxies the GitHub API to keep the token server-side.
 
----
+#### Prerequisites
+
+- Cloudflare account with `theabx.in` zone
+- GitHub token with `public_repo` scope
+- [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/) (`pnpm install -g wrangler`)
+
+#### Setup
+
+1. **Clone and install:**
+   ```sh
+   bun install
+   ```
+
+2. **Configure environment:**
+   ```sh
+   # .env — used for local dev
+   VITE_WORKER_URL=https://api.theabx.in
+   ```
+
+3. **Deploy the Worker:**
+   ```sh
+   wrangler login
+   wrangler deploy
+   echo "<your-github-token>" | wrangler secret put GITHUB_TOKEN
+   ```
+
+4. **Set GitHub Actions variables/secrets:**
+   ```sh
+   gh variable set WORKER_URL --body "https://api.theabx.in"
+   gh secret set CLOUDFLARE_API_TOKEN --body "<your-cloudflare-token>"
+   gh secret set THE_REPO_TOKEN --body "<your-github-token>"
+   ```
+
+5. **Push to `master`** — the workflow builds the site, deploys to GitHub Pages, and updates the Worker on Cloudflare.
 
 ## License
 

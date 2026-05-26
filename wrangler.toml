@@ -1,0 +1,5 @@
+name = "theabxfolio-api"
+main = "workers/repos.js"
+compatibility_date = "2026-05-01"
+
+routes = [{ pattern = "api.theabx.in/*", zone_name = "theabx.in" }]
