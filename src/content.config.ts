@@ -14,6 +14,7 @@ const resume = defineCollection({
           intro: z.string(),
           details: z.string(),
           skills: z.array(z.string()).optional(),
+          category: z.string().optional(),
         }),
       ),
     }),
