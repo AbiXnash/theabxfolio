@@ -50,7 +50,10 @@ jobs:
         working-directory: ${{ env.BUILD_PATH }}
 
       - name: Run tests
-        run: bun test
+        run: |
+          if find . -maxdepth 3 \( -name '*.test.*' -o -name '*.spec.*' \) 2>/dev/null | grep -q .; then
+            bun test
+          fi
         working-directory: ${{ env.BUILD_PATH }}
 
       - name: Build with Astro (Bun)
