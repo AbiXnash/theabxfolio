@@ -63,9 +63,8 @@ jobs:
         working-directory: ${{ env.BUILD_PATH }}
 
       - name: Deploy Cloudflare Worker
-        if: env.CF_TOKEN != ''
+        if: env.CLOUDFLARE_API_TOKEN != ''
         env:
-          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
           echo "${{ secrets.THE_REPO_TOKEN }}" | bunx wrangler secret put GITHUB_TOKEN
