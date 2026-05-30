@@ -69,9 +69,7 @@ jobs:
         if: env.CLOUDFLARE_API_TOKEN != ''
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        run: |
-          echo "${{ secrets.THE_REPO_TOKEN }}" | bunx wrangler secret put GITHUB_TOKEN
-          bunx wrangler deploy
+        run: bunx wrangler deploy
         working-directory: ${{ env.BUILD_PATH }}
 
       - name: Upload artifact
