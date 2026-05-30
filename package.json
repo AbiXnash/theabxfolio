@@ -19,7 +19,20 @@
     "software-engineer",
     "backend-engineer",
     "payments",
-    "developer"
+    "developer",
+    "theabx",
+    "abinash",
+    "abinash-selvarasu",
+    "tailwindcss",
+    "cloudflare",
+    "cloudflare-workers",
+    "responsive-design",
+    "dark-mode",
+    "gruvbox",
+    "eslint",
+    "prettier",
+    "sitemap",
+    "seo"
   ],
   "scripts": {
     "dev": "astro dev",
