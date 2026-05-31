@@ -77,7 +77,7 @@ const jsonLd = {
         </p>
 
         <div class="flex flex-col sm:flex-row gap-6 sm:gap-8 items-center mt-6">
-            <a href="mailto:abinash@theabx.in" class="w-full sm:w-auto bg-gruv-orange text-gruv-bg px-8 sm:px-10 py-4 sm:py-5 rounded-full font-bold text-lg sm:text-xl hover:scale-105 transition-all duration-500 shadow-premium">
+            <a href="mailto:abinash@theabx.in" class="magnetic w-full sm:w-auto bg-gruv-orange text-gruv-bg px-8 sm:px-10 py-4 sm:py-5 rounded-full font-bold text-lg sm:text-xl hover:scale-105 transition-all duration-500 shadow-premium">
                 Email me
             </a>
             <div class="flex items-center gap-8 sm:gap-6">
@@ -130,7 +130,7 @@ const jsonLd = {
 
         {projects.items.length > 4 && (
             <div class="flex justify-center mt-8">
-                <button id="load-more-projects" class="px-8 py-3 rounded-full border border-gruv-border text-gruv-text font-bold hover:bg-gruv-surface transition-all flex items-center gap-2 group text-sm uppercase tracking-widest cursor-pointer">
+                <button id="load-more-projects" class="magnetic px-8 py-3 rounded-full border border-gruv-border text-gruv-text font-bold hover:bg-gruv-surface transition-all flex items-center gap-2 group text-sm uppercase tracking-widest cursor-pointer">
                     Show more projects
                     <svg class="group-hover:translate-y-1 transition-transform" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
                 </button>
@@ -146,7 +146,7 @@ const jsonLd = {
         </div>
         <div class="grid grid-cols-1 gap-6">
             {education.items.map(item => (
-                <div class="bg-gruv-surface/40 border border-gruv-border/30 rounded-[2rem] p-8 sm:p-12 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:border-gruv-blue/50 transition-colors group">
+                <div class="tilt-card relative overflow-hidden bg-gruv-surface/40 border border-gruv-border/30 rounded-[2rem] p-8 sm:p-12 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:border-gruv-blue/50 transition-colors group">
                     <div class="flex flex-col gap-3">
                         <h4 class="text-2xl sm:text-3xl font-bold tracking-tight group-hover:text-gruv-blue transition-colors leading-tight">{item.title}</h4>
                         <p class="text-base sm:text-lg text-gruv-muted leading-relaxed max-w-3xl">{item.intro}</p>
@@ -180,7 +180,7 @@ const jsonLd = {
             <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-[10px] sm:text-sm">Toolkit</h2>
             <h3 class="text-4xl sm:text-6xl font-extrabold tracking-tighter">Tools I work with.</h3>
         </div>
-        <div class="max-w-4xl mx-auto w-full bg-gruv-surface/50 border border-gruv-border/30 rounded-apple p-10 sm:p-16 flex flex-col sm:flex-row items-center justify-between gap-10">
+        <div class="tilt-card relative overflow-hidden max-w-4xl mx-auto w-full bg-gruv-surface/50 border border-gruv-border/30 rounded-apple p-10 sm:p-16 flex flex-col sm:flex-row items-center justify-between gap-10">
             <div class="flex flex-col gap-8 text-center sm:text-left flex-1">
                 <div class="flex flex-col gap-2">
                     <div class="text-gruv-orange font-bold text-lg uppercase tracking-widest leading-none">Languages and frameworks</div>
@@ -247,7 +247,7 @@ const jsonLd = {
     function repoToCard(r) {
         const langColor = getLanguageColor(r.language);
         const ago = timeAgo(r.pushedAt);
-        return `<a href="${r.url}" target="_blank" class="group bg-gruv-surface/30 border-gruv-border/30 rounded-apple hover:bg-gruv-surface hover:border-gruv-orange/50 shadow-premium flex flex-col justify-between gap-8 border p-10 transition-all duration-500">
+        return `<a href="${r.url}" target="_blank" class="tilt-card relative overflow-hidden group bg-gruv-surface/30 border-gruv-border/30 rounded-apple hover:bg-gruv-surface hover:border-gruv-orange/50 shadow-premium flex flex-col justify-between gap-8 border p-10 transition-all duration-500">
   <div class="flex flex-col gap-6">
     <div class="flex items-center justify-between">
       ${r.language ? `<span class="flex items-center gap-2 text-gruv-muted text-xs font-bold tracking-widest uppercase">

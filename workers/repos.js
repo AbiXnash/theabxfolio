@@ -39,14 +39,14 @@ export default {
         }),
       );
 
-      const repos = data.map((r, i) => ({
-        name: r.name,
-        description: r.description ?? "",
-        language: r.language,
-        url: r.html_url,
-        pushedAt: r.pushed_at ?? "",
-        commits: commitCounts[i],
-      }));
+        const repos = data.map((r, i) => ({
+          name: r.name,
+          description: r.description ?? "",
+          language: r.language,
+          url: r.html_url,
+          pushedAt: r.pushed_at ?? "",
+          commits: commitCounts[i],
+        }));
 
       return new Response(JSON.stringify(repos), {
         headers: {
