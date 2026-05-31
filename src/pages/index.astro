@@ -55,7 +55,7 @@ const jsonLd = {
   jsonLd={jsonLd}
 >
   
-  <main class="max-w-6xl mx-auto px-6 pt-20 sm:pt-48 flex flex-col gap-16 sm:gap-48 overflow-hidden">
+  <main class="flex flex-col gap-24 sm:gap-48 overflow-hidden">
     
     <!-- Personal Hero Section -->
     <section class="flex flex-col items-center text-center gap-10 reveal relative pt-8 sm:pt-0">
@@ -138,24 +138,7 @@ const jsonLd = {
         )}
     </section>
 
-    <!-- Education -->
-    <section id="education" class="flex flex-col gap-8 sm:gap-20 scroll-mt-32 reveal px-2 sm:px-0">
-        <div class="flex flex-col gap-4">
-            <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-[10px] sm:text-sm">Education</h2>
-            <h3 class="scramble-text text-4xl sm:text-6xl font-extrabold tracking-tighter">Computer science foundation.</h3>
-        </div>
-        <div class="grid grid-cols-1 gap-6">
-            {education.items.map(item => (
-                <div class="tilt-card relative overflow-hidden bg-gruv-surface/40 border border-gruv-border/30 rounded-[2rem] p-8 sm:p-12 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:border-gruv-blue/50 transition-colors group">
-                    <div class="flex flex-col gap-3">
-                        <h4 class="text-2xl sm:text-3xl font-bold tracking-tight group-hover:text-gruv-blue transition-colors leading-tight">{item.title}</h4>
-                        <p class="text-base sm:text-lg text-gruv-muted leading-relaxed max-w-3xl">{item.intro}</p>
-                    </div>
-                    <span class="text-sm font-bold text-gruv-blue uppercase tracking-widest shrink-0">{item.meta}</span>
-                </div>
-            ))}
-        </div>
-    </section>
+
 
     <!-- Open Source -->
     <section id="opensource" class="flex flex-col gap-8 sm:gap-20 reveal px-2 sm:px-0">
