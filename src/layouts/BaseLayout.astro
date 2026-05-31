@@ -80,6 +80,7 @@ const {
     <div class="bg-illusion">
       <div class="bg-illusion-grid"></div>
       <div class="bg-illusion-mask"></div>
+      <canvas id="particle-web" class="fixed inset-0 z-0 opacity-40 pointer-events-none"></canvas>
     </div>
 
 
@@ -301,20 +302,95 @@ const {
           const navWrapper = document.getElementById("nav-wrapper");
           if (navbar && navWrapper) {
             if (scrollTop > 60) {
-              // Scrolled: Floating Pill
               navWrapper.classList.remove("top-0", "px-0");
               navWrapper.classList.add("top-4", "sm:top-6", "px-4");
-              
               navbar.classList.remove("h-16", "max-w-6xl", "rounded-none", "border-b", "border-gruv-border/30", "bg-transparent", "px-6");
               navbar.classList.add("h-14", "max-w-3xl", "rounded-full", "border", "border-gruv-border/40", "bg-gruv-surface/60", "backdrop-blur-xl", "px-4", "sm:px-6", "shadow-[0_8px_32px_rgba(0,0,0,0.4)]");
             } else {
-              // Unscrolled: Full Width Bar
               navWrapper.classList.remove("top-4", "sm:top-6", "px-4");
               navWrapper.classList.add("top-0", "px-0");
-              
               navbar.classList.remove("h-14", "max-w-3xl", "rounded-full", "border", "border-gruv-border/40", "bg-gruv-surface/60", "backdrop-blur-xl", "px-4", "sm:px-6", "shadow-[0_8px_32px_rgba(0,0,0,0.4)]");
               navbar.classList.add("h-16", "max-w-6xl", "rounded-none", "border-b", "border-gruv-border/30", "bg-transparent", "px-6");
             }
+          }
+        }
+
+        // Particle Web
+        const canvas = document.getElementById("particle-web") as HTMLCanvasElement;
+        if (canvas) {
+          const ctx = canvas.getContext("2d");
+          if (ctx) {
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+            
+            window.addEventListener("resize", () => {
+              width = canvas.width = window.innerWidth;
+              height = canvas.height = window.innerHeight;
+            });
+
+            const particles: {x: number, y: number, vx: number, vy: number, radius: number}[] = [];
+            for(let i=0; i<40; i++) {
+              particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                radius: Math.random() * 1.5 + 0.5
+              });
+            }
+
+            let mouse = { x: -1000, y: -1000 };
+            document.addEventListener("mousemove", (e) => {
+              mouse.x = e.clientX;
+              mouse.y = e.clientY;
+            });
+
+            function draw() {
+              if(!ctx) return;
+              ctx.clearRect(0, 0, width, height);
+              ctx.fillStyle = "#fe8019"; 
+              ctx.strokeStyle = "rgba(254, 128, 25, 0.15)";
+              
+              for(let i=0; i<particles.length; i++) {
+                let p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                
+                if (p.x < 0 || p.x > width) p.vx *= -1;
+                if (p.y < 0 || p.y > height) p.vy *= -1;
+                
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+                
+                let dx = p.x - mouse.x;
+                let dy = p.y - mouse.y;
+                let dist = Math.sqrt(dx*dx + dy*dy);
+                if (dist < 180) {
+                  ctx.strokeStyle = `rgba(254, 128, 25, ${0.25 * (1 - dist/180)})`;
+                  ctx.beginPath();
+                  ctx.moveTo(p.x, p.y);
+                  ctx.lineTo(mouse.x, mouse.y);
+                  ctx.stroke();
+                }
+                
+                ctx.strokeStyle = "rgba(254, 128, 25, 0.1)";
+                for(let j=i+1; j<particles.length; j++) {
+                  let p2 = particles[j];
+                  let dx2 = p.x - p2.x;
+                  let dy2 = p.y - p2.y;
+                  let dist2 = Math.sqrt(dx2*dx2 + dy2*dy2);
+                  if (dist2 < 120) {
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    ctx.stroke();
+                  }
+                }
+              }
+              requestAnimationFrame(draw);
+            }
+            draw();
           }
         }
 
