@@ -67,7 +67,7 @@ const jsonLd = {
         </div>
 
         <div class="flex flex-col gap-4">
-            <h1 class="text-5xl sm:text-[9rem] font-black tracking-tightest leading-[0.85] sm:leading-[0.8] text-gruv-text">
+            <h1 class="text-5xl md:text-7xl lg:text-[9rem] font-black tracking-tightest leading-[0.85] md:leading-[0.8] text-gruv-text">
                 I build <span class="text-gruv-orange text-shadow-glow">backend software.</span>
             </h1>
         </div>
@@ -96,7 +96,7 @@ const jsonLd = {
     <section id="experience" class="flex flex-col gap-8 sm:gap-20 scroll-mt-32 reveal px-2 sm:px-0">
         <div class="flex flex-col gap-4">
             <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-[10px] sm:text-sm">Experience</h2>
-            <h3 class="scramble-text text-4xl sm:text-6xl font-extrabold tracking-tighter">Work experience.</h3>
+            <h3 class="scramble-text text-4xl md:text-6xl font-extrabold tracking-tighter">Work experience.</h3>
         </div>
         <div class="flex flex-col gap-6 sm:gap-8">
             {work.items.map(item => (
@@ -162,23 +162,14 @@ const jsonLd = {
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-8">
             <div class="flex flex-col gap-4">
                 <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-[10px] sm:text-sm">Open Source</h2>
-                <h3 class="scramble-text text-4xl sm:text-6xl font-extrabold tracking-tighter">Recent activity.</h3>
+                <h3 class="scramble-text text-4xl md:text-6xl font-extrabold tracking-tighter">Recent activity.</h3>
             </div>
             <a href="https://github.com/AbiXnash" target="_blank" class="magnetic text-gruv-muted font-bold hover:text-gruv-orange transition-colors flex items-center gap-2 text-base sm:text-lg">
                 View GitHub <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </a>
         </div>
 
-        <!-- GitHub Contribution Graph -->
-        <div class="tilt-card relative overflow-hidden bg-gruv-surface/30 border border-gruv-border/30 rounded-apple p-6 sm:p-10 flex flex-col gap-6 shadow-premium w-full group">
-            <div class="flex items-center gap-3 w-full border-b border-gruv-border/20 pb-4">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gruv-orange"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                <span class="text-gruv-muted text-xs font-bold uppercase tracking-widest">Contributions Map</span>
-            </div>
-            <div class="w-full overflow-x-auto overflow-y-hidden py-2 custom-scrollbar">
-                <img class="min-w-[700px] w-full max-w-full opacity-90 transition-all duration-500 group-hover:opacity-100 group-hover:scale-[1.01]" src="https://ghchart.rshah.org/fe8019/AbiXnash" alt="AbiXnash's GitHub Contribution Graph" style="filter: drop-shadow(0 0 2px rgba(254,128,25,0.1));" />
-            </div>
-        </div>
+
 
         <div id="repos-container" class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8"></div>
         <div id="repos-loading" class="text-center py-16">
