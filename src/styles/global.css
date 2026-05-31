@@ -31,7 +31,7 @@ html {
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--color-gruv-bg);
+  background-color: transparent;
   color: var(--color-gruv-text);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -203,45 +203,39 @@ body {
   scrollbar-width: none;
 }
 
-/* Ambient glowing blobs */
-.glow-blob {
+/* 3D Grid Illusion Background */
+.bg-illusion {
   position: fixed;
-  border-radius: 50%;
-  filter: blur(120px);
-  z-index: -1;
-  opacity: 0.15;
+  inset: 0;
+  z-index: -10;
+  background-color: var(--color-gruv-bg);
+  perspective: 600px;
+  overflow: hidden;
   pointer-events: none;
 }
-.glow-blob-1 {
-  background: var(--color-gruv-orange);
-  width: 60vw;
-  height: 60vw;
-  top: -10vw;
-  right: -10vw;
-  animation: float-blob-1 20s infinite alternate ease-in-out;
-}
-.glow-blob-2 {
-  background: var(--color-gruv-blue);
-  width: 50vw;
-  height: 50vw;
-  bottom: -5vw;
-  left: -10vw;
-  animation: float-blob-2 25s infinite alternate ease-in-out;
+
+.bg-illusion-grid {
+  position: absolute;
+  width: 200vw;
+  height: 200vh;
+  left: -50vw;
+  top: -50vh;
+  background-image: 
+    linear-gradient(to right, var(--color-gruv-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-gruv-border) 1px, transparent 1px);
+  background-size: 50px 50px;
+  transform: rotateX(75deg) translateY(0);
+  transform-origin: center center;
+  animation: grid-move 3s linear infinite;
 }
 
-@keyframes float-blob-1 {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  100% {
-    transform: translate(-5vw, 10vh) scale(1.1);
-  }
+.bg-illusion-mask {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, var(--color-gruv-bg) 20%, transparent 80%);
 }
-@keyframes float-blob-2 {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  100% {
-    transform: translate(10vw, -5vh) scale(1.05);
-  }
+
+@keyframes grid-move {
+  0% { transform: rotateX(75deg) translateY(0); }
+  100% { transform: rotateX(75deg) translateY(50px); }
 }
