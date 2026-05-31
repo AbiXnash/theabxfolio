@@ -96,7 +96,7 @@ const jsonLd = {
     <section id="experience" class="flex flex-col gap-8 sm:gap-20 scroll-mt-32 reveal px-2 sm:px-0">
         <div class="flex flex-col gap-4">
             <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-[10px] sm:text-sm">Experience</h2>
-            <h3 class="text-4xl sm:text-6xl font-extrabold tracking-tighter">Work experience.</h3>
+            <h3 class="scramble-text text-4xl sm:text-6xl font-extrabold tracking-tighter">Work experience.</h3>
         </div>
         <div class="flex flex-col gap-6 sm:gap-8">
             {work.items.map(item => (
@@ -113,7 +113,7 @@ const jsonLd = {
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-8">
             <div class="flex flex-col gap-4">
                 <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-[10px] sm:text-sm">Projects</h2>
-                <h3 class="text-4xl sm:text-6xl font-extrabold tracking-tighter">Things I've made.</h3>
+                <h3 class="scramble-text text-4xl sm:text-6xl font-extrabold tracking-tighter">Things I've made.</h3>
             </div>
             <a href="https://github.com/AbiXnash" target="_blank" class="text-gruv-muted font-bold hover:text-gruv-orange transition-colors flex items-center gap-2 text-base sm:text-lg">
                 View GitHub <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
@@ -142,7 +142,7 @@ const jsonLd = {
     <section id="education" class="flex flex-col gap-8 sm:gap-20 scroll-mt-32 reveal px-2 sm:px-0">
         <div class="flex flex-col gap-4">
             <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-[10px] sm:text-sm">Education</h2>
-            <h3 class="text-4xl sm:text-6xl font-extrabold tracking-tighter">Computer science foundation.</h3>
+            <h3 class="scramble-text text-4xl sm:text-6xl font-extrabold tracking-tighter">Computer science foundation.</h3>
         </div>
         <div class="grid grid-cols-1 gap-6">
             {education.items.map(item => (
@@ -162,7 +162,7 @@ const jsonLd = {
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-8">
             <div class="flex flex-col gap-4">
                 <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-[10px] sm:text-sm">Open Source</h2>
-                <h3 class="text-4xl sm:text-6xl font-extrabold tracking-tighter">Recent activity.</h3>
+                <h3 class="scramble-text text-4xl sm:text-6xl font-extrabold tracking-tighter">Recent activity.</h3>
             </div>
             <a href="https://github.com/AbiXnash" target="_blank" class="text-gruv-muted font-bold hover:text-gruv-orange transition-colors flex items-center gap-2 text-base sm:text-lg">
                 View GitHub <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
@@ -178,7 +178,7 @@ const jsonLd = {
     <section id="toolkit" class="flex flex-col gap-8 sm:gap-20 reveal mb-20 px-2 sm:px-0">
         <div class="flex flex-col gap-4 text-center items-center">
             <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-[10px] sm:text-sm">Toolkit</h2>
-            <h3 class="text-4xl sm:text-6xl font-extrabold tracking-tighter">Tools I work with.</h3>
+            <h3 class="scramble-text text-4xl sm:text-6xl font-extrabold tracking-tighter">Tools I work with.</h3>
         </div>
         <div class="tilt-card relative overflow-hidden max-w-4xl mx-auto w-full bg-gruv-surface/50 border border-gruv-border/30 rounded-apple p-10 sm:p-16 flex flex-col sm:flex-row items-center justify-between gap-10">
             <div class="flex flex-col gap-8 text-center sm:text-left flex-1">
@@ -205,6 +205,35 @@ const jsonLd = {
 </BaseLayout>
 
 <script>
+    function typeEffect() {
+        const textElement = document.getElementById('typing-text');
+        if (!textElement) return;
+        
+        const fullText = "backend software.";
+        
+        try {
+            if (sessionStorage.getItem('hasTyped') === 'true') {
+                textElement.textContent = fullText;
+                return;
+            }
+            sessionStorage.setItem('hasTyped', 'true');
+        } catch (e) {
+            // fallback if sessionStorage is blocked
+        }
+        
+        textElement.textContent = "";
+        
+        let i = 0;
+        const typingInterval = setInterval(() => {
+            if (i < fullText.length) {
+                textElement.textContent += fullText.charAt(i);
+                i++;
+            } else {
+                clearInterval(typingInterval);
+            }
+        }, 120);
+    }
+
     function setupLoadMore() {
         const loadMoreBtn = document.getElementById('load-more-projects');
         const projectItems = document.querySelectorAll('.project-item');
@@ -217,6 +246,7 @@ const jsonLd = {
         }
     }
 
+    typeEffect();
     setupLoadMore();
 
     document.addEventListener('astro:after-swap', () => {

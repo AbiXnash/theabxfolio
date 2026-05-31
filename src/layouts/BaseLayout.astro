@@ -79,23 +79,7 @@ const {
       <div class="bg-illusion-grid"></div>
       <div class="bg-illusion-mask"></div>
     </div>
-    <div
-      id="page-loader"
-      class="page-loader"
-      role="status"
-      aria-label="Loading site"
-    >
-      <div class="page-loader__mark" aria-hidden="true">
-        <span class="page-loader__dot"></span>
-        <span class="page-loader__dot"></span>
-        <span class="page-loader__dot"></span>
-      </div>
-      <div
-        class="text-gruv-muted font-mono text-[10px] tracking-widest uppercase"
-      >
-        abx // loading
-      </div>
-    </div>
+
 
     <!-- Scroll progress bar -->
     <div id="scroll-bar" class="fixed top-0 left-0 z-[60] h-0.5 bg-gruv-orange transition-all duration-150" style="width: 0%"></div>
@@ -341,36 +325,6 @@ const {
     </footer>
 
     <script>
-      const loaderStartedAt = performance.now();
-      const minimumLoaderDuration = 1300;
-
-      function dismissLoader(immediate = false) {
-        const loader = document.getElementById("page-loader");
-        if (!loader || loader.classList.contains("is-hidden")) return;
-
-        if (!immediate) {
-          const remainingDuration =
-            minimumLoaderDuration - (performance.now() - loaderStartedAt);
-
-          if (remainingDuration > 0) {
-            window.setTimeout(() => dismissLoader(), remainingDuration);
-            return;
-          }
-        }
-
-        loader.classList.add("is-hidden");
-        loader.addEventListener("transitionend", () => loader.remove(), {
-          once: true,
-        });
-        window.setTimeout(() => loader.remove(), 500);
-      }
-
-      if (document.readyState === "complete") {
-        dismissLoader();
-      } else {
-        window.addEventListener("load", () => dismissLoader(), { once: true });
-      }
-
       function setup() {
         const toggle = document.getElementById("menu-toggle");
         const menu = document.getElementById("mobile-menu");
@@ -564,6 +518,60 @@ const {
             }, 500);
           });
         });
+
+        // Interactive Ghost Eyes
+        const ghostPets = document.querySelectorAll<HTMLElement>(".pixel-pet");
+        document.addEventListener("mousemove", (e) => {
+          ghostPets.forEach((ghost) => {
+            const rect = ghost.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const dx = e.clientX - centerX;
+            const dy = e.clientY - centerY;
+            const angle = Math.atan2(dy, dx);
+            const distance = Math.min(4, Math.hypot(dx, dy) / 20);
+            
+            const eyeX = Math.cos(angle) * distance;
+            const eyeY = Math.sin(angle) * distance;
+            
+            ghost.style.setProperty('--eye-x', `${eyeX}px`);
+            ghost.style.setProperty('--eye-y', `${eyeY}px`);
+          });
+        });
+
+        // Hacker Text Scramble Effect
+        const chars = '!<>-_\\\\/[]{}—=+*^?#________';
+        const scrambleElements = document.querySelectorAll<HTMLElement>(".scramble-text");
+        
+        const scrambleObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const element = entry.target as HTMLElement;
+              observer.unobserve(element); // Stop it from playing again and again
+              
+              const original = element.dataset.original || element.textContent || "";
+              if (!element.dataset.original) element.dataset.original = original;
+              
+              element.dataset.scrambling = "true";
+              let iteration = 0;
+              
+              const interval = setInterval(() => {
+                element.textContent = original.split("").map((letter, index) => {
+                  if (index < iteration || letter === " ") return original[index];
+                  return chars[Math.floor(Math.random() * chars.length)];
+                }).join("");
+                
+                if (iteration >= original.length) {
+                  clearInterval(interval);
+                  element.dataset.scrambling = "false";
+                }
+                iteration += 1 / 3;
+              }, 30);
+            }
+          });
+        }, { threshold: 0.5 });
+        
+        scrambleElements.forEach(el => scrambleObserver.observe(el));
       }
 
       // Close menu on back gesture/button (registered once, outside setup)
