@@ -26,6 +26,38 @@ const {
   jsonLd,
   hideNavAndFooter = false,
 } = Astro.props;
+
+const generateLogs = (count: number) => {
+  return Array.from({ length: count }).map(() => {
+    const timestamp = new Date(Date.now() - Math.random() * 10000000).toISOString().replace('T', ' ').substring(0, 23);
+    const levels = ["INFO", "WARN", "DEBUG", "ERROR", "TRACE"];
+    const level = levels[Math.floor(Math.random() * levels.length)];
+    const processes = ["postgres", "redis", "nginx", "node", "docker", "kernel", "wasm"];
+    const process = processes[Math.floor(Math.random() * processes.length)];
+    const messages = [
+      "Connection established successfully.",
+      "Replication lag detected at 45ms.",
+      "Starting worker process...",
+      "Memory usage exceeds 80%. Garbage collection initiated.",
+      "Flushing buffers to disk...",
+      "Health check passed. Container ready.",
+      "10101001 01010100 10101011 11001010",
+      "01100110 01101111 01101111 01100010",
+      "Handshake failed with peer. Retrying...",
+      "Executing query: SELECT * FROM users;",
+      "Cache miss for key user:session:9842",
+      "Allocating 256MB for incoming buffer.",
+      "Segmentation fault (core dumped)..."
+    ];
+    const msg = messages[Math.floor(Math.random() * messages.length)];
+    const marginLeft = Math.floor(Math.random() * 40); // 0 to 40% margin
+    return { text: `[${timestamp}] [${level}] [${process}] ${msg}`, marginLeft };
+  });
+};
+
+const slowLogs = generateLogs(120);
+const mediumLogs = generateLogs(80);
+const fastLogs = generateLogs(50);
 ---
 
 <!doctype html>
@@ -74,13 +106,27 @@ const {
   </head>
   <body class="text-gruv-text min-h-screen antialiased">
     <div class="film-grain"></div>
-    <div id="spotlight-cursor" class="pointer-events-none fixed z-[-5] opacity-0 transition-opacity duration-500 will-change-[left,top]">
-      <div class="absolute -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]" style="width: 40vw; height: 40vw; background: radial-gradient(circle, rgba(254,128,25,0.15) 0%, transparent 70%);"></div>
-    </div>
-    <div class="bg-illusion">
-      <div class="bg-illusion-grid"></div>
-      <div class="bg-illusion-mask"></div>
-      <canvas id="particle-web" class="fixed inset-0 z-0 opacity-40 pointer-events-none"></canvas>
+    <div class="fixed inset-0 z-[-10] overflow-hidden bg-[var(--color-gruv-bg)] pointer-events-none select-none">
+      <div class="absolute inset-0 bg-gradient-to-b from-[var(--color-gruv-bg)] via-transparent to-transparent z-10 h-32"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-gruv-bg)] via-transparent to-transparent z-10 top-auto h-32"></div>
+      
+      <!-- Layer 1: Background (Slow, Small, Dim, Green) -->
+      <div class="absolute inset-0 font-mono text-[8px] opacity-10 text-[var(--color-gruv-green)] animate-scroll-slow whitespace-nowrap flex flex-col">
+        {slowLogs.map(log => <div class="py-[2px]" style={`margin-left: ${log.marginLeft}%`}>{log.text} {log.text}</div>)}
+        {slowLogs.map(log => <div class="py-[2px]" style={`margin-left: ${log.marginLeft}%`}>{log.text} {log.text}</div>)}
+      </div>
+
+      <!-- Layer 2: Midground (Medium, Normal, Blue) -->
+      <div class="absolute inset-0 font-mono text-[10px] opacity-[0.15] text-[var(--color-gruv-blue)] animate-scroll-medium whitespace-nowrap flex flex-col mt-32">
+        {mediumLogs.map(log => <div class="py-[3px]" style={`margin-left: ${log.marginLeft}%`}>{log.text} {log.text}</div>)}
+        {mediumLogs.map(log => <div class="py-[3px]" style={`margin-left: ${log.marginLeft}%`}>{log.text} {log.text}</div>)}
+      </div>
+
+      <!-- Layer 3: Foreground (Fast, Large, Orange, Bright but sparse) -->
+      <div class="absolute inset-0 font-mono text-xs opacity-20 text-[var(--color-gruv-orange)] animate-scroll-fast whitespace-nowrap flex flex-col mt-64">
+        {fastLogs.map(log => <div class="py-[4px]" style={`margin-left: ${log.marginLeft}%`}>{log.text} {log.text}</div>)}
+        {fastLogs.map(log => <div class="py-[4px]" style={`margin-left: ${log.marginLeft}%`}>{log.text} {log.text}</div>)}
+      </div>
     </div>
 
 
@@ -179,6 +225,17 @@ const {
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polyline points="22 2 15 22 11 13 2 9 22 2"></polyline></svg>
             Get in touch
           </a>
+
+          <div class="flex items-center justify-center gap-4 mt-2">
+            <a href="https://github.com/AbiXnash" target="_blank" class="magnetic flex-1 flex items-center justify-center gap-2 text-gruv-muted hover:text-gruv-text bg-gruv-bg/40 hover:bg-gruv-bg border border-transparent hover:border-gruv-border/40 rounded-2xl px-4 py-4 text-xs font-bold tracking-widest uppercase transition-all">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                GitHub
+            </a>
+            <a href="https://linkedin.com/in/abinash-selvarasu" target="_blank" class="magnetic flex-1 flex items-center justify-center gap-2 text-gruv-muted hover:text-gruv-text bg-gruv-bg/40 hover:bg-gruv-bg border border-transparent hover:border-gruv-border/40 rounded-2xl px-4 py-4 text-xs font-bold tracking-widest uppercase transition-all">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                LinkedIn
+            </a>
+          </div>
         </div>
       </>
     )}
@@ -209,9 +266,9 @@ const {
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
                   GitHub
                 </a>
-                <a href="https://instagram.com/abx.engg" target="_blank" class="magnetic text-gruv-muted hover:text-gruv-text bg-gruv-surface/30 hover:bg-gruv-surface border border-transparent hover:border-gruv-border/50 flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold tracking-widest uppercase transition-all">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                  Instagram
+                <a href="https://linkedin.com/in/abinash-selvarasu" target="_blank" class="magnetic text-gruv-muted hover:text-gruv-text bg-gruv-surface/30 hover:bg-gruv-surface border border-transparent hover:border-gruv-border/50 flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold tracking-widest uppercase transition-all">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                  LinkedIn
                 </a>
               </div>
               <a href="mailto:abinash@theabx.in" class="magnetic bg-gruv-orange text-gruv-bg hover:shadow-[0_0_30px_rgba(254,128,25,0.4)] rounded-full px-6 py-3 text-sm font-bold transition-all hover:scale-105">
@@ -230,10 +287,10 @@ const {
             <div class="bg-gruv-border/10 h-px w-full max-w-md"></div>
           </div>
 
-          <div class="text-gruv-muted mx-auto mt-8 flex items-center gap-4 text-[11px] tracking-widest uppercase">
+          <div class="text-gruv-muted mx-auto mt-8 flex flex-wrap justify-center items-center gap-4 text-[11px] tracking-widest uppercase">
             <span>© {new Date().getFullYear()} Abinash Selvarasu</span>
             <span class="text-gruv-border">·</span>
-            <span class="tracking-normal text-gruv-muted/60 font-mono text-[10px]">crafted with gruvbox</span>
+            <span class="tracking-normal text-gruv-muted/60 font-mono text-[10px]">crafted with precision</span>
           </div>
         </div>
       </footer>

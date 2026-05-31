@@ -5,17 +5,17 @@
   --font-mono: "JetBrains Mono", monospace;
   --font-pixel: "Press Start 2P", monospace;
 
-  --color-gruv-bg: #1d2021;
-  --color-gruv-surface: #282828;
-  --color-gruv-border: #3c3836;
-  --color-gruv-text: #ebdbb2;
-  --color-gruv-muted: #928374;
-  --color-gruv-green: #b8bb26;
-  --color-gruv-blue: #83a598;
-  --color-gruv-purple: #d3869b;
-  --color-gruv-yellow: #fabd2f;
-  --color-gruv-orange: #fe8019;
-  --color-gruv-red: #fb4934;
+  --color-gruv-bg: #0d0914;
+  --color-gruv-surface: #1a1228;
+  --color-gruv-border: #2d1d45;
+  --color-gruv-text: #fdf8ff;
+  --color-gruv-muted: #a395b5;
+  --color-gruv-green: #34d399;
+  --color-gruv-blue: #00d2ff;
+  --color-gruv-purple: #b336ff;
+  --color-gruv-yellow: #fbbf24;
+  --color-gruv-orange: #ff477e;
+  --color-gruv-red: #ef4444;
 
   --shadow-premium: 0 20px 50px rgba(0, 0, 0, 0.3);
   --shadow-premium-hover: 0 30px 60px rgba(0, 0, 0, 0.4);
@@ -114,41 +114,31 @@ body {
   transform: translateY(0);
 }
 
-/* Pixel Ghost Pet */
+/* High-Resolution Classic Ghost Pet */
 .pixel-pet {
-  width: 64px;
-  height: 64px;
-  background-color: var(--color-gruv-orange);
-  /* A cute ghost shape */
-  clip-path: polygon(
-    10% 100%,
-    10% 20%,
-    20% 10%,
-    80% 10%,
-    90% 20%,
-    90% 100%,
-    75% 90%,
-    60% 100%,
-    50% 90%,
-    40% 100%,
-    25% 90%
-  );
+  width: 60px;
+  height: 70px;
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 70'%3E%3Cpath d='M 0 70 L 0 30 C 0 0, 60 0, 60 30 L 60 70 Q 52.5 60 45 70 Q 37.5 80 30 70 Q 22.5 60 15 70 Q 7.5 80 0 70 Z' fill='black'/%3E%3C/svg%3E");
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 70'%3E%3Cpath d='M 0 70 L 0 30 C 0 0, 60 0, 60 30 L 60 70 Q 52.5 60 45 70 Q 37.5 80 30 70 Q 22.5 60 15 70 Q 7.5 80 0 70 Z' fill='black'/%3E%3C/svg%3E");
+  mask-size: 100% 100%;
+  -webkit-mask-size: 100% 100%;
   position: relative;
   animation: float-ghost 3s infinite ease-in-out;
-  image-rendering: pixelated;
-  filter: drop-shadow(0 0 20px rgba(254, 128, 25, 0.4));
+  z-index: 50;
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
 }
 
-/* Eyes for the ghost */
+/* Classic Ghost Eyes */
 .pixel-pet::before,
 .pixel-pet::after {
   content: "";
   position: absolute;
-  top: 30%;
-  width: 8px;
-  height: 8px;
-  background-color: #1d2021;
-  box-shadow: 0 0 10px rgba(254, 128, 25, 0.8);
+  top: 35%;
+  width: 10px;
+  height: 14px;
+  background: #1a1a1a;
+  border-radius: 50%;
   transform: translate(var(--eye-x, 0px), var(--eye-y, 0px));
   transition: transform 0.05s linear;
 }
@@ -160,18 +150,13 @@ body {
 }
 
 @keyframes float-ghost {
-  0%,
-  100% {
-    transform: translateY(0) scale(1);
-  }
-  50% {
-    transform: translateY(-25px) scale(1.05);
-  }
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-10px) scale(1.02); }
 }
 
 ::selection {
   background-color: var(--color-gruv-orange);
-  color: #1d2021;
+  color: var(--color-gruv-bg);
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -182,41 +167,27 @@ body {
   scrollbar-width: none;
 }
 
-/* 3D Grid Illusion Background */
-.bg-illusion {
-  position: fixed;
-  inset: 0;
-  z-index: -10;
-  background-color: var(--color-gruv-bg);
-  perspective: 600px;
-  overflow: hidden;
-  pointer-events: none;
+@keyframes scroll-logs {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
 }
 
-.bg-illusion-grid {
-  position: absolute;
-  width: 200vw;
-  height: 200vh;
-  left: -50vw;
-  top: -50vh;
-  background-image: 
-    linear-gradient(to right, var(--color-gruv-border) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--color-gruv-border) 1px, transparent 1px);
-  background-size: 50px 50px;
-  transform: rotateX(75deg) translateY(0);
-  transform-origin: center center;
-  animation: grid-move 3s linear infinite;
+.animate-scroll-slow { animation: scroll-logs 140s linear infinite; }
+.animate-scroll-medium { animation: scroll-logs 90s linear infinite; }
+.animate-scroll-fast { animation: scroll-logs 45s linear infinite; }
+
+.text-gradient-flowing {
+  background: linear-gradient(270deg, var(--color-gruv-orange), var(--color-gruv-yellow), var(--color-gruv-purple), var(--color-gruv-blue), var(--color-gruv-orange));
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: flowing-gradient 8s ease infinite;
 }
 
-.bg-illusion-mask {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, var(--color-gruv-bg) 20%, transparent 80%);
-}
-
-@keyframes grid-move {
-  0% { transform: rotateX(75deg) translateY(0); }
-  100% { transform: rotateX(75deg) translateY(50px); }
+@keyframes flowing-gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* Cinematic Film Grain Overlay */
