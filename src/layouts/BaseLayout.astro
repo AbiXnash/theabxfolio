@@ -590,9 +590,8 @@ const {
       // Initial setup
       setup();
 
-      // Re-setup after client-side navigation and remove any swapped-in loader.
+      // Re-setup after client-side navigation
       document.addEventListener("astro:after-swap", () => {
-        dismissLoader(true);
         setup();
       });
     </script>
