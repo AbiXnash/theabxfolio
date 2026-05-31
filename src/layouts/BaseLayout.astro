@@ -14,6 +14,7 @@ interface Props {
   canonicalURL?: string;
   socialLinks?: SocialLink[];
   jsonLd?: Record<string, unknown>;
+  hideNavAndFooter?: boolean;
 }
 
 const {
@@ -23,6 +24,7 @@ const {
   canonicalURL = "https://theabx.in",
   socialLinks = [],
   jsonLd,
+  hideNavAndFooter = false,
 } = Astro.props;
 ---
 
@@ -81,248 +83,161 @@ const {
     </div>
 
 
-    <!-- Scroll progress bar -->
-    <div id="scroll-bar" class="fixed top-0 left-0 z-[60] h-0.5 bg-gruv-orange transition-all duration-150" style="width: 0%"></div>
+    {!hideNavAndFooter && (
+      <>
+        <!-- Scroll progress bar -->
+        <div id="scroll-bar" class="fixed top-0 left-0 z-[60] h-0.5 bg-gruv-orange transition-all duration-150" style="width: 0%"></div>
 
-    <!-- Personal Portfolio Navbar -->
-    <nav
-      id="navbar"
-      class="fixed top-0 right-0 left-0 z-50 h-16 border-b border-gruv-border/30 transition-all duration-500"
-      transition:persist
-    >
-      <div
-        class="mx-auto flex h-full max-w-6xl items-center justify-between px-6"
-      >
-        <div class="flex items-center gap-3">
-          <a href="/" class="group flex items-center gap-2">
-            <span
-              class="text-gruv-text group-hover:text-gruv-orange text-lg font-bold tracking-tight transition-colors"
-              >abx <span class="text-gruv-muted font-normal">//</span> dev</span
-            >
-          </a>
-          <div class="bg-gruv-border/50 hidden h-4 w-[1px] sm:block"></div>
-          <span
-            class="text-gruv-muted hidden text-[10px] font-bold tracking-widest uppercase sm:block"
-          >
-            Software Engineer
-          </span>
-        </div>
-
-        <!-- Desktop Links -->
-        <div
-          class="hidden items-center gap-1 text-xs font-bold tracking-widest uppercase md:flex"
+        <!-- Personal Portfolio Navbar -->
+        <nav
+          id="navbar"
+          class="fixed top-0 right-0 left-0 z-50 h-16 border-b border-gruv-border/30 transition-all duration-500"
+          transition:persist
         >
-          <a
-            href="#experience"
-            data-section="Work"
-            class="nav-link text-gruv-muted hover:text-gruv-text hover:bg-gruv-surface/50 rounded-lg px-4 py-2 transition-all"
-            >Work</a
-          >
-          <a
-            href="#projects"
-            data-section="Projects"
-            class="nav-link text-gruv-muted hover:text-gruv-text hover:bg-gruv-surface/50 rounded-lg px-4 py-2 transition-all"
-            >Projects</a
-          >
-          <a
-            href="#education"
-            data-section="Education"
-            class="nav-link text-gruv-muted hover:text-gruv-text hover:bg-gruv-surface/50 rounded-lg px-4 py-2 transition-all"
-            >Education</a
-          >
-          <a
-            href="#opensource"
-            data-section="Open Source"
-            class="nav-link text-gruv-muted hover:text-gruv-text hover:bg-gruv-surface/50 rounded-lg px-4 py-2 transition-all"
-            >Activity</a
-          >
-          <a
-            href="mailto:abinash@theabx.in"
-            class="text-gruv-orange hover:bg-gruv-orange/10 flex items-center gap-2 rounded-lg px-4 py-2 transition-all"
-          >
-            Email
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-              ><line x1="22" y1="2" x2="11" y2="13"></line><polyline
-                points="22 2 15 22 11 13 2 9 22 2"></polyline></svg
-            >
-          </a>
-        </div>
+          <div class="mx-auto flex h-full max-w-6xl items-center justify-between px-6">
+            <div class="flex items-center gap-3">
+              <a href="/" class="group flex items-center gap-2">
+                <span class="text-gruv-text group-hover:text-gruv-orange text-lg font-bold tracking-tight transition-colors">abx <span class="text-gruv-muted font-normal">//</span> dev</span>
+              </a>
+              <div class="bg-gruv-border/50 hidden h-4 w-[1px] sm:block"></div>
+              <span class="text-gruv-muted hidden text-[10px] font-bold tracking-widest uppercase sm:block">Software Engineer</span>
+            </div>
 
-        <!-- Mobile Toggle -->
-        <button
-          id="menu-toggle"
-          class="text-gruv-text hover:bg-gruv-surface/50 rounded-lg p-2 transition-colors md:hidden"
-          aria-label="Toggle Menu"
-        >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            ><line x1="3" y1="12" x2="21" y2="12"></line><line
-              x1="3"
-              y1="6"
-              x2="21"
-              y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg
-          >
-        </button>
-      </div>
-    </nav>
+            <!-- Desktop Links -->
+            <div class="hidden items-center gap-1 text-xs font-bold tracking-widest uppercase md:flex">
+              <a href="/#experience" data-section="Work" class="nav-link text-gruv-muted hover:text-gruv-text hover:bg-gruv-surface/50 rounded-lg px-4 py-2 transition-all">Work</a>
+              <a href="/#projects" data-section="Projects" class="nav-link text-gruv-muted hover:text-gruv-text hover:bg-gruv-surface/50 rounded-lg px-4 py-2 transition-all">Projects</a>
+              <a href="/#education" data-section="Education" class="nav-link text-gruv-muted hover:text-gruv-text hover:bg-gruv-surface/50 rounded-lg px-4 py-2 transition-all">Education</a>
+              <a href="/#opensource" data-section="Open Source" class="nav-link text-gruv-muted hover:text-gruv-text hover:bg-gruv-surface/50 rounded-lg px-4 py-2 transition-all">Activity</a>
+              <a href="mailto:abinash@theabx.in" class="text-gruv-orange hover:bg-gruv-orange/10 flex items-center gap-2 rounded-lg px-4 py-2 transition-all">
+                Email
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polyline points="22 2 15 22 11 13 2 9 22 2"></polyline></svg>
+              </a>
+            </div>
 
-    <!-- Mobile Bottom Drawer Overlay -->
-    <div
-      id="mobile-overlay"
-      class="fixed inset-0 z-[60] hidden bg-black/70 backdrop-blur-sm transition-opacity duration-300 md:hidden"
-    >
-    </div>
+            <!-- Mobile Toggle -->
+            <button id="menu-toggle" class="text-gruv-text hover:bg-gruv-surface/50 rounded-lg p-2 transition-colors md:hidden" aria-label="Toggle Menu">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+          </div>
+        </nav>
 
-    <!-- Mobile Bottom Drawer -->
-    <div
-      id="mobile-menu"
-      class="fixed right-0 bottom-0 left-0 z-[70] flex translate-y-full flex-col gap-6 rounded-t-[2.5rem] border-t border-gruv-border/40 p-8 pb-10 pt-6 shadow-2xl transition-transform duration-300 ease-out md:hidden"
-      style="background: linear-gradient(180deg, #282828 0%, #1d2021 100%);"
-    >
-      <!-- Drawer Handle -->
-      <div class="bg-gruv-border/60 mx-auto h-1.5 w-12 rounded-full"></div>
+        <!-- Mobile Bottom Drawer Overlay -->
+        <div id="mobile-overlay" class="fixed inset-0 z-[60] hidden bg-black/70 backdrop-blur-sm transition-opacity duration-300 md:hidden"></div>
 
-      <!-- Brand -->
-      <div class="flex items-center gap-3">
-        <div class="pixel-pet scale-50 origin-left"></div>
-        <div class="flex flex-col">
-          <span class="text-gruv-text text-lg font-bold tracking-tight">abx <span class="text-gruv-muted font-normal">//</span> dev</span>
-          <span class="text-gruv-muted text-[10px] font-bold tracking-widest uppercase">Software Engineer</span>
-        </div>
-      </div>
+        <!-- Mobile Bottom Drawer -->
+        <div id="mobile-menu" class="fixed right-0 bottom-0 left-0 z-[70] flex translate-y-full flex-col gap-6 rounded-t-[2.5rem] border-t border-gruv-border/40 p-8 pb-10 pt-6 shadow-2xl transition-transform duration-300 ease-out md:hidden" style="background: linear-gradient(180deg, #282828 0%, #1d2021 100%);">
+          <!-- Drawer Handle -->
+          <div class="bg-gruv-border/60 mx-auto h-1.5 w-12 rounded-full"></div>
 
-      <div class="bg-gruv-border/20 h-px w-full"></div>
-
-      <!-- Current section indicator -->
-      <div class="flex items-center gap-2 px-5">
-        <span class="text-gruv-muted/50 text-[10px] font-bold tracking-[0.2em] uppercase">Viewing</span>
-        <span id="current-section" class="text-gruv-orange text-[10px] font-bold tracking-[0.2em] uppercase">Work</span>
-        <div class="bg-gruv-border/20 ml-auto h-1 flex-1 rounded-full overflow-hidden">
-          <div id="section-progress" class="bg-gruv-orange h-full w-0 rounded-full transition-all duration-500 ease-out"></div>
-        </div>
-      </div>
-
-      <div class="flex flex-col gap-2">
-        <a
-          href="#experience"
-          class="mobile-link group relative flex items-center gap-4 rounded-2xl border border-transparent px-5 py-4 text-xl font-bold tracking-tight transition-all hover:border-gruv-border/40 hover:bg-gruv-bg/40 hover:pl-7"
-          data-section="Work"
-        >
-          <span class="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-gruv-orange opacity-0 transition-all duration-300 group-[.active]:opacity-100"></span>
-          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gruv-bg/60 text-gruv-orange transition-all duration-300 group-[.active]:bg-gruv-orange group-[.active]:text-gruv-bg">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-          </span>
-          <span>Work</span>
-          <svg class="ml-auto text-gruv-muted opacity-0 transition-all group-hover:opacity-100 group-hover:translate-x-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-        </a>
-        <a
-          href="#projects"
-          class="mobile-link group relative flex items-center gap-4 rounded-2xl border border-transparent px-5 py-4 text-xl font-bold tracking-tight transition-all hover:border-gruv-border/40 hover:bg-gruv-bg/40 hover:pl-7"
-          data-section="Projects"
-        >
-          <span class="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-gruv-blue opacity-0 transition-all duration-300 group-[.active]:opacity-100"></span>
-          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gruv-bg/60 text-gruv-blue transition-all duration-300 group-[.active]:bg-gruv-blue group-[.active]:text-gruv-bg">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-          </span>
-          <span>Projects</span>
-          <svg class="ml-auto text-gruv-muted opacity-0 transition-all group-hover:opacity-100 group-hover:translate-x-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-        </a>
-        <a
-          href="#education"
-          class="mobile-link group relative flex items-center gap-4 rounded-2xl border border-transparent px-5 py-4 text-xl font-bold tracking-tight transition-all hover:border-gruv-border/40 hover:bg-gruv-bg/40 hover:pl-7"
-          data-section="Education"
-        >
-          <span class="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-gruv-purple opacity-0 transition-all duration-300 group-[.active]:opacity-100"></span>
-          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gruv-bg/60 text-gruv-purple transition-all duration-300 group-[.active]:bg-gruv-purple group-[.active]:text-gruv-bg">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
-          </span>
-          <span>Education</span>
-          <svg class="ml-auto text-gruv-muted opacity-0 transition-all group-hover:opacity-100 group-hover:translate-x-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-        </a>
-        <a
-          href="#opensource"
-          class="mobile-link group relative flex items-center gap-4 rounded-2xl border border-transparent px-5 py-4 text-xl font-bold tracking-tight transition-all hover:border-gruv-border/40 hover:bg-gruv-bg/40 hover:pl-7"
-          data-section="Open Source"
-        >
-          <span class="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-gruv-green opacity-0 transition-all duration-300 group-[.active]:opacity-100"></span>
-          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gruv-bg/60 text-gruv-green transition-all duration-300 group-[.active]:bg-gruv-green group-[.active]:text-gruv-bg">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-          </span>
-          <span>Activity</span>
-          <svg class="ml-auto text-gruv-muted opacity-0 transition-all group-hover:opacity-100 group-hover:translate-x-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-        </a>
-      </div>
-
-      <a
-        href="mailto:abinash@theabx.in"
-        class="magnetic bg-gruv-orange text-gruv-bg shadow-premium hover:shadow-[0_0_30px_rgba(254,128,25,0.3)] flex items-center justify-center gap-3 rounded-full px-5 py-4 text-center text-base font-bold transition-all hover:scale-[1.02]"
-      >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polyline points="22 2 15 22 11 13 2 9 22 2"></polyline></svg>
-        Get in touch
-      </a>
-    </div>
-
-    <slot />
-
-    <footer class="border-gruv-border/20 mt-20 border-t px-6 py-24">
-      <div class="mx-auto flex max-w-6xl flex-col">
-        <div class="flex flex-col items-center justify-between gap-12 md:flex-row">
-          <div class="flex flex-col gap-4 text-center md:text-left">
-            <div>
-              <div class="text-2xl font-bold tracking-tighter">
-                Let's work together
-              </div>
-              <p class="text-gruv-muted text-sm">
-                Java · Go · Payments · Platform
-              </p>
+          <!-- Brand -->
+          <div class="flex items-center gap-3">
+            <div class="pixel-pet scale-50 origin-left"></div>
+            <div class="flex flex-col">
+              <span class="text-gruv-text text-lg font-bold tracking-tight">abx <span class="text-gruv-muted font-normal">//</span> dev</span>
+              <span class="text-gruv-muted text-[10px] font-bold tracking-widest uppercase">Software Engineer</span>
             </div>
           </div>
-          <div class="flex flex-col items-center gap-4 sm:flex-row">
-            <div class="flex items-center gap-3">
-              <a
-                href="https://github.com/AbiXnash"
-                target="_blank"
-                class="text-gruv-muted hover:text-gruv-text hover:bg-gruv-surface/50 flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold tracking-widest uppercase transition-all"
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                GitHub
-              </a>
-              <a
-                href="https://instagram.com/abx.engg"
-                target="_blank"
-                class="text-gruv-muted hover:text-gruv-text hover:bg-gruv-surface/50 flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold tracking-widest uppercase transition-all"
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                Instagram
-              </a>
+
+          <div class="bg-gruv-border/20 h-px w-full"></div>
+
+          <!-- Current section indicator -->
+          <div class="flex items-center gap-2 px-5">
+            <span class="text-gruv-muted/50 text-[10px] font-bold tracking-[0.2em] uppercase">Viewing</span>
+            <span id="current-section" class="text-gruv-orange text-[10px] font-bold tracking-[0.2em] uppercase">Work</span>
+            <div class="bg-gruv-border/20 ml-auto h-1 flex-1 rounded-full overflow-hidden">
+              <div id="section-progress" class="bg-gruv-orange h-full w-0 rounded-full transition-all duration-500 ease-out"></div>
             </div>
-            <a
-              href="mailto:abinash@theabx.in"
-              class="magnetic bg-gruv-orange text-gruv-bg hover:shadow-[0_0_30px_rgba(254,128,25,0.3)] rounded-full px-6 py-3 text-sm font-bold transition-all hover:scale-105"
-            >
-              Email me
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <a href="/#experience" class="mobile-link group relative flex items-center gap-4 rounded-2xl border border-transparent px-5 py-4 text-xl font-bold tracking-tight transition-all hover:border-gruv-border/40 hover:bg-gruv-bg/40 hover:pl-7" data-section="Work">
+              <span class="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-gruv-orange opacity-0 transition-all duration-300 group-[.active]:opacity-100"></span>
+              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gruv-bg/60 text-gruv-orange transition-all duration-300 group-[.active]:bg-gruv-orange group-[.active]:text-gruv-bg">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+              </span>
+              <span>Work</span>
+              <svg class="ml-auto text-gruv-muted opacity-0 transition-all group-hover:opacity-100 group-hover:translate-x-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+            <a href="/#projects" class="mobile-link group relative flex items-center gap-4 rounded-2xl border border-transparent px-5 py-4 text-xl font-bold tracking-tight transition-all hover:border-gruv-border/40 hover:bg-gruv-bg/40 hover:pl-7" data-section="Projects">
+              <span class="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-gruv-blue opacity-0 transition-all duration-300 group-[.active]:opacity-100"></span>
+              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gruv-bg/60 text-gruv-blue transition-all duration-300 group-[.active]:bg-gruv-blue group-[.active]:text-gruv-bg">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+              </span>
+              <span>Projects</span>
+              <svg class="ml-auto text-gruv-muted opacity-0 transition-all group-hover:opacity-100 group-hover:translate-x-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+            <a href="/#education" class="mobile-link group relative flex items-center gap-4 rounded-2xl border border-transparent px-5 py-4 text-xl font-bold tracking-tight transition-all hover:border-gruv-border/40 hover:bg-gruv-bg/40 hover:pl-7" data-section="Education">
+              <span class="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-gruv-purple opacity-0 transition-all duration-300 group-[.active]:opacity-100"></span>
+              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gruv-bg/60 text-gruv-purple transition-all duration-300 group-[.active]:bg-gruv-purple group-[.active]:text-gruv-bg">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+              </span>
+              <span>Education</span>
+              <svg class="ml-auto text-gruv-muted opacity-0 transition-all group-hover:opacity-100 group-hover:translate-x-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+            <a href="/#opensource" class="mobile-link group relative flex items-center gap-4 rounded-2xl border border-transparent px-5 py-4 text-xl font-bold tracking-tight transition-all hover:border-gruv-border/40 hover:bg-gruv-bg/40 hover:pl-7" data-section="Open Source">
+              <span class="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-gruv-green opacity-0 transition-all duration-300 group-[.active]:opacity-100"></span>
+              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gruv-bg/60 text-gruv-green transition-all duration-300 group-[.active]:bg-gruv-green group-[.active]:text-gruv-bg">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              </span>
+              <span>Activity</span>
+              <svg class="ml-auto text-gruv-muted opacity-0 transition-all group-hover:opacity-100 group-hover:translate-x-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </a>
           </div>
+
+          <a href="mailto:abinash@theabx.in" class="magnetic bg-gruv-orange text-gruv-bg shadow-premium hover:shadow-[0_0_30px_rgba(254,128,25,0.3)] flex items-center justify-center gap-3 rounded-full px-5 py-4 text-center text-base font-bold transition-all hover:scale-[1.02]">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polyline points="22 2 15 22 11 13 2 9 22 2"></polyline></svg>
+            Get in touch
+          </a>
         </div>
-        <div class="bg-gruv-border/10 mx-auto mt-16 h-px w-full max-w-md"></div>
-        <div class="text-gruv-muted mx-auto mt-8 flex items-center gap-4 text-[11px] tracking-widest uppercase">
-          <span>© {new Date().getFullYear()} Abinash Selvarasu</span>
-          <span class="text-gruv-border">·</span>
-          <span class="tracking-normal text-gruv-muted/60 font-mono text-[10px]">crafted with gruvbox</span>
-        </div>
+      </>
+    )}
+
+    <div class="pointer-events-none relative z-10 flex min-h-screen flex-col">
+      <div class={`pointer-events-auto mx-auto flex w-full max-w-[1200px] flex-1 flex-col px-4 ${hideNavAndFooter ? 'justify-center items-center py-8' : 'pb-20 pt-32 sm:px-8 sm:pt-40'}`}>
+        <slot />
       </div>
-    </footer>
+    </div>
+
+    {!hideNavAndFooter && (
+      <footer class="border-gruv-border/20 mt-20 border-t px-6 py-24">
+        <div class="mx-auto flex max-w-6xl flex-col">
+          <div class="flex flex-col items-center justify-between gap-12 md:flex-row">
+            <div class="flex flex-col gap-4 text-center md:text-left">
+              <div>
+                <div class="text-2xl font-bold tracking-tighter">
+                  Let's work together
+                </div>
+                <p class="text-gruv-muted text-sm">
+                  Java · Go · Payments · Platform
+                </p>
+              </div>
+            </div>
+            <div class="flex flex-col items-center gap-4 sm:flex-row">
+              <div class="flex items-center gap-3">
+                <a href="https://github.com/AbiXnash" target="_blank" class="text-gruv-muted hover:text-gruv-text hover:bg-gruv-surface/50 flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold tracking-widest uppercase transition-all">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                  GitHub
+                </a>
+                <a href="https://instagram.com/abx.engg" target="_blank" class="text-gruv-muted hover:text-gruv-text hover:bg-gruv-surface/50 flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold tracking-widest uppercase transition-all">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                  Instagram
+                </a>
+              </div>
+              <a href="mailto:abinash@theabx.in" class="magnetic bg-gruv-orange text-gruv-bg hover:shadow-[0_0_30px_rgba(254,128,25,0.3)] rounded-full px-6 py-3 text-sm font-bold transition-all hover:scale-105">
+                Email me
+              </a>
+            </div>
+          </div>
+          <div class="bg-gruv-border/10 mx-auto mt-16 h-px w-full max-w-md"></div>
+          <div class="text-gruv-muted mx-auto mt-8 flex items-center gap-4 text-[11px] tracking-widest uppercase">
+            <span>© {new Date().getFullYear()} Abinash Selvarasu</span>
+            <span class="text-gruv-border">·</span>
+            <span class="tracking-normal text-gruv-muted/60 font-mono text-[10px]">crafted with gruvbox</span>
+          </div>
+        </div>
+      </footer>
+    )}
 
     <script>
       function setup() {
