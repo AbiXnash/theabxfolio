@@ -5,9 +5,10 @@ interface Props {
   description?: string;
   href?: string;
   linkLabel?: string;
+  download?: boolean;
 }
 
-const { eyebrow, title, description, href, linkLabel } = Astro.props;
+const { eyebrow, title, description, href, linkLabel, download = false } = Astro.props;
 ---
 
 <header
@@ -27,7 +28,13 @@ const { eyebrow, title, description, href, linkLabel } = Astro.props;
   </div>
   {
     href && linkLabel && (
-      <a href={href} target="_blank" class="link-subtle shrink-0">
+      <a
+        href={href}
+        class="link-subtle shrink-0"
+        target={download ? undefined : "_blank"}
+        rel={download ? undefined : "noopener noreferrer"}
+        download={download || undefined}
+      >
         {linkLabel} →
       </a>
     )

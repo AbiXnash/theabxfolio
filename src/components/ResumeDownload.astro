@@ -1,0 +1,29 @@
+---
+import { site } from "../config/site";
+
+interface Props {
+  variant?: "primary" | "secondary" | "subtle";
+  class?: string;
+  label?: string;
+}
+
+const {
+  variant = "secondary",
+  class: className,
+  label = "Download resume",
+} = Astro.props;
+
+const variantClass = {
+  primary: "btn-primary",
+  secondary: "btn-secondary",
+  subtle: "link-subtle",
+}[variant];
+---
+
+<a
+  href={site.resumeUrl}
+  download={site.resumeFileName}
+  class:list={[variantClass, className]}
+>
+  {label}{variant === "subtle" && " →"}
+</a>

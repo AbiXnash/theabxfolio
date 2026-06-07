@@ -3,6 +3,7 @@ import AtAGlance from "./AtAGlance.astro";
 import HeroExperience from "./HeroExperience.astro";
 import HeroStackLogos from "./HeroStackLogos.astro";
 import Container from "./layout/Container.astro";
+import ResumeDownload from "./ResumeDownload.astro";
 import { site, socialLinks } from "../config/site";
 ---
 
@@ -30,6 +31,7 @@ import { site, socialLinks } from "../config/site";
           <a href={`mailto:${site.email}`} class="btn-primary hero-btn">
             Say hello
           </a>
+          <ResumeDownload variant="secondary" class="hero-btn" label="Resume" />
           {
             socialLinks.map((link) => (
               <a href={link.href} target="_blank" class="link-subtle hero-link">

@@ -12,6 +12,8 @@ export const site = {
   tagline: "Spring Boot · Go · Integration · Systems",
   location: "India",
   focus: "Backend integration & systems",
+  resumeFileName: "abinash_selvarasu_resume.pdf",
+  resumeUrl: "/abinash_selvarasu_resume.pdf",
 } as const;
 
 export const sameAs = [

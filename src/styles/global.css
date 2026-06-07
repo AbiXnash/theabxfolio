@@ -670,6 +670,14 @@ a.entry-stack-item:hover {
   gap: 1rem;
 }
 
+.footer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
 .footer-email {
   width: fit-content;
   max-width: 100%;
@@ -763,6 +771,29 @@ a.entry-stack-item:hover {
   opacity: 0.92;
   transform: scale(1.02);
   box-shadow: 0 4px 20px color-mix(in srgb, var(--theme-blue) 30%, transparent);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--theme-border) 45%, transparent);
+  padding: 0.625rem 1.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--theme-text);
+  background-color: transparent;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.btn-secondary:hover {
+  border-color: color-mix(in srgb, var(--theme-blue) 35%, transparent);
+  background-color: color-mix(in srgb, var(--theme-blue) 8%, transparent);
+  transform: scale(1.02);
 }
 
 .link-subtle {

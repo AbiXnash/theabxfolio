@@ -1,5 +1,6 @@
 ---
 import Container from "./Container.astro";
+import ResumeDownload from "../ResumeDownload.astro";
 import { site, socialLinks } from "../../config/site";
 
 const taglineItems = site.tagline.split(" · ");
@@ -17,9 +18,12 @@ const taglineItems = site.tagline.split(" · ");
           Happy to talk backend work, side projects, or anything that needs a
           reliable API behind it.
         </p>
-        <a href={`mailto:${site.email}`} class="btn-primary footer-email mt-1">
-          {site.email}
-        </a>
+        <div class="footer-actions">
+          <a href={`mailto:${site.email}`} class="btn-primary footer-email">
+            {site.email}
+          </a>
+          <ResumeDownload variant="secondary" />
+        </div>
       </div>
 
       <div class="footer-aside">
