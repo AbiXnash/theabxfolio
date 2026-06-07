@@ -1,0 +1,35 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  description?: string;
+  href?: string;
+  linkLabel?: string;
+}
+
+const { eyebrow, title, description, href, linkLabel } = Astro.props;
+---
+
+<header
+  class:list={[
+    "mb-12 flex flex-col gap-6 sm:mb-16",
+    href && "sm:flex-row sm:items-end sm:justify-between",
+  ]}
+>
+  <div class="flex max-w-2xl flex-col gap-4">
+    <p class="eyebrow">{eyebrow}</p>
+    <h2 class="display-title">{title}</h2>
+    {
+      description && (
+        <p class="text-[1.0625rem] leading-relaxed text-gruv-muted">{description}</p>
+      )
+    }
+  </div>
+  {
+    href && linkLabel && (
+      <a href={href} target="_blank" class="link-subtle shrink-0">
+        {linkLabel} →
+      </a>
+    )
+  }
+</header>

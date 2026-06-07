@@ -11,73 +11,56 @@ interface Props {
 }
 
 const { title, category, intro, github, links } = Astro.props;
+const primaryLink = links?.[0] ?? { label: "View repository", url: github };
+const extraLinks = links && links.length > 1 ? links.slice(1) : [];
 ---
 
-<article
-  class="tilt-card relative overflow-hidden group bg-gruv-surface/30 border-gruv-border/30 rounded-apple hover:bg-gruv-surface hover:border-gruv-orange/50 shadow-premium flex flex-col justify-between gap-12 border p-6 sm:p-10 transition-all duration-500"
->
-  <div class="flex flex-col gap-6">
-    <div class="flex items-center justify-between">
+<article class="group flex h-full flex-col">
+  <a
+    href={primaryLink.url}
+    target="_blank"
+    class="tile-card relative flex h-full min-h-[272px] flex-col gap-5 overflow-hidden rounded-[1.75rem] p-6 sm:min-h-[288px] sm:p-8"
+  >
+    <div
+      class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gruv-blue/30 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+    ></div>
+
+    <div class="flex items-center justify-between gap-4">
       {
         category && (
-          <span class="text-gruv-muted text-xs font-bold tracking-widest uppercase">
+          <span class="rounded-full bg-gruv-blue/10 px-3 py-1 text-[11px] font-medium text-gruv-blue">
             {category}
           </span>
         )
       }
-      <div
-        class="bg-gruv-bg border-gruv-border/50 flex h-8 w-8 items-center justify-center rounded-full border opacity-0 transition-opacity group-hover:opacity-100"
+      <svg
+        class="ml-auto shrink-0 text-gruv-muted opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
       >
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="3"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          ><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-          ></path><polyline points="15 3 21 3 21 9"></polyline><line
-            x1="10"
-            y1="14"
-            x2="21"
-            y2="3"></line></svg
-        >
-      </div>
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+        <polyline points="15 3 21 3 21 9"></polyline>
+        <line x1="10" y1="14" x2="21" y2="3"></line>
+      </svg>
     </div>
-    <div class="flex flex-col gap-3">
-      <h4
-        class="group-hover:text-gruv-orange text-3xl leading-none font-bold tracking-tighter transition-colors"
-      >
-        {title}
-      </h4>
-      <p class="text-gruv-muted line-clamp-3 text-lg leading-relaxed">
-        {intro}
-      </p>
+
+    <div class="flex flex-1 flex-col gap-3">
+      <h4 class="text-xl font-semibold tracking-tight">{title}</h4>
+      <p class="line-clamp-3 text-sm leading-relaxed text-gruv-muted">{intro}</p>
     </div>
-  </div>
-  <div class="flex flex-wrap gap-5">
-    {
-      links?.length ? (
-        links.map((link) => (
-          <a
-            href={link.url}
-            target="_blank"
-            class="text-gruv-orange hover:text-gruv-text text-sm font-bold tracking-widest uppercase transition-colors"
-          >
-            {link.label}
-          </a>
+
+    <div class="mt-auto flex min-h-[1.25rem] flex-wrap gap-2">
+      {
+        extraLinks.map((link) => (
+          <span class="text-[11px] text-gruv-muted">{link.label}</span>
         ))
-      ) : (
-        <a
-          href={github}
-          target="_blank"
-          class="text-gruv-orange hover:text-gruv-text text-sm font-bold tracking-widest uppercase transition-colors"
-        >
-          View repository
-        </a>
-      )
-    }
-  </div>
+      }
+    </div>
+  </a>
 </article>

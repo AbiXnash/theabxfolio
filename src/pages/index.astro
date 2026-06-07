@@ -1,8 +1,14 @@
 ---
 import { getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Container from '../components/layout/Container.astro';
+import Section from '../components/layout/Section.astro';
+import SectionHeader from '../components/layout/SectionHeader.astro';
+import OpenSourceSection from '../components/OpenSourceSection.astro';
 import ExperienceCard from '../components/ExperienceCard.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import { technologies } from '../config/site';
 
 const resumeEntry = await getEntry('resume', 'resume');
 
@@ -15,6 +21,9 @@ const { work, projects, education } = resumeEntry.data;
 const currentRole = work.items[0];
 
 const skills = [...new Set(work.items.flatMap(w => w.skills ?? []))];
+
+const featuredTech = ["Spring Boot", "Golang"];
+const otherTech = technologies.filter(t => !featuredTech.includes(t));
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -48,287 +57,93 @@ const jsonLd = {
 <BaseLayout
   title="Abinash Selvarasu | Backend Engineer"
   description={jsonLd.description}
-  socialLinks={[
-    { name: "GitHub", url: "https://github.com/AbiXnash" },
-    { name: "LinkedIn", url: "https://linkedin.com/in/abinash-selvarasu" },
-  ]}
   jsonLd={jsonLd}
 >
-  
-  <main class="flex flex-col gap-24 sm:gap-48 overflow-hidden">
-    
-    <section class="flex flex-col items-center text-center gap-10 reveal relative pt-8 sm:pt-0 min-h-[50vh] justify-center">
-        <div class="flex flex-col gap-4 relative z-10">
-            <div class="flex flex-col items-center gap-8 max-w-4xl relative">
-                <!-- Decorative pixel mark -->
-                <div class="flex items-center justify-center gap-4 mb-2 relative group">
-                    <span class="text-gruv-muted font-mono text-[10px] uppercase tracking-widest">Abinash Selvarasu / Backend Engineer</span>
-                    <div class="pixel-pet scale-75"></div>
-                </div>
+  <Hero />
 
-                <div class="flex flex-col gap-4">
-                    <h1 class="text-5xl md:text-7xl lg:text-[9rem] font-black tracking-tightest leading-[0.85] md:leading-[0.8] text-gruv-text">
-                        I build <span id="typing-text" class="text-gradient-flowing font-black drop-shadow-xl">backend software.</span>
-                    </h1>
-                </div>
+  <Section id="experience" tone="muted">
+    <Container>
+      <SectionHeader
+        eyebrow="Experience"
+        title="The day job."
+        description="Payment systems and banking tools — the kind of software that can't break on a Friday."
+      />
 
-                <p class="text-lg sm:text-3xl text-gruv-muted leading-snug font-medium max-w-2xl tracking-tight px-4 sm:px-0">
-                    I'm <span class="text-gruv-text text-shadow-glow">Abinash Selvarasu</span>, a Java developer at Mindgate Solutions. I work on banking and payment flows, and build side projects in Go and TypeScript.
-                </p>
+      <div class="flex flex-col gap-5">
+        {work.items.map((item, index) => (
+          <ExperienceCard {...item} index={index} />
+        ))}
+      </div>
 
-                <div class="flex flex-col sm:flex-row gap-6 sm:gap-8 items-center mt-6">
-                    <a href="mailto:abinash@theabx.in" class="magnetic w-full sm:w-auto bg-gruv-orange text-gruv-bg px-8 sm:px-10 py-4 sm:py-5 rounded-full font-bold text-lg sm:text-xl hover:scale-105 transition-all duration-500 shadow-premium">
-                        Email me
-                    </a>
-                    <div class="flex items-center gap-4 sm:gap-6 w-full sm:w-auto">
-                        <a href="https://github.com/AbiXnash" target="_blank" class="magnetic flex-1 sm:flex-none flex items-center justify-center gap-2 bg-gruv-surface/30 hover:bg-gruv-surface border border-transparent hover:border-gruv-border/50 text-gruv-muted hover:text-gruv-text rounded-xl px-4 py-4 sm:py-3 transition-all duration-300">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                        </a>
-                        <a href="https://linkedin.com/in/abinash-selvarasu" target="_blank" class="magnetic flex-1 sm:flex-none flex items-center justify-center gap-2 bg-gruv-surface/30 hover:bg-gruv-surface border border-transparent hover:border-gruv-border/50 text-gruv-muted hover:text-gruv-text rounded-xl px-4 py-4 sm:py-3 transition-all duration-300">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
+      <p class="mt-8 text-xs leading-relaxed text-gruv-muted/70">
+        Public summary only. Client details kept intentionally vague.
+      </p>
+    </Container>
+  </Section>
+
+  <Section id="projects">
+    <Container>
+      <SectionHeader
+        eyebrow="Projects"
+        title="Built after hours."
+        description="Side projects and experiments — the fun stuff."
+        href="https://github.com/AbiXnash"
+        linkLabel="All on GitHub"
+      />
+
+      <div id="projects-grid" class="grid grid-cols-1 items-stretch gap-5 md:grid-cols-2">
+        {projects.items.map((item, index) => (
+          <div class={`project-item h-full ${index >= 4 ? 'hidden' : ''}`}>
+            <ProjectCard {...item} />
+          </div>
+        ))}
+      </div>
+
+      {projects.items.length > 4 && (
+        <div class="mt-12 flex justify-center">
+          <button
+            id="load-more-projects"
+            class="cursor-pointer rounded-full border border-gruv-border/25 px-6 py-2.5 text-sm text-gruv-muted transition-all hover:border-gruv-blue/25 hover:text-gruv-text"
+          >
+            Show more
+          </button>
         </div>
-    </section>
+      )}
+    </Container>
+  </Section>
 
-    <!-- Experience -->
-    <section id="experience" class="flex flex-col gap-8 sm:gap-20 scroll-mt-32 reveal px-2 sm:px-0">
-        <div class="flex flex-col gap-4">
-            <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-[10px] sm:text-sm">Experience</h2>
-            <h3 class="scramble-text text-4xl md:text-6xl font-extrabold tracking-tighter">Work experience.</h3>
-        </div>
-        <div class="flex flex-col gap-6 sm:gap-8">
-            {work.items.map(item => (
-                <ExperienceCard {...item} />
-            ))}
-        </div>
-        <p class="text-gruv-muted text-sm leading-relaxed max-w-3xl">
-            Public summary only. Client, market, and integration details are intentionally generalized to respect confidentiality.
-        </p>
-    </section>
+  <Section id="opensource" tone="muted">
+    <OpenSourceSection />
+  </Section>
 
-    <!-- Projects -->
-    <section id="projects" class="flex flex-col gap-8 sm:gap-20 scroll-mt-32 reveal px-2 sm:px-0">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-8">
-            <div class="flex flex-col gap-4">
-                <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-[10px] sm:text-sm">Projects</h2>
-                <h3 class="scramble-text text-4xl sm:text-6xl font-extrabold tracking-tighter">Things I've made.</h3>
-            </div>
-            <a href="https://github.com/AbiXnash" target="_blank" class="text-gruv-muted font-bold hover:text-gruv-orange transition-colors flex items-center gap-2 text-base sm:text-lg">
-                View GitHub <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
-        </div>
-        
-        <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-            {projects.items.map((item, index) => (
-                <div class={`project-item ${index >= 4 ? 'hidden' : ''}`}>
-                    <ProjectCard {...item} />
-                </div>
-            ))}
-        </div>
+  <Section id="toolkit" spacing="compact">
+    <Container>
+      <SectionHeader
+        eyebrow="Toolkit"
+        title="What's in the stack."
+        description="Languages and tools I actually reach for."
+      />
 
-        {projects.items.length > 4 && (
-            <div class="flex justify-center mt-8">
-                <button id="load-more-projects" class="magnetic px-8 py-3 rounded-full border border-gruv-border text-gruv-text font-bold hover:bg-gruv-surface transition-all flex items-center gap-2 group text-sm uppercase tracking-widest cursor-pointer">
-                    Show more projects
-                    <svg class="group-hover:translate-y-1 transition-transform" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
-                </button>
-            </div>
-        )}
-    </section>
-
-
-
-    <!-- Open Source -->
-    <section id="opensource" class="flex flex-col gap-8 sm:gap-20 reveal px-2 sm:px-0">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-8">
-            <div class="flex flex-col gap-4">
-                <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-[10px] sm:text-sm">Open Source</h2>
-                <h3 class="scramble-text text-4xl md:text-6xl font-extrabold tracking-tighter">Recent activity.</h3>
-            </div>
-            <a href="https://github.com/AbiXnash" target="_blank" class="magnetic text-gruv-muted font-bold hover:text-gruv-orange transition-colors flex items-center gap-2 text-base sm:text-lg">
-                View GitHub <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
-        </div>
-
-
-
-        <div id="repos-container" class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8"></div>
-        <div id="repos-loading" class="text-center py-16">
-            <p class="text-gruv-muted text-sm font-mono">// fetching latest activity ...</p>
-        </div>
-    </section>
-
-    <!-- Toolkit -->
-    <section id="toolkit" class="flex flex-col gap-8 sm:gap-20 reveal mb-20 px-2 sm:px-0">
-        <div class="flex flex-col gap-4 text-center items-center">
-            <h2 class="text-gruv-orange font-bold uppercase tracking-widest text-[10px] sm:text-sm">Toolkit</h2>
-            <h3 class="scramble-text text-4xl sm:text-6xl font-extrabold tracking-tighter">Tools I work with.</h3>
-        </div>
-        <div class="tilt-card relative overflow-hidden max-w-4xl mx-auto w-full bg-gruv-surface/50 border border-gruv-border/30 rounded-apple p-10 sm:p-16 flex flex-col sm:flex-row items-center justify-between gap-10">
-            <div class="flex flex-col gap-8 text-center sm:text-left flex-1">
-                <div class="flex flex-col gap-2">
-                    <div class="text-gruv-orange font-bold text-lg uppercase tracking-widest leading-none">Languages and frameworks</div>
-                    <h4 class="text-3xl sm:text-4xl font-extrabold tracking-tighter">Backend to frontend</h4>
-                </div>
-                <div class="flex flex-wrap justify-center sm:justify-start gap-3">
-                    {['Neovim', 'Java', 'Lua', 'Golang', 'React', 'Svelte', 'Angular', 'Kotlin', 'TypeScript', 'Rust'].map(tech => (
-                        <span class="px-4 sm:px-5 py-2 sm:py-2.5 bg-gruv-bg rounded-xl font-mono text-[10px] sm:text-sm border border-gruv-border/50 text-gruv-muted hover:text-gruv-orange hover:border-gruv-orange transition-all duration-300 cursor-default">
-                            {tech}
-                        </span>
-                    ))}
-                </div>
-            </div>
-            <div class="w-24 h-24 sm:w-32 sm:h-32 bg-gruv-border/30 rounded-full flex items-center justify-center shrink-0 animate-pulse relative">
-                <div class="absolute inset-0 bg-gruv-orange/20 blur-xl rounded-full"></div>
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-gruv-orange relative z-10"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
-            </div>
-        </div>
-    </section>
-
-  </main>
+      <div class="grid grid-cols-2 gap-3 sm:grid-cols-6">
+        {featuredTech.map((tech) => (
+          <div class="tile-card col-span-1 flex flex-col justify-end rounded-[1.75rem] p-5 sm:col-span-2 sm:p-6">
+            <span class="text-lg font-semibold tracking-tight text-gruv-text">{tech}</span>
+            <span class="mt-1 text-xs text-gruv-muted">Core</span>
+          </div>
+        ))}
+        {otherTech.map((tech) => (
+          <div class="bento-cell col-span-1 flex items-center justify-center rounded-2xl px-3 py-4 sm:col-span-1">
+            <span class="text-xs font-medium text-gruv-muted">{tech}</span>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
 </BaseLayout>
 
 <script>
-    function typeEffect() {
-        const textElement = document.getElementById('typing-text');
-        if (!textElement) return;
-        
-        const fullText = "backend software.";
-        
-        try {
-            if (sessionStorage.getItem('hasTyped') === 'true') {
-                textElement.textContent = fullText;
-                return;
-            }
-            sessionStorage.setItem('hasTyped', 'true');
-        } catch (e) {
-            // fallback if sessionStorage is blocked
-        }
-        
-        textElement.textContent = "";
-        
-        let i = 0;
-        const typingInterval = setInterval(() => {
-            if (i < fullText.length) {
-                textElement.textContent += fullText.charAt(i);
-                i++;
-            } else {
-                clearInterval(typingInterval);
-            }
-        }, 120);
-    }
+  import { setupProjects } from '../scripts/projects';
 
-    function setupLoadMore() {
-        const loadMoreBtn = document.getElementById('load-more-projects');
-        const hiddenProjects = document.querySelectorAll('.project-item.hidden');
-        
-        if (loadMoreBtn && hiddenProjects.length > 0) {
-            loadMoreBtn.addEventListener('click', () => {
-                hiddenProjects.forEach(project => {
-                    project.classList.remove('hidden');
-                    project.classList.add('animate-fade-in-up');
-                });
-                loadMoreBtn.parentElement?.remove();
-            });
-        }
-    }
-
-
-
-    // Initialize all
-    document.addEventListener('astro:page-load', () => {
-        typeEffect();
-        setupLoadMore();
-    });
-</script>
-
-<script define:vars={{ workerUrl: import.meta.env.VITE_WORKER_URL || '' }}>
-    const LANGUAGE_COLORS = {
-        TypeScript: "#3178c6", JavaScript: "#f1e05a", Go: "#00add8",
-        Kotlin: "#a97bff", Java: "#b07219", Lua: "#000080",
-        Rust: "#dea584", Python: "#3572a5", "Emacs Lisp": "#c065db",
-        Astro: "#ff5a03", Zig: "#ec915c", Shell: "#89e051",
-        HTML: "#e34c26", CSS: "#563d7c",
-    };
-
-    function getLanguageColor(lang) {
-        return LANGUAGE_COLORS[lang ?? ""] ?? "#928374";
-    }
-
-    function timeAgo(pushedAt) {
-        const days = Math.floor((Date.now() - new Date(pushedAt).getTime()) / 86400000);
-        if (days === 0) return "today";
-        if (days === 1) return "yesterday";
-        return `${days} days ago`;
-    }
-
-    function repoToCard(r) {
-        const langColor = getLanguageColor(r.language);
-        const ago = timeAgo(r.pushedAt);
-        return `<a href="${r.url}" target="_blank" class="tilt-card relative overflow-hidden group bg-gruv-surface/30 border-gruv-border/30 rounded-apple hover:bg-gruv-surface hover:border-gruv-orange/50 shadow-premium flex flex-col justify-between gap-8 border p-10 transition-all duration-500">
-  <div class="flex flex-col gap-6">
-    <div class="flex items-center justify-between">
-      ${r.language ? `<span class="flex items-center gap-2 text-gruv-muted text-xs font-bold tracking-widest uppercase">
-        <span class="h-2 w-2 rounded-full" style="background-color:${langColor}"></span>
-        ${r.language}
-      </span>` : `<span class="text-gruv-muted text-xs font-bold tracking-widest uppercase">Repo</span>`}
-      <div class="bg-gruv-bg border-gruv-border/50 flex h-8 w-8 items-center justify-center rounded-full border opacity-0 transition-opacity group-hover:opacity-100">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-      </div>
-    </div>
-    <div class="flex flex-col gap-3">
-      <div class="flex items-center justify-between gap-4">
-        <h4 class="group-hover:text-gruv-orange text-2xl leading-none font-bold tracking-tighter transition-colors">${r.name}</h4>
-        <span class="bg-gruv-bg border-gruv-border/50 text-gruv-blue flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1 font-mono text-[11px] font-bold" title="Total commits">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          ${r.commits}
-        </span>
-      </div>
-      ${r.description ? `<p class="text-gruv-muted line-clamp-2 text-base leading-relaxed">${r.description}</p>` : ""}
-    </div>
-  </div>
-  <div class="flex items-center gap-4">
-    <svg class="shrink-0 text-gruv-muted" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-    <span class="text-gruv-muted font-mono text-[11px] font-bold tracking-wider">${r.name}</span>
-    <span class="text-gruv-border text-[11px]">/</span>
-    <span class="text-gruv-muted text-[11px] tracking-wider">${ago}</span>
-  </div>
-</a>`;
-    }
-
-    async function loadRepos() {
-        const container = document.getElementById("repos-container");
-        const loading = document.getElementById("repos-loading");
-        if (!container || !loading) return;
-
-        if (!workerUrl) {
-            loading.innerHTML = '<p class="text-gruv-muted text-sm font-mono">// worker URL not configured</p>';
-            return;
-        }
-
-        try {
-            const res = await fetch(workerUrl, { cache: 'no-cache' });
-            if (!res.ok) throw new Error(`Worker responded with ${res.status}`);
-            const repos = await res.json();
-
-            if (!Array.isArray(repos) || repos.length === 0) {
-                loading.innerHTML = '<p class="text-gruv-muted text-sm font-mono">// no public repositories</p>';
-                return;
-            }
-
-            loading.remove();
-            container.innerHTML = repos.map(repoToCard).join("");
-        } catch {
-            loading.innerHTML = '<p class="text-gruv-muted text-sm font-mono">// failed to load repositories</p>';
-        }
-    }
-
-    loadRepos();
-
-    document.addEventListener("astro:after-swap", () => {
-        loadRepos();
-    });
+  setupProjects();
+  document.addEventListener('astro:page-load', setupProjects);
 </script>

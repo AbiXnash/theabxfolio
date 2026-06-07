@@ -1,46 +1,22 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/layout/Container.astro";
 ---
 
-<BaseLayout title="404 - Kernel Panic | Abinash Selvarasu" hideNavAndFooter={true}>
-    <div class="min-h-[70vh] flex flex-col justify-center items-start w-full font-mono text-xs sm:text-sm">
-        <div class="bg-gruv-surface/40 border border-gruv-border/30 rounded-apple p-6 sm:p-10 w-full shadow-premium tilt-card relative overflow-hidden group">
-            <!-- Glare effect handled by BaseLayout JS -->
-            
-            <h1 class="text-gruv-red font-bold text-2xl sm:text-4xl mb-2 tracking-tighter">KERNEL PANIC - NOT SYNCING</h1>
-            <p class="text-gruv-orange font-bold text-sm mb-6 opacity-90">// TL;DR: 404 PAGE NOT FOUND</p>
-            
-            <div class="flex flex-col gap-2 text-gruv-muted opacity-90 leading-relaxed">
-                <p><span class="text-gruv-green">[  0.000000]</span> VFS: Cannot open root device "404" or unknown-block(0,0)</p>
-                <p><span class="text-gruv-green">[  0.000021]</span> Please append a correct "root=" boot option</p>
-                <p><span class="text-gruv-green">[  0.000045]</span> CPU: 0 PID: 1 Comm: swapper/0 Not tainted 6.8.0-abx-dev</p>
-                <p><span class="text-gruv-green">[  0.000078]</span> Hardware name: Custom/Portfolio-Server, BIOS 1.0.0 05/31/2026</p>
-                <p><span class="text-gruv-green">[  0.000102]</span> Call Trace:</p>
-                <p class="pl-4 text-gruv-blue"><span class="text-gruv-muted/50">&lt;TASK&gt;</span></p>
-                <p class="pl-4">dump_stack_lvl+0x44/0x5c</p>
-                <p class="pl-4">panic+0x11c/0x2d0</p>
-                <p class="pl-4 text-gruv-red font-bold animate-pulse">mount_block_root+0x144/0x1d0 <span class="text-gruv-muted/50">&lt;-- PAGE NOT FOUND</span></p>
-                <p class="pl-4">prepare_namespace+0x130/0x160</p>
-                <p class="pl-4">kernel_init_freeable+0x1f4/0x220</p>
-                <p class="pl-4">rest_init+0xd0/0xd0</p>
-                <p class="pl-4 text-gruv-blue"><span class="text-gruv-muted/50">&lt;/TASK&gt;</span></p>
-                <p><span class="text-gruv-green">[  0.000189]</span> ---[ end Kernel panic - not syncing: VFS: Unable to mount root fs on unknown-block(0,0) ]---</p>
-            </div>
-
-            <div class="mt-12 flex flex-col sm:flex-row items-center justify-between gap-6 w-full border-t border-gruv-border/20 pt-8">
-                <div class="flex items-center gap-3">
-                    <span class="relative flex h-3 w-3">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gruv-red opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-3 w-3 bg-gruv-red"></span>
-                    </span>
-                    <p class="text-gruv-orange font-bold tracking-widest">// SYSTEM HALTED</p>
-                </div>
-                
-                <a href="/" class="magnetic bg-gruv-green text-gruv-bg px-8 py-3 rounded-full font-bold uppercase tracking-widest text-xs transition-all hover:scale-[1.02] shadow-[0_0_20px_rgba(184,187,38,0.2)] flex items-center gap-3">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                    Reboot System
-                </a>
-            </div>
-        </div>
-    </div>
+<BaseLayout title="Page Not Found | Abinash Selvarasu" hideNavAndFooter={true}>
+  <Container narrow class="flex flex-col items-center gap-8 py-16 text-center">
+    <p class="text-sm text-gruv-muted">404</p>
+    <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">
+      This page doesn't exist.
+    </h1>
+    <p class="max-w-md text-base leading-relaxed text-gruv-muted">
+      The page you're looking for may have been moved or removed.
+    </p>
+    <a
+      href="/"
+      class="mt-4 inline-flex items-center rounded-full bg-gruv-blue px-6 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+    >
+      Back to home
+    </a>
+  </Container>
 </BaseLayout>

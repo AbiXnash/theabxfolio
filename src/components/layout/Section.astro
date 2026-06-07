@@ -1,0 +1,29 @@
+---
+interface Props {
+  id?: string;
+  tone?: "plain" | "muted";
+  spacing?: "default" | "hero" | "compact";
+  class?: string;
+}
+
+const { id, tone = "plain", spacing = "default", class: className } = Astro.props;
+
+const spacingClass = {
+  hero: "py-24 sm:py-32 lg:py-40",
+  default: "py-20 sm:py-28",
+  compact: "py-16 sm:py-20",
+}[spacing];
+---
+
+<section
+  id={id}
+  class:list={[
+    "reveal scroll-mt-16",
+    tone === "muted" && "section-muted",
+    className,
+  ]}
+>
+  <div class:list={[spacingClass]}>
+    <slot />
+  </div>
+</section>

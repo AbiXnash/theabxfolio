@@ -6,62 +6,62 @@ interface Props {
   details: string;
   skills?: string[];
   category?: string;
+  index?: number;
 }
 
-const { title, meta, intro, details, skills, category } = Astro.props;
+const { title, meta, intro, details, skills, category, index } = Astro.props;
+const num = index !== undefined ? String(index + 1).padStart(2, "0") : null;
 ---
 
-<div
-  class="tilt-card relative overflow-hidden bg-gruv-surface border-gruv-border/50 rounded-apple shadow-premium hover:shadow-premium-hover group border p-6 transition-all duration-500 sm:p-12"
->
+<article class="tile-card group rounded-[1.75rem] p-6 sm:p-8">
   <div
-    class="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-center"
+    class="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-start"
   >
-    <div class="flex flex-col gap-1">
-      <h4
-        class="group-hover:text-gruv-orange text-2xl font-bold tracking-tight transition-colors sm:text-3xl"
-      >
-        {title}
-      </h4>
-      <span class="text-gruv-muted text-lg font-medium tracking-wide uppercase"
-        >{meta}</span
-      >
-    </div>
-    {category && (
-      <div
-        class="bg-gruv-border/30 text-gruv-orange rounded-xl px-4 py-2 text-sm font-bold uppercase"
-      >
-        {category}
+    <div class="flex items-start gap-4">
+      {
+        num && (
+          <span class="mt-0.5 font-mono text-xs text-gruv-muted/60">{num}</span>
+        )
+      }
+      <div class="flex flex-col gap-1.5">
+        <h4 class="text-xl font-semibold tracking-tight">{title}</h4>
+        <span class="text-sm text-gruv-muted">{meta}</span>
       </div>
-    )}
-  </div>
-  <p class="text-gruv-text mb-10 max-w-3xl text-xl leading-relaxed font-medium">
-    {intro}
-  </p>
-  <div class="grid grid-cols-1 gap-10 md:grid-cols-2">
-    <ul class="flex flex-col gap-4">
-      {
-        details
-          .split("\n")
-          .filter((line) => line.startsWith("-"))
-          .map((line) => (
-            <li class="text-gruv-muted flex items-start gap-4">
-              <span class="bg-gruv-orange mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full" />
-              <span class="text-lg leading-relaxed">
-                {line.replace("- ", "")}
-              </span>
-            </li>
-          ))
-      }
-    </ul>
-    <div class="flex h-fit flex-wrap gap-3">
-      {
-        skills?.map((skill) => (
-          <span class="bg-gruv-bg border-gruv-border/50 text-gruv-muted hover:border-gruv-orange hover:text-gruv-text rounded-full border px-4 py-2 text-sm font-bold transition-colors">
-            #{skill}
-          </span>
-        ))
-      }
     </div>
+    {
+      category && (
+        <span class="shrink-0 rounded-full bg-gruv-blue/10 px-3 py-1 text-xs font-medium text-gruv-blue">
+          {category}
+        </span>
+      )
+    }
   </div>
-</div>
+
+  <p class="mb-6 text-[1.0625rem] leading-relaxed text-gruv-muted">{intro}</p>
+
+  <ul class="mb-6 flex flex-col gap-3">
+    {
+      details
+        .split("\n")
+        .filter((line) => line.startsWith("-"))
+        .map((line) => (
+          <li class="flex items-start gap-3 text-sm leading-relaxed text-gruv-muted">
+            <span class="mt-2 h-1 w-1 shrink-0 rounded-full bg-gruv-blue/50" />
+            <span>{line.replace("- ", "")}</span>
+          </li>
+        ))
+    }
+  </ul>
+
+  {
+    skills && skills.length > 0 && (
+      <div class="flex flex-wrap gap-2">
+        {skills.map((skill) => (
+          <span class="rounded-full border border-gruv-border/20 bg-gruv-bg px-3 py-1 text-xs text-gruv-muted transition-colors group-hover:border-gruv-border/40">
+            {skill}
+          </span>
+        ))}
+      </div>
+    )
+  }
+</article>

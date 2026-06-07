@@ -1,0 +1,26 @@
+---
+import Container from "./layout/Container.astro";
+import SectionHeader from "./layout/SectionHeader.astro";
+---
+
+<Container>
+  <SectionHeader
+    eyebrow="Open Source"
+    title="Lately on GitHub."
+    description="Where the commits have been going."
+    href="https://github.com/AbiXnash"
+    linkLabel="View profile"
+  />
+
+  <div id="repos-container" class="grid grid-cols-1 items-stretch gap-5 md:grid-cols-2"></div>
+  <div id="repos-loading" class="py-14 text-center">
+    <p class="text-sm text-gruv-muted">Loading repositories…</p>
+  </div>
+</Container>
+
+<script>
+  import { loadRepos } from "../scripts/repos";
+
+  loadRepos();
+  document.addEventListener("astro:after-swap", loadRepos);
+</script>

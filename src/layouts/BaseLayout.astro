@@ -1,18 +1,15 @@
 ---
 import { ClientRouter } from "astro:transitions";
+import ThemeToggle from "../components/ThemeToggle.astro";
+import SiteFooter from "../components/layout/SiteFooter.astro";
+import SiteHeader from "../components/layout/SiteHeader.astro";
 import "../styles/global.css";
-
-interface SocialLink {
-  name: string;
-  url: string;
-}
 
 interface Props {
   title: string;
   description?: string;
   ogImage?: string;
   canonicalURL?: string;
-  socialLinks?: SocialLink[];
   jsonLd?: Record<string, unknown>;
   hideNavAndFooter?: boolean;
 }
@@ -22,42 +19,9 @@ const {
   description = "Portfolio of Abinash Selvarasu — Backend engineer working with Java, Go, and payment systems.",
   ogImage = "/og-image.svg",
   canonicalURL = "https://theabx.in",
-  socialLinks = [],
   jsonLd,
   hideNavAndFooter = false,
 } = Astro.props;
-
-const generateLogs = (count: number) => {
-  return Array.from({ length: count }).map(() => {
-    const timestamp = new Date(Date.now() - Math.random() * 10000000).toISOString().replace('T', ' ').substring(0, 23);
-    const levels = ["INFO", "WARN", "DEBUG", "ERROR", "TRACE"];
-    const level = levels[Math.floor(Math.random() * levels.length)];
-    const processes = ["postgres", "redis", "nginx", "node", "docker", "kernel", "wasm"];
-    const process = processes[Math.floor(Math.random() * processes.length)];
-    const messages = [
-      "Connection established successfully.",
-      "Replication lag detected at 45ms.",
-      "Starting worker process...",
-      "Memory usage exceeds 80%. Garbage collection initiated.",
-      "Flushing buffers to disk...",
-      "Health check passed. Container ready.",
-      "10101001 01010100 10101011 11001010",
-      "01100110 01101111 01101111 01100010",
-      "Handshake failed with peer. Retrying...",
-      "Executing query: SELECT * FROM users;",
-      "Cache miss for key user:session:9842",
-      "Allocating 256MB for incoming buffer.",
-      "Segmentation fault (core dumped)..."
-    ];
-    const msg = messages[Math.floor(Math.random() * messages.length)];
-    const marginLeft = Math.floor(Math.random() * 40); // 0 to 40% margin
-    return { text: `[${timestamp}] [${level}] [${process}] ${msg}`, marginLeft };
-  });
-};
-
-const slowLogs = generateLogs(120);
-const mediumLogs = generateLogs(80);
-const fastLogs = generateLogs(50);
 ---
 
 <!doctype html>
@@ -70,11 +34,9 @@ const fastLogs = generateLogs(50);
     <title>{title}</title>
     <link rel="canonical" href={canonicalURL} />
 
-    <!-- Primary Meta Tags -->
     <meta name="title" content={title} />
     <meta name="description" content={description} />
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
@@ -84,570 +46,62 @@ const fastLogs = generateLogs(50);
     <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="Abinash Selvarasu" />
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={`https://theabx.in${ogImage}`} />
 
-    <!-- JSON-LD Structured Data -->
     {jsonLd && (
       <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     )}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=JetBrains+Mono:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
     <ClientRouter />
+
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        const theme = stored ?? (prefersDark ? "dark" : "light");
+        if (theme === "dark") document.documentElement.classList.add("dark");
+      })();
+    </script>
   </head>
-  <body class="text-gruv-text min-h-screen antialiased">
-    <div class="film-grain"></div>
-    <div class="fixed inset-0 z-[-10] overflow-hidden bg-[var(--color-gruv-bg)] pointer-events-none select-none">
-      <div class="absolute inset-0 bg-gradient-to-b from-[var(--color-gruv-bg)] via-transparent to-transparent z-10 h-32"></div>
-      <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-gruv-bg)] via-transparent to-transparent z-10 top-auto h-32"></div>
-      
-      <!-- Layer 1: Background (Slow, Small, Dim, Green) -->
-      <div class="absolute inset-0 font-mono text-[8px] opacity-10 text-[var(--color-gruv-green)] animate-scroll-slow whitespace-nowrap flex flex-col">
-        {slowLogs.map(log => <div class="py-[2px]" style={`margin-left: ${log.marginLeft}%`}>{log.text} {log.text}</div>)}
-        {slowLogs.map(log => <div class="py-[2px]" style={`margin-left: ${log.marginLeft}%`}>{log.text} {log.text}</div>)}
-      </div>
+  <body class="min-h-screen text-gruv-text antialiased">
+    {!hideNavAndFooter && <SiteHeader />}
 
-      <!-- Layer 2: Midground (Medium, Normal, Blue) -->
-      <div class="absolute inset-0 font-mono text-[10px] opacity-[0.15] text-[var(--color-gruv-blue)] animate-scroll-medium whitespace-nowrap flex flex-col mt-32">
-        {mediumLogs.map(log => <div class="py-[3px]" style={`margin-left: ${log.marginLeft}%`}>{log.text} {log.text}</div>)}
-        {mediumLogs.map(log => <div class="py-[3px]" style={`margin-left: ${log.marginLeft}%`}>{log.text} {log.text}</div>)}
-      </div>
-
-      <!-- Layer 3: Foreground (Fast, Large, Orange, Bright but sparse) -->
-      <div class="absolute inset-0 font-mono text-xs opacity-20 text-[var(--color-gruv-orange)] animate-scroll-fast whitespace-nowrap flex flex-col mt-64">
-        {fastLogs.map(log => <div class="py-[4px]" style={`margin-left: ${log.marginLeft}%`}>{log.text} {log.text}</div>)}
-        {fastLogs.map(log => <div class="py-[4px]" style={`margin-left: ${log.marginLeft}%`}>{log.text} {log.text}</div>)}
-      </div>
-    </div>
-
-
-    {!hideNavAndFooter && (
-      <>
-        <!-- Scroll progress bar -->
-        <div id="scroll-bar" class="fixed top-0 left-0 z-[60] h-0.5 bg-gruv-orange transition-all duration-150" style="width: 0%"></div>
-
-        <!-- Personal Portfolio Navbar (Dynamic) -->
-        <div class="fixed top-0 left-0 right-0 z-50 flex justify-center pointer-events-none px-0 transition-all duration-500" id="nav-wrapper">
-          <nav
-            id="navbar"
-            class="pointer-events-auto flex h-16 w-full max-w-6xl items-center justify-between gap-6 sm:gap-10 rounded-none border-b border-gruv-border/30 bg-transparent px-6 transition-all duration-500"
-            transition:persist
-          >
-            <a href="/" class="group flex items-center gap-2 pl-2">
-              <span class="text-gruv-text group-hover:text-gruv-orange text-sm font-bold tracking-tight transition-colors">abx <span class="text-gruv-muted font-normal">//</span> dev</span>
-            </a>
-
-            <!-- Desktop Links -->
-            <div class="hidden items-center gap-1 md:flex">
-              <a href="/#experience" data-section="Work" class="nav-link text-gruv-muted hover:text-gruv-text hover:bg-gruv-bg/80 rounded-full px-4 py-2 text-xs font-bold tracking-widest uppercase transition-all">Work</a>
-              <a href="/#projects" data-section="Projects" class="nav-link text-gruv-muted hover:text-gruv-text hover:bg-gruv-bg/80 rounded-full px-4 py-2 text-xs font-bold tracking-widest uppercase transition-all">Projects</a>
-              <a href="/#opensource" data-section="Open Source" class="nav-link text-gruv-muted hover:text-gruv-text hover:bg-gruv-bg/80 rounded-full px-4 py-2 text-xs font-bold tracking-widest uppercase transition-all">Activity</a>
-            </div>
-
-            <div class="flex items-center gap-2 sm:gap-4">
-              <a href="mailto:abinash@theabx.in" class="magnetic hidden md:flex bg-gruv-orange text-gruv-bg hover:shadow-[0_0_15px_rgba(254,128,25,0.4)] flex items-center gap-2 rounded-full px-5 py-2 text-xs font-bold transition-all hover:scale-105">
-                Contact
-              </a>
-              <!-- Mobile Toggle -->
-              <button id="menu-toggle" class="text-gruv-text hover:bg-gruv-bg/80 rounded-full p-2 transition-colors md:hidden" aria-label="Toggle Menu">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="6" x2="20" y2="6"></line><line x1="4" y1="18" x2="20" y2="18"></line></svg>
-              </button>
-            </div>
-          </nav>
+    {
+      hideNavAndFooter && (
+        <div class="fixed top-4 right-4 z-50 sm:top-6 sm:right-6">
+          <ThemeToggle />
         </div>
+      )
+    }
 
-        <!-- Mobile Bottom Drawer Overlay -->
-        <div id="mobile-overlay" class="fixed inset-0 z-[60] hidden bg-black/70 backdrop-blur-sm transition-opacity duration-300 md:hidden"></div>
+    <main
+      class:list={[
+        hideNavAndFooter && "flex min-h-screen items-center justify-center",
+      ]}
+    >
+      <slot />
+    </main>
 
-        <!-- Mobile Bottom Drawer -->
-        <div id="mobile-menu" class="fixed right-0 bottom-0 left-0 z-[70] flex translate-y-full flex-col gap-6 rounded-t-[2.5rem] border-t border-gruv-border/40 p-8 pb-10 pt-6 shadow-2xl transition-transform duration-300 ease-out md:hidden" style="background: linear-gradient(180deg, #282828 0%, #1d2021 100%);">
-          <!-- Drawer Handle -->
-          <div class="bg-gruv-border/60 mx-auto h-1.5 w-12 rounded-full"></div>
-
-          <!-- Brand -->
-          <div class="flex items-center gap-3">
-            <div class="pixel-pet scale-50 origin-left"></div>
-            <div class="flex flex-col">
-              <span class="text-gruv-text text-lg font-bold tracking-tight">abx <span class="text-gruv-muted font-normal">//</span> dev</span>
-              <span class="text-gruv-muted text-[10px] font-bold tracking-widest uppercase">Software Engineer</span>
-            </div>
-          </div>
-
-          <div class="bg-gruv-border/20 h-px w-full"></div>
-
-          <!-- Current section indicator -->
-          <div class="flex items-center gap-2 px-5">
-            <span class="text-gruv-muted/50 text-[10px] font-bold tracking-[0.2em] uppercase">Viewing</span>
-            <span id="current-section" class="text-gruv-orange text-[10px] font-bold tracking-[0.2em] uppercase">Work</span>
-            <div class="bg-gruv-border/20 ml-auto h-1 flex-1 rounded-full overflow-hidden">
-              <div id="section-progress" class="bg-gruv-orange h-full w-0 rounded-full transition-all duration-500 ease-out"></div>
-            </div>
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <a href="/#experience" class="mobile-link group relative flex items-center gap-4 rounded-2xl border border-transparent px-5 py-4 text-xl font-bold tracking-tight transition-all hover:border-gruv-border/40 hover:bg-gruv-bg/40 hover:pl-7" data-section="Work">
-              <span class="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-gruv-orange opacity-0 transition-all duration-300 group-[.active]:opacity-100"></span>
-              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gruv-bg/60 text-gruv-orange transition-all duration-300 group-[.active]:bg-gruv-orange group-[.active]:text-gruv-bg">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-              </span>
-              <span>Work</span>
-              <svg class="ml-auto text-gruv-muted opacity-0 transition-all group-hover:opacity-100 group-hover:translate-x-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
-            <a href="/#projects" class="mobile-link group relative flex items-center gap-4 rounded-2xl border border-transparent px-5 py-4 text-xl font-bold tracking-tight transition-all hover:border-gruv-border/40 hover:bg-gruv-bg/40 hover:pl-7" data-section="Projects">
-              <span class="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-gruv-blue opacity-0 transition-all duration-300 group-[.active]:opacity-100"></span>
-              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gruv-bg/60 text-gruv-blue transition-all duration-300 group-[.active]:bg-gruv-blue group-[.active]:text-gruv-bg">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-              </span>
-              <span>Projects</span>
-              <svg class="ml-auto text-gruv-muted opacity-0 transition-all group-hover:opacity-100 group-hover:translate-x-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
-
-            <a href="/#opensource" class="mobile-link group relative flex items-center gap-4 rounded-2xl border border-transparent px-5 py-4 text-xl font-bold tracking-tight transition-all hover:border-gruv-border/40 hover:bg-gruv-bg/40 hover:pl-7" data-section="Open Source">
-              <span class="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-gruv-green opacity-0 transition-all duration-300 group-[.active]:opacity-100"></span>
-              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gruv-bg/60 text-gruv-green transition-all duration-300 group-[.active]:bg-gruv-green group-[.active]:text-gruv-bg">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-              </span>
-              <span>Activity</span>
-              <svg class="ml-auto text-gruv-muted opacity-0 transition-all group-hover:opacity-100 group-hover:translate-x-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
-          </div>
-
-          <a href="mailto:abinash@theabx.in" class="magnetic bg-gruv-orange text-gruv-bg shadow-premium hover:shadow-[0_0_30px_rgba(254,128,25,0.3)] flex items-center justify-center gap-3 rounded-full px-5 py-4 text-center text-base font-bold transition-all hover:scale-[1.02]">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polyline points="22 2 15 22 11 13 2 9 22 2"></polyline></svg>
-            Get in touch
-          </a>
-
-          <div class="flex items-center justify-center gap-4 mt-2">
-            <a href="https://github.com/AbiXnash" target="_blank" class="magnetic flex-1 flex items-center justify-center gap-2 text-gruv-muted hover:text-gruv-text bg-gruv-bg/40 hover:bg-gruv-bg border border-transparent hover:border-gruv-border/40 rounded-2xl px-4 py-4 text-xs font-bold tracking-widest uppercase transition-all">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                GitHub
-            </a>
-            <a href="https://linkedin.com/in/abinash-selvarasu" target="_blank" class="magnetic flex-1 flex items-center justify-center gap-2 text-gruv-muted hover:text-gruv-text bg-gruv-bg/40 hover:bg-gruv-bg border border-transparent hover:border-gruv-border/40 rounded-2xl px-4 py-4 text-xs font-bold tracking-widest uppercase transition-all">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                LinkedIn
-            </a>
-          </div>
-        </div>
-      </>
-    )}
-
-    <div class="pointer-events-none relative z-10 flex min-h-screen flex-col">
-      <div class={`pointer-events-auto mx-auto flex w-full max-w-[1200px] flex-1 flex-col px-4 ${hideNavAndFooter ? 'justify-center items-center py-8' : 'pb-20 pt-32 sm:px-8 sm:pt-40'}`}>
-        <slot />
-      </div>
-    </div>
-
-    {!hideNavAndFooter && (
-      <footer class="border-gruv-border/20 mt-20 border-t px-6 py-24">
-        <div class="mx-auto flex max-w-6xl flex-col">
-          <div class="flex flex-col items-center justify-between gap-12 md:flex-row">
-            <div class="flex flex-col gap-4 text-center md:text-left">
-              <div>
-                <div class="text-2xl font-bold tracking-tighter">
-                  Let's work together
-                </div>
-                <p class="text-gruv-muted text-sm">
-                  Java · Go · Payments · Platform
-                </p>
-              </div>
-            </div>
-            <div class="flex flex-col items-center gap-4 sm:flex-row">
-              <div class="flex items-center gap-3">
-                <a href="https://github.com/AbiXnash" target="_blank" class="magnetic text-gruv-muted hover:text-gruv-text bg-gruv-surface/30 hover:bg-gruv-surface border border-transparent hover:border-gruv-border/50 flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold tracking-widest uppercase transition-all">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                  GitHub
-                </a>
-                <a href="https://linkedin.com/in/abinash-selvarasu" target="_blank" class="magnetic text-gruv-muted hover:text-gruv-text bg-gruv-surface/30 hover:bg-gruv-surface border border-transparent hover:border-gruv-border/50 flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold tracking-widest uppercase transition-all">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                  LinkedIn
-                </a>
-              </div>
-              <a href="mailto:abinash@theabx.in" class="magnetic bg-gruv-orange text-gruv-bg hover:shadow-[0_0_30px_rgba(254,128,25,0.4)] rounded-full px-6 py-3 text-sm font-bold transition-all hover:scale-105">
-                Email me
-              </a>
-            </div>
-          </div>
-          
-          <div class="flex flex-col items-center mt-16 gap-8">
-            <a href="#" class="magnetic text-gruv-muted hover:text-gruv-orange flex flex-col items-center gap-3 text-[10px] font-bold uppercase tracking-widest transition-colors">
-              <div class="bg-gruv-surface/50 flex h-12 w-12 items-center justify-center rounded-full border border-gruv-border/30">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
-              </div>
-              Back to top
-            </a>
-            <div class="bg-gruv-border/10 h-px w-full max-w-md"></div>
-          </div>
-
-          <div class="text-gruv-muted mx-auto mt-8 flex flex-wrap justify-center items-center gap-4 text-[11px] tracking-widest uppercase">
-            <span>© {new Date().getFullYear()} Abinash Selvarasu</span>
-            <span class="text-gruv-border">·</span>
-            <span class="tracking-normal text-gruv-muted/60 font-mono text-[10px]">crafted with precision</span>
-          </div>
-        </div>
-      </footer>
-    )}
+    {!hideNavAndFooter && <SiteFooter />}
 
     <script>
+      import { setupSite } from "../scripts/site";
+      import { setupThemeToggle } from "../scripts/theme";
+
       function setup() {
-        const toggle = document.getElementById("menu-toggle");
-        const menu = document.getElementById("mobile-menu");
-        const overlay = document.getElementById("mobile-overlay");
-        const links = document.querySelectorAll(".mobile-link");
-
-        function toggleMenu() {
-          const isOpen = menu?.classList.contains("translate-y-0");
-
-          if (isOpen) {
-            menu?.classList.remove("translate-y-0");
-            menu?.classList.add("translate-y-full");
-            overlay?.classList.add("hidden");
-            document.body.style.overflow = "";
-          } else {
-            menu?.classList.remove("translate-y-full");
-            menu?.classList.add("translate-y-0");
-            overlay?.classList.remove("hidden");
-            document.body.style.overflow = "hidden";
-            history.pushState({ menu: true }, "");
-          }
-        }
-
-        toggle?.addEventListener("click", toggleMenu);
-        overlay?.addEventListener("click", toggleMenu);
-
-        links.forEach((l) => l.addEventListener("click", toggleMenu));
-
-        // Scroll Reveal Observer
-        const revealObserver = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("active");
-              }
-            });
-          },
-          { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
-        );
-
-        document
-          .querySelectorAll(".reveal")
-          .forEach((el) => revealObserver.observe(el));
-
-        // Scroll bar and glass nav
-        const scrollBar = document.getElementById("scroll-bar");
-        const navbar = document.getElementById("navbar");
-
-        function onScroll() {
-          const docEl = document.documentElement;
-          const scrollTop = docEl.scrollTop || document.body.scrollTop;
-          const scrollHeight = docEl.scrollHeight - docEl.clientHeight;
-
-          // Scroll progress bar
-          if (scrollBar && scrollHeight > 0) {
-            scrollBar.style.width = `${(scrollTop / scrollHeight) * 100}%`;
-          }
-
-          // Dynamic nav effect
-          const navWrapper = document.getElementById("nav-wrapper");
-          if (navbar && navWrapper) {
-            if (scrollTop > 60) {
-              navWrapper.classList.remove("top-0", "px-0");
-              navWrapper.classList.add("top-4", "sm:top-6", "px-4");
-              navbar.classList.remove("h-16", "max-w-6xl", "rounded-none", "border-b", "border-gruv-border/30", "bg-transparent", "px-6");
-              navbar.classList.add("h-14", "max-w-3xl", "rounded-full", "border", "border-gruv-border/40", "bg-gruv-surface/60", "backdrop-blur-xl", "px-4", "sm:px-6", "shadow-[0_8px_32px_rgba(0,0,0,0.4)]");
-            } else {
-              navWrapper.classList.remove("top-4", "sm:top-6", "px-4");
-              navWrapper.classList.add("top-0", "px-0");
-              navbar.classList.remove("h-14", "max-w-3xl", "rounded-full", "border", "border-gruv-border/40", "bg-gruv-surface/60", "backdrop-blur-xl", "px-4", "sm:px-6", "shadow-[0_8px_32px_rgba(0,0,0,0.4)]");
-              navbar.classList.add("h-16", "max-w-6xl", "rounded-none", "border-b", "border-gruv-border/30", "bg-transparent", "px-6");
-            }
-          }
-        }
-
-        // Particle Web
-        const canvas = document.getElementById("particle-web") as HTMLCanvasElement;
-        if (canvas) {
-          const ctx = canvas.getContext("2d");
-          if (ctx) {
-            let width = canvas.width = window.innerWidth;
-            let height = canvas.height = window.innerHeight;
-            
-            window.addEventListener("resize", () => {
-              width = canvas.width = window.innerWidth;
-              height = canvas.height = window.innerHeight;
-            });
-
-            const particles: {x: number, y: number, vx: number, vy: number, radius: number}[] = [];
-            for(let i=0; i<40; i++) {
-              particles.push({
-                x: Math.random() * width,
-                y: Math.random() * height,
-                vx: (Math.random() - 0.5) * 0.4,
-                vy: (Math.random() - 0.5) * 0.4,
-                radius: Math.random() * 1.5 + 0.5
-              });
-            }
-
-            let mouse = { x: -1000, y: -1000 };
-            document.addEventListener("mousemove", (e) => {
-              mouse.x = e.clientX;
-              mouse.y = e.clientY;
-            });
-
-            function draw() {
-              if(!ctx) return;
-              ctx.clearRect(0, 0, width, height);
-              ctx.fillStyle = "#fe8019"; 
-              ctx.strokeStyle = "rgba(254, 128, 25, 0.15)";
-              
-              for(let i=0; i<particles.length; i++) {
-                let p = particles[i];
-                p.x += p.vx;
-                p.y += p.vy;
-                
-                if (p.x < 0 || p.x > width) p.vx *= -1;
-                if (p.y < 0 || p.y > height) p.vy *= -1;
-                
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fill();
-                
-                let dx = p.x - mouse.x;
-                let dy = p.y - mouse.y;
-                let dist = Math.sqrt(dx*dx + dy*dy);
-                if (dist < 180) {
-                  ctx.strokeStyle = `rgba(254, 128, 25, ${0.25 * (1 - dist/180)})`;
-                  ctx.beginPath();
-                  ctx.moveTo(p.x, p.y);
-                  ctx.lineTo(mouse.x, mouse.y);
-                  ctx.stroke();
-                }
-                
-                ctx.strokeStyle = "rgba(254, 128, 25, 0.1)";
-                for(let j=i+1; j<particles.length; j++) {
-                  let p2 = particles[j];
-                  let dx2 = p.x - p2.x;
-                  let dy2 = p.y - p2.y;
-                  let dist2 = Math.sqrt(dx2*dx2 + dy2*dy2);
-                  if (dist2 < 120) {
-                    ctx.beginPath();
-                    ctx.moveTo(p.x, p.y);
-                    ctx.lineTo(p2.x, p2.y);
-                    ctx.stroke();
-                  }
-                }
-              }
-              requestAnimationFrame(draw);
-            }
-            draw();
-          }
-        }
-
-        // Section tracking
-        const sections = [
-          { id: "experience", name: "Work" },
-          { id: "projects", name: "Projects" },
-          { id: "education", name: "Education" },
-          { id: "opensource", name: "Open Source" },
-        ];
-        const sectionElements = sections
-          .map((s) => document.getElementById(s.id))
-          .filter(Boolean);
-        const currentSectionEl = document.getElementById("current-section");
-        const drawerProgressEl = document.getElementById("section-progress");
-        const mobileLinks = document.querySelectorAll<HTMLElement>(".mobile-link");
-        const navLinks = document.querySelectorAll<HTMLElement>(".nav-link");
-
-        const sectionObserver = new IntersectionObserver(
-          (entries) => {
-            const visible = entries
-              .filter((e) => e.isIntersecting)
-              .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-            if (visible.length > 0) {
-              const id = visible[0].target.id;
-              const match = sections.find((s) => s.id === id);
-              const name = match?.name ?? "";
-              if (currentSectionEl) currentSectionEl.textContent = name;
-              mobileLinks.forEach((link) => {
-                link.classList.toggle(
-                  "active",
-                  link.getAttribute("data-section") === name,
-                );
-              });
-              navLinks.forEach((link) => {
-                link.classList.toggle(
-                  "text-gruv-text",
-                  link.getAttribute("data-section") === name,
-                );
-                link.classList.toggle(
-                  "text-gruv-muted",
-                  link.getAttribute("data-section") !== name,
-                );
-              });
-            }
-            onScroll();
-          },
-          { threshold: 0.2, rootMargin: "0px 0px -30% 0px" },
-        );
-
-        sectionElements.forEach((el) => sectionObserver.observe(el));
-        document.addEventListener("scroll", onScroll);
-        onScroll();
-
-        // 3D Tilt Cards with Glare
-        document.addEventListener("mousemove", (e) => {
-          const card = e.target.closest(".tilt-card") as HTMLElement;
-          if (!card) return;
-          
-          let glare = card.querySelector('.glare') as HTMLElement;
-          if (!glare) {
-            glare = document.createElement('div');
-            glare.className = 'glare';
-            glare.style.position = 'absolute';
-            glare.style.inset = '0';
-            glare.style.pointerEvents = 'none';
-            glare.style.opacity = '0';
-            glare.style.transition = 'opacity 0.5s ease';
-            card.appendChild(glare);
-          }
-
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-          const rotateX = ((y - centerY) / centerY) * -4;
-          const rotateY = ((x - centerX) / centerX) * 4;
-          
-          glare.style.opacity = '1';
-          glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.06) 0%, transparent 60%)`;
-
-          card.style.transition = "transform 0.05s linear, box-shadow 0.5s, background-color 0.5s, border-color 0.5s, color 0.5s";
-          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-          card.style.zIndex = "10";
-        });
-
-        document.addEventListener("mouseout", (e) => {
-          const card = e.target.closest(".tilt-card") as HTMLElement;
-          if (!card) return;
-          if (!card.contains(e.relatedTarget as Node)) {
-            const glare = card.querySelector('.glare') as HTMLElement;
-            if (glare) glare.style.opacity = '0';
-
-            card.style.transition = "transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s, background-color 0.5s, border-color 0.5s, color 0.5s";
-            card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
-            card.style.zIndex = "1";
-            setTimeout(() => {
-              card.style.transition = "";
-            }, 500);
-          }
-        });
-        // Magnetic Buttons
-        const magneticElements = document.querySelectorAll<HTMLElement>(".magnetic");
-        magneticElements.forEach((btn) => {
-          btn.addEventListener("mousemove", (e) => {
-            const rect = btn.getBoundingClientRect();
-            const h = rect.width / 2;
-            const v = rect.height / 2;
-            const x = e.clientX - rect.left - h;
-            const y = e.clientY - rect.top - v;
-            
-            btn.style.transition = "none";
-            btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-          });
-
-          btn.addEventListener("mouseleave", () => {
-            btn.style.transition = "transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)";
-            btn.style.transform = `translate(0px, 0px)`;
-            setTimeout(() => {
-              btn.style.transition = "";
-            }, 500);
-          });
-        });
-
-        // Interactive Ghost Eyes
-        const ghostPets = document.querySelectorAll<HTMLElement>(".pixel-pet");
-        document.addEventListener("mousemove", (e) => {
-          ghostPets.forEach((ghost) => {
-            const rect = ghost.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            const dx = e.clientX - centerX;
-            const dy = e.clientY - centerY;
-            const angle = Math.atan2(dy, dx);
-            const distance = Math.min(4, Math.hypot(dx, dy) / 20);
-            
-            const eyeX = Math.cos(angle) * distance;
-            const eyeY = Math.sin(angle) * distance;
-            
-            ghost.style.setProperty('--eye-x', `${eyeX}px`);
-            ghost.style.setProperty('--eye-y', `${eyeY}px`);
-          });
-        });
-
-        // Hacker Text Scramble Effect
-        const chars = '!<>-_\\\\/[]{}—=+*^?#________';
-        const scrambleElements = document.querySelectorAll<HTMLElement>(".scramble-text");
-        
-        const scrambleObserver = new IntersectionObserver((entries, observer) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              const element = entry.target as HTMLElement;
-              observer.unobserve(element); // Stop it from playing again and again
-              
-              const original = element.dataset.original || element.textContent || "";
-              if (!element.dataset.original) element.dataset.original = original;
-              
-              element.dataset.scrambling = "true";
-              let iteration = 0;
-              
-              const interval = setInterval(() => {
-                element.textContent = original.split("").map((letter, index) => {
-                  if (index < iteration || letter === " ") return original[index];
-                  return chars[Math.floor(Math.random() * chars.length)];
-                }).join("");
-                
-                if (iteration >= original.length) {
-                  clearInterval(interval);
-                  element.dataset.scrambling = "false";
-                }
-                iteration += 1 / 3;
-              }, 30);
-            }
-          });
-        }, { threshold: 0.5 });
-        
-        scrambleElements.forEach(el => scrambleObserver.observe(el));
+        setupThemeToggle();
+        if (!document.getElementById("navbar")) return;
+        setupSite();
       }
 
-      // Close menu on back gesture/button (registered once, outside setup)
-      let menu: HTMLElement | null;
-      window.addEventListener("popstate", () => {
-        menu = document.getElementById("mobile-menu");
-        if (menu?.classList.contains("translate-y-0")) {
-          const overlay = document.getElementById("mobile-overlay");
-          menu.classList.remove("translate-y-0");
-          menu.classList.add("translate-y-full");
-          overlay?.classList.add("hidden");
-          document.body.style.overflow = "";
-        }
-      });
-
-      // Initial setup
       setup();
-
-      // Re-setup after client-side navigation
-      document.addEventListener("astro:after-swap", () => {
-        setup();
-      });
+      document.addEventListener("astro:after-swap", setup);
     </script>
   </body>
 </html>
