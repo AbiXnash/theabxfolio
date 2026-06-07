@@ -1,6 +1,7 @@
 ---
 interface Props {
   title: string;
+  meta: string;
   category?: string;
   intro: string;
   github: string;
@@ -8,9 +9,11 @@ interface Props {
     label: string;
     url: string;
   }[];
+  featured?: boolean;
 }
 
-const { title, category, intro, github, links } = Astro.props;
+const { title, meta, category, intro, github, links, featured = false } =
+  Astro.props;
 const primaryLink = links?.[0] ?? { label: "View repository", url: github };
 const extraLinks = links && links.length > 1 ? links.slice(1) : [];
 ---
@@ -19,22 +22,46 @@ const extraLinks = links && links.length > 1 ? links.slice(1) : [];
   <a
     href={primaryLink.url}
     target="_blank"
-    class="tile-card relative flex h-full min-h-[272px] flex-col gap-5 overflow-hidden rounded-[1.75rem] p-6 sm:min-h-[288px] sm:p-8"
+    class:list={[
+      "tile-card relative flex h-full flex-col overflow-hidden rounded-[1.75rem]",
+      featured
+        ? "gap-6 p-7 sm:p-9"
+        : "gap-4 p-6 sm:gap-5 sm:p-7",
+    ]}
   >
     <div
-      class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gruv-blue/30 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+      class:list={[
+        "pointer-events-none absolute inset-x-0 top-0 bg-gradient-to-r from-transparent via-gruv-blue/30 to-transparent opacity-0 transition-opacity group-hover:opacity-100",
+        featured ? "h-0.5" : "h-px",
+      ]}
     ></div>
 
-    <div class="flex items-center justify-between gap-4">
-      {
-        category && (
-          <span class="rounded-full bg-gruv-blue/10 px-3 py-1 text-[11px] font-medium text-gruv-blue">
-            {category}
-          </span>
-        )
-      }
+    {
+      featured && (
+        <div
+          class="pointer-events-none absolute -top-24 -right-16 h-48 w-48 rounded-full opacity-40 blur-3xl"
+          style="background: var(--theme-glow-blue)"
+          aria-hidden="true"
+        />
+      )
+    }
+
+    <div class="flex items-start justify-between gap-4">
+      <div class="flex flex-col gap-2">
+        {
+          category && (
+            <span class="w-fit rounded-full bg-gruv-blue/10 px-3 py-1 text-[11px] font-medium text-gruv-blue">
+              {category}
+            </span>
+          )
+        }
+        <span class="text-xs text-gruv-muted">{meta}</span>
+      </div>
       <svg
-        class="ml-auto shrink-0 text-gruv-muted opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100"
+        class:list={[
+          "shrink-0 text-gruv-muted opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100",
+          featured ? "mt-1" : "",
+        ]}
         width="14"
         height="14"
         viewBox="0 0 24 24"
@@ -50,17 +77,37 @@ const extraLinks = links && links.length > 1 ? links.slice(1) : [];
       </svg>
     </div>
 
-    <div class="flex flex-1 flex-col gap-3">
-      <h4 class="text-xl font-semibold tracking-tight">{title}</h4>
-      <p class="line-clamp-3 text-sm leading-relaxed text-gruv-muted">{intro}</p>
+    <div class="relative flex flex-1 flex-col gap-3">
+      <h4
+        class:list={[
+          "font-semibold tracking-tight",
+          featured ? "text-2xl sm:text-[1.75rem]" : "text-lg sm:text-xl",
+        ]}
+      >
+        {title}
+      </h4>
+      <p
+        class:list={[
+          "leading-relaxed text-gruv-muted",
+          featured
+            ? "line-clamp-4 text-base"
+            : "line-clamp-2 text-sm sm:line-clamp-3",
+        ]}
+      >
+        {intro}
+      </p>
     </div>
 
-    <div class="mt-auto flex min-h-[1.25rem] flex-wrap gap-2">
-      {
-        extraLinks.map((link) => (
-          <span class="text-[11px] text-gruv-muted">{link.label}</span>
-        ))
-      }
-    </div>
+    {
+      extraLinks.length > 0 && (
+        <div class="mt-auto flex flex-wrap gap-2 border-t border-gruv-border/15 pt-4">
+          {extraLinks.map((link) => (
+            <span class="rounded-full border border-gruv-border/20 px-2.5 py-0.5 text-[11px] text-gruv-muted">
+              {link.label}
+            </span>
+          ))}
+        </div>
+      )
+    }
   </a>
 </article>

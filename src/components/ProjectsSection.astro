@@ -1,0 +1,84 @@
+---
+import Container from "./layout/Container.astro";
+import Section from "./layout/Section.astro";
+import SectionHeader from "./layout/SectionHeader.astro";
+import ProjectCard from "./ProjectCard.astro";
+
+interface Project {
+  title: string;
+  meta: string;
+  category: string;
+  github: string;
+  intro: string;
+  links?: { label: string; url: string }[];
+}
+
+interface Props {
+  items: Project[];
+}
+
+const { items } = Astro.props;
+
+const INITIAL_VISIBLE = 5;
+
+function gridClass(index: number): string {
+  const hidden = index >= INITIAL_VISIBLE ? "hidden" : "";
+
+  if (index === 0) {
+    return `${hidden} md:col-span-2 lg:col-span-4 lg:row-span-2`;
+  }
+  if (index === 1 || index === 2) {
+    return `${hidden} lg:col-span-2`;
+  }
+  if (index === 3 || index === 4) {
+    return `${hidden} md:col-span-1 lg:col-span-3`;
+  }
+
+  return `${hidden} md:col-span-1 lg:col-span-3`;
+}
+---
+
+<Section id="projects">
+  <Container>
+    <SectionHeader
+      eyebrow="Projects"
+      title="Built after hours."
+      description="Side projects and experiments — the fun stuff."
+      href="https://github.com/AbiXnash"
+      linkLabel="All on GitHub"
+    />
+
+    <div
+      id="projects-grid"
+      class="grid grid-cols-1 items-stretch gap-4 md:grid-cols-2 lg:grid-cols-6 lg:gap-5"
+    >
+      {
+        items.map((item, index) => (
+          <div class:list={["project-item h-full", gridClass(index)]}>
+            <ProjectCard {...item} featured={index === 0} />
+          </div>
+        ))
+      }
+    </div>
+
+    {
+      items.length > INITIAL_VISIBLE && (
+        <div class="mt-12 flex justify-center">
+          <button
+            id="load-more-projects"
+            class="cursor-pointer rounded-full border border-gruv-border/25 px-6 py-2.5 text-sm text-gruv-muted transition-all hover:border-gruv-blue/25 hover:text-gruv-text"
+          >
+            Show {items.length - INITIAL_VISIBLE} more
+          </button>
+        </div>
+      )
+    }
+  </Container>
+</Section>
+
+<script>
+  import { setupProjects } from "../scripts/projects";
+
+  setupProjects();
+  document.addEventListener("astro:page-load", setupProjects);
+</script>

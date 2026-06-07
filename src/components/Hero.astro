@@ -1,6 +1,7 @@
 ---
+import AtAGlance from "./AtAGlance.astro";
 import Container from "./layout/Container.astro";
-import { site, socialLinks, technologies } from "../config/site";
+import { site, socialLinks } from "../config/site";
 ---
 
 <section
@@ -10,7 +11,7 @@ import { site, socialLinks, technologies } from "../config/site";
   <div class="hero-glow" aria-hidden="true"></div>
 
   <Container>
-    <div class="grid items-center gap-12 lg:grid-cols-[1fr_320px] lg:gap-16">
+    <div class="grid items-center gap-12 lg:grid-cols-[1fr_340px] lg:gap-16">
       <div class="reveal-stagger relative flex flex-col gap-7">
         <h1 class="display-title max-w-lg">
           Hey, I'm {site.name.split(" ")[0]}.<br />
@@ -37,38 +38,9 @@ import { site, socialLinks, technologies } from "../config/site";
         </div>
       </div>
 
-      <aside class="reveal-stagger glass-card rounded-[1.75rem] p-5 sm:p-6">
-        <p class="eyebrow mb-4">At a glance</p>
-        <div class="grid grid-cols-2 gap-3">
-          <div class="bento-cell col-span-2 flex items-center justify-between rounded-2xl px-4 py-3.5">
-            <span class="text-xs text-gruv-muted">Status</span>
-            <span class="flex items-center gap-2 text-sm font-medium text-gruv-text">
-              <span class="relative flex h-2 w-2">
-                <span
-                  class="absolute inline-flex h-full w-full animate-ping rounded-full bg-gruv-green opacity-40"
-                ></span>
-                <span class="relative inline-flex h-2 w-2 rounded-full bg-gruv-green"
-                ></span>
-              </span>
-              Open to chat
-            </span>
-          </div>
-          <div class="bento-cell flex flex-col gap-1 rounded-2xl px-4 py-3.5">
-            <span class="text-xs text-gruv-muted">Focus</span>
-            <span class="text-sm font-medium text-gruv-text">{site.focus}</span>
-          </div>
-          <div class="bento-cell flex flex-col gap-1 rounded-2xl px-4 py-3.5">
-            <span class="text-xs text-gruv-muted">Based in</span>
-            <span class="text-sm font-medium text-gruv-text">{site.location}</span>
-          </div>
-          <div class="bento-cell col-span-2 rounded-2xl px-4 py-3.5">
-            <span class="text-xs text-gruv-muted">Stack</span>
-            <p class="mt-1.5 text-sm leading-relaxed text-gruv-text">
-              {technologies.slice(0, 2).join(" · ")}
-            </p>
-          </div>
-        </div>
-      </aside>
+      <div class="reveal-stagger">
+        <AtAGlance />
+      </div>
     </div>
   </Container>
 

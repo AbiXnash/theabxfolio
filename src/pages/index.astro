@@ -7,7 +7,7 @@ import Section from '../components/layout/Section.astro';
 import SectionHeader from '../components/layout/SectionHeader.astro';
 import OpenSourceSection from '../components/OpenSourceSection.astro';
 import ExperienceCard from '../components/ExperienceCard.astro';
-import ProjectCard from '../components/ProjectCard.astro';
+import ProjectsSection from '../components/ProjectsSection.astro';
 import { technologies } from '../config/site';
 
 const resumeEntry = await getEntry('resume', 'resume');
@@ -81,36 +81,7 @@ const jsonLd = {
     </Container>
   </Section>
 
-  <Section id="projects">
-    <Container>
-      <SectionHeader
-        eyebrow="Projects"
-        title="Built after hours."
-        description="Side projects and experiments — the fun stuff."
-        href="https://github.com/AbiXnash"
-        linkLabel="All on GitHub"
-      />
-
-      <div id="projects-grid" class="grid grid-cols-1 items-stretch gap-5 md:grid-cols-2">
-        {projects.items.map((item, index) => (
-          <div class={`project-item h-full ${index >= 4 ? 'hidden' : ''}`}>
-            <ProjectCard {...item} />
-          </div>
-        ))}
-      </div>
-
-      {projects.items.length > 4 && (
-        <div class="mt-12 flex justify-center">
-          <button
-            id="load-more-projects"
-            class="cursor-pointer rounded-full border border-gruv-border/25 px-6 py-2.5 text-sm text-gruv-muted transition-all hover:border-gruv-blue/25 hover:text-gruv-text"
-          >
-            Show more
-          </button>
-        </div>
-      )}
-    </Container>
-  </Section>
+  <ProjectsSection items={projects.items} />
 
   <Section id="opensource" tone="muted">
     <OpenSourceSection />
@@ -141,9 +112,3 @@ const jsonLd = {
   </Section>
 </BaseLayout>
 
-<script>
-  import { setupProjects } from '../scripts/projects';
-
-  setupProjects();
-  document.addEventListener('astro:page-load', setupProjects);
-</script>
