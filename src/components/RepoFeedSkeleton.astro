@@ -1,17 +1,16 @@
-<div class="repo-tag-board" aria-hidden="true">
+<div class="repo-grid" aria-hidden="true">
   {
     Array.from({ length: 4 }).map(() => (
-      <div class="repo-tag-item pointer-events-none">
-        <div class="repo-tag-head w-full">
-          <div class="skeleton h-2.5 w-14 rounded-md"></div>
-          <div class="skeleton mt-1 h-5 w-32 rounded-md"></div>
-        </div>
-        <div class="skeleton h-3.5 w-40 max-w-full rounded-md"></div>
-        <div class="repo-tag-chips">
-          <div class="skeleton h-6 w-14 rounded-full"></div>
-          <div class="skeleton h-6 w-20 rounded-full"></div>
-          <div class="skeleton h-6 w-16 rounded-full"></div>
-        </div>
+      <div class="repo-cell pointer-events-none">
+        <span class="skeleton block h-4 w-28 max-w-full rounded-md"></span>
+        <span class="skeleton mt-1 block h-3 w-full max-w-[12rem] rounded-md"></span>
+        <span class="repo-cell-meta pointer-events-none">
+          <span class="repo-cell-lang">
+            <span class="skeleton block h-3 w-20 rounded-md"></span>
+          </span>
+          <span class="skeleton block h-3 w-16 rounded-md"></span>
+          <span class="skeleton block h-3 w-10 justify-self-end rounded-md"></span>
+        </span>
       </div>
     ))
   }

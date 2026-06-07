@@ -28,6 +28,11 @@ export function getLanguageColor(lang?: string | null) {
   return LANGUAGE_COLORS[lang ?? ""] ?? "#86868b";
 }
 
+export function isRecentlyPushed(pushedAt: string, now = new Date()) {
+  const days = Math.floor((now.getTime() - new Date(pushedAt).getTime()) / 86400000);
+  return days <= 1;
+}
+
 export function formatPushedAt(pushedAt: string) {
   const date = new Date(pushedAt);
   const days = Math.floor((Date.now() - date.getTime()) / 86400000);
@@ -71,29 +76,35 @@ function escapeHtml(value: string) {
     .replaceAll('"', "&quot;");
 }
 
-function repoTagItemHtml(r: Repo) {
+function repoCellHtml(r: Repo) {
   const safeName = escapeHtml(r.name);
   const safeDescription = r.description ? escapeHtml(r.description) : "";
   const langColor = getLanguageColor(r.language);
   const safeLanguage = r.language ? escapeHtml(r.language) : "n/a";
   const previewDescription = safeDescription || `Repository on GitHub.`;
+  const pushedLabel = formatPushedAt(r.pushedAt);
+  const recent = isRecentlyPushed(r.pushedAt);
+  const langDot = recent
+    ? `<span class="ping-dot ping-dot--lang" aria-hidden="true"><span class="ping-dot-ring"></span><span class="ping-dot-core"></span></span>`
+    : `<span class="repo-cell-lang-dot" aria-hidden="true"></span>`;
+  const recentClass = recent ? " repo-cell--recent" : "";
 
-  return `<a href="${r.url}" target="_blank" rel="noopener noreferrer" class="repo-tag-item group" data-link-preview data-preview-title="${safeName}" data-preview-description="${previewDescription}" data-preview-domain="github.com" style="--repo-lang:${langColor}">
-  <div class="repo-tag-head">
-    <span class="repo-tag-label">Repository</span>
-    <span class="repo-tag-name">${safeName}</span>
-  </div>
-  ${safeDescription ? `<span class="repo-tag-desc">${safeDescription}</span>` : ""}
-  <div class="repo-tag-chips">
-    <span class="repo-chip repo-chip-lang">${safeLanguage}</span>
-    <span class="repo-chip repo-chip-mono">${r.commits} commits</span>
-    <time class="repo-chip repo-chip-time" datetime="${r.pushedAt}">${formatPushedAt(r.pushedAt)}</time>
-  </div>
+  return `<a href="${r.url}" target="_blank" rel="noopener noreferrer" class="repo-cell group${recentClass}" data-link-preview data-preview-title="${safeName}" data-preview-description="${previewDescription}" data-preview-domain="github.com" style="--repo-lang:${langColor}">
+  <span class="repo-cell-name">${safeName}</span>
+  ${safeDescription ? `<span class="repo-cell-desc">${safeDescription}</span>` : `<span class="repo-cell-desc">Public repository on GitHub.</span>`}
+  <span class="repo-cell-meta">
+    <span class="repo-cell-lang">
+      ${langDot}
+      <span class="repo-cell-lang-label">${safeLanguage}</span>
+    </span>
+    <span class="repo-cell-commits">${r.commits} commits</span>
+    <time class="repo-cell-time" datetime="${r.pushedAt}">${pushedLabel}</time>
+  </span>
 </a>`;
 }
 
 export function reposFeedHtml(repos: Repo[]) {
-  const items = repos.map((repo) => repoTagItemHtml(repo)).join("");
+  const cells = repos.map((repo) => repoCellHtml(repo)).join("");
 
-  return `<div class="repo-tag-board">${items}</div>`;
+  return `<div class="repo-grid" aria-label="GitHub repositories">${cells}</div>`;
 }

@@ -1,5 +1,5 @@
 const SHOW_DELAY = 360;
-const HIDE_DELAY = 100;
+const HIDE_DELAY = 80;
 
 interface PreviewData {
   title: string;
@@ -10,6 +10,16 @@ interface PreviewData {
 
 function canHover() {
   return window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+}
+
+function pageGutterPx() {
+  const probe = document.createElement("div");
+  probe.style.cssText =
+    "position:fixed;visibility:hidden;pointer-events:none;padding-left:var(--page-gutter)";
+  document.documentElement.appendChild(probe);
+  const px = parseFloat(getComputedStyle(probe).paddingLeft) || 24;
+  probe.remove();
+  return px;
 }
 
 function readPreviewData(link: HTMLAnchorElement): PreviewData | null {
@@ -90,7 +100,7 @@ export function setupLinkPreviews() {
     if (!card) return;
 
     const rect = link.getBoundingClientRect();
-    const margin = 12;
+    const margin = pageGutterPx();
     const cardRect = card.getBoundingClientRect();
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
@@ -149,6 +159,7 @@ export function setupLinkPreviews() {
   }
 
   function hidePreview() {
+    clearTimers();
     card?.classList.remove("is-visible");
     card?.setAttribute("aria-hidden", "true");
     activeLink = null;
@@ -167,6 +178,11 @@ export function setupLinkPreviews() {
     hideTimer = setTimeout(hidePreview, HIDE_DELAY);
   }
 
+  function isPointerOverLink(link: HTMLAnchorElement, x: number, y: number) {
+    const target = document.elementFromPoint(x, y);
+    return Boolean(target && (link === target || link.contains(target)));
+  }
+
   function bindLink(link: HTMLAnchorElement) {
     if (link.dataset.linkPreviewBound === "true") return;
     link.dataset.linkPreviewBound = "true";
@@ -178,13 +194,21 @@ export function setupLinkPreviews() {
     };
 
     const hide = () => {
-      if (activeLink === link) scheduleHide();
-      else clearTimers();
+      if (activeLink === link) {
+        scheduleHide();
+        return;
+      }
+
+      clearTimers();
     };
 
-    link.addEventListener("mouseenter", show);
-    link.addEventListener("mouseleave", hide);
-    link.addEventListener("focus", show);
+    link.addEventListener("pointerenter", show);
+    link.addEventListener("pointerleave", hide);
+    link.addEventListener("pointercancel", hide);
+    link.addEventListener("focus", () => {
+      if (!link.matches(":focus-visible")) return;
+      show();
+    });
     link.addEventListener("blur", hide);
   }
 
@@ -210,11 +234,29 @@ export function setupLinkPreviews() {
 
   observer.observe(document.body, { childList: true, subtree: true });
 
+  document.addEventListener(
+    "pointermove",
+    (event) => {
+      if (!activeLink || !card?.classList.contains("is-visible")) return;
+      if (!isPointerOverLink(activeLink, event.clientX, event.clientY)) {
+        hidePreview();
+      }
+    },
+    { passive: true },
+  );
+
+  document.addEventListener("pointerdown", (event) => {
+    if (!activeLink || !card?.classList.contains("is-visible")) return;
+    const target = event.target;
+    if (target instanceof Node && activeLink.contains(target)) return;
+    hidePreview();
+  });
+
   window.addEventListener(
     "scroll",
     () => {
-      if (activeLink && card?.classList.contains("is-visible")) {
-        positionCard(activeLink);
+      if (card?.classList.contains("is-visible")) {
+        hidePreview();
       }
     },
     { passive: true },
@@ -225,4 +267,6 @@ export function setupLinkPreviews() {
       positionCard(activeLink);
     }
   });
+
+  window.addEventListener("blur", hidePreview);
 }

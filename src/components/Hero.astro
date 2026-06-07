@@ -3,10 +3,9 @@ import AtAGlance from "./AtAGlance.astro";
 import HeroExperience from "./HeroExperience.astro";
 import HeroStackLogos from "./HeroStackLogos.astro";
 import Container from "./layout/Container.astro";
-import PreviewLink from "./PreviewLink.astro";
 import ResumeDownload from "./ResumeDownload.astro";
 import { linkPreviewAttributes } from "../lib/link-previews";
-import { site, socialLinks } from "../config/site";
+import { site } from "../config/site";
 
 const emailPreview = linkPreviewAttributes(`mailto:${site.email}`);
 ---
@@ -42,13 +41,6 @@ const emailPreview = linkPreviewAttributes(`mailto:${site.email}`);
             Say hello
           </a>
           <ResumeDownload variant="secondary" class="hero-btn" label="Resume" />
-          {
-            socialLinks.map((link) => (
-              <PreviewLink href={link.href} class="link-subtle hero-link">
-                {link.label} →
-              </PreviewLink>
-            ))
-          }
         </div>
       </div>
 
@@ -59,12 +51,14 @@ const emailPreview = linkPreviewAttributes(`mailto:${site.email}`);
   </Container>
 
   <div class="hero-bottom">
-    <HeroExperience />
+    <Container class="flex flex-col items-center gap-[1.125rem] sm:gap-5">
+      <HeroExperience />
 
-    <div class="scroll-hint text-gruv-muted" aria-hidden="true">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M12 5v14M5 12l7 7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
-      </svg>
-    </div>
+      <div class="scroll-hint text-gruv-muted" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 5v14M5 12l7 7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
+    </Container>
   </div>
 </section>

@@ -79,17 +79,17 @@ export function setupSite() {
     revealObserver.observe(el);
   });
 
-  const navInner = document.getElementById("nav-inner");
+  const navbar = document.getElementById("navbar");
 
   function onScroll() {
     const scrollTop =
       document.documentElement.scrollTop || document.body.scrollTop;
 
-    if (navInner) {
+    if (navbar) {
       if (scrollTop > 24) {
-        navInner.classList.add("nav-pill");
+        navbar.classList.add("nav-scrolled");
       } else {
-        navInner.classList.remove("nav-pill");
+        navbar.classList.remove("nav-scrolled");
       }
     }
   }
