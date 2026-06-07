@@ -1,11 +1,13 @@
 ---
 import { getHeroExperience } from "../lib/experience";
+import { linkPreviewAttributes } from "../lib/link-previews";
 
 const { programming, professional } = getHeroExperience();
+const previewAttrs = linkPreviewAttributes("/#experience");
 ---
 
 <p class="hero-experience text-gruv-muted">
-  <a href="/#experience">
+  <a href="/#experience" {...previewAttrs}>
     Work experience · {programming.value} programming ({programming.range}) · {professional.value}{" "}
     professional ({professional.range})
   </a>

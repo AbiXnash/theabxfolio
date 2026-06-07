@@ -1,7 +1,6 @@
 ---
-import TechLogos from "./TechLogos.astro";
+import PreviewLink from "./PreviewLink.astro";
 import { site } from "../config/site";
-import { splitSkills } from "../lib/tech-logos";
 
 interface Props {
   title: string;
@@ -23,7 +22,6 @@ const detailItems = details
   .filter((line) => line.startsWith("-"))
   .map((line) => line.replace("- ", ""));
 
-const { logos, labels } = splitSkills(skills ?? []);
 ---
 
 <article class="entry">
@@ -38,14 +36,9 @@ const { logos, labels } = splitSkills(skills ?? []);
     <h3 class="entry-title">{role}</h3>
     {
       company && (
-        <a
-          class="entry-employer"
-          href={site.employerUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <PreviewLink class="entry-employer" href={site.employerUrl}>
           @{company}
-        </a>
+        </PreviewLink>
       )
     }
   </header>
@@ -63,10 +56,9 @@ const { logos, labels } = splitSkills(skills ?? []);
   }
 
   {
-    (logos.length > 0 || labels.length > 0) && (
+    skills && skills.length > 0 && (
       <div class="entry-stack">
-        <TechLogos logos={logos} />
-        {labels.map((skill) => (
+        {skills.map((skill) => (
           <span class="entry-stack-item">{skill}</span>
         ))}
       </div>

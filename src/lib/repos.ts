@@ -76,8 +76,9 @@ function repoTagItemHtml(r: Repo) {
   const safeDescription = r.description ? escapeHtml(r.description) : "";
   const langColor = getLanguageColor(r.language);
   const safeLanguage = r.language ? escapeHtml(r.language) : "n/a";
+  const previewDescription = safeDescription || `Repository on GitHub.`;
 
-  return `<a href="${r.url}" target="_blank" rel="noopener noreferrer" class="repo-tag-item group" style="--repo-lang:${langColor}">
+  return `<a href="${r.url}" target="_blank" rel="noopener noreferrer" class="repo-tag-item group" data-link-preview data-preview-title="${safeName}" data-preview-description="${previewDescription}" data-preview-domain="github.com" style="--repo-lang:${langColor}">
   <div class="repo-tag-head">
     <span class="repo-tag-label">Repository</span>
     <span class="repo-tag-name">${safeName}</span>

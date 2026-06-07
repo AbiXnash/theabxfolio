@@ -3,8 +3,12 @@ import AtAGlance from "./AtAGlance.astro";
 import HeroExperience from "./HeroExperience.astro";
 import HeroStackLogos from "./HeroStackLogos.astro";
 import Container from "./layout/Container.astro";
+import PreviewLink from "./PreviewLink.astro";
 import ResumeDownload from "./ResumeDownload.astro";
+import { linkPreviewAttributes } from "../lib/link-previews";
 import { site, socialLinks } from "../config/site";
+
+const emailPreview = linkPreviewAttributes(`mailto:${site.email}`);
 ---
 
 <section
@@ -28,15 +32,19 @@ import { site, socialLinks } from "../config/site";
         </p>
 
         <div class="hero-actions">
-          <a href={`mailto:${site.email}`} class="btn-primary hero-btn">
+          <a
+            href={`mailto:${site.email}`}
+            class="btn-primary hero-btn"
+            {...emailPreview}
+          >
             Say hello
           </a>
           <ResumeDownload variant="secondary" class="hero-btn" label="Resume" />
           {
             socialLinks.map((link) => (
-              <a href={link.href} target="_blank" class="link-subtle hero-link">
+              <PreviewLink href={link.href} class="link-subtle hero-link">
                 {link.label} →
-              </a>
+              </PreviewLink>
             ))
           }
         </div>

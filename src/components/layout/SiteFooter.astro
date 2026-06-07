@@ -1,7 +1,11 @@
 ---
 import Container from "./Container.astro";
+import PreviewLink from "../PreviewLink.astro";
 import ResumeDownload from "../ResumeDownload.astro";
+import { linkPreviewAttributes } from "../../lib/link-previews";
 import { site, socialLinks } from "../../config/site";
+
+const emailPreview = linkPreviewAttributes(`mailto:${site.email}`);
 
 const taglineItems = site.tagline.split(" · ");
 ---
@@ -19,7 +23,11 @@ const taglineItems = site.tagline.split(" · ");
           reliable API behind it.
         </p>
         <div class="footer-actions">
-          <a href={`mailto:${site.email}`} class="btn-primary footer-email">
+          <a
+            href={`mailto:${site.email}`}
+            class="btn-primary footer-email"
+            {...emailPreview}
+          >
             {site.email}
           </a>
           <ResumeDownload variant="secondary" />
@@ -30,13 +38,12 @@ const taglineItems = site.tagline.split(" · ");
         <div class="footer-social">
           {
             socialLinks.map((link) => (
-              <a
+              <PreviewLink
                 href={link.href}
-                target="_blank"
                 class="text-sm text-gruv-muted transition-colors hover:text-gruv-text"
               >
                 {link.label}
-              </a>
+              </PreviewLink>
             ))
           }
         </div>

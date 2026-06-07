@@ -1,4 +1,6 @@
 ---
+import { linkPreviewAttributes } from "../../lib/link-previews";
+
 interface Props {
   eyebrow: string;
   title: string;
@@ -9,6 +11,7 @@ interface Props {
 }
 
 const { eyebrow, title, description, href, linkLabel, download = false } = Astro.props;
+const previewAttrs = href ? linkPreviewAttributes(href) : {};
 ---
 
 <header
@@ -34,6 +37,7 @@ const { eyebrow, title, description, href, linkLabel, download = false } = Astro
         target={download ? undefined : "_blank"}
         rel={download ? undefined : "noopener noreferrer"}
         download={download || undefined}
+        {...previewAttrs}
       >
         {linkLabel} →
       </a>

@@ -1,7 +1,10 @@
 ---
 import Container from "./Container.astro";
 import ThemeToggle from "../ThemeToggle.astro";
+import { linkPreviewAttributes } from "../../lib/link-previews";
 import { navItems, site } from "../../config/site";
+
+const emailPreview = linkPreviewAttributes(`mailto:${site.email}`);
 ---
 
 <header id="navbar" class="fixed top-0 right-0 left-0 z-50 px-4 pt-4 transition-all duration-300">
@@ -24,6 +27,9 @@ import { navItems, site } from "../../config/site";
               href={item.href}
               data-section={item.sectionName}
               class="nav-link text-xs text-gruv-muted transition-colors hover:text-gruv-text"
+              {...linkPreviewAttributes(item.href, {
+                title: item.sectionName,
+              })}
             >
               {item.label}
             </a>
@@ -32,6 +38,7 @@ import { navItems, site } from "../../config/site";
         <a
           href={`mailto:${site.email}`}
           class="rounded-full bg-gruv-blue/10 px-2.5 py-1 text-xs font-medium text-gruv-blue transition-colors hover:bg-gruv-blue/15"
+          {...emailPreview}
         >
           Say hello
         </a>
@@ -99,12 +106,15 @@ import { navItems, site } from "../../config/site";
           href={item.href}
           data-section={item.sectionName}
           class="mobile-link text-3xl font-medium tracking-tight text-gruv-muted transition-colors hover:text-gruv-text"
+          {...linkPreviewAttributes(item.href, {
+            title: item.sectionName,
+          })}
         >
           {item.label}
         </a>
       ))
     }
-    <a href={`mailto:${site.email}`} class="btn-primary mt-2">
+    <a href={`mailto:${site.email}`} class="btn-primary mt-2" {...emailPreview}>
       Say hello
     </a>
   </nav>

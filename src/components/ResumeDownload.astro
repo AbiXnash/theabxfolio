@@ -1,5 +1,8 @@
 ---
+import { linkPreviewAttributes } from "../lib/link-previews";
 import { site } from "../config/site";
+
+const previewAttrs = linkPreviewAttributes(site.resumeUrl);
 
 interface Props {
   variant?: "primary" | "secondary" | "subtle";
@@ -24,6 +27,7 @@ const variantClass = {
   href={site.resumeUrl}
   download={site.resumeFileName}
   class:list={[variantClass, className]}
+  {...previewAttrs}
 >
   {label}{variant === "subtle" && " →"}
 </a>

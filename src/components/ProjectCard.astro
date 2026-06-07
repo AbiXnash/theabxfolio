@@ -1,4 +1,6 @@
 ---
+import { linkPreviewAttributes } from "../lib/link-previews";
+
 interface Props {
   title: string;
   meta: string;
@@ -16,12 +18,19 @@ const { title, meta, category, intro, github, links, featured = false } =
   Astro.props;
 const primaryLink = links?.[0] ?? { label: "View repository", url: github };
 const extraLinks = links && links.length > 1 ? links.slice(1) : [];
+const previewAttrs = linkPreviewAttributes(primaryLink.url, {
+  title,
+  description: intro,
+  domain: "github.com",
+});
 ---
 
 <article class="group flex h-full flex-col">
   <a
     href={primaryLink.url}
     target="_blank"
+    rel="noopener noreferrer"
+    {...previewAttrs}
     class:list={[
       "tile-card relative flex h-full flex-col overflow-hidden rounded-[1.75rem]",
       featured

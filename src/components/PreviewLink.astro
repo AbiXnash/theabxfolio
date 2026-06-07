@@ -1,0 +1,27 @@
+---
+import { linkPreviewAttributes, type LinkPreview } from "../lib/link-previews";
+
+interface Props {
+  href: string;
+  class?: string;
+  target?: string;
+  rel?: string;
+  download?: string | boolean;
+  preview?: Partial<LinkPreview>;
+}
+
+const { href, class: className, target, rel, download, preview } = Astro.props;
+const previewAttrs = linkPreviewAttributes(href, preview);
+const isExternal = href.startsWith("http");
+---
+
+<a
+  href={href}
+  class={className}
+  target={target ?? (isExternal ? "_blank" : undefined)}
+  rel={rel ?? (isExternal ? "noopener noreferrer" : undefined)}
+  download={download}
+  {...previewAttrs}
+>
+  <slot />
+</a>
