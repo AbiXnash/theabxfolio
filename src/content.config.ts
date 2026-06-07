@@ -32,6 +32,7 @@ const resume = defineCollection({
             )
             .optional(),
           intro: z.string(),
+          details: z.string().optional(),
         }),
       ),
     }),

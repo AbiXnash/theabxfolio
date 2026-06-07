@@ -1,5 +1,7 @@
 ---
 import AtAGlance from "./AtAGlance.astro";
+import HeroExperience from "./HeroExperience.astro";
+import HeroStackLogos from "./HeroStackLogos.astro";
 import Container from "./layout/Container.astro";
 import { site, socialLinks } from "../config/site";
 ---
@@ -11,41 +13,46 @@ import { site, socialLinks } from "../config/site";
   <div class="hero-glow" aria-hidden="true"></div>
 
   <Container>
-    <div class="hero-content">
-      <h1 class="hero-title">
-        Hey, I'm {site.name.split(" ")[0]}.<br />
-        <span class="text-gradient">I build backend software.</span>
-      </h1>
+    <div class="hero-top">
+      <div class="hero-content">
+        <h1 class="hero-title">
+          Hey, I'm {site.name.split(" ")[0]}.<br />
+          <span class="text-gradient">I build backend software.</span>
+        </h1>
 
-      <p class="hero-intro">
-        Java at Mindgate by day. Payments, banking, the unglamorous stuff
-        that has to work. Go and TypeScript experiments when the laptop stays
-        open after hours.
-      </p>
+        <p class="hero-intro">
+          Java at Mindgate by day. Payments, banking, the unglamorous stuff
+          that has to work. Go and TypeScript experiments when the laptop stays
+          open after hours.
+        </p>
 
-      <div class="hero-actions">
-        <a href={`mailto:${site.email}`} class="btn-primary hero-btn">
-          Say hello
-        </a>
-        {
-          socialLinks.map((link) => (
-            <a href={link.href} target="_blank" class="link-subtle hero-link">
-              {link.label} →
-            </a>
-          ))
-        }
+        <div class="hero-actions">
+          <a href={`mailto:${site.email}`} class="btn-primary hero-btn">
+            Say hello
+          </a>
+          {
+            socialLinks.map((link) => (
+              <a href={link.href} target="_blank" class="link-subtle hero-link">
+                {link.label} →
+              </a>
+            ))
+          }
+        </div>
       </div>
+
+      <HeroStackLogos />
     </div>
 
     <AtAGlance />
   </Container>
 
-  <div
-    class="scroll-hint absolute bottom-10 left-1/2 -translate-x-1/2 text-gruv-muted"
-    aria-hidden="true"
-  >
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path d="M12 5v14M5 12l7 7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
-    </svg>
+  <div class="hero-bottom">
+    <HeroExperience />
+
+    <div class="scroll-hint text-gruv-muted" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M12 5v14M5 12l7 7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </div>
   </div>
 </section>

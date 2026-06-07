@@ -1,4 +1,8 @@
 ---
+import TechLogos from "./TechLogos.astro";
+import { site } from "../config/site";
+import { splitSkills } from "../lib/tech-logos";
+
 interface Props {
   title: string;
   meta: string;
@@ -6,60 +10,64 @@ interface Props {
   details: string;
   skills?: string[];
   category?: string;
-  index?: number;
 }
 
-const { title, meta, intro, details, skills, category, index } = Astro.props;
-const num = index !== undefined ? String(index + 1).padStart(2, "0") : null;
+const { title, meta, intro, details, skills, category } = Astro.props;
+
+const atIndex = title.indexOf(" at ");
+const role = atIndex === -1 ? title : title.slice(0, atIndex);
+const company = atIndex === -1 ? "" : title.slice(atIndex + 4);
+
+const detailItems = details
+  .split("\n")
+  .filter((line) => line.startsWith("-"))
+  .map((line) => line.replace("- ", ""));
+
+const { logos, labels } = splitSkills(skills ?? []);
 ---
 
-<article class="tile-card group rounded-[1.75rem] p-6 sm:p-8">
-  <div
-    class="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-start"
-  >
-    <div class="flex items-start gap-4">
-      {
-        num && (
-          <span class="mt-0.5 font-mono text-xs text-gruv-muted/60">{num}</span>
-        )
-      }
-      <div class="flex flex-col gap-1.5">
-        <h4 class="text-xl font-semibold tracking-tight">{title}</h4>
-        <span class="text-sm text-gruv-muted">{meta}</span>
-      </div>
-    </div>
+<article class="entry">
+  <header class="entry-header">
     {
-      category && (
-        <span class="shrink-0 rounded-full bg-gruv-blue/10 px-3 py-1 text-xs font-medium text-gruv-blue">
-          {category}
-        </span>
+      (category || meta) && (
+        <p class="entry-meta">
+          {[category, meta].filter(Boolean).join(" · ")}
+        </p>
       )
     }
-  </div>
-
-  <p class="mb-6 text-[1.0625rem] leading-relaxed text-gruv-muted">{intro}</p>
-
-  <ul class="mb-6 flex flex-col gap-3">
+    <h3 class="entry-title">{role}</h3>
     {
-      details
-        .split("\n")
-        .filter((line) => line.startsWith("-"))
-        .map((line) => (
-          <li class="flex items-start gap-3 text-sm leading-relaxed text-gruv-muted">
-            <span class="mt-2 h-1 w-1 shrink-0 rounded-full bg-gruv-blue/50" />
-            <span>{line.replace("- ", "")}</span>
-          </li>
-        ))
+      company && (
+        <a
+          class="entry-employer"
+          href={site.employerUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          @{company}
+        </a>
+      )
     }
-  </ul>
+  </header>
+
+  <p class="entry-intro">{intro}</p>
 
   {
-    skills && skills.length > 0 && (
-      <div class="flex flex-wrap gap-2">
-        {skills.map((skill) => (
-          <span class="rounded-full border border-gruv-border/20 bg-gruv-bg px-3 py-1 text-xs text-gruv-muted transition-colors group-hover:border-gruv-border/40">
-            {skill}
-          </span>
+    detailItems.length > 0 && (
+      <ul class="entry-highlights">
+        {detailItems.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    )
+  }
+
+  {
+    (logos.length > 0 || labels.length > 0) && (
+      <div class="entry-stack">
+        <TechLogos logos={logos} />
+        {labels.map((skill) => (
+          <span class="entry-stack-item">{skill}</span>
         ))}
       </div>
     )

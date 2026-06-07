@@ -4,6 +4,7 @@ export const site = {
   email: "abinash@theabx.in",
   role: "Backend Engineer",
   employer: "Mindgate Solutions",
+  employerUrl: "https://www.mindgate.solutions/",
   domain: "https://theabx.in",
   workerUrl: "https://api.theabx.in",
   description:

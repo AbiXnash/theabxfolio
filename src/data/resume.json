@@ -10,13 +10,12 @@
         "skills": [
           "Java",
           "Spring Boot",
-          "Microservices",
-          "WebSphere",
-          "Kafka",
+          "Spring Batch",
           "Oracle DB",
-          "PostgreSQL",
-          "Payments",
-          "Internal Tools"
+          "WebSphere MQ",
+          "JSP",
+          "Kafka",
+          "PostgreSQL"
         ]
       }
     ]

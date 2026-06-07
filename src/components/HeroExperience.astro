@@ -1,0 +1,12 @@
+---
+import { getHeroExperience } from "../lib/experience";
+
+const { programming, professional } = getHeroExperience();
+---
+
+<p class="hero-experience text-gruv-muted">
+  <a href="/#experience">
+    Work experience · {programming.value} programming ({programming.range}) · {professional.value}{" "}
+    professional ({professional.range})
+  </a>
+</p>

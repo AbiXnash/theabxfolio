@@ -4,7 +4,7 @@ export const LANGUAGE_COLORS: Record<string, string> = {
   Go: "#00add8",
   Kotlin: "#a97bff",
   Java: "#b07219",
-  Lua: "#000080",
+  Lua: "#6574cd",
   Rust: "#dea584",
   Python: "#3572a5",
   "Emacs Lisp": "#c065db",

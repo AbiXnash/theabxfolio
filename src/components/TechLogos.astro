@@ -1,0 +1,36 @@
+---
+import type { TechLogo } from "../lib/tech-logos";
+
+interface Props {
+  logos: TechLogo[];
+  class?: string;
+}
+
+const { logos, class: className } = Astro.props;
+---
+
+{
+  logos.length > 0 && (
+    <div class:list={["tech-logos", className]} role="list">
+      {logos.map((logo) => (
+        <div
+          class="tech-logo-item"
+          role="listitem"
+          title={logo.label}
+          tabindex="0"
+          style={`--tech-logo-color: ${logo.color}`}
+        >
+          <span class="tech-logo-tip">{logo.label}</span>
+          <svg
+            class="tech-logo-icon"
+            viewBox={logo.viewBox ?? "0 0 24 24"}
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path fill="currentColor" d={logo.path} />
+          </svg>
+        </div>
+      ))}
+    </div>
+  )
+}

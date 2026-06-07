@@ -62,9 +62,9 @@ const jsonLd = {
         description="Payment systems and banking tools. The kind of software that can't break on a Friday."
       />
 
-      <div class="flex flex-col gap-5">
-        {work.items.map((item, index) => (
-          <ExperienceCard {...item} index={index} />
+      <div class="entry-list">
+        {work.items.map((item) => (
+          <ExperienceCard {...item} />
         ))}
       </div>
 
