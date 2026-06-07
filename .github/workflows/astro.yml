@@ -57,8 +57,6 @@ jobs:
         working-directory: ${{ env.BUILD_PATH }}
 
       - name: Build with Astro (Bun)
-        env:
-          VITE_WORKER_URL: ${{ vars.WORKER_URL }}
         run: |
           bunx astro build \
             --site "${{ steps.pages.outputs.origin }}" \

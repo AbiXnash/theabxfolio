@@ -5,6 +5,7 @@ export const site = {
   role: "Backend Engineer",
   employer: "Mindgate Solutions",
   domain: "https://theabx.in",
+  workerUrl: "https://api.theabx.in",
   description:
     "Backend engineer focused on integration and systems with Spring Boot and Go.",
   tagline: "Spring Boot · Go · Integration · Systems",

@@ -1,6 +1,18 @@
 ---
 import Container from "./layout/Container.astro";
 import SectionHeader from "./layout/SectionHeader.astro";
+import RepoCard from "./RepoCard.astro";
+import { site } from "../config/site";
+import { fetchRepos, type Repo } from "../lib/repos";
+
+let repos: Repo[] = [];
+let loadError = false;
+
+try {
+  repos = await fetchRepos(site.workerUrl);
+} catch {
+  loadError = true;
+}
 ---
 
 <Container>
@@ -12,15 +24,29 @@ import SectionHeader from "./layout/SectionHeader.astro";
     linkLabel="View profile"
   />
 
-  <div id="repos-container" class="grid grid-cols-1 items-stretch gap-5 md:grid-cols-2"></div>
-  <div id="repos-loading" class="py-14 text-center">
-    <p class="text-sm text-gruv-muted">Loading repositories…</p>
-  </div>
+  {
+    loadError && (
+      <p class="py-14 text-center text-sm text-gruv-muted">
+        Failed to load repositories.
+      </p>
+    )
+  }
+
+  {
+    !loadError && repos.length === 0 && (
+      <p class="py-14 text-center text-sm text-gruv-muted">
+        No public repositories found.
+      </p>
+    )
+  }
+
+  {
+    repos.length > 0 && (
+      <div class="grid grid-cols-1 items-stretch gap-5 md:grid-cols-2">
+        {repos.map((repo) => (
+          <RepoCard repo={repo} />
+        ))}
+      </div>
+    )
+  }
 </Container>
-
-<script>
-  import { loadRepos } from "../scripts/repos";
-
-  loadRepos();
-  document.addEventListener("astro:after-swap", loadRepos);
-</script>
