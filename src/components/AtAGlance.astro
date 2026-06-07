@@ -1,50 +1,30 @@
 ---
 import { site, technologies } from "../config/site";
 
-const stack = technologies.slice(0, 2);
+const [dayStack, nightStack] = technologies;
 ---
 
-<aside class="glass-card overflow-hidden rounded-[1.75rem] p-5 sm:p-6">
-  <p class="eyebrow mb-4">At a glance</p>
-
-  <div class="grid grid-cols-6 gap-3">
-    <div
-      class="tile-card col-span-6 flex items-center justify-between rounded-2xl px-4 py-3.5"
-    >
-      <span class="text-xs text-gruv-muted">Status</span>
-      <span class="flex items-center gap-2 text-sm font-medium text-gruv-text">
-        <span class="relative flex h-2 w-2">
-          <span
-            class="absolute inline-flex h-full w-full animate-ping rounded-full bg-gruv-green opacity-40"
-          ></span>
-          <span class="relative inline-flex h-2 w-2 rounded-full bg-gruv-green"
-          ></span>
-        </span>
-        Open to chat
-      </span>
-    </div>
-
-    <div class="bento-cell col-span-4 flex flex-col justify-center gap-1.5 rounded-2xl px-4 py-4">
-      <span class="text-xs text-gruv-muted">Focus</span>
-      <span class="text-sm font-medium leading-snug text-gruv-text">
-        {site.focus}
-      </span>
-    </div>
-
-    <div class="bento-cell col-span-2 flex flex-col justify-center gap-1.5 rounded-2xl px-4 py-4">
-      <span class="text-xs text-gruv-muted">Based in</span>
-      <span class="text-sm font-medium text-gruv-text">{site.location}</span>
-    </div>
-
-    {
-      stack.map((tech) => (
-        <div class="tile-card col-span-3 flex flex-col justify-end rounded-2xl px-4 py-4">
-          <span class="text-base font-semibold tracking-tight text-gruv-text">
-            {tech}
-          </span>
-          <span class="mt-0.5 text-[11px] text-gruv-muted">Stack</span>
-        </div>
-      ))
-    }
+<div class="hero-facts" aria-label="At a glance">
+  <div class="hero-fact">
+    <span class="hero-fact-value">{site.location}</span>
+    <span class="hero-fact-label">Based in</span>
   </div>
-</aside>
+
+  <div class="hero-fact">
+    <span class="hero-fact-value hero-fact-status">
+      <span class="hero-fact-dot" aria-hidden="true"></span>
+      Open to chat
+    </span>
+    <span class="hero-fact-label">Status</span>
+  </div>
+
+  <div class="hero-fact">
+    <span class="hero-fact-value">{dayStack}</span>
+    <span class="hero-fact-label">At work</span>
+  </div>
+
+  <div class="hero-fact">
+    <span class="hero-fact-value">{nightStack}</span>
+    <span class="hero-fact-label">After hours</span>
+  </div>
+</div>

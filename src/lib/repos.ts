@@ -28,25 +28,71 @@ export function getLanguageColor(lang?: string | null) {
   return LANGUAGE_COLORS[lang ?? ""] ?? "#86868b";
 }
 
-export function timeAgo(pushedAt: string) {
-  const days = Math.floor(
-    (Date.now() - new Date(pushedAt).getTime()) / 86400000,
-  );
-  if (days === 0) return "today";
-  if (days === 1) return "yesterday";
-  return `${days} days ago`;
+export function formatPushedAt(pushedAt: string) {
+  const date = new Date(pushedAt);
+  const days = Math.floor((Date.now() - date.getTime()) / 86400000);
+
+  if (days === 0) {
+    return date.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+    });
+  }
+
+  if (days === 1) return "Yesterday";
+
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  });
 }
 
 export async function fetchRepos(workerUrl: string): Promise<Repo[]> {
   const res = await fetch(workerUrl, { cache: "no-cache" });
+
   if (!res.ok) {
     throw new Error(`Worker responded with ${res.status}`);
   }
 
   const repos = (await res.json()) as Repo[];
+
   if (!Array.isArray(repos)) {
     throw new Error("Worker returned invalid data");
   }
 
   return repos;
+}
+
+function escapeHtml(value: string) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function repoTagItemHtml(r: Repo) {
+  const safeName = escapeHtml(r.name);
+  const safeDescription = r.description ? escapeHtml(r.description) : "";
+  const langColor = getLanguageColor(r.language);
+  const safeLanguage = r.language ? escapeHtml(r.language) : "n/a";
+
+  return `<a href="${r.url}" target="_blank" rel="noopener noreferrer" class="repo-tag-item group" style="--repo-lang:${langColor}">
+  <div class="repo-tag-head">
+    <span class="repo-tag-label">Repository</span>
+    <span class="repo-tag-name">${safeName}</span>
+  </div>
+  ${safeDescription ? `<span class="repo-tag-desc">${safeDescription}</span>` : ""}
+  <div class="repo-tag-chips">
+    <span class="repo-chip repo-chip-lang">${safeLanguage}</span>
+    <span class="repo-chip repo-chip-mono">${r.commits} commits</span>
+    <time class="repo-chip repo-chip-time" datetime="${r.pushedAt}">${formatPushedAt(r.pushedAt)}</time>
+  </div>
+</a>`;
+}
+
+export function reposFeedHtml(repos: Repo[]) {
+  const items = repos.map((repo) => repoTagItemHtml(repo)).join("");
+
+  return `<div class="repo-tag-board">${items}</div>`;
 }

@@ -5,50 +5,46 @@ import { site, socialLinks } from "../config/site";
 ---
 
 <section
-  class="reveal relative flex min-h-[88vh] flex-col justify-center overflow-hidden pt-28 pb-20"
+  class="hero relative flex min-h-[94vh] flex-col justify-center overflow-hidden pt-32 pb-24 sm:pt-36 sm:pb-28"
 >
   <div class="hero-mesh" aria-hidden="true"></div>
   <div class="hero-glow" aria-hidden="true"></div>
 
   <Container>
-    <div class="grid items-center gap-12 lg:grid-cols-[1fr_340px] lg:gap-16">
-      <div class="reveal-stagger relative flex flex-col gap-7">
-        <h1 class="display-title max-w-lg">
-          Hey, I'm {site.name.split(" ")[0]}.<br />
-          <span class="text-gradient">I build backend software.</span>
-        </h1>
+    <div class="hero-content">
+      <h1 class="hero-title">
+        Hey, I'm {site.name.split(" ")[0]}.<br />
+        <span class="text-gradient">I build backend software.</span>
+      </h1>
 
-        <p class="max-w-md text-[1.0625rem] leading-relaxed text-gruv-muted">
-          Java at Mindgate by day — payments, banking, the unglamorous stuff
-          that has to work. Go and TypeScript experiments when the laptop stays
-          open after hours.
-        </p>
+      <p class="hero-intro">
+        Java at Mindgate by day. Payments, banking, the unglamorous stuff
+        that has to work. Go and TypeScript experiments when the laptop stays
+        open after hours.
+      </p>
 
-        <div class="flex flex-wrap items-center gap-5">
-          <a href={`mailto:${site.email}`} class="btn-primary">
-            Say hello
-          </a>
-          {
-            socialLinks.map((link) => (
-              <a href={link.href} target="_blank" class="link-subtle">
-                {link.label} →
-              </a>
-            ))
-          }
-        </div>
-      </div>
-
-      <div class="reveal-stagger">
-        <AtAGlance />
+      <div class="hero-actions">
+        <a href={`mailto:${site.email}`} class="btn-primary hero-btn">
+          Say hello
+        </a>
+        {
+          socialLinks.map((link) => (
+            <a href={link.href} target="_blank" class="link-subtle hero-link">
+              {link.label} →
+            </a>
+          ))
+        }
       </div>
     </div>
+
+    <AtAGlance />
   </Container>
 
   <div
-    class="scroll-hint absolute bottom-8 left-1/2 -translate-x-1/2 text-gruv-muted"
+    class="scroll-hint absolute bottom-10 left-1/2 -translate-x-1/2 text-gruv-muted"
     aria-hidden="true"
   >
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
       <path d="M12 5v14M5 12l7 7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
     </svg>
   </div>

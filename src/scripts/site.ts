@@ -52,6 +52,18 @@ export function setupSite() {
     link.addEventListener("click", closeMenu);
   });
 
+  function activateInViewReveals() {
+    const viewport = window.innerHeight * 0.92;
+    document.querySelectorAll(".reveal").forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < viewport && rect.bottom > 0) {
+        el.classList.add("active");
+      }
+    });
+  }
+
+  activateInViewReveals();
+
   const revealObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {

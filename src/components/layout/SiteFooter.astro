@@ -1,12 +1,14 @@
 ---
 import Container from "./Container.astro";
 import { site, socialLinks } from "../../config/site";
+
+const taglineItems = site.tagline.split(" · ");
 ---
 
-<footer class="section-muted border-t border-gruv-border/20">
+<footer class="site-footer section-muted border-t border-gruv-border/20">
   <Container class="py-20 sm:py-24">
-    <div class="flex flex-col items-start gap-12 sm:flex-row sm:items-end sm:justify-between">
-      <div class="flex max-w-sm flex-col gap-4">
+    <div class="footer-main">
+      <div class="footer-intro">
         <p class="display-title text-[2rem] sm:text-[2.25rem]">
           Got something<br />
           <span class="text-gradient">in mind?</span>
@@ -15,13 +17,13 @@ import { site, socialLinks } from "../../config/site";
           Happy to talk backend work, side projects, or anything that needs a
           reliable API behind it.
         </p>
-        <a href={`mailto:${site.email}`} class="btn-primary mt-1 w-fit">
+        <a href={`mailto:${site.email}`} class="btn-primary footer-email mt-1">
           {site.email}
         </a>
       </div>
 
-      <div class="flex flex-col items-start gap-5 sm:items-end">
-        <div class="flex flex-wrap items-center gap-6">
+      <div class="footer-aside">
+        <div class="footer-social">
           {
             socialLinks.map((link) => (
               <a
@@ -34,13 +36,17 @@ import { site, socialLinks } from "../../config/site";
             ))
           }
         </div>
-        <p class="text-xs text-gruv-muted">{site.tagline}</p>
+        <div class="footer-tagline" aria-label={site.tagline}>
+          {
+            taglineItems.map((item) => (
+              <span class="footer-tag">{item}</span>
+            ))
+          }
+        </div>
       </div>
     </div>
 
-    <div
-      class="mt-16 flex flex-col items-start justify-between gap-4 border-t border-gruv-border/15 pt-8 text-xs text-gruv-muted sm:flex-row sm:items-center"
-    >
+    <div class="footer-bottom">
       <span>© {new Date().getFullYear()} {site.name}</span>
       <a href="#" class="transition-colors hover:text-gruv-text">Back to top ↑</a>
     </div>

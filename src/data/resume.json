@@ -2,8 +2,8 @@
   "work": {
     "items": [
       {
-        "title": "Java Developer — Mindgate Solutions",
-        "meta": "2025–Present",
+        "title": "Java Developer at Mindgate Solutions",
+        "meta": "2025 - Present",
         "intro": "Java developer building tax-payment products and internal banking tools at Mindgate Solutions.",
         "category": "Banking / Payments",
         "details": "Backend development for banking and regulatory payment integrations.\n- Built tax-payment portal services for a multinational banking client across multiple Nigerian payment channels.\n- Created an internal cryptographic digital-signature generator for a regulatory API integration in the Middle East.\n- Built migration tools and supporting internal utilities used by the engineering team.\n- Developed microservices with Java, Spring Boot, WebSphere, Kafka, Oracle Database, and PostgreSQL.",
@@ -24,7 +24,7 @@
   "projects": {
     "items": [
       {
-        "title": "Four Market — Event Management Site",
+        "title": "Four Market",
         "meta": "2026 · Kotlin · TypeScript · Web",
         "category": "Full Stack",
         "github": "https://github.com/AbiXnash/four-market-web",
@@ -41,14 +41,14 @@
         "intro": "An in-progress event management site with a TypeScript web frontend and a Kotlin API."
       },
       {
-        "title": "nvim — Neovim Configuration",
+        "title": "nvim",
         "meta": "2026 · Lua · Neovim",
         "category": "Developer Tooling",
         "github": "https://github.com/AbiXnash/nvim",
         "intro": "My Neovim 0.11+ setup in Lua, with LSP, fuzzy finding, Git tools, and completion configured for daily use."
       },
       {
-        "title": "WiFi Trolley Bot — ESP32",
+        "title": "WiFi Trolley Bot",
         "meta": "2023 · ESP32 · IoT · Embedded",
         "category": "Embedded Systems",
         "github": "https://github.com/AbiXnash/WiFi-Trolley-Bot-using-ESP32",
@@ -62,28 +62,28 @@
         "intro": "A conference website for SASTRA ICMAT with submission, schedule, and speaker information."
       },
       {
-        "title": "Theta2k23 — Event Web Presence",
+        "title": "Theta2k23",
         "meta": "2023 · Web · Event",
         "category": "Web Builds",
         "github": "https://github.com/AbiXnash/theta2k23",
         "intro": "An event website for SASTRA Theta2k23, designed for browsing schedules and event details on mobile."
       },
       {
-        "title": "Hell Pine — VS Code Theme Extension",
+        "title": "Hell Pine",
         "meta": "2025 · TypeScript · VS Code Extension",
         "category": "Developer Tooling",
         "github": "https://github.com/AbiXnash/hell-pine",
         "intro": "A VS Code theme based on Rosé Pine, adjusted for the contrast and colors I prefer."
       },
       {
-        "title": "TheGlobe — Freelance Web Build",
+        "title": "TheGlobe",
         "meta": "2025 · Web · Freelance",
         "category": "Web Builds",
         "github": "https://github.com/AbiXnash/theglobe",
         "intro": "A freelance marketing website built for TheGlobe."
       },
       {
-        "title": "theabxfolio — Portfolio Site",
+        "title": "theabxfolio",
         "meta": "2026 · Astro · Bun · Tailwind",
         "category": "Web Builds",
         "github": "https://github.com/AbiXnash/theabxfolio",
@@ -94,8 +94,8 @@
   "education": {
     "items": [
       {
-        "title": "B.Tech Computer Science — SASTRA",
-        "meta": "2021–2025",
+        "title": "B.Tech Computer Science, SASTRA",
+        "meta": "2021 - 2025",
         "intro": "B.Tech in Computer Science and Engineering at SASTRA University, completed in 2025."
       }
     ]

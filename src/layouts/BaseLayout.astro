@@ -1,5 +1,4 @@
 ---
-import { ClientRouter } from "astro:transitions";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import SiteFooter from "../components/layout/SiteFooter.astro";
 import SiteHeader from "../components/layout/SiteHeader.astro";
@@ -57,7 +56,10 @@ const {
       <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     )}
 
-    <ClientRouter />
+    <style is:inline>
+      html { background-color: #ffffff; color-scheme: light; }
+      html.dark { background-color: #000000; color-scheme: dark; }
+    </style>
 
     <script is:inline>
       (function () {
@@ -66,11 +68,33 @@ const {
           "(prefers-color-scheme: dark)",
         ).matches;
         const theme = stored ?? (prefersDark ? "dark" : "light");
-        if (theme === "dark") document.documentElement.classList.add("dark");
+        const root = document.documentElement;
+        if (theme === "dark") root.classList.add("dark");
+        root.style.backgroundColor = theme === "dark" ? "#000000" : "#ffffff";
+        root.classList.add("js");
       })();
     </script>
   </head>
   <body class="min-h-screen text-gruv-text antialiased">
+    <script is:inline>
+      (function () {
+        function activateInViewReveals() {
+          var viewport = window.innerHeight * 0.92;
+          document.querySelectorAll(".reveal").forEach(function (el) {
+            var rect = el.getBoundingClientRect();
+            if (rect.top < viewport && rect.bottom > 0) {
+              el.classList.add("active");
+            }
+          });
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", activateInViewReveals);
+        } else {
+          activateInViewReveals();
+        }
+      })();
+    </script>
     {!hideNavAndFooter && <SiteHeader />}
 
     {
@@ -102,7 +126,6 @@ const {
       }
 
       setup();
-      document.addEventListener("astro:after-swap", setup);
     </script>
   </body>
 </html>

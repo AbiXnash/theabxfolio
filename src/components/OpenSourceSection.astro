@@ -1,52 +1,35 @@
 ---
 import Container from "./layout/Container.astro";
 import SectionHeader from "./layout/SectionHeader.astro";
-import RepoCard from "./RepoCard.astro";
-import { site } from "../config/site";
-import { fetchRepos, type Repo } from "../lib/repos";
-
-let repos: Repo[] = [];
-let loadError = false;
-
-try {
-  repos = await fetchRepos(site.workerUrl);
-} catch {
-  loadError = true;
-}
+import RepoFeedSkeleton from "./RepoFeedSkeleton.astro";
 ---
 
 <Container>
   <SectionHeader
     eyebrow="Open Source"
-    title="Lately on GitHub."
-    description="Where the commits have been going."
+    title="On GitHub."
+    description="Public repos, sorted by latest push."
     href="https://github.com/AbiXnash"
     linkLabel="View profile"
   />
 
-  {
-    loadError && (
-      <p class="py-14 text-center text-sm text-gruv-muted">
-        Failed to load repositories.
-      </p>
-    )
-  }
+  <div
+    id="repos-feed"
+    aria-busy="true"
+    aria-label="Loading repositories"
+  >
+    <RepoFeedSkeleton />
+  </div>
 
-  {
-    !loadError && repos.length === 0 && (
-      <p class="py-14 text-center text-sm text-gruv-muted">
-        No public repositories found.
-      </p>
-    )
-  }
-
-  {
-    repos.length > 0 && (
-      <div class="grid grid-cols-1 items-stretch gap-5 md:grid-cols-2">
-        {repos.map((repo) => (
-          <RepoCard repo={repo} />
-        ))}
-      </div>
-    )
-  }
+  <p id="repos-error" class="hidden py-14 text-center text-sm text-gruv-muted">
+    Failed to load repositories.
+  </p>
 </Container>
+
+<script>
+  import { loadRepos } from "../scripts/repos";
+
+  loadRepos().finally(() => {
+    document.getElementById("repos-feed")?.removeAttribute("aria-busy");
+  });
+</script>
