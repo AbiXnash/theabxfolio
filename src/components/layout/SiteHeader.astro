@@ -13,6 +13,7 @@ const emailPreview = linkPreviewAttributes(`mailto:${site.email}`);
     <nav
       id="nav-inner"
       class="nav-bar flex h-14 items-center justify-between"
+      aria-label="Main navigation"
     >
       <a
         href="/"
@@ -75,6 +76,7 @@ const emailPreview = linkPreviewAttributes(`mailto:${site.email}`);
         <ThemeToggle />
         <button
           id="menu-toggle"
+          type="button"
           class="text-gruv-text transition-opacity hover:opacity-70"
           aria-label="Open menu"
           aria-expanded="false"
@@ -88,6 +90,7 @@ const emailPreview = linkPreviewAttributes(`mailto:${site.email}`);
             stroke="currentColor"
             stroke-width="2"
             stroke-linecap="round"
+            aria-hidden="true"
           >
             <line x1="4" y1="12" x2="20" y2="12"></line>
             <line x1="4" y1="6" x2="20" y2="6"></line>
@@ -103,10 +106,12 @@ const emailPreview = linkPreviewAttributes(`mailto:${site.email}`);
   id="mobile-nav"
   class="pointer-events-none fixed inset-0 z-[60] flex translate-y-[-100%] flex-col bg-gruv-bg/95 opacity-0 backdrop-blur-2xl transition-all duration-300 md:hidden"
   aria-hidden="true"
+  inert
 >
   <Container class="flex h-14 items-center justify-end">
     <button
       id="menu-close"
+      type="button"
       class="text-gruv-text transition-opacity hover:opacity-70"
       aria-label="Close menu"
     >
@@ -118,6 +123,7 @@ const emailPreview = linkPreviewAttributes(`mailto:${site.email}`);
         stroke="currentColor"
         stroke-width="2"
         stroke-linecap="round"
+        aria-hidden="true"
       >
         <line x1="18" y1="6" x2="6" y2="18"></line>
         <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -125,7 +131,7 @@ const emailPreview = linkPreviewAttributes(`mailto:${site.email}`);
     </button>
   </Container>
 
-  <nav class="flex flex-1 flex-col items-center justify-center gap-8 pb-24">
+  <nav class="flex flex-1 flex-col items-center justify-center gap-8 pb-24" aria-label="Mobile navigation">
     {
       navItems.map((item) => (
         <a

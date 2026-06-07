@@ -24,3 +24,21 @@ export async function loadRepos() {
     error?.classList.remove("hidden");
   }
 }
+
+export function setupReposFeed() {
+  const section = document.getElementById("opensource");
+  if (!section) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      observer.disconnect();
+      loadRepos().finally(() => {
+        document.getElementById("repos-feed")?.removeAttribute("aria-busy");
+      });
+    },
+    { rootMargin: "200px 0px" },
+  );
+
+  observer.observe(section);
+}

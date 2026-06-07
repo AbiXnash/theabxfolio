@@ -18,6 +18,7 @@ export function setupSite() {
       "pointer-events-none",
     );
     menu?.classList.add("translate-y-0", "opacity-100", "pointer-events-auto");
+    menu?.removeAttribute("inert");
     menu?.setAttribute("aria-hidden", "false");
     toggle?.setAttribute("aria-expanded", "true");
     document.body.style.overflow = "hidden";
@@ -31,6 +32,7 @@ export function setupSite() {
       "pointer-events-none",
     );
     menu?.classList.remove("translate-y-0", "opacity-100", "pointer-events-auto");
+    menu?.setAttribute("inert", "");
     menu?.setAttribute("aria-hidden", "true");
     toggle?.setAttribute("aria-expanded", "false");
     document.body.style.overflow = "";
@@ -50,33 +52,6 @@ export function setupSite() {
     if (link.getAttribute("data-menu-bound") === "true") return;
     link.setAttribute("data-menu-bound", "true");
     link.addEventListener("click", closeMenu);
-  });
-
-  function activateInViewReveals() {
-    const viewport = window.innerHeight * 0.92;
-    document.querySelectorAll(".reveal").forEach((el) => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top < viewport && rect.bottom > 0) {
-        el.classList.add("active");
-      }
-    });
-  }
-
-  activateInViewReveals();
-
-  const revealObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("active");
-        }
-      });
-    },
-    { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
-  );
-
-  document.querySelectorAll(".reveal").forEach((el) => {
-    revealObserver.observe(el);
   });
 
   const navbar = document.getElementById("navbar");
@@ -143,6 +118,7 @@ window.addEventListener("popstate", () => {
       "pointer-events-none",
     );
     menu.classList.remove("translate-y-0", "opacity-100", "pointer-events-auto");
+    menu.setAttribute("inert", "");
     menu.setAttribute("aria-hidden", "true");
     document.getElementById("menu-toggle")?.setAttribute(
       "aria-expanded",

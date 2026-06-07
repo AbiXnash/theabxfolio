@@ -4,7 +4,7 @@ Personal portfolio of [Abinash Selvarasu](https://theabx.in) — backend enginee
 
 Built with **Astro 6**, **Bun**, and **Tailwind v4**. Apple-inspired light/dark theme with system typography.
 
-**Live:** [theabx.in](https://theabx.in) · **Version:** 5.1.0
+**Live:** [theabx.in](https://theabx.in) · **Version:** 5.2.0
 
 ---
 

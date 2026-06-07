@@ -70,6 +70,7 @@ html.dark {
 
 html {
   color-scheme: light;
+  scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: var(--theme-scrollbar) var(--theme-bg);
 }
@@ -106,6 +107,38 @@ body {
   transition:
     background-color 0.2s ease,
     color 0.2s ease;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0.75rem;
+  left: var(--page-gutter);
+  z-index: 100;
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #ffffff;
+  background-color: var(--theme-blue);
+  transform: translateY(-200%);
+  transition: transform 0.15s ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+html.dark .skip-link {
+  background-color: #0066cc;
+}
+
+:focus-visible {
+  outline: 2px solid var(--theme-blue);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
 }
 
 ::selection {
@@ -894,7 +927,12 @@ a.entry-stack-item:hover {
   transition:
     opacity 0.2s ease,
     transform 0.2s ease,
-    box-shadow 0.2s ease;
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+html.dark .btn-primary {
+  background-color: #0066cc;
 }
 
 .btn-primary:hover {
@@ -1239,6 +1277,10 @@ html.js .reveal.active {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   html.js .reveal:not(.active),
   html.js .reveal.active {
     opacity: 1;

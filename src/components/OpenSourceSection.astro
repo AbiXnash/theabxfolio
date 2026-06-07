@@ -15,8 +15,9 @@ import RepoFeedSkeleton from "./RepoFeedSkeleton.astro";
 
   <div
     id="repos-feed"
+    role="region"
+    aria-label="GitHub repositories"
     aria-busy="true"
-    aria-label="Loading repositories"
   >
     <RepoFeedSkeleton />
   </div>
@@ -26,10 +27,3 @@ import RepoFeedSkeleton from "./RepoFeedSkeleton.astro";
   </p>
 </Container>
 
-<script>
-  import { loadRepos } from "../scripts/repos";
-
-  loadRepos().finally(() => {
-    document.getElementById("repos-feed")?.removeAttribute("aria-busy");
-  });
-</script>
