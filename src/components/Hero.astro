@@ -20,6 +20,8 @@ const emailPreview = linkPreviewAttributes(`mailto:${site.email}`);
   <Container>
     <div class="hero-top">
       <div class="hero-content">
+        <HeroStackLogos placement="mobile" />
+
         <h1 class="hero-title">
           Hey, I'm {site.name.split(" ")[0]}.<br />
           <span class="text-gradient">I build backend software.</span>
@@ -50,7 +52,7 @@ const emailPreview = linkPreviewAttributes(`mailto:${site.email}`);
         </div>
       </div>
 
-      <HeroStackLogos />
+      <HeroStackLogos placement="desktop" />
     </div>
 
     <AtAGlance />

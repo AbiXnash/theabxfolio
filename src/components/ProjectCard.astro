@@ -32,10 +32,10 @@ const previewAttrs = linkPreviewAttributes(primaryLink.url, {
     rel="noopener noreferrer"
     {...previewAttrs}
     class:list={[
-      "tile-card relative flex h-full flex-col overflow-hidden rounded-[1.75rem]",
+      "tile-card project-card relative flex h-full flex-col overflow-hidden rounded-[1.375rem] sm:rounded-[1.75rem]",
       featured
-        ? "gap-6 p-7 sm:p-9"
-        : "gap-4 p-6 sm:gap-5 sm:p-7",
+        ? "gap-3.5 p-5 sm:gap-5 sm:p-7 lg:gap-6 lg:p-9"
+        : "gap-3.5 p-5 sm:gap-5 sm:p-7",
     ]}
   >
     <div
@@ -48,23 +48,23 @@ const previewAttrs = linkPreviewAttributes(primaryLink.url, {
     {
       featured && (
         <div
-          class="pointer-events-none absolute -top-24 -right-16 h-48 w-48 rounded-full opacity-40 blur-3xl"
+          class="pointer-events-none absolute -top-24 -right-16 hidden h-48 w-48 rounded-full opacity-40 blur-3xl lg:block"
           style="background: var(--theme-glow-blue)"
           aria-hidden="true"
         />
       )
     }
 
-    <div class="flex items-start justify-between gap-4">
-      <div class="flex flex-col gap-2">
+    <div class="flex items-start justify-between gap-3 sm:gap-4">
+      <div class="flex min-w-0 flex-col gap-1.5 sm:gap-2">
         {
           category && (
-            <span class="w-fit rounded-full bg-gruv-blue/10 px-3 py-1 text-[11px] font-medium text-gruv-blue">
+            <span class="w-fit rounded-full bg-gruv-blue/10 px-2.5 py-0.5 text-[10px] font-medium text-gruv-blue sm:px-3 sm:py-1 sm:text-[11px]">
               {category}
             </span>
           )
         }
-        <span class="text-xs text-gruv-muted">{meta}</span>
+        <span class="text-[11px] text-gruv-muted sm:text-xs">{meta}</span>
       </div>
       <svg
         class:list={[
@@ -86,11 +86,13 @@ const previewAttrs = linkPreviewAttributes(primaryLink.url, {
       </svg>
     </div>
 
-    <div class="relative flex flex-1 flex-col gap-3">
+    <div class="relative flex flex-1 flex-col gap-2 sm:gap-3">
       <h4
         class:list={[
           "font-semibold tracking-tight",
-          featured ? "text-2xl sm:text-[1.75rem]" : "text-lg sm:text-xl",
+          featured
+            ? "text-lg sm:text-xl lg:text-2xl lg:sm:text-[1.75rem]"
+            : "text-base sm:text-lg lg:text-xl",
         ]}
       >
         {title}
@@ -99,7 +101,7 @@ const previewAttrs = linkPreviewAttributes(primaryLink.url, {
         class:list={[
           "leading-relaxed text-gruv-muted",
           featured
-            ? "line-clamp-4 text-base"
+            ? "line-clamp-2 text-sm sm:line-clamp-3 sm:text-base lg:line-clamp-4"
             : "line-clamp-2 text-sm sm:line-clamp-3",
         ]}
       >
