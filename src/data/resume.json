@@ -1,17 +1,9 @@
 {
   "work": {
-    "label": "work",
-    "description": "Backend engineering experience in banking and payments.",
     "items": [
       {
         "title": "Java Developer — Mindgate Solutions",
         "meta": "2025–Present",
-        "startDate": "2025-07-02",
-        "endDate": "Present",
-        "github": "",
-        "contributors": [
-          { "name": "Core Banking Team", "role": "Engineering" }
-        ],
         "intro": "Java developer building tax-payment products and internal banking tools at Mindgate Solutions.",
         "category": "Banking / Payments",
         "details": "Backend development for banking and regulatory payment integrations.\n- Built tax-payment portal services for a multinational banking client across multiple Nigerian payment channels.\n- Created an internal cryptographic digital-signature generator for a regulatory API integration in the Middle East.\n- Built migration tools and supporting internal utilities used by the engineering team.\n- Developed microservices with Java, Spring Boot, WebSphere, Kafka, Oracle Database, and PostgreSQL.",
@@ -25,29 +17,11 @@
           "PostgreSQL",
           "Payments",
           "Internal Tools"
-        ],
-        "note": "Work includes tax-payment integrations, regulator API signing, platform migration tooling, and production support.",
-        "references": [
-          {
-            "label": "Mindgate Solutions",
-            "url": "https://www.mindgate.solutions/"
-          },
-          {
-            "label": "Spring Boot",
-            "url": "https://spring.io/projects/spring-boot"
-          },
-          {
-            "label": "Oracle Database",
-            "url": "https://www.oracle.com/database/"
-          },
-          { "label": "PostgreSQL", "url": "https://www.postgresql.org/" }
         ]
       }
     ]
   },
   "projects": {
-    "label": "projects",
-    "description": "Selected backend, tooling, embedded, and web projects.",
     "items": [
       {
         "title": "Four Market — Event Management Site",
@@ -64,99 +38,65 @@
             "url": "https://github.com/AbiXnash/four-market-api"
           }
         ],
-        "contributors": [{ "name": "Abinash S", "role": "Author" }],
-        "intro": "An in-progress event management site with a TypeScript web frontend and a Kotlin API.",
-        "details": "A full-stack event management project split into frontend and backend repositories.\n- Builds the web interface with TypeScript and Vite.\n- Builds the service layer as a Kotlin Gradle application.",
-        "note": "A current full-stack project with separate web and API codebases."
+        "intro": "An in-progress event management site with a TypeScript web frontend and a Kotlin API."
       },
       {
         "title": "nvim — Neovim Configuration",
         "meta": "2026 · Lua · Neovim",
         "category": "Developer Tooling",
         "github": "https://github.com/AbiXnash/nvim",
-        "contributors": [{ "name": "Abinash S", "role": "Maintainer" }],
-        "intro": "My Neovim 0.11+ setup in Lua, with LSP, fuzzy finding, Git tools, and completion configured for daily use.",
-        "details": "A modular editor configuration built around the tools I use every day.\n- Configures language servers for Lua, Go, TypeScript/JavaScript, Rust, and Zig.\n- Uses Blink.cmp, Telescope, FZF-Lua, Fugitive, Diffview, Gitsigns, Harpoon2, and Lualine.\n- Includes theme choices and documented keybindings for navigation and diagnostics.",
-        "note": "Maintained configuration with recent Zig LSP support and Neovim 0.11+ compatibility."
+        "intro": "My Neovim 0.11+ setup in Lua, with LSP, fuzzy finding, Git tools, and completion configured for daily use."
       },
       {
         "title": "WiFi Trolley Bot — ESP32",
         "meta": "2023 · ESP32 · IoT · Embedded",
         "category": "Embedded Systems",
         "github": "https://github.com/AbiXnash/WiFi-Trolley-Bot-using-ESP32",
-        "contributors": [
-          { "name": "Abinash S", "role": "Co-Creator" },
-          { "name": "Srivatsan N", "role": "Co-Creator" },
-          { "name": "HariPrasad", "role": "Co-Creator" }
-        ],
-        "intro": "An ESP32 trolley bot controlled over WiFi, built with two classmates.",
-        "details": "An embedded project combining WiFi commands with motor control.\n- Handled remote control commands on the ESP32.\n- Connected firmware behavior to the physical trolley movement.",
-        "note": "A collaborative hardware and firmware project."
+        "intro": "An ESP32 trolley bot controlled over WiFi, built with two classmates."
       },
       {
         "title": "Conference Site",
         "meta": "2024 · Web · Frontend",
         "category": "Web Builds",
         "github": "https://github.com/AbiXnash/conference-site",
-        "contributors": [{ "name": "Abinash S", "role": "Developer" }],
-        "intro": "A conference website for SASTRA ICMAT with submission, schedule, and speaker information.",
-        "details": "Built an information website for a conference.\n- Presented calls for papers and submission guidance.\n- Organized deadlines, schedule, and speaker information in a responsive layout.",
-        "note": "Built to keep attendee and submission information easy to find."
+        "intro": "A conference website for SASTRA ICMAT with submission, schedule, and speaker information."
       },
       {
         "title": "Theta2k23 — Event Web Presence",
         "meta": "2023 · Web · Event",
         "category": "Web Builds",
         "github": "https://github.com/AbiXnash/theta2k23",
-        "contributors": [{ "name": "Abinash S", "role": "Developer" }],
-        "intro": "An event website for SASTRA Theta2k23, designed for browsing schedules and event details on mobile.",
-        "details": "Created a compact event site.\n- Provided mobile navigation for schedules and event lists.\n- Kept announcements and event information accessible from small screens.",
-        "note": "A mobile-oriented event information site."
+        "intro": "An event website for SASTRA Theta2k23, designed for browsing schedules and event details on mobile."
       },
       {
         "title": "Hell Pine — VS Code Theme Extension",
         "meta": "2025 · TypeScript · VS Code Extension",
         "category": "Developer Tooling",
         "github": "https://github.com/AbiXnash/hell-pine",
-        "contributors": [{ "name": "Abinash S", "role": "Author" }],
-        "intro": "A VS Code theme based on Rosé Pine, adjusted for the contrast and colors I prefer.",
-        "details": "Forked Rosé Pine into a personal editor theme.\n- Adjusted syntax and UI colors for contrast.\n- Packaged the result as a VS Code extension.",
-        "note": "My daily VS Code color theme."
+        "intro": "A VS Code theme based on Rosé Pine, adjusted for the contrast and colors I prefer."
       },
       {
         "title": "TheGlobe — Freelance Web Build",
         "meta": "2025 · Web · Freelance",
         "category": "Web Builds",
         "github": "https://github.com/AbiXnash/theglobe",
-        "contributors": [{ "name": "Abinash S", "role": "Freelancer" }],
-        "intro": "A freelance marketing website built for TheGlobe.",
-        "details": "Delivered a client-facing website for a digital marketing organization.\n- Organized service and business content in a responsive layout.\n- Built reusable UI components for maintenance after delivery.",
-        "note": "A client website project."
+        "intro": "A freelance marketing website built for TheGlobe."
       },
       {
         "title": "theabxfolio — Portfolio Site",
         "meta": "2026 · Astro · Bun · Tailwind",
         "category": "Web Builds",
         "github": "https://github.com/AbiXnash/theabxfolio",
-        "contributors": [{ "name": "Abinash S", "role": "Author" }],
-        "intro": "This portfolio site, built with Astro, Tailwind CSS, and Bun.",
-        "details": "A static portfolio that reads project and work data through Astro's content layer.\n- Uses Tailwind CSS for the Gruvbox-inspired UI.\n- Uses Bun for local scripts and package management.",
-        "note": "The source for this website."
+        "intro": "This portfolio site, built with Astro, Tailwind CSS, and Bun."
       }
     ]
   },
   "education": {
-    "label": "education",
-    "description": "Formal computer science education.",
     "items": [
       {
         "title": "B.Tech Computer Science — SASTRA",
         "meta": "2021–2025",
-        "github": "",
-        "contributors": [{ "name": "SASTRA CSE Dept", "role": "Institution" }],
-        "intro": "B.Tech in Computer Science and Engineering at SASTRA University, completed in 2025.",
-        "details": "Computer science undergraduate degree.\n- Studied operating systems, databases, computer networks, and data structures.\n- Completed project work in software development and cybersecurity.",
-        "note": "Completed in 2025."
+        "intro": "B.Tech in Computer Science and Engineering at SASTRA University, completed in 2025."
       }
     ]
   }

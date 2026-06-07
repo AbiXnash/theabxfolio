@@ -3,11 +3,20 @@ export const site = {
   handle: "abx",
   email: "abinash@theabx.in",
   role: "Backend Engineer",
+  employer: "Mindgate Solutions",
   domain: "https://theabx.in",
+  description:
+    "Backend engineer focused on integration and systems with Spring Boot and Go.",
   tagline: "Spring Boot · Go · Integration · Systems",
   location: "India",
   focus: "Backend integration & systems",
 } as const;
+
+export const sameAs = [
+  "https://github.com/AbiXnash",
+  "https://linkedin.com/in/abinash-selvarasu",
+  "https://instagram.com/abx.engg",
+] as const;
 
 export const navItems = [
   {

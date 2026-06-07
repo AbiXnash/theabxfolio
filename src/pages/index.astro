@@ -8,7 +8,7 @@ import SectionHeader from '../components/layout/SectionHeader.astro';
 import OpenSourceSection from '../components/OpenSourceSection.astro';
 import ExperienceCard from '../components/ExperienceCard.astro';
 import ProjectsSection from '../components/ProjectsSection.astro';
-import { technologies } from '../config/site';
+import { site, sameAs, technologies } from '../config/site';
 
 const resumeEntry = await getEntry('resume', 'resume');
 
@@ -18,9 +18,7 @@ if (!resumeEntry) {
 
 const { work, projects, education } = resumeEntry.data;
 
-const currentRole = work.items[0];
-
-const skills = [...new Set(work.items.flatMap(w => w.skills ?? []))];
+const skills = [...new Set(work.items.flatMap((w) => w.skills ?? []))];
 
 const featuredTech = ["Spring Boot", "Golang"];
 const otherTech = technologies.filter(t => !featuredTech.includes(t));
@@ -28,26 +26,21 @@ const otherTech = technologies.filter(t => !featuredTech.includes(t));
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "Abinash Selvarasu",
+  name: site.name,
   givenName: "Abinash",
   familyName: "Selvarasu",
-  jobTitle: currentRole?.title ?? "Backend Engineer",
-  description: "Backend engineer working with Java, Go, and payment systems.",
-  url: "https://theabx.in",
-  email: "abinash@theabx.in",
-  image: "https://theabx.in/og-image.svg",
-  sameAs: [
-    "https://github.com/AbiXnash",
-    "https://instagram.com/abx.engg",
-  ],
-  knowsAbout: skills,
-  worksFor: currentRole
-    ? {
-        "@type": "Organization",
-        name: currentRole.title.split("—").pop()?.trim() ?? "Mindgate Solutions",
-      }
-    : undefined,
-  alumniOf: education.items.map(e => ({
+  jobTitle: site.role,
+  description: site.description,
+  url: site.domain,
+  email: site.email,
+  image: `${site.domain}/og-image.svg`,
+  sameAs: [...sameAs],
+  knowsAbout: [...technologies, ...skills],
+  worksFor: {
+    "@type": "Organization",
+    name: site.employer,
+  },
+  alumniOf: education.items.map((e) => ({
     "@type": "EducationalOrganization",
     name: e.title.split("—").pop()?.trim() ?? e.title,
   })),

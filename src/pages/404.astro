@@ -3,20 +3,17 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Container from "../components/layout/Container.astro";
 ---
 
-<BaseLayout title="Page Not Found | Abinash Selvarasu" hideNavAndFooter={true}>
-  <Container narrow class="flex flex-col items-center gap-8 py-16 text-center">
-    <p class="text-sm text-gruv-muted">404</p>
-    <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">
-      This page doesn't exist.
-    </h1>
-    <p class="max-w-md text-base leading-relaxed text-gruv-muted">
+<BaseLayout
+  title="Page Not Found | Abinash Selvarasu"
+  description="The page you're looking for doesn't exist."
+  hideNavAndFooter={true}
+>
+  <Container narrow class="flex flex-col items-center gap-6 py-20 text-center sm:py-28">
+    <p class="eyebrow">404</p>
+    <h1 class="display-title">This page doesn't exist.</h1>
+    <p class="max-w-md text-[1.0625rem] leading-relaxed text-gruv-muted">
       The page you're looking for may have been moved or removed.
     </p>
-    <a
-      href="/"
-      class="mt-4 inline-flex items-center rounded-full bg-gruv-blue px-6 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
-    >
-      Back to home
-    </a>
+    <a href="/" class="btn-primary mt-2">Back to home</a>
   </Container>
 </BaseLayout>

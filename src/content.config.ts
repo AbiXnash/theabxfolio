@@ -5,8 +5,6 @@ const resume = defineCollection({
   loader: glob({ pattern: "resume.json", base: "./src/data" }),
   schema: z.object({
     work: z.object({
-      label: z.string(),
-      description: z.string(),
       items: z.array(
         z.object({
           title: z.string(),
@@ -19,8 +17,6 @@ const resume = defineCollection({
       ),
     }),
     projects: z.object({
-      label: z.string(),
-      description: z.string(),
       items: z.array(
         z.object({
           title: z.string(),
@@ -36,13 +32,10 @@ const resume = defineCollection({
             )
             .optional(),
           intro: z.string(),
-          details: z.string().optional(),
         }),
       ),
     }),
     education: z.object({
-      label: z.string(),
-      description: z.string(),
       items: z.array(
         z.object({
           title: z.string(),

@@ -217,14 +217,7 @@ html.dark .section-muted {
   line-height: 1.08;
 }
 
-/* ── Avatar & nav ── */
-
-.avatar-ring {
-  background: linear-gradient(145deg, var(--theme-blue), #5e5ce6 60%, #af52de);
-  box-shadow:
-    0 0 0 3px color-mix(in srgb, var(--theme-bg) 100%, transparent),
-    0 4px 20px color-mix(in srgb, var(--theme-blue) 25%, transparent);
-}
+/* ── Nav ── */
 
 .nav-pill {
   border-radius: 9999px;
@@ -233,10 +226,6 @@ html.dark .section-muted {
   backdrop-filter: blur(24px) saturate(1.5);
   -webkit-backdrop-filter: blur(24px) saturate(1.5);
   box-shadow: var(--theme-shadow);
-}
-
-.nav-link-active {
-  color: var(--theme-text) !important;
 }
 
 .btn-primary {

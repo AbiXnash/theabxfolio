@@ -3,6 +3,7 @@ import { ClientRouter } from "astro:transitions";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import SiteFooter from "../components/layout/SiteFooter.astro";
 import SiteHeader from "../components/layout/SiteHeader.astro";
+import { site } from "../config/site";
 import "../styles/global.css";
 
 interface Props {
@@ -16,9 +17,9 @@ interface Props {
 
 const {
   title,
-  description = "Portfolio of Abinash Selvarasu — Backend engineer working with Java, Go, and payment systems.",
+  description = site.description,
   ogImage = "/og-image.svg",
-  canonicalURL = "https://theabx.in",
+  canonicalURL = site.domain,
   jsonLd,
   hideNavAndFooter = false,
 } = Astro.props;
@@ -41,16 +42,16 @@ const {
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={`https://theabx.in${ogImage}`} />
+    <meta property="og:image" content={`${site.domain}${ogImage}`} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:site_name" content="Abinash Selvarasu" />
+    <meta property="og:site_name" content={site.name} />
 
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={`https://theabx.in${ogImage}`} />
+    <meta property="twitter:image" content={`${site.domain}${ogImage}`} />
 
     {jsonLd && (
       <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
