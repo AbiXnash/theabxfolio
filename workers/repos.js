@@ -63,5 +63,4 @@ export async function handleRepos(request, env) {
         },
       });
     }
-  }
 }
