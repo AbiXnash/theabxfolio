@@ -1,0 +1,4 @@
+name = "theabxfolio-api"
+main = "workers/gomod.ts"
+compatibility_date = "2026-05-01"
+account_id = "ea34490e96f5bd596e4275be5db91d85"

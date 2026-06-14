@@ -43,7 +43,8 @@
     "typecheck": "astro check",
     "test": "bun test",
     "test:run": "bun test --run",
-    "deploy": "bun run build && bunx wrangler deploy"
+    "deploy": "bun run build && bunx wrangler deploy && bunx wrangler deploy --config wrangler-gomod.toml",
+    "deploy:gomod": "bunx wrangler deploy --config wrangler-gomod.toml"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",
