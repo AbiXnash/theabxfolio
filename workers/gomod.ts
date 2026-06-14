@@ -2,6 +2,8 @@ const MODULES: Record<string, string> = {
   "null-chat": "https://github.com/TheWebTek/null-chat",
 };
 
+const CACHE_TTL = 86_400; // 24 hours
+
 export default {
   async fetch(request: Request): Promise<Response> {
     const url = new URL(request.url);
@@ -9,6 +11,9 @@ export default {
     if (!match) {
       return new Response("Not found", { status: 404 });
     }
+
+    const cached = await caches.default.match(request);
+    if (cached) return cached;
 
     const name = match[1];
     const repo = MODULES[name];
@@ -30,8 +35,14 @@ export default {
 </body>
 </html>`;
 
-    return new Response(html, {
-      headers: { "Content-Type": "text/html; charset=utf-8" },
+    const response = new Response(html, {
+      headers: {
+        "Content-Type": "text/html; charset=utf-8",
+        "Cache-Control": `public, max-age=${CACHE_TTL}`,
+      },
     });
+
+    await caches.default.put(request, response.clone());
+    return response;
   },
 };
