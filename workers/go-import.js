@@ -1,13 +1,20 @@
-const MODULES: Record<string, string> = {
+const MODULES = {
   "null-chat": "https://github.com/TheWebTek/null-chat",
 };
 
-export async function onRequest({ params }: { params: { name: string } }) {
-  const name = params.name;
+export async function handleGoImport(request) {
+  const url = new URL(request.url);
+  const match = url.pathname.match(/^\/x\/(.+)/);
+
+  if (!match) {
+    return new Response("Not found", { status: 404 });
+  }
+
+  const name = match[1];
   const repo = MODULES[name];
 
   if (!repo) {
-    return new Response("Not found", { status: 404 });
+    return new Response("Module not found", { status: 404 });
   }
 
   const html = `<!DOCTYPE html>
