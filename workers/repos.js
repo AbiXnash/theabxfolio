@@ -1,4 +1,5 @@
-export async function handleRepos(request, env) {
+export default {
+  async fetch(request, env) {
     if (request.method === "OPTIONS") {
       return new Response(null, {
         headers: {
