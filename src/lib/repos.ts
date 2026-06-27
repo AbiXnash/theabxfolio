@@ -29,7 +29,9 @@ export function getLanguageColor(lang?: string | null) {
 }
 
 export function isRecentlyPushed(pushedAt: string, now = new Date()) {
-  const days = Math.floor((now.getTime() - new Date(pushedAt).getTime()) / 86400000);
+  const days = Math.floor(
+    (now.getTime() - new Date(pushedAt).getTime()) / 86400000,
+  );
   return days <= 1;
 }
 
