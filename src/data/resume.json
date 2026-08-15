@@ -2,9 +2,9 @@
   "work": {
     "items": [
       {
-        "title": "Java Developer at Mindgate Solutions",
+        "title": "Software Engineer at Mindgate Solutions",
         "meta": "2025 - Present",
-        "intro": "Java developer building tax-payment products and internal banking tools at Mindgate Solutions.",
+        "intro": "Software engineer building tax-payment products and internal banking tools with Java and Spring Boot at Mindgate Solutions.",
         "category": "Banking / Payments",
         "details": "Backend development for banking and regulatory payment integrations.\n- Built tax-payment portal services for a multinational banking client across multiple Nigerian payment channels.\n- Created an internal cryptographic digital-signature generator for a regulatory API integration in the Middle East.\n- Built migration tools and supporting internal utilities used by the engineering team.\n- Developed microservices with Java, Spring Boot, WebSphere, Kafka, Oracle Database, and PostgreSQL.",
         "skills": [
