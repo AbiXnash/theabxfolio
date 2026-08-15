@@ -34,27 +34,30 @@
 
 html.dark {
   --theme-bg: #000000;
-  --theme-surface: #000000;
-  --theme-elevated: #141414;
-  --theme-border: #2a2a2a;
+  --theme-surface: #0d0d0f;
+  --theme-elevated: #1d1d1f;
+  --theme-border: #38383a;
   --theme-text: #f5f5f7;
   --theme-muted: #86868b;
   --theme-blue: #2997ff;
-  --theme-glow-blue: rgba(41, 151, 255, 0.14);
-  --theme-glow-purple: rgba(191, 90, 242, 0.1);
-  --theme-glow-warm: rgba(255, 159, 10, 0.08);
-  --theme-scrollbar: #2a2a2a;
-  --theme-scrollbar-hover: #424245;
+  --theme-glow-blue: rgba(41, 151, 255, 0.16);
+  --theme-glow-purple: rgba(191, 90, 242, 0.13);
+  --theme-glow-warm: rgba(255, 159, 10, 0.1);
+  --theme-scrollbar: #38383a;
+  --theme-scrollbar-hover: #48484a;
   --theme-selection: rgba(41, 151, 255, 0.35);
   --theme-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
   --theme-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.55);
-  --theme-hover: rgba(255, 255, 255, 0.06);
+  --theme-hover: rgba(255, 255, 255, 0.08);
+
+  --color-gruv-green: #30d158;
+  --color-gruv-purple: #bf5af2;
 
   --glass-fill: color-mix(in srgb, var(--theme-elevated) 42%, transparent);
   --glass-fill-strong: color-mix(in srgb, var(--theme-elevated) 60%, transparent);
   --glass-border: color-mix(in srgb, var(--theme-border) 28%, transparent);
-  --glass-highlight: rgba(255, 255, 255, 0.07);
-  --glass-top-edge: rgba(255, 255, 255, 0.16);
+  --glass-highlight: rgba(255, 255, 255, 0.09);
+  --glass-top-edge: rgba(255, 255, 255, 0.2);
   --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
 
