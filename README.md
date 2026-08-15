@@ -2,9 +2,9 @@
 
 Personal portfolio of [Abinash Selvarasu](https://theabx.in) — backend engineer working with Java, Go, and payment systems.
 
-Built with **Astro 6**, **Bun**, and **Tailwind v4**. Apple-inspired light/dark theme with system typography.
+Built with **Astro 7**, **Bun**, and **Tailwind v4**. Apple-inspired light/dark theme with system typography.
 
-**Live:** [theabx.in](https://theabx.in) · **Version:** 5.2.0
+**Live:** [theabx.in](https://theabx.in) · **Version:** 5.4.3
 
 ---
 
@@ -25,7 +25,7 @@ Built with **Astro 6**, **Bun**, and **Tailwind v4**. Apple-inspired light/dark 
 
 | Layer | Choice |
 | --- | --- |
-| Framework | [Astro](https://astro.build) v6 (static, content collections, sitemap) |
+| Framework | [Astro](https://astro.build) v7 (static, content collections, sitemap) |
 | Runtime | [Bun](https://bun.sh) |
 | Styling | [Tailwind CSS](https://tailwindcss.com) v4 (Vite plugin) |
 | Typography | SF Pro / system sans, SF Mono |
@@ -50,7 +50,7 @@ bun run build
 bun run preview
 ```
 
-Other scripts: `bun run lint`, `bun run format`, `bun run typecheck`, `bun test`.
+Other scripts: `bun run lint`, `bun run format`, `bun run typecheck`, `bun test`, `bun run deploy`.
 
 ---
 
@@ -116,7 +116,7 @@ Tailwind utilities map to these via `@theme` (e.g. `text-gruv-text`, `bg-gruv-su
 
 ### GitHub Pages + Cloudflare Worker
 
-Repo data is fetched from a Cloudflare Worker at `api.theabx.in`, which proxies the GitHub API and keeps the token server-side.
+Repo data is fetched from the Cloudflare Worker `theabxfolio` at `api.theabx.in`, which proxies the GitHub API and keeps the token server-side.
 
 #### Prerequisites
 
@@ -137,12 +137,13 @@ Repo data is fetched from a Cloudflare Worker at `api.theabx.in`, which proxies 
    VITE_WORKER_URL=https://api.theabx.in
    ```
 
-3. **Deploy the Worker:**
+3. **Deploy the Worker** (worker `theabxfolio`):
    ```sh
    wrangler login
    wrangler deploy
    echo "<your-github-token>" | wrangler secret put GITHUB_TOKEN
    ```
+   > Note: the Worker name in Cloudflare must match `name` in `wrangler.toml`, or CI deploys will fail with a route conflict.
 
 4. **Set GitHub Actions variables/secrets:**
    ```sh
