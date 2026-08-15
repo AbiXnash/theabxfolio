@@ -1,7 +1,7 @@
 {
   "name": "theabxfolio",
   "type": "module",
-  "version": "5.4.1",
+  "version": "5.4.2",
   "description": "Portfolio website of Abinash Selvarasu, a backend engineer working with Java, Go, and payment systems.",
   "author": "Abinash Selvarasu <abinash@theabx.in>",
   "license": "MIT",
