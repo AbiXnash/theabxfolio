@@ -513,6 +513,12 @@ html.dark .skip-link {
   color: var(--theme-text);
 }
 
+@media (max-width: 350px) {
+  .hero {
+    padding-bottom: 9rem;
+  }
+}
+
 @media (min-width: 640px) {
   .hero-bottom {
     bottom: 2.5rem;
