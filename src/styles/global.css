@@ -636,7 +636,7 @@ body::before {
   color: var(--theme-text);
 }
 
-@media (max-width: 350px) {
+@media (max-width: 639px) {
   .hero {
     padding-bottom: 9rem;
   }
@@ -649,13 +649,6 @@ body::before {
 }
 
 /* ── Surfaces ── */
-
-.glass-card {
-  background: color-mix(in srgb, var(--theme-elevated) 72%, transparent);
-  backdrop-filter: blur(28px) saturate(1.4);
-  border: 1px solid color-mix(in srgb, var(--theme-border) 35%, transparent);
-  box-shadow: var(--theme-shadow);
-}
 
 .tile-card {
   background-color: var(--theme-elevated);
@@ -688,10 +681,6 @@ body::before {
 
 html.dark .section-muted {
   border-block: 1px solid color-mix(in srgb, var(--theme-border) 50%, transparent);
-}
-
-.hover-surface:hover {
-  background-color: var(--theme-hover);
 }
 
 /* ── Typography ── */
@@ -1506,7 +1495,18 @@ html.js .reveal.active {
     background-color: var(--theme-elevated);
     background-image: none;
     backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+  }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-surface,
+  .btn-secondary,
+  .nav-cta,
+  .icon-btn,
+  .nav-scrolled .glass-nav,
+  .link-preview,
+  .mobile-menu {
+    background-color: var(--theme-elevated);
   }
 }
 
