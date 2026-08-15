@@ -225,7 +225,7 @@ export function setupLinkPreviews() {
       mutation.addedNodes.forEach((node) => {
         if (!(node instanceof HTMLElement)) return;
         if (node.matches("a[data-link-preview]")) {
-          bindLink(node);
+          bindLink(node as HTMLAnchorElement);
         }
         bindAll(node);
       });

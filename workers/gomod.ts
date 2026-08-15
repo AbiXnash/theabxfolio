@@ -4,6 +4,8 @@ const MODULES: Record<string, string> = {
 
 const CACHE_TTL = 86_400; // 24 hours
 
+const cache = (caches as unknown as { default: Cache }).default;
+
 export default {
   async fetch(request: Request): Promise<Response> {
     const url = new URL(request.url);
@@ -12,7 +14,7 @@ export default {
       return new Response("Not found", { status: 404 });
     }
 
-    const cached = await caches.default.match(request);
+    const cached = await cache.match(request);
     if (cached) return cached;
 
     const name = match[1];
@@ -42,7 +44,7 @@ export default {
       },
     });
 
-    await caches.default.put(request, response.clone());
+    await cache.put(request, response.clone());
     return response;
   },
 };
