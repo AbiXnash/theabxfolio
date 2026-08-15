@@ -12,7 +12,7 @@ const emailPreview = linkPreviewAttributes(`mailto:${site.email}`);
   <Container>
     <nav
       id="nav-inner"
-      class="nav-bar flex h-14 items-center justify-between"
+      class="glass-nav nav-bar flex h-14 items-center justify-between"
       aria-label="Main navigation"
     >
       <a
@@ -52,7 +52,7 @@ const emailPreview = linkPreviewAttributes(`mailto:${site.email}`);
         }
         <a
           href={`mailto:${site.email}`}
-          class="rounded-full bg-gruv-blue/10 px-2.5 py-1 text-xs font-medium text-gruv-blue transition-colors hover:bg-gruv-blue/15"
+          class="nav-cta"
           {...emailPreview}
         >
           Say hello
@@ -77,7 +77,7 @@ const emailPreview = linkPreviewAttributes(`mailto:${site.email}`);
         <button
           id="menu-toggle"
           type="button"
-          class="text-gruv-text transition-opacity hover:opacity-70"
+          class="icon-btn"
           aria-label="Open menu"
           aria-expanded="false"
           aria-controls="mobile-nav"
@@ -104,7 +104,7 @@ const emailPreview = linkPreviewAttributes(`mailto:${site.email}`);
 
 <div
   id="mobile-nav"
-  class="pointer-events-none fixed inset-0 z-[60] flex translate-y-[-100%] flex-col bg-gruv-bg/95 opacity-0 backdrop-blur-2xl transition-all duration-300 md:hidden"
+  class="mobile-menu pointer-events-none fixed inset-0 z-[60] flex translate-y-[-100%] flex-col opacity-0 transition-all duration-300 md:hidden"
   aria-hidden="true"
   inert
 >
@@ -112,7 +112,7 @@ const emailPreview = linkPreviewAttributes(`mailto:${site.email}`);
     <button
       id="menu-close"
       type="button"
-      class="text-gruv-text transition-opacity hover:opacity-70"
+      class="icon-btn"
       aria-label="Close menu"
     >
       <svg
