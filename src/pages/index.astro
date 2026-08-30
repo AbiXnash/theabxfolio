@@ -93,14 +93,14 @@ const jsonLd = {
 
       <div class="grid grid-cols-2 gap-3 sm:grid-cols-6">
         {featuredTech.map((tech) => (
-          <div class="tile-card col-span-1 flex flex-col justify-end rounded-[1.75rem] p-5 sm:col-span-2 sm:p-6">
-            <span class="text-lg font-semibold tracking-tight text-gruv-text">{tech}</span>
-            <span class="mt-1 text-xs text-gruv-muted">Core</span>
+          <div class="tile-card col-span-1 flex flex-col justify-end rounded-md p-5 sm:col-span-2 sm:p-6">
+            <span class="font-mono text-lg font-semibold tracking-tight text-gruv-text">{tech}</span>
+            <span class="mt-1 font-mono text-xs text-gruv-green">Core</span>
           </div>
         ))}
         {otherTech.map((tech) => (
-          <div class="bento-cell col-span-1 flex items-center justify-center rounded-2xl px-3 py-4 sm:col-span-1">
-            <span class="text-xs font-medium text-gruv-muted">{tech}</span>
+          <div class="bento-cell col-span-1 flex items-center justify-center rounded-sm px-3 py-4 sm:col-span-1">
+            <span class="font-mono text-xs font-medium text-gruv-muted">{tech}</span>
           </div>
         ))}
       </div>
