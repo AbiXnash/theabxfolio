@@ -70,10 +70,10 @@ html.dark {
 }
 
 @theme {
-  --font-sans:
-    -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
-    "Helvetica Neue", system-ui, sans-serif;
-  --font-mono: "SF Mono", ui-monospace, "JetBrains Mono", monospace;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, "Cascadia Code",
+    monospace;
 
   --color-gruv-bg: var(--theme-bg);
   --color-gruv-surface: var(--theme-surface);
@@ -133,6 +133,34 @@ body {
   -moz-osx-font-smoothing: grayscale;
   transition:
     background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+/* Smooth light/dark theme transition across themed surfaces */
+:where(
+    .glass-surface,
+    .card,
+    .surface,
+    .chip,
+    .section-heading,
+    .entry,
+    .project-card,
+    .glass-nav,
+    .mobile-menu,
+    h1,
+    h2,
+    h3,
+    h4,
+    p,
+    a,
+    span,
+    li,
+    time,
+    .link-preview
+  ) {
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
     color 0.2s ease;
 }
 
@@ -199,10 +227,7 @@ body::before {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background:
-    radial-gradient(50% 40% at 16% 4%, var(--theme-glow-blue), transparent 65%),
-    radial-gradient(38% 32% at 90% 12%, var(--theme-glow-purple), transparent 65%);
-  opacity: 0.55;
+  background: none;
 }
 
 .glass-surface {
@@ -273,40 +298,11 @@ body::before {
 /* ── Hero ── */
 
 .hero-mesh {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.5;
-  background-image:
-    linear-gradient(color-mix(in srgb, var(--theme-border) 40%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--theme-border) 40%, transparent) 1px, transparent 1px);
-  background-size: 48px 48px;
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 0%, transparent 75%);
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 0%, transparent 75%);
+  display: none;
 }
 
 .hero-glow {
-  position: absolute;
-  inset: -20%;
-  pointer-events: none;
-  background: radial-gradient(
-    circle at 30% 50%,
-    var(--theme-glow-blue),
-    transparent 55%
-  );
-  filter: blur(60px);
-  opacity: 0.35;
-  animation: hero-glow-drift 22s ease-in-out infinite alternate;
-}
-
-@keyframes hero-glow-drift {
-  0% {
-    transform: translate3d(-2.5%, 1%, 0) scale(1);
-  }
-
-  100% {
-    transform: translate3d(2.5%, -2%, 0) scale(1.08);
-  }
+  display: none;
 }
 
 .hero-top {
@@ -360,10 +356,11 @@ body::before {
 }
 
 .hero-title {
-  font-size: clamp(2.75rem, 8vw, 4.75rem);
+  font-family: var(--font-mono);
+  font-size: clamp(2.25rem, 6.5vw, 3.75rem);
   font-weight: 600;
-  letter-spacing: var(--tracking-tightest);
-  line-height: 1.04;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
 }
 
 .hero-intro {
@@ -704,22 +701,8 @@ html.dark .section-muted {
 
 /* ── Typography ── */
 
-.text-gradient {
-  background: linear-gradient(
-    135deg,
-    var(--theme-text) 0%,
-    var(--theme-muted) 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.text-gradient-blue {
-  background: linear-gradient(135deg, var(--theme-blue) 0%, #a259e6 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+.text-highlight {
+  color: var(--theme-blue);
 }
 
 .eyebrow {
@@ -740,13 +723,30 @@ html.dark .section-muted {
 }
 
 .display-title {
-  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-family: var(--font-mono);
+  font-size: clamp(1.75rem, 4vw, 2.625rem);
   font-weight: 600;
-  letter-spacing: var(--tracking-tightest);
-  line-height: 1.08;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
 /* ── Nav ── */
+
+.nav-shell {
+  width: 100%;
+  border: 1px solid transparent;
+  transition:
+    background-color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.nav-scrolled .nav-shell {
+  background-color: color-mix(in srgb, var(--glass-fill) 60%, transparent);
+  border-color: transparent;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
 
 @media (min-width: 768px) {
   .nav-bar {
@@ -769,8 +769,12 @@ html.dark .section-muted {
 }
 
 .glass-nav {
+  width: 100%;
+  max-width: var(--page-max-width);
+  margin-inline: auto;
+  padding-inline: var(--page-gutter);
   border: 1px solid transparent;
-  border-radius: 0.5rem;
+  border-radius: 0;
   transition:
     background-color 0.4s ease,
     border-color 0.4s ease,
@@ -780,15 +784,15 @@ html.dark .section-muted {
 }
 
 .nav-scrolled .glass-nav {
-  background-color: var(--glass-fill);
-  border-color: var(--glass-border);
-  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.08);
-  margin-top: 0.75rem;
-  padding-inline: 0.75rem;
+  border-color: transparent;
 }
 
-html.dark .nav-scrolled .glass-nav {
-  box-shadow: 3px 3px 0 rgba(94, 200, 255, 0.15);
+html.dark .nav-scrolled .nav-shell {
+  box-shadow: none;
+}
+
+.nav-social-icon {
+  display: block;
 }
 
 /* ── Projects (mobile) ── */
@@ -841,10 +845,11 @@ html.dark .nav-scrolled .glass-nav {
 }
 
 .entry-title {
-  font-size: clamp(1.5rem, 3vw, 1.875rem);
+  font-family: var(--font-mono);
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
   font-weight: 600;
-  letter-spacing: -0.03em;
-  line-height: 1.15;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
   color: var(--theme-text);
 }
 
@@ -1308,22 +1313,18 @@ html.dark .repo-cell:hover {
 /* ── Loader ── */
 
 .skeleton {
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--theme-border) 25%, transparent) 0%,
-    color-mix(in srgb, var(--theme-border) 45%, transparent) 50%,
-    color-mix(in srgb, var(--theme-border) 25%, transparent) 100%
-  );
-  background-size: 200% 100%;
-  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+  background-color: color-mix(in srgb, var(--theme-border) 35%, transparent);
+  animation: skeleton-pulse 1.4s ease-in-out infinite;
 }
 
-@keyframes skeleton-shimmer {
-  0% {
-    background-position: 200% 0;
-  }
+@keyframes skeleton-pulse {
+  0%,
   100% {
-    background-position: -200% 0;
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 0.25;
   }
 }
 
@@ -1509,7 +1510,7 @@ html.js .reveal.active {
   .btn-secondary,
   .nav-cta,
   .icon-btn,
-  .nav-scrolled .glass-nav,
+  .nav-scrolled .nav-shell,
   .link-preview,
   .mobile-menu {
     background-color: var(--theme-elevated);
@@ -1523,7 +1524,7 @@ html.js .reveal.active {
   .btn-secondary,
   .nav-cta,
   .icon-btn,
-  .nav-scrolled .glass-nav,
+  .nav-scrolled .nav-shell,
   .link-preview,
   .mobile-menu {
     background-color: var(--theme-elevated);
