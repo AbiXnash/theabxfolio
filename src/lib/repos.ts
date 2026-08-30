@@ -92,7 +92,7 @@ function repoCellHtml(r: Repo) {
   const recentClass = recent ? " repo-cell--recent" : "";
 
   return `<a href="${r.url}" target="_blank" rel="noopener noreferrer" class="repo-cell group${recentClass}" data-link-preview data-preview-title="${safeName}" data-preview-description="${previewDescription}" data-preview-domain="github.com" style="--repo-lang:${langColor}">
-  <span class="repo-cell-name"><span class="repo-cell-prompt" aria-hidden="true">$</span>${safeName}</span>
+  <span class="repo-cell-name">${safeName}</span>
   ${safeDescription ? `<span class="repo-cell-desc">${safeDescription}</span>` : `<span class="repo-cell-desc">Public repository on GitHub.</span>`}
   <span class="repo-cell-meta">
     <span class="repo-cell-lang">

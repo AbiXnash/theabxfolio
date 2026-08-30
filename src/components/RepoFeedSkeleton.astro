@@ -2,12 +2,14 @@
   {
     Array.from({ length: 4 }).map(() => (
       <div class="repo-cell pointer-events-none">
-        <span class="skeleton block h-4 w-32 max-w-full rounded-sm"></span>
-        <span class="skeleton mt-1 block h-3 w-full max-w-[14rem] rounded-sm"></span>
+        <span class="skeleton block h-4 w-28 max-w-full rounded-md"></span>
+        <span class="skeleton mt-1 block h-3 w-full max-w-[12rem] rounded-md"></span>
         <span class="repo-cell-meta pointer-events-none">
-          <span class="skeleton block h-3 w-20 rounded-sm"></span>
-          <span class="skeleton block h-3 w-16 rounded-sm"></span>
-          <span class="skeleton block h-3 w-10 rounded-sm"></span>
+          <span class="repo-cell-lang">
+            <span class="skeleton block h-3 w-20 rounded-md"></span>
+          </span>
+          <span class="skeleton block h-3 w-16 rounded-md"></span>
+          <span class="skeleton block h-3 w-10 justify-self-end rounded-md"></span>
         </span>
       </div>
     ))
