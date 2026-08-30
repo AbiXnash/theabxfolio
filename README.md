@@ -2,9 +2,9 @@
 
 Personal portfolio of [Abinash Selvarasu](https://theabx.in) — backend engineer working with Java, Go, and payment systems.
 
-Built with **Astro 7**, **Bun**, and **Tailwind v4**. Apple-inspired light/dark theme with system typography.
+Built with **Astro 7**, **Bun**, and **Tailwind v4**. Dark terminal-first brutalist theme that transitions smoothly to light.
 
-**Live:** [theabx.in](https://theabx.in) · **Version:** 5.4.3
+**Live:** [theabx.in](https://theabx.in) · **Version:** 5.5.0
 
 ---
 

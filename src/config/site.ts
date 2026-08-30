@@ -44,8 +44,12 @@ export const navItems = [
 ] as const;
 
 export const socialLinks = [
-  { label: "GitHub", href: "https://github.com/AbiXnash" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/abinash-selvarasu" },
+  { label: "GitHub", href: "https://github.com/AbiXnash", icon: "github" },
+  {
+    label: "LinkedIn",
+    href: "https://linkedin.com/in/abinash-selvarasu",
+    icon: "linkedin",
+  },
 ] as const;
 
 export const technologies = [

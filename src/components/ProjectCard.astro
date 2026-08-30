@@ -32,7 +32,7 @@ const previewAttrs = linkPreviewAttributes(primaryLink.url, {
     rel="noopener noreferrer"
     {...previewAttrs}
     class:list={[
-      "tile-card project-card relative flex h-full flex-col overflow-hidden rounded-[1.375rem] sm:rounded-[1.75rem]",
+      "tile-card project-card relative flex h-full flex-col overflow-hidden rounded-md",
       featured
         ? "gap-3.5 p-5 sm:gap-5 sm:p-7 lg:gap-6 lg:p-9"
         : "gap-3.5 p-5 sm:gap-5 sm:p-7",
@@ -40,7 +40,7 @@ const previewAttrs = linkPreviewAttributes(primaryLink.url, {
   >
     <div
       class:list={[
-        "pointer-events-none absolute inset-x-0 top-0 bg-gradient-to-r from-transparent via-gruv-blue/30 to-transparent opacity-0 transition-opacity group-hover:opacity-100",
+        "pointer-events-none absolute inset-x-0 top-0 bg-gruv-green opacity-0 transition-opacity group-hover:opacity-100",
         featured ? "h-0.5" : "h-px",
       ]}
     ></div>
@@ -48,8 +48,8 @@ const previewAttrs = linkPreviewAttributes(primaryLink.url, {
     {
       featured && (
         <div
-          class="pointer-events-none absolute -top-24 -right-16 hidden h-48 w-48 rounded-full opacity-40 blur-3xl lg:block"
-          style="background: var(--theme-glow-blue)"
+          class="pointer-events-none absolute -top-24 -right-16 hidden h-48 w-48 rounded-full opacity-20 lg:block"
+          style="background: var(--theme-glow-green, var(--theme-glow-blue))"
           aria-hidden="true"
         />
       )
@@ -59,12 +59,12 @@ const previewAttrs = linkPreviewAttributes(primaryLink.url, {
       <div class="flex min-w-0 flex-col gap-1.5 sm:gap-2">
         {
           category && (
-            <span class="w-fit rounded-full bg-gruv-blue/10 px-2.5 py-0.5 text-[10px] font-medium text-gruv-blue sm:px-3 sm:py-1 sm:text-[11px]">
+            <span class="w-fit rounded-sm border border-gruv-green/40 bg-gruv-green/10 px-2 py-0.5 font-mono text-[10px] font-medium text-gruv-green sm:px-2.5 sm:text-[11px]">
               {category}
             </span>
           )
         }
-        <span class="text-[11px] text-gruv-muted sm:text-xs">{meta}</span>
+        <span class="font-mono text-[11px] text-gruv-muted sm:text-xs">{meta}</span>
       </div>
       <svg
         class:list={[
@@ -111,9 +111,9 @@ const previewAttrs = linkPreviewAttributes(primaryLink.url, {
 
     {
       extraLinks.length > 0 && (
-        <div class="mt-auto flex flex-wrap gap-2 border-t border-gruv-border/15 pt-4">
+        <div class="mt-auto flex flex-wrap gap-2 border-t border-gruv-border/20 pt-4">
           {extraLinks.map((link) => (
-            <span class="rounded-full border border-gruv-border/20 px-2.5 py-0.5 text-[11px] text-gruv-muted">
+            <span class="rounded-sm border border-gruv-border/30 px-2 py-0.5 font-mono text-[11px] text-gruv-muted">
               {link.label}
             </span>
           ))}
