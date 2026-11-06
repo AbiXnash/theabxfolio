@@ -36,6 +36,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "resume": "cd resume && tectonic abinash_selvarasu_resume.tex && cp abinash_selvarasu_resume.pdf ../public/ && pdftocairo -svg abinash_selvarasu_resume.pdf ../public/resume-preview.svg",
     "preview": "astro preview",
     "astro": "astro",
     "format": "bunx prettier . --write",

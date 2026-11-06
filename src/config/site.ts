@@ -10,10 +10,11 @@ export const site = {
   description:
     "Backend engineer focused on integration and systems with Spring Boot and Go.",
   tagline: "Spring Boot · Go · Integration · Systems",
-  location: "India",
+  location: "Chennai, India",
   focus: "Backend integration & systems",
   resumeFileName: "abinash_selvarasu_resume.pdf",
   resumeUrl: "/abinash_selvarasu_resume.pdf",
+  resumePreviewUrl: "/resume-preview.svg",
 } as const;
 
 export const sameAs = [

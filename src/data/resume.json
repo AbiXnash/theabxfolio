@@ -3,7 +3,7 @@
     "items": [
       {
         "title": "Software Engineer at Mindgate Solutions",
-        "meta": "2025 - Present",
+        "meta": "Jul 2025 - Present",
         "intro": "Software engineer building tax-payment products and internal banking tools with Java and Spring Boot at Mindgate Solutions.",
         "category": "Banking / Payments",
         "details": "Backend development for banking and regulatory payment integrations.\n- Built tax-payment portal services for a multinational banking client across multiple Nigerian payment channels.\n- Created an internal cryptographic digital-signature generator for a regulatory API integration in the Middle East.\n- Built migration tools and supporting internal utilities used by the engineering team.\n- Developed microservices with Java, Spring Boot, WebSphere, Kafka, Oracle Database, and PostgreSQL.",
@@ -23,21 +23,11 @@
   "projects": {
     "items": [
       {
-        "title": "Four Market",
-        "meta": "2026 · Kotlin · TypeScript · Web",
-        "category": "Full Stack",
-        "github": "https://github.com/AbiXnash/four-market-web",
-        "links": [
-          {
-            "label": "Web repository",
-            "url": "https://github.com/AbiXnash/four-market-web"
-          },
-          {
-            "label": "API repository",
-            "url": "https://github.com/AbiXnash/four-market-api"
-          }
-        ],
-        "intro": "An in-progress event management site with a TypeScript web frontend and a Kotlin API."
+        "title": "Codist",
+        "meta": "2026 · Go · Svelte · Ollama",
+        "category": "Developer Tooling",
+        "github": "https://github.com/AbiXnash/codist",
+        "intro": "A local AI code reviewer for Java/Spring Boot repos. It maps the codebase into a live graph, reviews every commit with rules and a local LLM, and proposes fixes. Nothing leaves your machine."
       },
       {
         "title": "nvim",

@@ -75,7 +75,7 @@ src/
 workers/
 └── repos.js           # Cloudflare Worker — proxies GitHub API
 public/
-└── abinash_selvarasu_resume.pdf
+└── abinash_selvarasu_resume.pdf   # built from resume/*.tex
 ```
 
 ---
@@ -90,6 +90,10 @@ Edit `src/config/site.ts` for name, handle, email, social links, nav items, and 
 
 Update `src/data/resume.json`. Work skills render as text pills; project cards support featured layout and GitHub links.
 
+### Resume PDF
+
+The one-page resume is LaTeX source in `resume/abinash_selvarasu_resume.tex`. Rebuild it with `bun run resume` (needs `brew install tectonic poppler`). This compiles the PDF to `public/abinash_selvarasu_resume.pdf` and renders `public/resume-preview.svg`, the sharp vector preview shown in the resume popup. Keep the `.tex` in sync when you edit `resume.json`.
+
 ### Design tokens
 
 Theme and layout variables live in `src/styles/global.css`:
@@ -98,13 +102,13 @@ Theme and layout variables live in `src/styles/global.css`:
 :root {
   --page-gutter: 1.5rem;      /* 2rem at sm+ */
   --page-max-width: 1068px;
-  --theme-bg: #ffffff;
-  --theme-blue: #0071e3;
+  --theme-bg: #fafafa;
+  --theme-blue: #0057ff;
 }
 
 html.dark {
-  --theme-bg: #000000;
-  --theme-blue: #2997ff;
+  --theme-bg: #0b0b0c;
+  --theme-blue: #5ec8ff;
 }
 ```
 

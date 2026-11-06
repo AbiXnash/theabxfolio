@@ -1,4 +1,5 @@
 ---
+import ResumeModal from "../components/ResumeModal.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import SiteFooter from "../components/layout/SiteFooter.astro";
 import SiteHeader from "../components/layout/SiteHeader.astro";
@@ -111,9 +112,12 @@ const {
 
     {!hideNavAndFooter && <SiteFooter />}
 
+    <ResumeModal />
+
     <script>
       import { setupLinkPreviews } from "../scripts/link-preview";
       import { setupReposFeed } from "../scripts/repos";
+      import { setupResumeModal } from "../scripts/resume-modal";
       import { setupReveals } from "../scripts/reveals";
       import { setupSite } from "../scripts/site";
       import { setupThemeToggle } from "../scripts/theme";
@@ -123,6 +127,7 @@ const {
         setupReveals();
         setupLinkPreviews();
         setupReposFeed();
+        setupResumeModal();
         if (!document.getElementById("navbar")) return;
         setupSite();
       }
