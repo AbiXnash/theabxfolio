@@ -4,7 +4,7 @@ Personal portfolio of [Abinash Selvarasu](https://theabx.in) — software engine
 
 Built with **Astro 7**, **Bun**, and **Tailwind v4**. The site is laid out like an editor running in tmux: a window bar on top, sections as panes, a file explorer, and a Neovim statusline — in the **Hell Pine** palette (Rosé Pine Dawn in light mode).
 
-**Live:** [theabx.in](https://theabx.in) · **Version:** 6.0.0
+**Live:** [theabx.in](https://theabx.in) · **Version:** 6.0.1 · **Hosting:** Cloudflare Workers
 
 ---
 
@@ -33,7 +33,7 @@ Built with **Astro 7**, **Bun**, and **Tailwind v4**. The site is laid out like 
 | Styling | [Tailwind CSS](https://tailwindcss.com) v4 (Vite plugin) + design tokens in `global.css` |
 | Typography | Inter + JetBrains Mono, self-hosted via `@fontsource-variable` |
 | Resume | LaTeX ([Tectonic](https://tectonic-typesetting.github.io)) + `pdftocairo` for the SVG preview |
-| Deploy | GitHub Pages + Cloudflare Workers (API proxy) |
+| Hosting | Cloudflare Workers static assets (`theabxfolio-site`), route `theabx.in/*` |
 | API | Cloudflare Worker at `api.theabx.in` (GitHub token server-side) |
 
 ---
@@ -47,7 +47,14 @@ bun run build      # production build
 bun run preview    # preview the build
 ```
 
-Other scripts: `bun run lint`, `bun run format`, `bun run typecheck`, `bun test`, `bun run resume`, `bun run deploy`.
+| Script | Does |
+| --- | --- |
+| `bun run deploy:site` | build + deploy the site Worker (`theabx.in`) |
+| `bun run deploy` | build + deploy the API Worker (`api.theabx.in`) |
+| `bun run resume` | rebuild the resume PDF + SVG preview |
+| `bun run lint` / `typecheck` / `format` | checks and formatting |
+
+> If the dev server shows `Cannot read properties of undefined (reading 'items')` after a branch switch, its content cache is stale: stop it, delete `.astro/data-store.json`, and restart.
 
 ---
 
@@ -77,6 +84,8 @@ resume/
 └── abinash_selvarasu_resume.tex
 workers/
 └── repos.js               # Cloudflare Worker — proxies the GitHub API
+wrangler.toml              # API Worker config (api.theabx.in)
+wrangler.site.jsonc        # site Worker config (theabx.in, serves dist/)
 public/
 ├── abinash_selvarasu_resume.pdf   # built from resume/*.tex
 └── resume-preview.svg             # vector preview for the resume modal
@@ -126,39 +135,57 @@ Wrap a section in `<Section id="…" file="name.ext">` to get a pane; the `file`
 
 ## Deployment
 
-### GitHub Pages + Cloudflare Worker
+Two Workers on Cloudflare:
+
+| Worker | Config | Serves |
+| --- | --- | --- |
+| `theabxfolio-site` | `wrangler.site.jsonc` | the built site (`dist/`) on `theabx.in/*`, with `public/_headers` applied |
+| `theabxfolio` | `wrangler.toml` | the GitHub API proxy on `api.theabx.in/*` |
+
+### Deploy the site from your machine
+
+```sh
+bunx wrangler login     # once
+bun run deploy:site     # build + deploy theabxfolio-site
+```
+
+The route sits in front of the old GitHub Pages origin, so rolling back is just removing `routes` from `wrangler.site.jsonc` (or the route in the dashboard) and redeploying. `wrangler rollback -c wrangler.site.jsonc` returns to the previous site version.
+
+### API Worker
 
 Repo data comes from the Cloudflare Worker `theabxfolio` at `api.theabx.in`, which proxies the GitHub API and keeps the token server-side.
 
-#### Prerequisites
+### Prerequisites
 
-- Cloudflare account with the `theabx.in` zone
-- GitHub token with `public_repo` scope
-- [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/)
+- Cloudflare account with the `theabx.in` zone (DNS proxied through Cloudflare)
+- GitHub token with `public_repo` scope (for the API Worker)
+- [Wrangler](https://developers.cloudflare.com/workers/wrangler/) — `bunx wrangler login`
 
-#### Setup
+### First-time setup
 
 1. **Install:** `bun install`
-2. **Local env** (`.env`): `VITE_WORKER_URL=https://api.theabx.in`
-3. **Deploy the Worker** (worker `theabxfolio`):
+2. **API Worker** (`theabxfolio`):
    ```sh
-   wrangler login
-   wrangler deploy
-   echo "<your-github-token>" | wrangler secret put GITHUB_TOKEN
+   bunx wrangler deploy
+   bunx wrangler secret put GITHUB_TOKEN   # paste the token at the prompt
    ```
-   > The Worker name in Cloudflare must match `name` in `wrangler.toml`, or CI deploys fail with a route conflict.
-4. **GitHub Actions variables/secrets:**
+   > The Worker name in Cloudflare must match `name` in `wrangler.toml`, or deploys fail with a route conflict.
+3. **Site Worker** (`theabxfolio-site`): `bun run deploy:site`
+4. **CI secret** (optional, for automatic deploys):
    ```sh
-   gh variable set WORKER_URL --body "https://api.theabx.in"
-   gh secret set CLOUDFLARE_API_TOKEN --body "<your-cloudflare-token>"
-   gh secret set THE_REPO_TOKEN --body "<your-github-token>"
+   gh secret set CLOUDFLARE_API_TOKEN   # paste at the prompt
    ```
-5. **Push to `master`** — the workflow builds the site, deploys to GitHub Pages, and updates the Worker. It also rebuilds every 6 hours so the experience counters stay current.
+   The token needs *Workers Scripts: Edit* on the account and *Workers Routes: Edit* on the `theabx.in` zone.
+
+### Automatic deploys
+
+Pushing to `master` runs `.github/workflows/astro.yml`: build, deploy both Workers, and publish to GitHub Pages as a fallback origin. It also runs every 6 hours so the experience counters stay current. Cloudflare Workers Builds additionally redeploys the API Worker on each push.
 
 ---
 
 ## Changelog
 
+- **6.0.1** — Site served from Cloudflare Workers (`theabxfolio-site`, `bun run deploy:site`); dropped `Cross-Origin-Embedder-Policy` from `_headers` (blocked link-preview icons); docs refreshed.
 - **6.0.0** — Hell Pine editor/tmux redesign: window bar, panes, explorer, statusline, fastfetch hero, boot screen, Research section, git-log activity, `contact.sh`, self-hosted fonts. LaTeX resume with in-page preview.
 - **5.5.0** — Terminal-first brutalist theme.
 
