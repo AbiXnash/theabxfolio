@@ -1,0 +1,15 @@
+{
+  // Static site Worker for theabx.in (the API Worker lives in wrangler.toml).
+  // Deploy with: bun run deploy:site
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "theabxfolio-site",
+  "account_id": "ea34490e96f5bd596e4275be5db91d85",
+  "compatibility_date": "2026-11-01",
+  "workers_dev": true,
+  // Serves theabx.in in front of the old GitHub Pages origin. Remove to roll back.
+  "routes": [{ "pattern": "theabx.in/*", "zone_name": "theabx.in" }],
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}

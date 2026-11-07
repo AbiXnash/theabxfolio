@@ -33,7 +33,7 @@ Built with **Astro 7**, **Bun**, and **Tailwind v4**. The site is laid out like 
 | Styling | [Tailwind CSS](https://tailwindcss.com) v4 (Vite plugin) + design tokens in `global.css` |
 | Typography | Inter + JetBrains Mono, self-hosted via `@fontsource-variable` |
 | Resume | LaTeX ([Tectonic](https://tectonic-typesetting.github.io)) + `pdftocairo` for the SVG preview |
-| Deploy | GitHub Pages + Cloudflare Workers (API proxy) |
+| Hosting | Cloudflare Workers static assets (`theabxfolio-site`), route `theabx.in/*` |
 | API | Cloudflare Worker at `api.theabx.in` (GitHub token server-side) |
 
 ---
@@ -126,7 +126,23 @@ Wrap a section in `<Section id="…" file="name.ext">` to get a pane; the `file`
 
 ## Deployment
 
-### GitHub Pages + Cloudflare Worker
+Two Workers on Cloudflare:
+
+| Worker | Config | Serves |
+| --- | --- | --- |
+| `theabxfolio-site` | `wrangler.site.jsonc` | the built site (`dist/`) on `theabx.in/*`, with `public/_headers` applied |
+| `theabxfolio` | `wrangler.toml` | the GitHub API proxy on `api.theabx.in/*` |
+
+### Deploy the site from your machine
+
+```sh
+bunx wrangler login     # once
+bun run deploy:site     # build + deploy theabxfolio-site
+```
+
+The route sits in front of the old GitHub Pages origin, so rolling back is just removing `routes` from `wrangler.site.jsonc` (or the route in the dashboard) and redeploying. `wrangler rollback -c wrangler.site.jsonc` returns to the previous site version.
+
+### API Worker
 
 Repo data comes from the Cloudflare Worker `theabxfolio` at `api.theabx.in`, which proxies the GitHub API and keeps the token server-side.
 
@@ -153,7 +169,7 @@ Repo data comes from the Cloudflare Worker `theabxfolio` at `api.theabx.in`, whi
    gh secret set CLOUDFLARE_API_TOKEN --body "<your-cloudflare-token>"
    gh secret set THE_REPO_TOKEN --body "<your-github-token>"
    ```
-5. **Push to `master`** — the workflow builds the site, deploys to GitHub Pages, and updates the Worker. It also rebuilds every 6 hours so the experience counters stay current.
+5. **Push to `master`** — the workflow builds the site, deploys both Workers (and GitHub Pages as a fallback). It also rebuilds every 6 hours so the experience counters stay current. The `CLOUDFLARE_API_TOKEN` needs Workers Scripts edit and Workers Routes edit on the `theabx.in` zone.
 
 ---
 

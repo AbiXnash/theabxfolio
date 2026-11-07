@@ -70,6 +70,14 @@ jobs:
         run: bunx wrangler deploy
         working-directory: ${{ env.BUILD_PATH }}
 
+      # theabx.in is served by the theabxfolio-site Worker (static assets from dist/).
+      - name: Deploy site to Cloudflare
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: bunx wrangler deploy -c wrangler.site.jsonc
+        working-directory: ${{ env.BUILD_PATH }}
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

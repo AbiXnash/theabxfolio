@@ -44,7 +44,8 @@
     "typecheck": "astro check",
     "test": "bun test",
     "test:run": "bun test --run",
-    "deploy": "bun run build && bunx wrangler deploy"
+    "deploy": "bun run build && bunx wrangler deploy",
+    "deploy:site": "bun run build && bunx wrangler deploy -c wrangler.site.jsonc"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
