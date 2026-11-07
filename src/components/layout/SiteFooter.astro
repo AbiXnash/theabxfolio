@@ -1,65 +1,130 @@
 ---
 import Container from "./Container.astro";
-import PreviewLink from "../PreviewLink.astro";
-import ResumeDownload from "../ResumeDownload.astro";
 import { linkPreviewAttributes } from "../../lib/link-previews";
 import { site, socialLinks } from "../../config/site";
 
 const emailPreview = linkPreviewAttributes(`mailto:${site.email}`);
-
-const taglineItems = site.tagline.split(" · ");
+const github = socialLinks.find((l) => l.icon === "github");
+const linkedin = socialLinks.find((l) => l.icon === "linkedin");
+const bare = (url?: string) => (url ?? "").replace(/^https?:\/\/(www\.)?/, "");
 ---
 
-<footer class="site-footer section-muted border-t border-gruv-border/20">
-  <Container class="py-20 sm:py-24">
-    <div class="footer-main">
-      <div class="footer-intro">
-        <p class="display-title text-[2rem] sm:text-[2.25rem]">
-          Got something<br />
-          <span class="text-highlight">in mind?</span>
-        </p>
-        <p class="text-sm leading-relaxed text-gruv-muted">
-          Happy to talk backend work, side projects, or anything that needs a
-          reliable API behind it.
-        </p>
-        <div class="footer-actions">
-          <a
-            href={`mailto:${site.email}`}
-            class="btn-primary footer-email"
-            {...emailPreview}
-          >
-            {site.email}
-          </a>
-          <ResumeDownload variant="secondary" />
-        </div>
-      </div>
+<footer id="contact" data-file="contact.sh" class="site-footer pane-section">
+  <div class="pane-outer">
+    <div class="pane">
+      <span class="pane-title">contact.sh</span>
 
-      <div class="footer-aside">
-        <div class="footer-social">
-          {
-            socialLinks.map((link) => (
-              <PreviewLink
-                href={link.href}
-                class="text-sm text-gruv-muted transition-colors hover:text-gruv-text"
-              >
-                {link.label}
-              </PreviewLink>
-            ))
-          }
-        </div>
-        <div class="footer-tagline" aria-label={site.tagline}>
-          {
-            taglineItems.map((item) => (
-              <span class="footer-tag">{item}</span>
-            ))
-          }
-        </div>
-      </div>
-    </div>
+      <Container class="py-14 sm:py-20">
+        <header class="contact-head">
+          <p class="eyebrow">Contact</p>
+          <h2 class="display-title">
+            Got something <span class="text-highlight">in mind?</span>
+          </h2>
+          <p class="contact-lede">
+            Happy to talk backend work, side projects, or anything that needs a
+            reliable API behind it.
+          </p>
+        </header>
 
-    <div class="footer-bottom">
-      <span>© {new Date().getFullYear()} {site.name}</span>
-      <a href="#main-content" class="transition-colors hover:text-gruv-text">Back to top ↑</a>
+        <div class="contact-grid">
+          <div class="cs-file" aria-label="contact.sh">
+            <div class="cs-bar"><span>contact.sh</span><span>bash · utf-8</span></div>
+            <ol class="cs-code">
+              <li><span class="cs-c">#!/usr/bin/env bash</span></li>
+              <li><span class="cs-c"># Happy to talk backend work, side projects,</span></li>
+              <li><span class="cs-c"># or anything that needs a reliable API behind it.</span></li>
+              <li></li>
+              <li><span class="cs-v">EMAIL</span>=<a class="cs-s" href={`mailto:${site.email}`} {...emailPreview}>"{site.email}"</a></li>
+              <li><span class="cs-v">GITHUB</span>=<a class="cs-s" href={github?.href} target="_blank" rel="noopener noreferrer">"{bare(github?.href)}"</a></li>
+              <li><span class="cs-v">LINKEDIN</span>=<a class="cs-s" href={linkedin?.href} target="_blank" rel="noopener noreferrer">"{bare(linkedin?.href)}"</a></li>
+              <li><span class="cs-v">TZ</span>=<span class="cs-s">"Asia/Kolkata"</span>  <span class="cs-c"># IST, UTC+5:30</span></li>
+              <li></li>
+              <li><span class="cs-k">open</span> <span class="cs-s">"mailto:$EMAIL"</span></li>
+            </ol>
+          </div>
+
+          <div class="cs-run">
+            <div class="cs-bar"><span>zsh</span><span>~/abx</span></div>
+            <div class="cs-out">
+              <p>
+                <span class="sp-dir">~/abx</span> <span class="sp-arrow">➜</span>{" "}
+                <span class="cs-cmd">./contact.sh</span>
+              </p>
+              <dl class="cs-facts">
+                <div><dt>local time</dt><dd><span data-ist-clock>--:--</span> IST · Chennai</dd></div>
+                <div>
+                  <dt>status</dt>
+                  <dd class="cs-ok"><span class="ff-status-dot" aria-hidden="true"></span>open to chat</dd>
+                </div>
+                <div><dt>best for</dt><dd>backend, payments, Spring Boot, Go</dd></div>
+              </dl>
+
+              <div class="cs-actions">
+                <button type="button" class="btn-secondary cs-yank" data-copy-email={site.email}>
+                  <span class="cs-key">yy</span> copy email
+                </button>
+                <a href={`mailto:${site.email}`} class="btn-primary" {...emailPreview}>send email ↗</a>
+                <a href={site.resumeUrl} class="btn-secondary">resume.pdf</a>
+              </div>
+
+              <p class="cs-msg" data-copy-msg aria-live="polite"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span>© {new Date().getFullYear()} {site.name}</span>
+          <span>built with Astro · Hell Pine</span>
+          <a href="#main-content" class="transition-colors hover:text-gruv-text">gg ↑ back to top</a>
+        </div>
+      </Container>
     </div>
-  </Container>
+  </div>
 </footer>
+
+<script>
+  function setupContact() {
+    // Live local time in Chennai.
+    const clock = document.querySelector<HTMLElement>("[data-ist-clock]");
+    if (clock && !clock.dataset.bound) {
+      clock.dataset.bound = "true";
+      const fmt = new Intl.DateTimeFormat("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+        timeZone: "Asia/Kolkata",
+      });
+      const tick = () => (clock.textContent = fmt.format(new Date()));
+      tick();
+      setInterval(tick, 30_000);
+    }
+
+    // "yy": copy the email and answer the way Vim does.
+    const button = document.querySelector<HTMLButtonElement>("[data-copy-email]");
+    const msg = document.querySelector<HTMLElement>("[data-copy-msg]");
+    if (!button || button.dataset.bound) return;
+    button.dataset.bound = "true";
+    let timer: ReturnType<typeof setTimeout> | undefined;
+
+    button.addEventListener("click", async () => {
+      const email = button.dataset.copyEmail ?? "";
+      let ok = false;
+      try {
+        await navigator.clipboard.writeText(email);
+        ok = true;
+      } catch {
+        ok = false;
+      }
+      if (!msg) return;
+      msg.textContent = ok
+        ? `1 line yanked — ${email}`
+        : `E353: Nothing in register — copy ${email} manually`;
+      msg.classList.toggle("is-error", !ok);
+      msg.classList.add("is-visible");
+      clearTimeout(timer);
+      timer = setTimeout(() => msg.classList.remove("is-visible"), 2600);
+    });
+  }
+
+  setupContact();
+</script>

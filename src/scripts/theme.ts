@@ -6,10 +6,28 @@ export function getTheme(): Theme {
   return document.documentElement.classList.contains("dark") ? "dark" : "light";
 }
 
-export function setTheme(theme: Theme) {
+function applyTheme(theme: Theme) {
   document.documentElement.classList.toggle("dark", theme === "dark");
-  localStorage.setItem(STORAGE_KEY, theme);
+  try {
+    localStorage.setItem(STORAGE_KEY, theme);
+  } catch {
+    /* storage blocked: theme still applies for this page */
+  }
   syncThemeToggleUI();
+}
+
+export function setTheme(theme: Theme) {
+  const root = document.documentElement;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // One smooth crossfade of the whole page instead of every colour animating separately.
+  if (!document.startViewTransition || reduce) {
+    applyTheme(theme);
+    return;
+  }
+  root.classList.add("vt-theme");
+  const transition = document.startViewTransition(() => applyTheme(theme));
+  transition.finished.finally(() => root.classList.remove("vt-theme"));
 }
 
 export function toggleTheme() {

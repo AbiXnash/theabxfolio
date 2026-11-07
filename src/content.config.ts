@@ -37,6 +37,18 @@ const resume = defineCollection({
         }),
       ),
     }),
+    publications: z.object({
+      items: z.array(
+        z.object({
+          title: z.string(),
+          authors: z.array(z.string()),
+          venue: z.string(),
+          year: z.number(),
+          doi: z.string(),
+          summary: z.string().optional(),
+        }),
+      ),
+    }),
     education: z.object({
       items: z.array(
         z.object({

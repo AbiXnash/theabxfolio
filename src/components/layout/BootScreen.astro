@@ -1,0 +1,63 @@
+---
+// systemd-style boot log shown once on a first visit, then the shell "starts".
+// The decision to show it is made in BaseLayout's inline head script (html.boot).
+import { getEntry } from "astro:content";
+
+const entry = await getEntry("resume", "resume");
+const projects = entry?.data.projects.items.length ?? 0;
+const papers = entry?.data.publications.items.length ?? 0;
+
+const lines = [
+  "Started abx-shell (Hell Pine).",
+  "Mounted ~/abx/work.md — Mindgate, Jul 2025.",
+  `Loaded projects/ — ${projects} repos.`,
+  `Indexed papers.bib — ${papers} papers, first author.`,
+  "Reached target tmux session [abx].",
+];
+---
+
+<div id="boot-screen" class="boot-screen" aria-hidden="true">
+  <div class="boot-log">
+    {
+      lines.map((line, i) => (
+        <p class="boot-line" style={`--i:${i}`}>
+          <span class="boot-ok">[&nbsp;&nbsp;OK&nbsp;&nbsp;]</span> {line}
+        </p>
+      ))
+    }
+    <p class="boot-line boot-login" style={`--i:${lines.length + 1}`}>
+      abx login: <b>abinash</b> (automatic login)<span class="boot-cursor"></span>
+    </p>
+  </div>
+  <p class="boot-skip">press any key to skip</p>
+</div>
+
+<script>
+  const root = document.documentElement;
+
+  if (root.classList.contains("boot")) {
+    let done = false;
+    const events = ["keydown", "pointerdown", "wheel", "touchstart"] as const;
+
+    const finish = () => {
+      if (done) return;
+      done = true;
+      clearTimeout(timer);
+      events.forEach((e) => window.removeEventListener(e, finish));
+      try {
+        localStorage.setItem("abx-booted", "1");
+      } catch {
+        /* private mode: just show it again next time */
+      }
+      root.classList.add("boot-out");
+      setTimeout(() => {
+        root.classList.remove("boot", "boot-out");
+        root.classList.add("boot-reveal");
+        setTimeout(() => root.classList.remove("boot-reveal"), 1400);
+      }, 320);
+    };
+
+    const timer = setTimeout(finish, 1650);
+    events.forEach((e) => window.addEventListener(e, finish, { passive: true }));
+  }
+</script>

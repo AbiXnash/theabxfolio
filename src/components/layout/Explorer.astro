@@ -1,0 +1,88 @@
+---
+// neo-tree / oil style file explorer that fills the left side on wide screens.
+// Every "file" is a pane on the page; projects/ expands to the real repos.
+import { getEntry } from "astro:content";
+import { site, socialLinks } from "../../config/site";
+
+const entry = await getEntry("resume", "resume");
+const projects = entry?.data.projects.items ?? [];
+
+const files = [
+  { pane: "home", href: "/#home", name: "README.md", kind: "md" },
+  { pane: "experience", href: "/#experience", name: "work.md", kind: "md" },
+  { pane: "projects", href: "/#projects", name: "projects/", kind: "dir" },
+  { pane: "publications", href: "/#publications", name: "papers.bib", kind: "bib" },
+  { pane: "opensource", href: "/#opensource", name: "activity.log", kind: "log" },
+  { pane: "toolkit", href: "/#toolkit", name: "stack.toml", kind: "toml" },
+  { pane: "contact", href: "/#contact", name: "contact.sh", kind: "sh" },
+];
+
+const slug = (s: string) => s.toLowerCase().replace(/\s+/g, "-");
+const built = new Date().toISOString().slice(0, 10);
+---
+
+<aside class="explorer" aria-label="Site explorer">
+  <p class="ex-head">explorer</p>
+
+  <nav class="ex-tree" aria-label="Sections">
+    <p class="ex-root"><span class="ex-caret">▾</span> ~/abx</p>
+    <ul>
+      {
+        files.map((f) => (
+          <li>
+            <a href={f.href} data-pane={f.pane} class={`ex-file ex-${f.kind}`}>
+              <span class="ex-icon" aria-hidden="true" />
+              {f.name}
+            </a>
+            {f.kind === "dir" && (
+              <ul class="ex-sub">
+                {projects.map((p) => (
+                  <li>
+                    <a
+                      href={p.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="ex-file ex-repo"
+                    >
+                      <span class="ex-icon" aria-hidden="true" />
+                      {slug(p.title)}/
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
+  <p class="ex-head">links</p>
+  <ul class="ex-links">
+    <li>
+      <a href={site.resumeUrl} class="ex-file ex-pdf">
+        <span class="ex-icon" aria-hidden="true" />resume.pdf
+      </a>
+    </li>
+    {
+      socialLinks.map((l) => (
+        <li>
+          <a href={l.href} target="_blank" rel="noopener noreferrer" class="ex-file ex-ext">
+            <span class="ex-icon" aria-hidden="true" />
+            {l.label.toLowerCase()} ↗
+          </a>
+        </li>
+      ))
+    }
+    <li>
+      <a href={`mailto:${site.email}`} class="ex-file ex-mail">
+        <span class="ex-icon" aria-hidden="true" />mail ↗
+      </a>
+    </li>
+  </ul>
+
+  <div class="ex-foot">
+    <p><span class="ex-branch">⎇ main</span> <span class="ex-clean">✓ clean</span></p>
+    <p>built {built}</p>
+  </div>
+</aside>

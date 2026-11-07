@@ -1,0 +1,74 @@
+---
+// Small animated preview for each project card, chosen by project title.
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+const swatches = ["#d16d92", "#ca9f7c", "#ebbcba", "#5d7e80", "#9ccfd8", "#c4a7e7"];
+---
+
+{
+  title === "Hell Pine" && (
+    <div class="viz viz--hide-sm pv-hp" aria-hidden="true">
+      <div class="hp-editor">
+        <span class="hp-hl" />
+        <div class="hp-line"><span class="hp-n">1</span><span class="hp-k">fn</span> <span class="hp-f">main</span>() {"{"}</div>
+        <div class="hp-line"><span class="hp-n">2</span>  <span class="hp-k">let</span> theme = <span class="hp-s">"hell-pine"</span>;</div>
+        <div class="hp-line"><span class="hp-n">3</span>  <span class="hp-m">println!</span>(<span class="hp-s">"{"{}"}"</span>, theme);<span class="hp-cursor" /></div>
+        <div class="hp-line"><span class="hp-n">4</span>{"}"}</div>
+      </div>
+      <div class="hp-swatches">
+        {swatches.map((c, i) => <span style={`--c:${c};--i:${i}`} />)}
+      </div>
+    </div>
+  )
+}
+
+{
+  title === "nvim" && (
+    <div class="viz viz--hide-sm pv-nv" aria-hidden="true">
+      <div class="nv-buf">
+        <div><span class="nv-n">1</span><span class="nv-k">local</span> opt = vim.opt</div>
+        <div><span class="nv-n">2</span>opt.number = <span class="nv-b">true</span></div>
+        <div><span class="nv-n">3</span><span class="nv-type">opt.relativenumber = true</span><span class="nv-cursor" /></div>
+      </div>
+      <div class="nv-status">
+        <span class="nv-mode"><span class="nv-normal">NORMAL</span><span class="nv-insert">INSERT</span></span>
+        <span class="nv-file">init.lua</span>
+        <span class="nv-pos">lua · 3:25</span>
+      </div>
+    </div>
+  )
+}
+
+{
+  title === "TheGlobe" && (
+    <div class="viz viz--hide-sm pv-gl" aria-hidden="true">
+      <div class="gl-chrome">
+        <i /><i /><i />
+        <span class="gl-url">the globe enterprises</span>
+      </div>
+      <div class="gl-page">
+        <span class="gl-nav" />
+        <span class="gl-h1" />
+        <span class="gl-h2" />
+        <span class="gl-btn" />
+        <div class="gl-cards"><span /><span /><span /></div>
+      </div>
+    </div>
+  )
+}
+
+{
+  title === "theabxfolio" && (
+    <div class="viz viz--hide-sm pv-tm" aria-hidden="true">
+      <div class="tm-body">
+        <div><span class="tm-p">$</span> bun run build</div>
+        <div class="tm-l tm-l1">▸ astro build · 2 pages</div>
+        <div class="tm-l tm-l2"><span class="tm-ok">✓</span> built in 0.7s</div>
+        <div class="tm-l tm-l3">▸ deploy → GitHub Pages</div>
+        <div class="tm-l tm-l4"><span class="tm-ok">●</span> live at theabx.in<span class="tm-cursor" /></div>
+      </div>
+    </div>
+  )
+}

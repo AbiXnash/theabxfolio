@@ -1,6 +1,6 @@
 # theabxfolio
 
-Personal portfolio of [Abinash Selvarasu](https://theabx.in) — backend engineer working with Java, Go, and payment systems.
+Personal portfolio of [Abinash Selvarasu](https://theabx.in) — software engineer working with Java, Go, and payment systems.
 
 Built with **Astro 7**, **Bun**, and **Tailwind v4**. Dark terminal-first brutalist theme that transitions smoothly to light.
 
