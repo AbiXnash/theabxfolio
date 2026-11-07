@@ -1,0 +1,73 @@
+---
+// Animated payment pipeline for the Experience section.
+// Generic labels only: no client or channel names.
+const W = 300;
+const main = [
+  { y: 8, label: "Tax portal", sub: "POST /payments", kind: "blue" },
+  { y: 78, label: "Signer", sub: "RSA · SHA-256", kind: "purple", cls: "pay-signed" },
+  { y: 148, label: "Kafka", sub: "tax.payments", kind: "amber" },
+];
+const channels = [
+  { x: 8, label: "Channel 1" },
+  { x: 108, label: "Channel 2" },
+  { x: 208, label: "Channel 3" },
+];
+const ledger = { y: 312, label: "Oracle DB", sub: "ledger", kind: "purple" };
+const cx = W / 2;
+const routes = channels.map(
+  (c) =>
+    `M${cx} 42 L${cx} 182 C${cx} 210 ${c.x + 42} 208 ${c.x + 42} 236 L${c.x + 42} 270 C${c.x + 42} 296 ${cx} 290 ${cx} 312`,
+);
+---
+
+<div class="viz pay-viz" aria-hidden="true">
+  <svg class="viz-svg pay-svg" viewBox={`0 0 ${W} 354`} role="presentation">
+    {routes.map((d) => <path d={d} class="viz-edge" />)}
+
+    {routes.map((d, i) => (
+      <circle r="4" class="pay-packet">
+        <animateMotion dur="3.6s" begin={`-${i * 1.2}s`} repeatCount="indefinite" path={d} keyPoints="0;1" keyTimes="0;1" calcMode="linear" />
+      </circle>
+    ))}
+
+    {main.map((n) => (
+      <g class:list={["viz-node", n.cls]}>
+        <rect x={cx - 110} y={n.y} width="220" height="34" rx="5" />
+        <circle cx={cx - 96} cy={n.y + 17} r="3.5" class={`viz-k-${n.kind}`} />
+        <text x={cx - 84} y={n.y + 21}>{n.label}</text>
+        <text x={cx + 100} y={n.y + 21} text-anchor="end" class="viz-sub">{n.sub}</text>
+      </g>
+    ))}
+
+    {channels.map((c) => (
+      <g class="viz-node">
+        <rect x={c.x} y="236" width="84" height="34" rx="5" />
+        <circle cx={c.x + 12} cy="253" r="3.5" class="viz-k-green" />
+        <text x={c.x + 21} y="257" style="font-size:10.5px">{c.label}</text>
+      </g>
+    ))}
+
+    <g class="viz-node">
+      <rect x={cx - 110} y={ledger.y} width="220" height="34" rx="5" />
+      <circle cx={cx - 96} cy={ledger.y + 17} r="3.5" class={`viz-k-${ledger.kind}`} />
+      <text x={cx - 84} y={ledger.y + 21}>{ledger.label}</text>
+      <text x={cx + 100} y={ledger.y + 21} text-anchor="end" class="viz-sub">{ledger.sub}</text>
+    </g>
+  </svg>
+
+  <div class="viz-bar">
+    <span class="viz-dot"></span>
+    <span><b>live</b></span>
+    <span>·</span>
+    <span>3 channels</span>
+    <span>·</span>
+    <span class="viz-ok">every request signed</span>
+  </div>
+</div>
+
+<script>
+  // SMIL motion ignores CSS; pause it for reduced-motion users.
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.querySelectorAll<SVGSVGElement>(".pay-svg").forEach((svg) => svg.pauseAnimations());
+  }
+</script>

@@ -1,0 +1,162 @@
+%-------------------------------------------------------------------------------
+% Abinash Selvarasu — One-page resume
+% Build:  tectonic abinash_selvarasu_resume.tex   (or pdflatex, or Overleaf)
+% Uses only standard packages; compiles with pdfLaTeX or XeLaTeX.
+%-------------------------------------------------------------------------------
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tabularx}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage{lmodern}
+  \input{glyphtounicode}
+  \pdfgentounicode=1
+\fi
+\usepackage{microtype}
+
+\hypersetup{
+  pdftitle={Abinash Selvarasu - Resume},
+  pdfauthor={Abinash Selvarasu},
+  pdfsubject={Backend Engineer - Java, Spring Boot, Go},
+}
+
+% Page geometry
+\addtolength{\oddsidemargin}{-0.55in}
+\addtolength{\evensidemargin}{-0.55in}
+\addtolength{\textwidth}{1.1in}
+\addtolength{\topmargin}{-0.6in}
+\addtolength{\textheight}{1.2in}
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Section style
+\definecolor{accent}{HTML}{1F3A5F}
+\titleformat{\section}
+  {\vspace{-6pt}\color{accent}\scshape\large\bfseries}{}{0em}{}
+  [\color{black}\titlerule\vspace{-4pt}]
+
+% Commands
+\newcommand{\resumeItem}[1]{\item\small{#1\vspace{-1.5pt}}}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{\linewidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & \small #2 \\
+      \small\textit{#3} & \small\textit{#4} \\
+    \end{tabular*}\vspace{-6pt}
+}
+
+\newcommand{\resumeProject}[3]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{\linewidth}[t]{l@{\extracolsep{\fill}}r}
+      \small\textbf{#1} $|$ \emph{#2} & \small #3 \\
+    \end{tabular*}\vspace{-6pt}
+}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+\newcommand{\resumeListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.18in, itemsep=0pt, topsep=2pt]}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-4pt}}
+
+%-------------------------------------------------------------------------------
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+  {\Huge\scshape Abinash Selvarasu} \\ \vspace{3pt}
+  \small Software Engineer $\cdot$ Java, Spring Boot, Go $\cdot$ Chennai, India \\ \vspace{2pt}
+  \small
+  \href{mailto:abinash@theabx.in}{abinash@theabx.in} $|$
+  \href{https://theabx.in}{theabx.in} $|$
+  \href{https://linkedin.com/in/abinash-selvarasu}{linkedin.com/in/abinash-selvarasu} $|$
+  \href{https://github.com/AbiXnash}{github.com/AbiXnash}
+\end{center}
+\vspace{-6pt}
+
+%----------SUMMARY----------
+\section{Summary}
+\small{Software engineer building payment and regulatory integrations for banking clients with Java, Spring Boot,
+Kafka, and Oracle. First author of peer-reviewed Springer papers on deep-learning intrusion detection for industrial and cyber-physical
+systems. Outside work I build Go services and developer tools, including a local, privacy-first AI code reviewer.}
+\vspace{-2pt}
+
+%----------EXPERIENCE----------
+\section{Experience}
+\resumeListStart
+  \resumeSubheading
+    {Mindgate Solutions}{Jul 2025 -- Present}
+    {Software Engineer}{Chennai, India}
+    \resumeItemListStart
+      \resumeItem{Built tax-payment portal services for a multinational banking client, integrating with
+        \textbf{multiple Nigerian payment channels} for regulatory tax collection.}
+      \resumeItem{Developed an internal \textbf{cryptographic digital-signature generator} used to sign requests for
+        a Middle East regulatory API integration.}
+      \resumeItem{Built Java/Spring Boot \textbf{microservices} on WebSphere, using \textbf{Kafka} and
+        \textbf{WebSphere MQ} for messaging and \textbf{Oracle DB}/PostgreSQL for persistence.}
+      \resumeItem{Wrote \textbf{Spring Batch} data-migration tools and other internal utilities used day to day by
+        the engineering team.}
+    \resumeItemListEnd
+\resumeListEnd
+
+%----------PROJECTS----------
+\section{Projects}
+\resumeListStart
+  \resumeProject
+    {\href{https://github.com/AbiXnash/codist}{Codist}}
+    {Go, Svelte, TypeScript, tree-sitter, Ollama}{2026}
+    \resumeItemListStart
+      \resumeItem{Local AI code reviewer for Java/Spring Boot repos that watches git, reviews every commit, and
+        proposes fixes for approval; ships as a \textbf{single Go binary} and nothing leaves the machine.}
+      \resumeItem{Parses Java with \textbf{tree-sitter} into a live dependency graph streamed to a Svelte UI over
+        \textbf{server-sent events}; runs deterministic rules (unguarded \texttt{Optional.get()}, SQL concatenation,
+        \texttt{@Transactional} self-invocation) before the LLM pass.}
+      \resumeItem{Cut re-review time to seconds by caching model answers, skipping trivial diffs, and routing review,
+        summary, and fix jobs to separately sized local models.}
+    \resumeItemListEnd
+\resumeListEnd
+
+%----------PUBLICATIONS----------
+\section{Publications}
+\begin{itemize}[leftmargin=0.33in, itemsep=1pt, topsep=2pt]
+  \small
+  \item \textbf{S. Abinash}, N. Srivatsan, S. K. Hemachandran, S. Priyanga.
+    \href{https://doi.org/10.1007/s42979-024-03613-7}{\textit{HGCNN-LSTM: A Data-driven Approach for Cyberattack
+    Detection in Cyber-Physical Systems}}. SN Computer Science (Springer), vol.~6, 2025.
+  \item \textbf{S. Abinash}, V. S. Shankar Sriram, K. Krithivasan, S. Priyanga.
+    \href{https://doi.org/10.1007/978-981-97-9743-1_13}{\textit{HATT-MLPNN: A Hybrid Approach for Cyber-Attack
+    Detection in Industrial Control Systems Using MLPNN and Attention Mechanisms}}. ATIS 2024, CCIS (Springer), 2024.
+  \item \textit{HyGAN-AD: A Hypergraph-based GAN Framework for Cyberattack Detection in Critical Infrastructures}
+  \item \textit{HyperCoar-DAM: A Robust Intrusion Detection System for Enhancing IIoT Networks Protection}
+\end{itemize}
+\vspace{-4pt}
+
+%----------SKILLS----------
+\section{Technical Skills}
+\begin{itemize}[leftmargin=0.15in, label={}]
+  \small{\item{
+    \textbf{Languages}{: Java, Go, Python, TypeScript, Kotlin, SQL, Lua} \\
+    \textbf{Backend}{: Spring Boot, Spring MVC, Spring Batch, Lombok, Gin, Echo, REST APIs, Microservices} \\
+    \textbf{Data \& Messaging}{: Oracle DB, PostgreSQL, libSQL, Apache Kafka, IBM WebSphere MQ} \\
+    \textbf{Frontend \& Tools}{: React, Next.js, Svelte, Qwik, Tailwind CSS, Git, Docker, Linux, Cloudflare Workers}
+  }}
+\end{itemize}
+\vspace{-8pt}
+
+%----------EDUCATION----------
+\section{Education}
+\resumeListStart
+  \resumeSubheading
+    {SASTRA Deemed University}{Thanjavur, India}
+    {B.Tech, Computer Science and Engineering}{2021 -- 2025}
+\resumeListEnd
+
+\end{document}

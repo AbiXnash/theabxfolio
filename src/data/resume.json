@@ -3,10 +3,10 @@
     "items": [
       {
         "title": "Software Engineer at Mindgate Solutions",
-        "meta": "2025 - Present",
-        "intro": "Software engineer building tax-payment products and internal banking tools with Java and Spring Boot at Mindgate Solutions.",
+        "meta": "Jul 2025 - Present",
+        "intro": "Software engineer building payment and regulatory integrations for banking clients with Java, Spring Boot, Kafka, and Oracle.",
         "category": "Banking / Payments",
-        "details": "Backend development for banking and regulatory payment integrations.\n- Built tax-payment portal services for a multinational banking client across multiple Nigerian payment channels.\n- Created an internal cryptographic digital-signature generator for a regulatory API integration in the Middle East.\n- Built migration tools and supporting internal utilities used by the engineering team.\n- Developed microservices with Java, Spring Boot, WebSphere, Kafka, Oracle Database, and PostgreSQL.",
+        "details": "Backend development for banking and regulatory payment integrations.\n- Built tax-payment portal services for a multinational banking client, integrating with multiple Nigerian payment channels for regulatory tax collection.\n- Developed an internal cryptographic digital-signature generator used to sign requests for a Middle East regulatory API integration.\n- Built Java/Spring Boot microservices on WebSphere, using Kafka and WebSphere MQ for messaging and Oracle DB/PostgreSQL for persistence.\n- Wrote Spring Batch data-migration tools and other internal utilities used day to day by the engineering team.",
         "skills": [
           "Java",
           "Spring Boot",
@@ -23,49 +23,11 @@
   "projects": {
     "items": [
       {
-        "title": "Four Market",
-        "meta": "2026 · Kotlin · TypeScript · Web",
-        "category": "Full Stack",
-        "github": "https://github.com/AbiXnash/four-market-web",
-        "links": [
-          {
-            "label": "Web repository",
-            "url": "https://github.com/AbiXnash/four-market-web"
-          },
-          {
-            "label": "API repository",
-            "url": "https://github.com/AbiXnash/four-market-api"
-          }
-        ],
-        "intro": "An in-progress event management site with a TypeScript web frontend and a Kotlin API."
-      },
-      {
-        "title": "nvim",
-        "meta": "2026 · Lua · Neovim",
+        "title": "Codist",
+        "meta": "2026 · Go · Svelte · Ollama",
         "category": "Developer Tooling",
-        "github": "https://github.com/AbiXnash/nvim",
-        "intro": "My Neovim 0.11+ setup in Lua, with LSP, fuzzy finding, Git tools, and completion configured for daily use."
-      },
-      {
-        "title": "WiFi Trolley Bot",
-        "meta": "2023 · ESP32 · IoT · Embedded",
-        "category": "Embedded Systems",
-        "github": "https://github.com/AbiXnash/WiFi-Trolley-Bot-using-ESP32",
-        "intro": "An ESP32 trolley bot controlled over WiFi, built with two classmates."
-      },
-      {
-        "title": "Conference Site",
-        "meta": "2024 · Web · Frontend",
-        "category": "Web Builds",
-        "github": "https://github.com/AbiXnash/conference-site",
-        "intro": "A conference website for SASTRA ICMAT with submission, schedule, and speaker information."
-      },
-      {
-        "title": "Theta2k23",
-        "meta": "2023 · Web · Event",
-        "category": "Web Builds",
-        "github": "https://github.com/AbiXnash/theta2k23",
-        "intro": "An event website for SASTRA Theta2k23, designed for browsing schedules and event details on mobile."
+        "github": "https://github.com/AbiXnash/codist",
+        "intro": "A local AI code reviewer for Java/Spring Boot repos. It maps the codebase into a live graph, reviews every commit with rules and a local LLM, and proposes fixes. Nothing leaves your machine."
       },
       {
         "title": "Hell Pine",
@@ -73,6 +35,13 @@
         "category": "Developer Tooling",
         "github": "https://github.com/AbiXnash/hell-pine",
         "intro": "A VS Code theme based on Rosé Pine, adjusted for the contrast and colors I prefer."
+      },
+      {
+        "title": "nvim",
+        "meta": "2026 · Lua · Neovim",
+        "category": "Developer Tooling",
+        "github": "https://github.com/AbiXnash/nvim",
+        "intro": "My Neovim 0.11+ setup in Lua, with LSP, fuzzy finding, Git tools, and completion configured for daily use."
       },
       {
         "title": "TheGlobe",
@@ -96,6 +65,36 @@
         "title": "B.Tech Computer Science, SASTRA",
         "meta": "2021 - 2025",
         "intro": "B.Tech in Computer Science and Engineering at SASTRA University, completed in 2025."
+      }
+    ]
+  },
+  "publications": {
+    "items": [
+      {
+        "title": "HGCNN-LSTM: A Data-driven Approach for Cyberattack Detection in Cyber-Physical Systems",
+        "authors": [
+          "S. Abinash",
+          "N. Srivatsan",
+          "S. K. Hemachandran",
+          "S. Priyanga"
+        ],
+        "venue": "SN Computer Science (Springer), vol. 6",
+        "year": 2025,
+        "doi": "10.1007/s42979-024-03613-7",
+        "summary": "A hybrid graph-convolution and LSTM model that detects data-injection, denial-of-service, and reconnaissance attacks on industrial control networks."
+      },
+      {
+        "title": "HATT-MLPNN: A Hybrid Approach for Cyber-Attack Detection in Industrial Control Systems Using MLPNN and Attention Mechanisms",
+        "authors": [
+          "S. Abinash",
+          "V. S. Shankar Sriram",
+          "Kannan Krithivasan",
+          "S. Priyanga"
+        ],
+        "venue": "ATIS 2024, Communications in Computer and Information Science (Springer)",
+        "year": 2024,
+        "doi": "10.1007/978-981-97-9743-1_13",
+        "summary": "Combines a multilayer perceptron with attention mechanisms to flag cyber-attacks in industrial control system traffic."
       }
     ]
   }

@@ -94,8 +94,7 @@ export function setupSite() {
 
         navLinks.forEach((link) => {
           const active = link.getAttribute("data-section") === name;
-          link.classList.toggle("text-gruv-text", active);
-          link.classList.toggle("text-gruv-muted", !active);
+          link.classList.toggle("is-active", active);
         });
       }
 

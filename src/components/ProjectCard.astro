@@ -45,15 +45,6 @@ const previewAttrs = linkPreviewAttributes(primaryLink.url, {
       ]}
     ></div>
 
-    {
-      featured && (
-        <div
-          class="pointer-events-none absolute -top-24 -right-16 hidden h-48 w-48 rounded-full opacity-20 lg:block"
-          style="background: var(--theme-glow-green, var(--theme-glow-blue))"
-          aria-hidden="true"
-        />
-      )
-    }
 
     <div class="flex items-start justify-between gap-3 sm:gap-4">
       <div class="flex min-w-0 flex-col gap-1.5 sm:gap-2">
@@ -86,7 +77,12 @@ const previewAttrs = linkPreviewAttributes(primaryLink.url, {
       </svg>
     </div>
 
-    <div class="relative flex flex-1 flex-col gap-2 sm:gap-3">
+    <div
+      class:list={[
+        "relative flex flex-col gap-2 sm:gap-3",
+        !Astro.slots.has("visual") && "flex-1",
+      ]}
+    >
       <h3
         class:list={[
           "font-semibold tracking-tight",
@@ -108,6 +104,8 @@ const previewAttrs = linkPreviewAttributes(primaryLink.url, {
         {intro}
       </p>
     </div>
+
+    {Astro.slots.has("visual") && <slot name="visual" />}
 
     {
       extraLinks.length > 0 && (

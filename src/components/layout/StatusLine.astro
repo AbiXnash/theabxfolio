@@ -1,0 +1,97 @@
+---
+// Neovim-style statusline pinned to the bottom of the viewport.
+// Shows the pane in view as a "file", plus scroll position like Top / 42% / Bot.
+---
+
+<div id="statusline" class="statusline" aria-hidden="true">
+  <span class="sl-mode" data-sl-mode>NORMAL</span>
+  <span class="sl-branch">⎇ main</span>
+  <span class="sl-file">~/abx/<b data-sl-file>README.md</b></span>
+  <span class="sl-spacer"></span>
+  <span class="sl-meta sl-wide">utf-8</span>
+  <span class="sl-meta sl-wide" data-sl-type>markdown</span>
+  <span class="sl-pos" data-sl-pos>Top</span>
+</div>
+
+<script>
+  const TYPES: Record<string, string> = {
+    md: "markdown",
+    bib: "bibtex",
+    log: "log",
+    toml: "toml",
+    sh: "bash",
+  };
+
+  function setupStatusLine() {
+    const bar = document.getElementById("statusline");
+    if (!bar || bar.dataset.bound === "true") return;
+    bar.dataset.bound = "true";
+
+    const fileEl = bar.querySelector<HTMLElement>("[data-sl-file]");
+    const typeEl = bar.querySelector<HTMLElement>("[data-sl-type]");
+    const posEl = bar.querySelector<HTMLElement>("[data-sl-pos]");
+    const modeEl = bar.querySelector<HTMLElement>("[data-sl-mode]");
+    const panes = Array.from(
+      document.querySelectorAll<HTMLElement>(".pane-section[data-file]"),
+    );
+
+    const treeLinks = Array.from(
+      document.querySelectorAll<HTMLElement>(".explorer [data-pane]"),
+    );
+
+    function setActive(pane: HTMLElement) {
+      panes.forEach((p) => p.classList.toggle("is-active", p === pane));
+      treeLinks.forEach((a) => a.classList.toggle("is-active", a.dataset.pane === pane.id));
+      const file = pane.dataset.file ?? "";
+      if (fileEl) fileEl.textContent = file;
+      const ext = file.includes(".") ? file.split(".").pop() ?? "" : "";
+      if (typeEl) typeEl.textContent = file.endsWith("/") ? "netrw" : TYPES[ext] ?? ext;
+    }
+
+    // The active pane is the one crossing a line ~35% down the viewport.
+    function update() {
+      const line = window.innerHeight * 0.35;
+      const current =
+        panes.find((p) => {
+          const r = p.getBoundingClientRect();
+          return r.top <= line && r.bottom > line;
+        }) ?? panes[0];
+      if (current) setActive(current);
+
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const y = window.scrollY;
+      if (posEl) {
+        posEl.textContent =
+          y <= 4 ? "Top" : y >= max - 4 ? "Bot" : `${Math.round((y / max) * 100)}%`;
+      }
+    }
+
+    let ticking = false;
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          update();
+          ticking = false;
+        });
+      },
+      { passive: true },
+    );
+    window.addEventListener("resize", update);
+    update();
+
+    // Little Vim touch: the resume preview is "INSERT"-free reading, so show VISUAL while it's open.
+    const modal = document.getElementById("resume-modal");
+    if (modal && modeEl) {
+      new MutationObserver(() => {
+        const open = modal.hasAttribute("open");
+        modeEl.textContent = open ? "VISUAL" : "NORMAL";
+        bar.classList.toggle("is-visual", open);
+      }).observe(modal, { attributes: true, attributeFilter: ["open"] });
+    }
+  }
+
+  setupStatusLine();
+</script>

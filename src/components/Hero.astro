@@ -1,69 +1,70 @@
 ---
-import AtAGlance from "./AtAGlance.astro";
-import HeroExperience from "./HeroExperience.astro";
-import HeroStackLogos from "./HeroStackLogos.astro";
-import Container from "./layout/Container.astro";
+import Fastfetch from "./Fastfetch.astro";
 import ResumeDownload from "./ResumeDownload.astro";
 import { linkPreviewAttributes } from "../lib/link-previews";
 import { site } from "../config/site";
 
 const emailPreview = linkPreviewAttributes(`mailto:${site.email}`);
+const codistPreview = linkPreviewAttributes("https://github.com/AbiXnash/codist", {
+  title: "Codist",
+  description: "Local AI code reviewer for Java/Spring Boot repos.",
+  domain: "github.com",
+});
 ---
 
-<section
-  class="hero relative flex min-h-[94vh] flex-col justify-center overflow-hidden pt-32 pb-24 sm:pt-36 sm:pb-28"
->
-  <div class="hero-mesh" aria-hidden="true"></div>
-  <div class="hero-glow" aria-hidden="true"></div>
+<section id="home" data-file="README.md" class="pane-section hero-section">
+  <div class="pane-outer">
+    <div class="pane hero">
+      <span class="pane-title">zsh — ~/abx</span>
 
-  <Container>
-    <div class="hero-top">
-      <div class="hero-content">
-        <HeroStackLogos placement="mobile" />
+      <div class="hero-split">
+        <div class="hero-main">
+          <p class="hero-prompt" aria-hidden="true">
+            <span class="sp-dir">~/abx</span>
+            <span class="sp-git">git:main</span>
+            <span class="sp-go">go 1.24</span>
+            <span class="sp-arrow">➜</span>
+            <span class="sp-cmd">whoami</span>
+          </p>
 
-        <p class="hero-caption" aria-hidden="true">
-          <span class="hero-caption-prompt">$</span>
-          <span>abx --role --current</span>
-        </p>
+          <h1 class="hero-title">
+            Hey, I'm {site.name.split(" ")[0]}.<br />
+            <span class="text-highlight">I build backend software.</span>
+          </h1>
 
-        <h1 class="hero-title">
-          Hey, I'm {site.name.split(" ")[0]}.<br />
-          <span class="text-highlight">I build backend software.</span>
-        </h1>
+          <p class="hero-intro">
+            Software engineer at Mindgate, building payment and regulatory
+            integrations for banks in Java and Spring Boot. Go and TypeScript
+            when the laptop stays open after hours.
+          </p>
 
-        <p class="hero-intro">
-          Java at Mindgate by day. Payments, banking, the unglamorous stuff
-          that has to work. Go and TypeScript experiments when the laptop stays
-          open after hours.
-        </p>
+          <div class="hero-actions">
+            <a
+              href={`mailto:${site.email}`}
+              class="btn-primary hero-btn"
+              {...emailPreview}
+            >
+              Say hello
+            </a>
+            <ResumeDownload variant="secondary" class="hero-btn" label="Resume" />
+          </div>
 
-        <div class="hero-actions">
-          <a
-            href={`mailto:${site.email}`}
-            class="btn-primary hero-btn"
-            {...emailPreview}
-          >
-            Say hello
-          </a>
-          <ResumeDownload variant="secondary" class="hero-btn" label="Resume" />
+          <div class="hero-now">
+            <p class="hero-now-cmd" aria-hidden="true">
+              <span class="sp-arrow">➜</span> cat now.txt
+            </p>
+            <p class="hero-now-text">
+              Building{" "}
+              <a href="https://github.com/AbiXnash/codist" target="_blank" rel="noopener noreferrer" {...codistPreview}>Codist</a>,
+              a local AI code reviewer for Spring Boot. Nothing leaves your machine.
+            </p>
+          </div>
         </div>
-      </div>
 
-      <HeroStackLogos placement="desktop" />
+        <aside class="hero-side">
+          <Fastfetch />
+        </aside>
+      </div>
     </div>
-
-    <AtAGlance />
-  </Container>
-
-  <div class="hero-bottom">
-    <Container class="flex flex-col items-center gap-[1.125rem] sm:gap-5">
-      <HeroExperience />
-
-      <div class="scroll-hint text-gruv-muted" aria-hidden="true">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M12 5v14M5 12l7 7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
-        </svg>
-      </div>
-    </Container>
   </div>
 </section>

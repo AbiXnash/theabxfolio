@@ -1,29 +1,34 @@
 ---
 interface Props {
   id?: string;
+  /** Pane title shown on the top border, like a tmux/editor pane, e.g. "work.md". */
+  file?: string;
+  /** Kept for compatibility; panes no longer alternate backgrounds. */
   tone?: "plain" | "muted";
   spacing?: "default" | "hero" | "compact";
   class?: string;
 }
 
-const { id, tone = "plain", spacing = "default", class: className } = Astro.props;
+const { id, file, spacing = "default", class: className } = Astro.props;
 
 const spacingClass = {
-  hero: "py-24 sm:py-32 lg:py-40",
-  default: "py-20 sm:py-28",
-  compact: "py-16 sm:py-20",
+  hero: "py-20 sm:py-24 lg:py-28",
+  default: "py-14 sm:py-20",
+  compact: "py-12 sm:py-16",
 }[spacing];
 ---
 
 <section
   id={id}
-  class:list={[
-    "reveal scroll-mt-16",
-    tone === "muted" && "section-muted",
-    className,
-  ]}
+  data-file={file}
+  class:list={["reveal scroll-mt-14 pane-section", className]}
 >
-  <div class:list={[spacingClass]}>
-    <slot />
+  <div class="pane-outer">
+    <div class="pane">
+      {file && <span class="pane-title">{file}</span>}
+      <div class:list={[spacingClass]}>
+        <slot />
+      </div>
+    </div>
   </div>
 </section>

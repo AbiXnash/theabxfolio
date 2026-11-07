@@ -17,24 +17,25 @@ const emailPreview = linkPreviewAttributes(`mailto:${site.email}`);
     >
       <a
         href="/"
-        class="nav-brand flex items-center gap-2 font-mono text-sm font-medium text-gruv-text transition-opacity hover:opacity-70"
+        class="nav-brand tmux-session"
+        aria-label={`${site.handle} — home`}
       >
-        <span class="text-gruv-green">~</span>
-        <span class="font-semibold">{site.handle}</span>
+        <span class="tmux-session-name">abx</span>
+        <span class="tmux-session-handle">{site.handle}</span>
       </a>
 
       <div class="nav-center hidden items-center gap-1 md:flex">
         {
-          navItems.map((item) => (
+          navItems.map((item, i) => (
             <a
               href={item.href}
               data-section={item.sectionName}
-              class="nav-link rounded-sm px-3 py-1.5 font-mono text-xs text-gruv-muted transition-colors hover:text-gruv-text"
+              class="nav-link tmux-window"
               {...linkPreviewAttributes(item.href, {
                 title: item.sectionName,
               })}
             >
-              <span class="text-gruv-green">./</span>{item.label}
+              <span class="tmux-window-idx">{i + 1}:</span>{item.label.toLowerCase()}<span class="tmux-window-flag" aria-hidden="true">*</span>
             </a>
           ))
         }
@@ -76,10 +77,10 @@ const emailPreview = linkPreviewAttributes(`mailto:${site.email}`);
         }
         <a
           href={`mailto:${site.email}`}
-          class="nav-cta font-mono"
+          class="nav-cta"
           {...emailPreview}
         >
-          Say hello
+          say hello
         </a>
         <ThemeToggle />
       </div>

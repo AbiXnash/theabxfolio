@@ -1,0 +1,68 @@
+---
+// fastfetch-style system card for the hero (he keeps a fastfetch config in his dotfiles).
+import { PROGRAMMING_START_YEAR, formatProfessionalShort } from "../lib/experience";
+import { site } from "../config/site";
+
+
+const logo = ["▄▀▄ █▀▄ ▀▄▀", "█▀█ █▀▄ ▄▀▄"];
+
+const rows: { key: string; value: string; href?: string; tone?: string }[] = [
+  { key: "Role", value: site.role },
+  { key: "Company", value: site.employer, href: site.employerUrl },
+  { key: "Location", value: site.location },
+  { key: "Uptime", value: `${formatProfessionalShort()} pro · coding since ${PROGRAMMING_START_YEAR}` },
+  { key: "Stack", value: "Java · Spring Boot · Kafka" },
+  { key: "After hrs", value: "Go · TypeScript · Lua" },
+  { key: "Editor", value: "Neovim · Hell Pine" },
+  { key: "Papers", value: "2 × Springer, first author", href: "/#publications" },
+];
+
+const blocks = ["base", "love", "gold", "rose", "pine", "foam", "iris", "text"];
+---
+
+<div class="ff" role="group" aria-label="At a glance">
+  <div class="ff-bar" aria-hidden="true">
+    <i></i><i></i><i></i>
+    <span>fastfetch</span>
+  </div>
+
+  <div class="ff-body">
+    <pre class="ff-logo" aria-hidden="true">{logo.join("\n")}</pre>
+
+    <div class="ff-info">
+      <p class="ff-userhost">
+        <span class="ff-user">abinash</span><span class="ff-at">@</span><span class="ff-host">abx</span>
+      </p>
+      <p class="ff-rule" aria-hidden="true">───────────────</p>
+
+      <dl class="ff-rows">
+        {
+          rows.map((r) => (
+            <div class="ff-row">
+              <dt>{r.key}</dt>
+              <dd>
+                {r.href ? (
+                  <a href={r.href} target={r.href.startsWith("http") ? "_blank" : undefined} rel={r.href.startsWith("http") ? "noopener noreferrer" : undefined}>
+                    {r.value}
+                  </a>
+                ) : (
+                  r.value
+                )}
+              </dd>
+            </div>
+          ))
+        }
+        <div class="ff-row">
+          <dt>Status</dt>
+          <dd class="ff-status">
+            <span class="ff-status-dot" aria-hidden="true"></span>open to chat
+          </dd>
+        </div>
+      </dl>
+
+      <div class="ff-blocks" aria-hidden="true">
+        {blocks.map((b) => <span style={`background: var(--hp-${b === "base" ? "border-strong" : b})`} />)}
+      </div>
+    </div>
+  </div>
+</div>

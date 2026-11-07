@@ -1,0 +1,81 @@
+---
+// Decorative mini dependency graph for the Codist featured card.
+// Pure SVG + CSS: edges "flow", a review scan sweeps across, one node gets flagged.
+const nodes = [
+  { id: "ctl", x: 12, y: 18, w: 150, label: "OrderController", kind: "controller" },
+  { id: "svc", x: 206, y: 18, w: 132, label: "OrderService", kind: "service" },
+  { id: "pay", x: 206, y: 112, w: 132, label: "PaymentService", kind: "service", flagged: true },
+  { id: "repo", x: 382, y: 18, w: 156, label: "OrderRepository", kind: "repository" },
+  { id: "led", x: 382, y: 112, w: 156, label: "LedgerClient", kind: "client" },
+];
+
+const H = 34;
+const byId = Object.fromEntries(nodes.map((n) => [n.id, n]));
+const edges = [
+  ["ctl", "svc"],
+  ["svc", "repo"],
+  ["svc", "pay"],
+  ["pay", "led"],
+].map(([a, b], i) => {
+  const from = byId[a];
+  const to = byId[b];
+  const sameRow = from.y === to.y;
+  const x1 = sameRow ? from.x + from.w : from.x + from.w / 2;
+  const y1 = sameRow ? from.y + H / 2 : from.y + H;
+  const x2 = sameRow ? to.x : to.x + to.w / 2;
+  const y2 = sameRow ? to.y + H / 2 : to.y;
+  const d = sameRow
+    ? `M${x1} ${y1} L${x2 - 6} ${y2}`
+    : `M${x1} ${y1} L${x2} ${y2 - 6}`;
+  return { d, delay: `${i * 0.35}s` };
+});
+---
+
+<div class="viz viz--hide-sm codist-viz" aria-hidden="true">
+  <svg viewBox="0 0 550 200" class="codist-svg" role="presentation">
+    <defs>
+      <marker id="codist-arrow" viewBox="0 0 8 8" refX="4" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0 0 L8 4 L0 8 z" class="codist-arrowhead" />
+      </marker>
+      <clipPath id="codist-clip">
+        <rect x="0" y="0" width="550" height="200" />
+      </clipPath>
+      <linearGradient id="codist-scan" x1="0" x2="1" y1="0" y2="0">
+        <stop offset="0" style="stop-color: var(--theme-blue); stop-opacity: 0" />
+        <stop offset="0.85" style="stop-color: var(--theme-blue); stop-opacity: 0.16" />
+        <stop offset="1" style="stop-color: var(--theme-blue); stop-opacity: 0.55" />
+      </linearGradient>
+    </defs>
+
+    {edges.map((e) => (
+      <path d={e.d} class="codist-edge" marker-end="url(#codist-arrow)" style={`--delay:${e.delay}`} />
+    ))}
+
+    {nodes.map((n) => (
+      <g class:list={["codist-node", `codist-node--${n.kind}`, n.flagged && "codist-node--flagged"]}>
+        <rect x={n.x} y={n.y} width={n.w} height={H} rx="5" />
+        <circle cx={n.x + 14} cy={n.y + H / 2} r="3.5" class="codist-kind" />
+        <text x={n.x + 26} y={n.y + H / 2 + 4}>{n.label}</text>
+      </g>
+    ))}
+
+    <g class="codist-finding">
+      <line x1="272" y1="146" x2="272" y2="164" />
+      <rect x="168" y="164" width="208" height="26" rx="4" />
+      <text x="180" y="181">⚠ Optional.get() without check</text>
+    </g>
+
+    <g clip-path="url(#codist-clip)">
+      <rect class="codist-scanbar" x="-110" y="0" width="90" height="200" fill="url(#codist-scan)" />
+    </g>
+  </svg>
+
+  <div class="viz-bar">
+    <span class="viz-dot"></span>
+    <span>watching <b>main</b></span>
+    <span class="codist-sep">·</span>
+    <span>a1b9c3e reviewed</span>
+    <span class="codist-sep">·</span>
+    <span class="codist-count">1 finding</span>
+  </div>
+</div>

@@ -1,8 +1,8 @@
 {
   "name": "theabxfolio",
   "type": "module",
-  "version": "5.5.0",
-  "description": "Portfolio website of Abinash Selvarasu, a backend engineer working with Java, Go, and payment systems.",
+  "version": "6.0.0",
+  "description": "Portfolio website of Abinash Selvarasu, a software engineer working with Java, Go, and payment systems.",
   "author": "Abinash Selvarasu <abinash@theabx.in>",
   "license": "MIT",
   "homepage": "https://theabx.in",
@@ -36,6 +36,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "resume": "cd resume && tectonic abinash_selvarasu_resume.tex && cp abinash_selvarasu_resume.pdf ../public/ && pdftocairo -svg abinash_selvarasu_resume.pdf ../public/resume-preview.svg",
     "preview": "astro preview",
     "astro": "astro",
     "format": "bunx prettier . --write",
@@ -47,6 +48,8 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
+    "@fontsource-variable/inter": "5.2.8",
+    "@fontsource-variable/jetbrains-mono": "5.2.8",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^7.2.2",
     "tailwindcss": "^4.1.18"

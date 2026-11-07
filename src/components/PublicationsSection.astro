@@ -1,0 +1,92 @@
+---
+import Container from "./layout/Container.astro";
+import Section from "./layout/Section.astro";
+import SectionHeader from "./layout/SectionHeader.astro";
+import PaperVisual from "./PaperVisual.astro";
+
+interface Publication {
+  title: string;
+  authors: string[];
+  venue: string;
+  year: number;
+  doi: string;
+  summary?: string;
+}
+
+interface Props {
+  items: Publication[];
+}
+
+const { items } = Astro.props;
+
+const SELF = "S. Abinash";
+---
+
+<Section id="publications" file="papers.bib">
+  <Container>
+    <SectionHeader
+      eyebrow="Research"
+      title="Published papers."
+      description="Deep-learning intrusion detection for industrial and cyber-physical systems, from my time at SASTRA."
+    />
+
+    <ol class="pub-list">
+      {
+        items.map((pub) => {
+          const firstAuthor = pub.authors[0] === SELF;
+          const url = `https://doi.org/${pub.doi}`;
+          return (
+            <li class="pub-card tile-card">
+              <PaperVisual title={pub.title} />
+              <div class="pub-meta">
+                <div class="pub-meta-row">
+                  <span class="pub-year">{pub.year}</span>
+                  {firstAuthor && <span class="pub-badge">First author</span>}
+                </div>
+                <span class="pub-venue">{pub.venue}</span>
+              </div>
+
+              <h3 class="pub-title">
+                <a href={url} target="_blank" rel="noopener noreferrer">
+                  {pub.title}
+                </a>
+              </h3>
+
+              <p class="pub-authors">
+                {pub.authors.map((name, i) => (
+                  <>
+                    {name === SELF ? <strong>{name}</strong> : name}
+                    {i < pub.authors.length - 1 && ", "}
+                  </>
+                ))}
+              </p>
+
+              {pub.summary && <p class="pub-summary">{pub.summary}</p>}
+
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="pub-doi"
+              >
+                doi:{pub.doi} →
+              </a>
+            </li>
+          );
+        })
+      }
+    </ol>
+
+    <div class="mt-12 flex justify-center">
+      <a
+        href="https://www.linkedin.com/in/abinash-selvarasu/details/publications/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-secondary gap-2"
+      >
+        More on LinkedIn
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </Container>
+</Section>

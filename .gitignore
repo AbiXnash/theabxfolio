@@ -26,3 +26,9 @@ pnpm-debug.log*
 
 .vscode/
 
+
+# LaTeX build artifacts
+resume/*.aux
+resume/*.log
+resume/*.out
+resume/*.pdf

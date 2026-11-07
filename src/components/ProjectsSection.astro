@@ -2,7 +2,9 @@
 import Container from "./layout/Container.astro";
 import Section from "./layout/Section.astro";
 import SectionHeader from "./layout/SectionHeader.astro";
+import CodistGraph from "./CodistGraph.astro";
 import ProjectCard from "./ProjectCard.astro";
+import ProjectVisual from "./ProjectVisual.astro";
 
 interface Project {
   title: string;
@@ -38,7 +40,7 @@ function gridClass(index: number): string {
 }
 ---
 
-<Section id="projects">
+<Section id="projects" file="projects/">
   <Container>
     <SectionHeader
       eyebrow="Projects"
@@ -55,7 +57,13 @@ function gridClass(index: number): string {
       {
         items.map((item, index) => (
           <div class:list={["project-item h-full", gridClass(index)]}>
-            <ProjectCard {...item} featured={index === 0} />
+            <ProjectCard {...item} featured={index === 0}>
+              {item.title === "Codist" ? (
+                <CodistGraph slot="visual" />
+              ) : (
+                <ProjectVisual slot="visual" title={item.title} />
+              )}
+            </ProjectCard>
           </div>
         ))
       }

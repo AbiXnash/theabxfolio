@@ -1,0 +1,67 @@
+---
+import { site } from "../config/site";
+---
+
+<dialog
+  id="resume-modal"
+  class="resume-modal"
+  aria-labelledby="resume-modal-title"
+  data-preview-src={site.resumePreviewUrl}
+>
+  <div class="resume-modal__panel">
+    <header class="resume-modal__bar">
+      <div class="resume-modal__heading">
+        <p class="eyebrow">Resume</p>
+        <h2 id="resume-modal-title" class="resume-modal__title">{site.name}</h2>
+      </div>
+
+      <div class="resume-modal__actions">
+        <a
+          href={site.resumeUrl}
+          download={site.resumeFileName}
+          class="btn-primary resume-modal__btn"
+        >
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v12" /><path d="m7 10 5 5 5-5" /><path d="M5 21h14" />
+          </svg>
+          <span>Download<span class="resume-modal__wide"> PDF</span></span>
+        </a>
+        <a
+          href={site.resumeUrl}
+          target="_blank"
+          rel="noopener"
+          class="btn-secondary resume-modal__btn resume-modal__open"
+          aria-label="Open PDF in new tab"
+        >
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 4h6v6" /><path d="M20 4 10 14" /><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5" />
+          </svg>
+          <span class="resume-modal__wide">Open in new tab</span>
+        </a>
+        <button
+          type="button"
+          class="resume-modal__close"
+          data-resume-close
+          aria-label="Close resume preview"
+        >
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M6 6l12 12M18 6 6 18" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="resume-modal__body" tabindex="0" aria-label="Resume preview, scrollable">
+      <div class="resume-modal__page">
+        <div class="resume-modal__loading" aria-hidden="true">Loading preview…</div>
+        <img
+          class="resume-modal__img"
+          alt={`One-page resume of ${site.name}, ${site.role}.`}
+          width="1700"
+          height="2200"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </div>
+</dialog>

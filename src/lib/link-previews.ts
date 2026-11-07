@@ -40,7 +40,7 @@ const registry = new Map<string, LinkPreview>([
     normalizeUrl(site.resumeUrl),
     {
       title: "Resume",
-      description: "PDF download for Abinash Selvarasu, backend engineer.",
+      description: "One-page PDF. Click to preview or download.",
       domain: site.domain.replace(/^https?:\/\//, ""),
     },
   ],

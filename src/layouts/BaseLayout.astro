@@ -1,8 +1,16 @@
 ---
+import ResumeModal from "../components/ResumeModal.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import SiteFooter from "../components/layout/SiteFooter.astro";
 import SiteHeader from "../components/layout/SiteHeader.astro";
+import StatusLine from "../components/layout/StatusLine.astro";
+import Explorer from "../components/layout/Explorer.astro";
+import BootScreen from "../components/layout/BootScreen.astro";
 import { site } from "../config/site";
+import "@fontsource-variable/inter/index.css";
+import "@fontsource-variable/jetbrains-mono/index.css";
+import interLatin from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
+import monoLatin from "@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url";
 import "../styles/global.css";
 
 interface Props {
@@ -31,18 +39,14 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href={site.workerUrl} crossorigin />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#faf4ed" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#16181d" media="(prefers-color-scheme: dark)" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <link rel="canonical" href={canonicalURL} />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preload" href={monoLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={interLatin} as="font" type="font/woff2" crossorigin />
 
     <meta name="title" content={title} />
     <meta name="description" content={description} />
@@ -67,8 +71,8 @@ const {
     )}
 
     <style is:inline>
-      html { background-color: #ffffff; color-scheme: light; }
-      html.dark { background-color: #000000; color-scheme: dark; }
+      html { background-color: #faf4ed; color-scheme: light; }
+      html.dark { background-color: #141416; color-scheme: dark; }
     </style>
 
     <script is:inline>
@@ -80,14 +84,23 @@ const {
         const theme = stored ?? (prefersDark ? "dark" : "light");
         const root = document.documentElement;
         if (theme === "dark") root.classList.add("dark");
-        root.style.backgroundColor = theme === "dark" ? "#000000" : "#ffffff";
+        root.style.backgroundColor = theme === "dark" ? "#141416" : "#faf4ed";
         root.classList.add("js");
+
+        // First-visit boot screen (see BootScreen.astro). Decided before paint to avoid a flash.
+        try {
+          const force = /[?&]boot\b/.test(location.search);
+          const seen = localStorage.getItem("abx-booted") === "1";
+          const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if ((force || !seen) && !reduce) root.classList.add("boot");
+        } catch (e) {}
       })();
     </script>
   </head>
-  <body class="min-h-screen text-gruv-text antialiased">
+  <body class:list={["min-h-screen text-gruv-text antialiased", !hideNavAndFooter && "has-shell"]}>
     <a href="#main-content" class="skip-link">Skip to content</a>
     {!hideNavAndFooter && <SiteHeader />}
+    {!hideNavAndFooter && <Explorer />}
 
     {
       hideNavAndFooter && (
@@ -110,10 +123,17 @@ const {
     </main>
 
     {!hideNavAndFooter && <SiteFooter />}
+    {!hideNavAndFooter && <StatusLine />}
+    {!hideNavAndFooter && <BootScreen />}
+
+    <ResumeModal />
 
     <script>
       import { setupLinkPreviews } from "../scripts/link-preview";
+      import { setupMotion } from "../scripts/motion";
+      import { setupSmoothScroll } from "../scripts/smooth-scroll";
       import { setupReposFeed } from "../scripts/repos";
+      import { setupResumeModal } from "../scripts/resume-modal";
       import { setupReveals } from "../scripts/reveals";
       import { setupSite } from "../scripts/site";
       import { setupThemeToggle } from "../scripts/theme";
@@ -121,8 +141,11 @@ const {
       function setup() {
         setupThemeToggle();
         setupReveals();
+        setupMotion();
+        setupSmoothScroll();
         setupLinkPreviews();
         setupReposFeed();
+        setupResumeModal();
         if (!document.getElementById("navbar")) return;
         setupSite();
       }

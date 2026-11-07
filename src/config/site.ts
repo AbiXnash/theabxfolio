@@ -2,7 +2,7 @@ export const site = {
   name: "Abinash Selvarasu",
   handle: "abx.engg",
   email: "abinash@theabx.in",
-  role: "Backend Engineer",
+  role: "Software Engineer",
   employer: "Mindgate Solutions",
   employerUrl: "https://www.mindgate.solutions/",
   domain: "https://theabx.in",
@@ -10,10 +10,11 @@ export const site = {
   description:
     "Backend engineer focused on integration and systems with Spring Boot and Go.",
   tagline: "Spring Boot · Go · Integration · Systems",
-  location: "India",
+  location: "Chennai, India",
   focus: "Backend integration & systems",
   resumeFileName: "abinash_selvarasu_resume.pdf",
   resumeUrl: "/abinash_selvarasu_resume.pdf",
+  resumePreviewUrl: "/resume-preview.svg",
 } as const;
 
 export const sameAs = [
@@ -36,10 +37,22 @@ export const navItems = [
     sectionName: "Projects",
   },
   {
+    href: "/#publications",
+    label: "Research",
+    sectionId: "publications",
+    sectionName: "Research",
+  },
+  {
     href: "/#opensource",
     label: "Activity",
     sectionId: "opensource",
     sectionName: "Open Source",
+  },
+  {
+    href: "/#contact",
+    label: "Contact",
+    sectionId: "contact",
+    sectionName: "Contact",
   },
 ] as const;
 
@@ -52,15 +65,26 @@ export const socialLinks = [
   },
 ] as const;
 
+export const techKinds: Record<string, string> = {
+  Java: "language",
+  Kafka: "messaging",
+  "Oracle DB": "database",
+  PostgreSQL: "database",
+  Python: "language",
+  TypeScript: "language",
+  Docker: "containers",
+  Kotlin: "language",
+};
+
 export const technologies = [
   "Spring Boot",
   "Golang",
   "Java",
-  "Lua",
-  "React",
-  "Svelte",
-  "Angular",
-  "Kotlin",
+  "Kafka",
+  "Oracle DB",
+  "PostgreSQL",
+  "Python",
   "TypeScript",
-  "Rust",
+  "Docker",
+  "Kotlin",
 ] as const;

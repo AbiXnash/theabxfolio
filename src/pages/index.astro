@@ -8,7 +8,9 @@ import SectionHeader from '../components/layout/SectionHeader.astro';
 import OpenSourceSection from '../components/OpenSourceSection.astro';
 import ExperienceCard from '../components/ExperienceCard.astro';
 import ProjectsSection from '../components/ProjectsSection.astro';
-import { site, sameAs, technologies } from '../config/site';
+import PublicationsSection from '../components/PublicationsSection.astro';
+import PaymentFlow from '../components/PaymentFlow.astro';
+import { site, sameAs, technologies, techKinds } from '../config/site';
 
 const resumeEntry = await getEntry('resume', 'resume');
 
@@ -16,7 +18,7 @@ if (!resumeEntry) {
     throw new Error('Could not find resume data in content collection. ID used: resume');
 }
 
-const { work, projects, education } = resumeEntry.data;
+const { work, projects, publications, education } = resumeEntry.data;
 
 const skills = [...new Set(work.items.flatMap((w) => w.skills ?? []))];
 
@@ -40,6 +42,14 @@ const jsonLd = {
     "@type": "Organization",
     name: site.employer,
   },
+  subjectOf: publications.items.map((p) => ({
+    "@type": "ScholarlyArticle",
+    headline: p.title,
+    author: p.authors.map((name) => ({ "@type": "Person", name })),
+    datePublished: String(p.year),
+    isPartOf: p.venue,
+    sameAs: `https://doi.org/${p.doi}`,
+  })),
   alumniOf: education.items.map((e) => ({
     "@type": "EducationalOrganization",
     name: e.title.split(",").pop()?.trim() ?? e.title,
@@ -48,27 +58,30 @@ const jsonLd = {
 ---
 
 <BaseLayout
-  title="Abinash Selvarasu | Backend Engineer"
+  title="Abinash Selvarasu | Software Engineer"
   description={jsonLd.description}
   jsonLd={jsonLd}
 >
   <Hero />
 
-  <Section id="experience" tone="muted">
+  <Section id="experience" file="work.md">
     <Container>
       <SectionHeader
         eyebrow="Experience"
         title="The day job."
         description="Payment systems and banking tools. The kind of software that can't break on a Friday."
         href={site.resumeUrl}
-        linkLabel="Download resume"
+        linkLabel="View resume"
         download
       />
 
-      <div class="entry-list">
-        {work.items.map((item) => (
-          <ExperienceCard {...item} />
-        ))}
+      <div class="exp-layout">
+        <div class="entry-list">
+          {work.items.map((item) => (
+            <ExperienceCard {...item} />
+          ))}
+        </div>
+        <PaymentFlow />
       </div>
 
       <p class="mt-8 text-xs leading-relaxed text-gruv-muted/70">
@@ -79,11 +92,13 @@ const jsonLd = {
 
   <ProjectsSection items={projects.items} />
 
-  <Section id="opensource" tone="muted">
+  <PublicationsSection items={publications.items} />
+
+  <Section id="opensource" file="activity.log">
     <OpenSourceSection />
   </Section>
 
-  <Section id="toolkit" spacing="compact">
+  <Section id="toolkit" file="stack.toml" spacing="compact">
     <Container>
       <SectionHeader
         eyebrow="Toolkit"
@@ -99,8 +114,11 @@ const jsonLd = {
           </div>
         ))}
         {otherTech.map((tech) => (
-          <div class="bento-cell col-span-1 flex items-center justify-center rounded-sm px-3 py-4 sm:col-span-1">
-            <span class="font-mono text-xs font-medium text-gruv-muted">{tech}</span>
+          <div class="bento-cell col-span-1 flex flex-col items-center justify-center gap-1 rounded-sm px-3 py-4 sm:col-span-1">
+            <span class="font-mono text-xs font-medium text-gruv-text">{tech}</span>
+            {techKinds[tech] && (
+              <span class="font-mono text-[10px] text-gruv-muted/70">{techKinds[tech]}</span>
+            )}
           </div>
         ))}
       </div>

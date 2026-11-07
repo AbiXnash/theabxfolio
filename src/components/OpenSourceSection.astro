@@ -8,22 +8,30 @@ import RepoFeedSkeleton from "./RepoFeedSkeleton.astro";
   <SectionHeader
     eyebrow="Open Source"
     title="On GitHub."
-    description="Public repos, sorted by latest push."
+    description="What I pushed most recently, straight from the GitHub API."
     href="https://github.com/AbiXnash"
     linkLabel="View profile"
   />
 
-  <div
-    id="repos-feed"
-    role="region"
-    aria-label="GitHub repositories"
-    aria-busy="true"
-  >
-    <RepoFeedSkeleton />
+  <div class="glog-term">
+    <p class="glog-cmd" aria-hidden="true">
+      <span class="sp-dir">~/abx</span>
+      <span class="sp-arrow">➜</span>
+      <span class="glog-cmd-text">gh repo list AbiXnash --sort pushed</span>
+    </p>
+
+    <div
+      id="repos-feed"
+      role="region"
+      aria-label="GitHub repositories"
+      aria-busy="true"
+    >
+      <RepoFeedSkeleton />
+    </div>
+
+    <p id="repos-error" class="glog-error hidden">
+      <span class="text-hp-love">error:</span> couldn't reach the GitHub API.
+      <a href="https://github.com/AbiXnash" target="_blank" rel="noopener noreferrer">Open the profile ↗</a>
+    </p>
   </div>
-
-  <p id="repos-error" class="hidden py-14 text-center text-sm text-gruv-muted">
-    Failed to load repositories.
-  </p>
 </Container>
-
