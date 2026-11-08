@@ -96,8 +96,7 @@ systems. Outside work I build Go services and developer tools, including a local
     {Mindgate Solutions}{Jul 2025 -- Present}
     {Software Engineer}{Chennai, India}
     \resumeItemListStart
-      \resumeItem{Built tax-payment portal services for a multinational banking client, integrating with
-        \textbf{multiple Nigerian payment channels} for regulatory tax collection.}
+      \resumeItem{Engineer on \textbf{VTransact}, a multi-country corporate tax-payment platform (see Projects).}
       \resumeItem{Developed an internal \textbf{cryptographic digital-signature generator} used to sign requests for
         a Middle East regulatory API integration.}
       \resumeItem{Built Java/Spring Boot \textbf{microservices} on WebSphere, using \textbf{Kafka} and
@@ -111,16 +110,32 @@ systems. Outside work I build Go services and developer tools, including a local
 \section{Projects}
 \resumeListStart
   \resumeProject
-    {\href{https://github.com/AbiXnash/codist}{Codist}}
-    {Go, Svelte, TypeScript, tree-sitter, Ollama}{2026}
+    {VTransact}
+    {Java, Spring Boot, Kafka, WebSphere MQ, Oracle}{2025 -- Present}
     \resumeItemListStart
-      \resumeItem{Local AI code reviewer for Java/Spring Boot repos that watches git, reviews every commit, and
-        proposes fixes for approval; ships as a \textbf{single Go binary} and nothing leaves the machine.}
-      \resumeItem{Parses Java with \textbf{tree-sitter} into a live dependency graph streamed to a Svelte UI over
-        \textbf{server-sent events}; runs deterministic rules (unguarded \texttt{Optional.get()}, SQL concatenation,
-        \texttt{@Transactional} self-invocation) before the LLM pass.}
-      \resumeItem{Cut re-review time to seconds by caching model answers, skipping trivial diffs, and routing review,
-        summary, and fix jobs to separately sized local models.}
+      \resumeItem{\textbf{Multi-country tax-payment portal} that lets a multinational bank's corporate customers pay
+        taxes and government dues across countries from one platform.}
+      \resumeItem{Integrates with \textbf{government and regulatory systems} in each country, including
+        \textbf{multiple Nigerian payment channels} for tax collection and a Middle East regulatory API secured
+        with \textbf{digitally signed requests}.}
+      \resumeItem{Payment and status messages flow between services over \textbf{Kafka} and \textbf{WebSphere MQ},
+        with Oracle DB as the system of record.}
+    \resumeItemListEnd
+  \resumeProject
+    {\href{https://github.com/AbiXnash/codist}{Codist}}
+    {Go, Svelte, tree-sitter, SQLite, Ollama}{2026, v0.2.0}
+    \resumeItemListStart
+      \resumeItem{Local AI code reviewer for Java/Spring Boot that reviews every commit with exact code checks, a
+        local LLM, and behaviour runs; ships as a \textbf{single cross-platform Go binary}, split into 8 Go modules,
+        and nothing leaves the machine.}
+      \resumeItem{Parses Java with a pure-Go \textbf{tree-sitter} parser into class and call graphs, including
+        \textbf{Feign calls between services}; rules such as a repository call inside a loop or seconds passed as
+        milliseconds run on changed lines before the model.}
+      \resumeItem{Grounds the LLM: every claim must \textbf{quote the code} it means or is dropped; issues are tracked
+        across commits until fixed; a \textbf{logistic-regression risk model} trained on the repo's history picks
+        which commits the model reads first.}
+      \resumeItem{\textbf{Behaviour runs} call changed methods before and after a commit in separate class loaders and
+        diff the results; on a 24-bug Spring Boot benchmark, Codist flagged the right line for \textbf{23 of 24} bugs.}
     \resumeItemListEnd
 \resumeListEnd
 
@@ -134,8 +149,12 @@ systems. Outside work I build Go services and developer tools, including a local
   \item \textbf{S. Abinash}, V. S. Shankar Sriram, K. Krithivasan, S. Priyanga.
     \href{https://doi.org/10.1007/978-981-97-9743-1_13}{\textit{HATT-MLPNN: A Hybrid Approach for Cyber-Attack
     Detection in Industrial Control Systems Using MLPNN and Attention Mechanisms}}. ATIS 2024, CCIS (Springer), 2024.
-  \item \textit{HyGAN-AD: A Hypergraph-based GAN Framework for Cyberattack Detection in Critical Infrastructures}
-  \item \textit{HyperCoar-DAM: A Robust Intrusion Detection System for Enhancing IIoT Networks Protection}
+  \item \textbf{S. Abinash}, S. Priyanga, H. Aishwaryaa.
+    \textit{HyGAN-AD: A Hypergraph-based GAN Framework for Cyberattack Detection in Critical Infrastructures}.
+    Lecture Notes in Networks and Systems (LNNS, Springer), 2025.
+  \item \textbf{S. Abinash}, S. Priyanga.
+    \textit{HyperCoar-DAM: A Robust Intrusion Detection System for Enhancing IIoT Networks Protection}.
+    International Journal of Advances in Engineering Sciences and Applied Mathematics, 2024.
 \end{itemize}
 \vspace{-4pt}
 
@@ -143,7 +162,7 @@ systems. Outside work I build Go services and developer tools, including a local
 \section{Technical Skills}
 \begin{itemize}[leftmargin=0.15in, label={}]
   \small{\item{
-    \textbf{Languages}{: Java, Go, Python, TypeScript, Kotlin, SQL, Lua} \\
+    \textbf{Languages}{: Java, Python, Go, TypeScript, Kotlin, SQL, Lua} \\
     \textbf{Backend}{: Spring Boot, Spring MVC, Spring Batch, Lombok, Gin, Echo, REST APIs, Microservices} \\
     \textbf{Data \& Messaging}{: Oracle DB, PostgreSQL, libSQL, Apache Kafka, IBM WebSphere MQ} \\
     \textbf{Frontend \& Tools}{: React, Next.js, Svelte, Qwik, Tailwind CSS, Git, Docker, Linux, Cloudflare Workers}

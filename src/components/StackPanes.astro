@@ -1,0 +1,39 @@
+---
+// The toolkit as tmux-style tiles: one pane per area, each with its own Hell Pine accent.
+// Core skills are set large; the rest sit underneath as small muted chips.
+import { stack } from "../config/site";
+
+const accents: Record<string, string> = {
+  languages: "iris",
+  backend: "foam",
+  data: "gold",
+  frontend: "rose",
+  tools: "pine",
+};
+---
+
+<div class="st-grid">
+  {
+    stack.map((t, i) => (
+      <section
+        class:list={["st-pane", i < 2 && "st-pane-wide"]}
+        style={`--st-accent: var(--hp-${accents[t.table] ?? "iris"})`}
+        aria-label={t.table}
+      >
+        <header class="st-title">
+          <span class="st-idx">{i}:</span>
+          <span class="st-name">{t.table}</span>
+          <span class="st-count">{t.core.length + t.also.length}</span>
+        </header>
+
+        <ul class="st-core" aria-label={`${t.table}, core`}>
+          {t.core.map((item) => <li>{item}</li>)}
+        </ul>
+
+        <ul class="st-also" aria-label={`${t.table}, also used`}>
+          {t.also.map((item) => <li>{item}</li>)}
+        </ul>
+      </section>
+    ))
+  }
+</div>

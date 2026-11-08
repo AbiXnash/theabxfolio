@@ -4,9 +4,9 @@
       {
         "title": "Software Engineer at Mindgate Solutions",
         "meta": "Jul 2025 - Present",
-        "intro": "Software engineer building payment and regulatory integrations for banking clients with Java, Spring Boot, Kafka, and Oracle.",
+        "intro": "Engineer on VTransact, a multi-country tax-payment platform that lets a multinational bank's corporate customers pay taxes and government dues across countries, built with Java, Spring Boot, Kafka, and Oracle.",
         "category": "Banking / Payments",
-        "details": "Backend development for banking and regulatory payment integrations.\n- Built tax-payment portal services for a multinational banking client, integrating with multiple Nigerian payment channels for regulatory tax collection.\n- Developed an internal cryptographic digital-signature generator used to sign requests for a Middle East regulatory API integration.\n- Built Java/Spring Boot microservices on WebSphere, using Kafka and WebSphere MQ for messaging and Oracle DB/PostgreSQL for persistence.\n- Wrote Spring Batch data-migration tools and other internal utilities used day to day by the engineering team.",
+        "details": "Backend development for banking and regulatory payment integrations.\n- Built VTransact services that integrate with government and regulatory systems in each country, including multiple Nigerian payment channels for tax collection.\n- Developed an internal cryptographic digital-signature generator used to sign requests for a Middle East regulatory API integration.\n- Built Java/Spring Boot microservices on WebSphere, using Kafka and WebSphere MQ for messaging and Oracle DB/PostgreSQL for persistence.\n- Wrote Spring Batch data-migration tools and other internal utilities used day to day by the engineering team.",
         "skills": [
           "Java",
           "Spring Boot",
@@ -24,10 +24,10 @@
     "items": [
       {
         "title": "Codist",
-        "meta": "2026 · Go · Svelte · Ollama",
+        "meta": "2026 · v0.2.0 · Go · Svelte · Ollama",
         "category": "Developer Tooling",
         "github": "https://github.com/AbiXnash/codist",
-        "intro": "A local AI code reviewer for Java/Spring Boot repos. It maps the codebase into a live graph, reviews every commit with rules and a local LLM, and proposes fixes. Nothing leaves your machine."
+        "intro": "A local AI code reviewer for Java/Spring Boot repos. It maps services, classes and Feign calls into a live graph, and reviews every commit with exact code checks, a local LLM whose claims must quote the code, and before/after behaviour runs. Nothing leaves your machine."
       },
       {
         "title": "Hell Pine",
@@ -95,6 +95,25 @@
         "year": 2024,
         "doi": "10.1007/978-981-97-9743-1_13",
         "summary": "Combines a multilayer perceptron with attention mechanisms to flag cyber-attacks in industrial control system traffic."
+      },
+      {
+        "title": "HyGAN-AD: A Hypergraph-based GAN Framework for Cyberattack Detection in Critical Infrastructures",
+        "authors": [
+          "S. Abinash",
+          "S. Priyanga",
+          "H. Aishwaryaa"
+        ],
+        "venue": "Lecture Notes in Networks and Systems (Springer)",
+        "year": 2025
+      },
+      {
+        "title": "HyperCoar-DAM: A Robust Intrusion Detection System for Enhancing IIoT Networks Protection",
+        "authors": [
+          "S. Abinash",
+          "S. Priyanga"
+        ],
+        "venue": "International Journal of Advances in Engineering Sciences and Applied Mathematics",
+        "year": 2024
       }
     ]
   }
