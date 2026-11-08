@@ -65,26 +65,33 @@ export const socialLinks = [
   },
 ] as const;
 
-export const techKinds: Record<string, string> = {
-  Java: "language",
-  Kafka: "messaging",
-  "Oracle DB": "database",
-  PostgreSQL: "database",
-  Python: "language",
-  TypeScript: "language",
-  Docker: "containers",
-  Kotlin: "language",
-};
+// Rendered as stack.toml: one table per area, `core` = daily drivers, `also` = used in real work.
+export const stack: { table: string; core: string[]; also: string[] }[] = [
+  {
+    table: "languages",
+    core: ["Java", "Python", "Go"],
+    also: ["TypeScript", "Kotlin", "SQL", "Lua"],
+  },
+  {
+    table: "backend",
+    core: ["Spring Boot", "Spring Batch", "Microservices"],
+    also: ["Spring MVC", "REST APIs", "Gin", "Echo"],
+  },
+  {
+    table: "data",
+    core: ["Kafka", "Oracle DB", "PostgreSQL"],
+    also: ["IBM WebSphere MQ", "libSQL"],
+  },
+  {
+    table: "frontend",
+    core: ["Svelte", "React"],
+    also: ["Next.js", "Qwik", "Tailwind CSS"],
+  },
+  {
+    table: "tools",
+    core: ["Git", "Docker", "Linux", "Neovim"],
+    also: ["Cloudflare Workers", "Bun"],
+  },
+];
 
-export const technologies = [
-  "Spring Boot",
-  "Golang",
-  "Java",
-  "Kafka",
-  "Oracle DB",
-  "PostgreSQL",
-  "Python",
-  "TypeScript",
-  "Docker",
-  "Kotlin",
-] as const;
+export const technologies = stack.flatMap((t) => [...t.core, ...t.also]);

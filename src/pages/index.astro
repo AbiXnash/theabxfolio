@@ -10,7 +10,8 @@ import ExperienceCard from '../components/ExperienceCard.astro';
 import ProjectsSection from '../components/ProjectsSection.astro';
 import PublicationsSection from '../components/PublicationsSection.astro';
 import PaymentFlow from '../components/PaymentFlow.astro';
-import { site, sameAs, technologies, techKinds } from '../config/site';
+import StackPanes from '../components/StackPanes.astro';
+import { site, sameAs, technologies } from '../config/site';
 
 const resumeEntry = await getEntry('resume', 'resume');
 
@@ -22,8 +23,6 @@ const { work, projects, publications, education } = resumeEntry.data;
 
 const skills = [...new Set(work.items.flatMap((w) => w.skills ?? []))];
 
-const featuredTech = ["Spring Boot", "Golang"];
-const otherTech = technologies.filter(t => !featuredTech.includes(t));
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -46,9 +45,9 @@ const jsonLd = {
     "@type": "ScholarlyArticle",
     headline: p.title,
     author: p.authors.map((name) => ({ "@type": "Person", name })),
-    datePublished: String(p.year),
+    ...(p.year && { datePublished: String(p.year) }),
     isPartOf: p.venue,
-    sameAs: `https://doi.org/${p.doi}`,
+    ...(p.doi && { sameAs: `https://doi.org/${p.doi}` }),
   })),
   alumniOf: education.items.map((e) => ({
     "@type": "EducationalOrganization",
@@ -106,22 +105,7 @@ const jsonLd = {
         description="Languages and tools I actually reach for."
       />
 
-      <div class="grid grid-cols-2 gap-3 sm:grid-cols-6">
-        {featuredTech.map((tech) => (
-          <div class="tile-card col-span-1 flex flex-col justify-end rounded-md p-5 sm:col-span-2 sm:p-6">
-            <span class="font-mono text-lg font-semibold tracking-tight text-gruv-text">{tech}</span>
-            <span class="mt-1 font-mono text-xs text-gruv-green">Core</span>
-          </div>
-        ))}
-        {otherTech.map((tech) => (
-          <div class="bento-cell col-span-1 flex flex-col items-center justify-center gap-1 rounded-sm px-3 py-4 sm:col-span-1">
-            <span class="font-mono text-xs font-medium text-gruv-text">{tech}</span>
-            {techKinds[tech] && (
-              <span class="font-mono text-[10px] text-gruv-muted/70">{techKinds[tech]}</span>
-            )}
-          </div>
-        ))}
-      </div>
+      <StackPanes />
     </Container>
   </Section>
 </BaseLayout>

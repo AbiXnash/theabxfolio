@@ -8,8 +8,8 @@ interface Publication {
   title: string;
   authors: string[];
   venue: string;
-  year: number;
-  doi: string;
+  year?: number;
+  doi?: string;
   summary?: string;
 }
 
@@ -34,22 +34,26 @@ const SELF = "S. Abinash";
       {
         items.map((pub) => {
           const firstAuthor = pub.authors[0] === SELF;
-          const url = `https://doi.org/${pub.doi}`;
+          const url = pub.doi ? `https://doi.org/${pub.doi}` : undefined;
           return (
             <li class="pub-card tile-card">
               <PaperVisual title={pub.title} />
               <div class="pub-meta">
                 <div class="pub-meta-row">
-                  <span class="pub-year">{pub.year}</span>
+                  {pub.year && <span class="pub-year">{pub.year}</span>}
                   {firstAuthor && <span class="pub-badge">First author</span>}
                 </div>
                 <span class="pub-venue">{pub.venue}</span>
               </div>
 
               <h3 class="pub-title">
-                <a href={url} target="_blank" rel="noopener noreferrer">
-                  {pub.title}
-                </a>
+                {url ? (
+                  <a href={url} target="_blank" rel="noopener noreferrer">
+                    {pub.title}
+                  </a>
+                ) : (
+                  pub.title
+                )}
               </h3>
 
               <p class="pub-authors">
@@ -63,14 +67,16 @@ const SELF = "S. Abinash";
 
               {pub.summary && <p class="pub-summary">{pub.summary}</p>}
 
-              <a
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="pub-doi"
-              >
-                doi:{pub.doi} →
-              </a>
+              {url && (
+                <a
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="pub-doi"
+                >
+                  doi:{pub.doi} →
+                </a>
+              )}
             </li>
           );
         })

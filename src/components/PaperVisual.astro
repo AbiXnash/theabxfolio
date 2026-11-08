@@ -26,6 +26,24 @@ const layers = [
   [262, [23, 37, 51]],
   [302, [30, 44]],
 ] as const;
+
+// HyGAN-AD: hypergraph (edges join groups of nodes) -> generator / discriminator -> verdict
+const hyNodes = [
+  [18, 22], [44, 16], [34, 44], [64, 38], [92, 26], [86, 56], [56, 62],
+];
+const hyperedges = [
+  [8, 8, 70, 46],
+  [50, 26, 58, 44],
+  [24, 32, 90, 38],
+];
+
+// HyperCoar-DAM: many IIoT devices -> coarsened hypergraph -> verdict
+const devices = Array.from({ length: 12 }, (_, i) => [
+  16 + (i % 4) * 26,
+  16 + Math.floor(i / 4) * 21,
+]);
+const coarse = [[186, 26], [238, 48], [270, 24]];
+const coarseLinks = [[0, 1], [1, 2], [0, 2]];
 ---
 
 <div class="viz paper-viz" aria-hidden="true">
@@ -81,6 +99,61 @@ const layers = [
         <g class="viz-node">
           <rect x="336" y="23" width="96" height="28" rx="14" />
           <text x="384" y="41" text-anchor="middle" style="font-size:10.5px">attack <tspan class="pv-score">0.97</tspan></text>
+        </g>
+      </svg>
+    )
+  }
+
+  {
+    model === "HyGAN-AD" && (
+      <svg class="viz-svg" viewBox="0 0 440 76" role="presentation">
+        {hyperedges.map(([x, y, w, h], i) => (
+          <rect x={x} y={y} width={w} height={h} rx={h / 2} class="pv-hedge" style={`--d:${i * 0.8}s`} />
+        ))}
+        {hyNodes.map(([x, y], i) => (
+          <circle cx={x} cy={y} r="4.5" class="pv-gnode" style={`--d:${i * 0.2}s`} />
+        ))}
+        <path d="M124 37 L144 37" class="viz-edge" />
+        <g class="viz-node">
+          <rect x="146" y="23" width="76" height="28" rx="4" />
+          <text x="184" y="41" text-anchor="middle" style="font-size:10px">generator</text>
+        </g>
+        <path d="M222 37 L236 37" class="pv-chain" />
+        <g class="viz-node">
+          <rect x="238" y="23" width="98" height="28" rx="4" />
+          <text x="287" y="41" text-anchor="middle" style="font-size:10px">discriminator</text>
+        </g>
+        <path d="M336 37 L366 37" class="viz-edge" />
+        <g class="pv-verdict">
+          <rect x="368" y="23" width="64" height="28" rx="14" class="pv-v-ok" />
+          <text x="400" y="41" text-anchor="middle" class="pv-v-ok-t">normal</text>
+          <rect x="368" y="23" width="64" height="28" rx="14" class="pv-v-bad" />
+          <text x="400" y="41" text-anchor="middle" class="pv-v-bad-t">attack</text>
+        </g>
+      </svg>
+    )
+  }
+
+  {
+    model === "HyperCoar-DAM" && (
+      <svg class="viz-svg" viewBox="0 0 440 76" role="presentation">
+        {devices.map(([x, y], i) => (
+          <rect x={x - 4} y={y - 4} width="8" height="8" rx="1.5" class="pv-gnode" style={`--d:${(i % 4) * 0.25}s`} />
+        ))}
+        <path d="M112 37 L140 37" class="viz-edge" />
+        <rect x="146" y="8" width="160" height="58" rx="29" class="pv-hedge" />
+        {coarseLinks.map(([a, b]) => (
+          <line x1={coarse[a][0]} y1={coarse[a][1]} x2={coarse[b][0]} y2={coarse[b][1]} class="pv-link" />
+        ))}
+        {coarse.map(([x, y], i) => (
+          <circle cx={x} cy={y} r="8" class="pv-gnode" style={`--d:${i * 0.4}s`} />
+        ))}
+        <path d="M310 37 L366 37" class="viz-edge" />
+        <g class="pv-verdict">
+          <rect x="368" y="23" width="64" height="28" rx="14" class="pv-v-ok" />
+          <text x="400" y="41" text-anchor="middle" class="pv-v-ok-t">normal</text>
+          <rect x="368" y="23" width="64" height="28" rx="14" class="pv-v-bad" />
+          <text x="400" y="41" text-anchor="middle" class="pv-v-bad-t">attack</text>
         </g>
       </svg>
     )
