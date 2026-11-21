@@ -1,0 +1,118 @@
+<!doctype html>
+<!--
+  Social share thumbnail for theabx.in (1200×630).
+  Mirrors the site's editor/tmux look in the dark "Hell Pine" theme.
+  Render:  node scripts/og/render.mjs   →  public/og-image.png
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<style>
+  @font-face { font-family: "JBM"; src: url("../../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2") format("woff2"); font-weight: 100 800; }
+  @font-face { font-family: "InterV"; src: url("../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; }
+  :root {
+    --base: #16181d; --mantle: #141416; --surface: #1f1f22; --overlay: #242427;
+    --border: #2c2e34; --border-strong: #3a3c44;
+    --text: #e0def4; --subtle: #908caa; --muted: #6e6a86;
+    --love: #d16d92; --gold: #ca9f7c; --rose: #ebbcba; --pine: #5d7e80; --foam: #9ccfd8; --iris: #c4a7e7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body { background: var(--mantle); font-family: "JBM", monospace; color: var(--text); -webkit-font-smoothing: antialiased; }
+
+  .frame { position: absolute; inset: 22px; border: 1px solid var(--border-strong); border-radius: 14px; background: var(--base); overflow: hidden; display: flex; flex-direction: column;
+    background-image: radial-gradient(600px 340px at 92% 0%, rgba(196,167,231,.09), transparent 70%), radial-gradient(520px 300px at 0% 100%, rgba(235,188,186,.06), transparent 70%); }
+
+  /* tmux bar */
+  .bar { height: 44px; display: flex; align-items: center; gap: 14px; padding: 0 18px; border-bottom: 1px solid var(--border); background: var(--mantle); font-size: 15px; }
+  .sess { background: var(--iris); color: var(--base); font-weight: 700; padding: 3px 9px; border-radius: 5px; }
+  .bar .host { color: var(--subtle); }
+  .tabs { margin: 0 auto; display: flex; gap: 26px; color: var(--muted); }
+  .tabs b { color: var(--text); font-weight: 500; }
+  .bar .url { color: var(--rose); font-weight: 600; }
+
+  /* body */
+  .main { flex: 1; display: grid; grid-template-columns: 1fr 392px; gap: 40px; padding: 34px 44px 0 48px; align-items: center; }
+  .prompt { font-size: 18px; color: var(--muted); margin-bottom: 22px; }
+  .prompt .p { color: var(--foam); } .prompt .g { color: var(--iris); } .prompt .cmd { color: var(--text); }
+  .cur { display: inline-block; width: 10px; height: 20px; background: var(--text); vertical-align: -3px; margin-left: 4px; }
+  h1 { font-weight: 700; font-size: 62px; line-height: 1.08; letter-spacing: -.035em; }
+  h1 .r { color: var(--rose); }
+  .sub { font-family: "InterV", sans-serif; font-size: 22px; line-height: 1.45; color: var(--subtle); margin-top: 24px; max-width: 560px; }
+  .sub b { color: var(--text); font-weight: 600; }
+
+  /* fastfetch */
+  .ff { border: 1px solid var(--border-strong); border-radius: 12px; background: var(--surface); overflow: hidden; }
+  .ff-bar { display: flex; align-items: center; gap: 7px; padding: 10px 14px; border-bottom: 1px solid var(--border); font-size: 12.5px; color: var(--muted); }
+  .ff-bar i { width: 10px; height: 10px; border-radius: 50%; }
+  .ff-bar i:nth-child(1) { background: var(--love); } .ff-bar i:nth-child(2) { background: var(--gold); } .ff-bar i:nth-child(3) { background: var(--foam); }
+  .ff-bar span { margin-left: auto; }
+  .ff-body { padding: 18px 22px 20px; }
+  .logo { color: var(--iris); font-size: 34px; line-height: 1; white-space: pre; letter-spacing: -.02em; margin-bottom: 14px; }
+  .uh { font-size: 16px; font-weight: 700; } .uh .u { color: var(--rose); } .uh .a { color: var(--muted); } .uh .h { color: var(--iris); }
+  .rule { color: var(--border-strong); font-size: 14px; margin: 2px 0 10px; }
+  dl { display: grid; gap: 7px; font-size: 15px; }
+  dl div { display: grid; grid-template-columns: 96px 1fr; }
+  dt { color: var(--iris); font-weight: 600; } dd { color: var(--text); white-space: nowrap; }
+  .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--foam); margin-right: 8px; box-shadow: 0 0 10px var(--foam); }
+  .blocks { display: flex; gap: 6px; margin-top: 16px; }
+  .blocks span { width: 26px; height: 14px; border-radius: 3px; }
+
+  /* status line */
+  .status { height: 40px; display: flex; align-items: stretch; font-size: 15px; border-top: 1px solid var(--border); background: var(--mantle); margin-top: 30px; }
+  .status > * { display: flex; align-items: center; padding: 0 16px; }
+  .mode { background: var(--iris); color: var(--base); font-weight: 800; }
+  .branch { background: var(--overlay); color: var(--rose); }
+  .file { color: var(--subtle); }
+  .right { margin-left: auto; gap: 18px; color: var(--muted); }
+  .right b { color: var(--text); font-weight: 600; }
+  .top { background: var(--rose); color: var(--base); font-weight: 800; }
+</style>
+</head>
+<body>
+  <div class="frame">
+    <div class="bar">
+      <span class="sess">[abx]</span><span class="host">abx.engg</span>
+      <div class="tabs"><b>1:work</b><span>2:projects</span><span>3:research</span><span>4:contact</span></div>
+      <span class="url">theabx.in</span>
+    </div>
+
+    <div class="main">
+      <div>
+        <p class="prompt"><span class="p">~/abx</span> <span class="g">git:main</span> → <span class="cmd">whoami</span><span class="cur"></span></p>
+        <h1>Hey, I'm Abinash.<br /><span class="r">I build backend<br />software.</span></h1>
+        <p class="sub">Software engineer building <b>payment &amp; banking integrations</b> in Java, Spring Boot and Go.</p>
+      </div>
+
+      <div class="ff">
+        <div class="ff-bar"><i></i><i></i><i></i><span>fastfetch</span></div>
+        <div class="ff-body">
+          <div class="logo">▄▀▄ █▀▄ ▀▄▀
+█▀█ █▀▄ ▄▀▄</div>
+          <p class="uh"><span class="u">abinash</span><span class="a">@</span><span class="h">abx</span></p>
+          <p class="rule">───────────────────</p>
+          <dl>
+            <div><dt>Role</dt><dd>Software Engineer</dd></div>
+            <div><dt>Company</dt><dd>Mindgate Solutions</dd></div>
+            <div><dt>Location</dt><dd>Chennai, India</dd></div>
+            <div><dt>Stack</dt><dd>Java · Spring Boot · Kafka</dd></div>
+            <div><dt>After hrs</dt><dd>Go · TypeScript · Lua</dd></div>
+            <div><dt>Status</dt><dd><span class="dot"></span>open to chat</dd></div>
+          </dl>
+          <div class="blocks">
+            <span style="background:var(--border-strong)"></span><span style="background:var(--love)"></span><span style="background:var(--gold)"></span><span style="background:var(--rose)"></span><span style="background:var(--pine)"></span><span style="background:var(--foam)"></span><span style="background:var(--iris)"></span><span style="background:var(--text)"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="status">
+      <span class="mode">NORMAL</span>
+      <span class="branch"> main</span>
+      <span class="file">~/abx/README.md</span>
+      <span class="right"><span>utf-8</span><span>Abinash Selvarasu</span><b>theabx.in</b></span>
+      <span class="top">Top</span>
+    </div>
+  </div>
+</body>
+</html>
