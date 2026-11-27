@@ -4,7 +4,7 @@ Personal portfolio of [Abinash Selvarasu](https://theabx.in) — software engine
 
 Built with **Astro 7**, **Bun**, and **Tailwind v4**. The site is laid out like an editor running in tmux: a window bar on top, sections as panes, a file explorer, and a Neovim statusline — in the **Hell Pine** palette (Rosé Pine Dawn in light mode).
 
-**Live:** [theabx.in](https://theabx.in) · **Version:** 6.0.1 · **Hosting:** Cloudflare Workers
+**Live:** [theabx.in](https://theabx.in) · **Version:** 6.1.2 · **Hosting:** Cloudflare Workers
 
 ---
 
@@ -70,6 +70,7 @@ src/
 │   ├── PublicationsSection.astro, PaperVisual.astro
 │   ├── ProjectsSection.astro, ProjectCard.astro, ProjectVisual.astro, CodistGraph.astro
 │   ├── PaymentFlow.astro  # experience pipeline diagram
+│   ├── StackPanes.astro   # toolkit panes
 │   ├── OpenSourceSection.astro, RepoFeedSkeleton.astro
 │   └── ResumeModal.astro
 ├── config/site.ts         # name, role, links, nav (tmux windows), tech list
@@ -82,12 +83,14 @@ src/
 └── styles/global.css      # Hell Pine tokens + all component styles
 resume/
 └── abinash_selvarasu_resume.tex
+scripts/og/                # og-image.html + render.mjs → public/og-image.png
 workers/
 └── repos.js               # Cloudflare Worker — proxies the GitHub API
 wrangler.toml              # API Worker config (api.theabx.in)
 wrangler.site.jsonc        # site Worker config (theabx.in, serves dist/)
 public/
 ├── abinash_selvarasu_resume.pdf   # built from resume/*.tex
+├── og-image.png                   # link-preview image
 └── resume-preview.svg             # vector preview for the resume modal
 ```
 
@@ -185,6 +188,8 @@ Pushing to `master` runs `.github/workflows/astro.yml`: build, deploy both Worke
 
 ## Changelog
 
+- **6.1.2** — Share image as a PNG (`public/og-image.png`, rendered from `scripts/og/og-image.html` by `node scripts/og/render.mjs`) so link previews show on X, LinkedIn and WhatsApp.
+- **6.1.1** — Resume and portfolio update: VTransact, Codist, papers, stack panes.
 - **6.0.1** — Site served from Cloudflare Workers (`theabxfolio-site`, `bun run deploy:site`); dropped `Cross-Origin-Embedder-Policy` from `_headers` (blocked link-preview icons); docs refreshed.
 - **6.0.0** — Hell Pine editor/tmux redesign: window bar, panes, explorer, statusline, fastfetch hero, boot screen, Research section, git-log activity, `contact.sh`, self-hosted fonts. LaTeX resume with in-page preview.
 - **5.5.0** — Terminal-first brutalist theme.
