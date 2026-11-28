@@ -24,16 +24,16 @@
     "items": [
       {
         "title": "Codist",
-        "meta": "2026 · v0.2.0 · Go · Svelte · Ollama",
+        "meta": "2026 · v0.12.0 · Go · Svelte · Ollama",
         "category": "Developer Tooling",
-        "github": "https://github.com/AbiXnash/codist",
+        "github": "https://github.com/abxengg/codist",
         "intro": "A local AI code reviewer for Java/Spring Boot repos. It maps services, classes and Feign calls into a live graph, and reviews every commit with exact code checks, a local LLM whose claims must quote the code, and before/after behaviour runs. Nothing leaves your machine."
       },
       {
         "title": "Hell Pine",
         "meta": "2025 · TypeScript · VS Code Extension",
         "category": "Developer Tooling",
-        "github": "https://github.com/AbiXnash/hell-pine",
+        "github": "https://github.com/abxengg/hell-pine",
         "intro": "A VS Code theme based on Rosé Pine, adjusted for the contrast and colors I prefer."
       },
       {
@@ -41,7 +41,7 @@
         "meta": "2026 · Lua · Neovim",
         "category": "Developer Tooling",
         "github": "https://github.com/AbiXnash/nvim",
-        "intro": "My Neovim 0.11+ setup in Lua, with LSP, fuzzy finding, Git tools, and completion configured for daily use."
+        "intro": "My Neovim 0.12 setup in Lua, with LSP, fuzzy finding, Git tools, and completion configured for daily use."
       },
       {
         "title": "TheGlobe",

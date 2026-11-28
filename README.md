@@ -207,4 +207,4 @@ MIT License.
 - [Astro Docs](https://docs.astro.build)
 - [Tailwind CSS v4](https://tailwindcss.com/docs)
 - [Cloudflare Workers](https://developers.cloudflare.com/workers/)
-- [Rosé Pine](https://rosepinetheme.com/) · [Hell Pine](https://github.com/AbiXnash/hell-pine)
+- [Rosé Pine](https://rosepinetheme.com/) · [Hell Pine](https://github.com/abxengg/hell-pine)
